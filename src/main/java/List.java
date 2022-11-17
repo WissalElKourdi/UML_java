@@ -9,4 +9,8 @@ public class List {
     public SendActiveUserList(){
         System.out.println("TO DO: SendActiveUserList()");
     }
+
+    public DeleteInactiveUser(){
+        System.out.println("TO DO: DeleteInactiveUser()");
+    }
 }
