@@ -11,4 +11,9 @@ public class Notify {
 
         System.out.println("TO DO: NotifyNewClient");
     }
+
+    public NotifyDeleteUser(){
+
+        System.out.println("TO DO: NotifyNewClient");
+    }
 }
