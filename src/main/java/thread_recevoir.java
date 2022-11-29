@@ -1,2 +1,2 @@
-public class thread_recevoir {
-}
+/*public class thread_recevoir {
+}*/
