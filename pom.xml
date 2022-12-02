@@ -15,11 +15,11 @@
     </properties>
 
     <dependencies>
-    <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx</artifactId>
-        <version>20-ea+9</version>
-        <type>pom</type>
-    </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-maven-archetypes</artifactId>
+            <version>0.0.6</version>
+            <type>pom</type>
+        </dependency>
     </dependencies>
 </project>
