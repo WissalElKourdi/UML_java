@@ -1,11 +1,11 @@
-public class Notify {
+/*public class Notify {
     long NotifyId ;
 
-    public void NotifyChangePseudo(Pseudo){
+   // public void NotifyChangePseudo(Pseudo){
 
 
-        System.out.println("TO DO: Notify Change Pseudo");
-    }
+       // System.out.println("TO DO: Notify Change Pseudo");
+   // }
 
     public NotifyNewClient(){
 
@@ -16,4 +16,4 @@ public class Notify {
 
         System.out.println("TO DO: NotifyNewClient");
     }
-}
+}*/

@@ -1,5 +1,5 @@
 
-import java.io.*;
+/*import java.io.*;
 import java.net.*;
 import java.lang.Object;
 import java.util.*;
@@ -79,4 +79,32 @@ public class UDP_Server {
                 //DO SOMETHING WITH THE SERVER'S IP (for example, store it in your controller)
                 // Controller_Base.setServerIp(receivePacket.getAddress());
                 return broadcastList;
-            }*/
+<<<<<<< HEAD
+            }
+            }
+        }
+                socket.close();
+    } */
+
+    public static void broadcast(String broadcastMSg) throws IOException {
+         send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
+    }
+
+    public static void broadcast_connection (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("connected");
+    }
+
+    public static void broadcast_deconnection (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("deconnection");
+    }
+
+    public static void broadcast_ChangePseudo (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("Pseudo changed");
+    }
+
+
+}
+//>>>>>>> 2eda069aded497927d9fa7ce5388cbcb01e556bf

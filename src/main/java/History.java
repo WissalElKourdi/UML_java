@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class History {
+/*public class History {
     long HistoryId ;
     list<String> UserList;
     long SourceId;
@@ -10,21 +10,21 @@ public class History {
 
 
 
-    public ReturnHistory(){
+    public void ReturnHistory(){
 
         System.out.println("TO DO: ReturnHistoryWithDest()");
     }
 
-    public CreateHistory(){
+    public void CreateHistory(){
 
         System.out.println("TO DO: CreateHistory()");
     }
 
-    public InsertMessage(){
+    public void InsertMessage(){
         System.out.println("TO DO: ReturnHistoryWithDest()");
     }
 
-    public DeleteHistory(){
+    public void DeleteHistory(){
         System.out.println("TO DO: CreateHistory()");
     }
-}
+}*/

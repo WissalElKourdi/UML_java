@@ -1,16 +1,16 @@
+/*import java.util.ArrayList;
 
 public class List {
-    list<String> ListConnected ;
-
-    public AddConnectedUser(){
-        System.out.println("TO DO: AddConnectedUser()");
+    ArrayList Users_connected = new ArrayList();
+    public void AddConnectedUser(String Name){
+        Users_connected.add(Name);
     }
 
-    public SendActiveUserList(){
+    /*public void SendActiveUserList(){
         System.out.println("TO DO: SendActiveUserList()");
-    }
+    }*/
 
-    public DeleteInactiveUser(){
-        System.out.println("TO DO: DeleteInactiveUser()");
+    /*public void  DeleteInactiveUser(String Name ){
+        Users_connected.remove(Name);
     }
-}
+}*/

@@ -10,6 +10,7 @@ import java.lang.*;
 
 
 
+<<<<<<< HEAD
 public class UDP_Client extends Thread  {
     private DatagramSocket socket;
     private boolean running;
@@ -49,7 +50,24 @@ public class UDP_Client extends Thread  {
 
         }
         socket.close();
+        /*
+=======
+public class UDP_Client {
+    public static void main(String[] args) throws UnknownHostException, IOException {
+/*
+       Socket link = new Socket ("localhost",4000);
+       BufferedReader in = new BufferedReader(new InputStreamReader(link.getInputStream())); //getting the input flows
+       PrintWriter out = new PrintWriter(link.getOutputStream(),true);//getting the output flows
+        out.println("data");
+       String input = in.readLine();
+       System.out.println(input);
+       link.close();
     }
+}
+        rcv_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
+>>>>>>> 2eda069aded497927d9fa7ce5388cbcb01e556bf 
+    }
+    */
 }
 
    /* public static void rcv_udp(String broadcastMSg, InetAddress Address) throws IOException {
@@ -83,3 +101,4 @@ public class UDP_Client extends Thread  {
 
 
 
+>>>>>>> 1de6bd1967f9e72fce94d3b92e53d8458d43646d
