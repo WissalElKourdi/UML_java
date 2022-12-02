@@ -1,23 +1,58 @@
 
-/*import java.io.*;
+import java.io.*;
 import java.net.*;
 import java.lang.Object;
 import java.util.*;
 
 public class UDP_Server {
     private static DatagramSocket socket = null;
-    public static void main(String[] args) throws IOException {
-        //send_udp("I am connected", InetAddress.getByName("255.255.255.255"));
-        broadcast_ChangePseudo("leo");
-        System.out.println("Sent");
-    }
+    private InetAddress Address;
+    public static int port = 4000;
+
+  
     public static void send_udp(String broadcastMSg, InetAddress Address) throws IOException {
         socket = new DatagramSocket();
         socket.setBroadcast(true);
         byte[] buffer = broadcastMSg.getBytes();
-        DatagramPacket packet = new DatagramPacket(buffer, buffer.length, Address, 4000);
+        DatagramPacket packet = new DatagramPacket(buffer, buffer.length, Address, port);
         socket.send(packet);
-        //stop
+        socket.close();
+    }
+
+
+    public static void broadcast(String broadcastMSg) throws IOException {
+         send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
+    }
+
+    public static void broadcast_connection (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("connected");
+    }
+
+    public static void broadcast_deconnection (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("deconnection");
+    }
+
+    public static void broadcast_ChangePseudo (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("Pseudo changed");
+    }
+
+
+}
+
+
+
+
+
+     /* public static void main(String[] args) throws IOException {
+        //send_udp("I am connected", InetAddress.getByName("255.255.255.255"));
+        broadcast_ChangePseudo("leo");
+        System.out.println("Sent");
+    }*/
+
+    /*
         System.out.println("Request packet sent to: 255.255.255.255 ");
 
         List<InetAddress> listAllBroadcastAddresses() throws SocketException {List<InetAddress> broadcastList = new ArrayList<>();
@@ -40,7 +75,7 @@ public class UDP_Server {
                 DatagramPacket sendPacket = new DatagramPacket(buffer, buffer.length, broadcastint, 8888);
                 socket.send(sendPacket);
                 System.out.println(" Request packet sent to: " + broadcastint.getHostAddress() + "; Interface: " + networkInterface.getDisplayName());
-            }*/
+            }
             }
             System.out.println(" Done looping over all network interfaces. Now waiting for a reply!");
 
@@ -56,26 +91,4 @@ public class UDP_Server {
             }
         }
                 socket.close();
-    }
-
-    public static void broadcast(String broadcastMSg) throws IOException {
-         send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
-    }
-
-    public static void broadcast_connection (String pseudo) throws IOException{
-        broadcast(pseudo);
-        System.out.println("connected");
-    }
-
-    public static void broadcast_deconnection (String pseudo) throws IOException{
-        broadcast(pseudo);
-        System.out.println("deconnection");
-    }
-
-    public static void broadcast_ChangePseudo (String pseudo) throws IOException{
-        broadcast(pseudo);
-        System.out.println("Pseudo changed");
-    }
-
-
-}*/
+    }*/
