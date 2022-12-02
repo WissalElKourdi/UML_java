@@ -9,7 +9,6 @@ public class UDP_Server {
     private InetAddress Address;
     public static int port = 4000;
 
-  
     public static void send_udp(String broadcastMSg, InetAddress Address) throws IOException {
         socket = new DatagramSocket();
         socket.setBroadcast(true);
@@ -54,8 +53,38 @@ public class UDP_Server {
 
     /*
         System.out.println("Request packet sent to: 255.255.255.255 ");
+        socket.close();
+    }
 
-        List<InetAddress> listAllBroadcastAddresses() throws SocketException {List<InetAddress> broadcastList = new ArrayList<>();
+    public static void broadcast(String broadcastMSg) throws IOException {
+         send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
+    }
+
+    public static void broadcast_connection (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("connected");
+    }
+
+    public static void broadcast_deconnection (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("deconnection");
+    }
+
+    public static void broadcast_ChangePseudo (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("Pseudo changed");
+    }
+
+
+}
+
+
+
+
+
+
+
+/* List<InetAddress> listAllBroadcastAddresses() throws SocketException {List<InetAddress> broadcastList = new ArrayList<>();
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
             while (interfaces.hasMoreElements()) {
                 NetworkInterface networkInterface = interfaces.nextElement();
@@ -67,7 +96,7 @@ public class UDP_Server {
                         .filter(Objects::nonNull)
                         .forEach(broadcastList::add);
 
-          /* for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
+          for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
                 InetAddress broadcastint = interfaceAddress.getBroadcast();
                 if (broadcastint == null) {
                     continue;
@@ -88,7 +117,34 @@ public class UDP_Server {
                 //DO SOMETHING WITH THE SERVER'S IP (for example, store it in your controller)
                 // Controller_Base.setServerIp(receivePacket.getAddress());
                 return broadcastList;
+<<<<<<< HEAD
+            }
             }
         }
                 socket.close();
-    }*/
+<<<<<<< HEAD
+    }
+=======
+    }
+
+    public static void broadcast(String broadcastMSg) throws IOException {
+         send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
+    }
+
+    public static void broadcast_connection (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("connected");
+    }
+
+    public static void broadcast_deconnection (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("deconnection");
+    }
+
+    public static void broadcast_ChangePseudo (String pseudo) throws IOException{
+        broadcast(pseudo);
+        System.out.println("Pseudo changed");
+    }
+
+
+}*/
