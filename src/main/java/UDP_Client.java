@@ -10,12 +10,49 @@ import java.lang.*;
 
 
 
-public class UDP_Client {
-    public static void main(String[] args) throws UnknownHostException, IOException {
-        rcv_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
+public class UDP_Client extends Thread  {
+    private DatagramSocket socket;
+    private boolean running;
+    private byte[] buf = new byte[256];
+
+    public UDP_Client() throws IOException {
+        socket = new DatagramSocket(4000);
     }
 
-    public static void rcv_udp(String broadcastMSg, InetAddress Address) throws IOException {
+    public void run()  {
+        running = true;
+
+        while (running) {
+            DatagramPacket packet = new DatagramPacket(buf, buf.length);
+            try {
+                socket.receive(packet);
+            }catch (IOException ex) {
+
+            }
+            System.out.println("test");
+            InetAddress address = packet.getAddress();
+            int port = packet.getPort();
+            packet = new DatagramPacket(buf, buf.length, address, port);
+            String received = new String(packet.getData(), 0, packet.getLength());
+            System.out.println("received", received);
+
+
+            if (received.equals("end")) {
+                running = false;
+                continue;
+            }
+            try {
+                socket.send(packet);
+            }catch (IOException ex) {
+
+            }
+
+        }
+        socket.close();
+    }
+}
+
+   /* public static void rcv_udp(String broadcastMSg, InetAddress Address) throws IOException {
         socketr = new DatagramSocket(4000);
         socketr.setBroadcast(true);
         while (true) {
@@ -42,6 +79,7 @@ public class UDP_Client {
             }
         }
     }
-}
+    }*/
+
 
 
