@@ -1,8 +1,7 @@
 
 import java.io.*;
 import java.net.*;
-import java.lang.Object;
-import java.util.*;
+import java.util.ArrayList;
 
 public class UDP_Server {
     private static DatagramSocket socket = null;
@@ -18,23 +17,62 @@ public class UDP_Server {
         socket.close();
     }
 
+    //-----------------------------BROADCAST--------------------------------------------
     public static void broadcast(String broadcastMSg) throws IOException {
          send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
     }
 
-    public static void broadcast_connection (String pseudo) throws IOException{
-        broadcast(pseudo);
-        System.out.println("connected");
+    //static ou pas ??
+    public void broadcast_connection (String pseudo, ArrayList userList) throws IOException{
+        if (check_pseudo(pseudo,userList)) {
+            AddConnectedUser(pseudo,userList);
+            broadcast(pseudo);
+            System.out.println("connected");
+        } else {
+            System.out.println("Choose new pseudo : this one is already taken");
+        }
     }
 
-    public static void broadcast_deconnection (String pseudo) throws IOException{
+    //static ou pas ??
+    public void broadcast_deconnection (String pseudo,ArrayList userList) throws IOException{
         broadcast(pseudo);
+        DeleteInactiveUser(pseudo,userList);
         System.out.println("deconnection");
     }
 
-    public static void broadcast_ChangePseudo (String pseudo) throws IOException{
-        broadcast(pseudo);
-        System.out.println("Pseudo changed");
+    //static ou pas ??
+    public void broadcast_ChangePseudo (String pseudo,ArrayList userList) throws IOException{
+        if (check_pseudo(pseudo,userList)) {
+            broadcast(pseudo);
+            System.out.println("Pseudo changed:");
+        } else {
+            System.out.println("Choose new pseudo : this one is already taken");
+        }
     }
 
+
+    //-----------------------------LIST--------------------------------------------
+    public void AddConnectedUser(String Name, ArrayList userList){
+        userList.add(Name);
+    }
+
+    /*public void SendActiveUserList(){
+        System.out.println("TO DO: SendActiveUserList()");
+    }*/
+
+    public void  DeleteInactiveUser(String Name,ArrayList userList ){
+        userList.remove(Name);
+    }
+
+    public boolean check_pseudo (String pseudo, ArrayList userList) {
+        boolean result = true;
+
+        for (int i=0 ; i < userList.size(); i++) {
+            if (userList.get(i) == pseudo) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
 }
