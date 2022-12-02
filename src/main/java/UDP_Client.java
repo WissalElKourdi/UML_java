@@ -30,7 +30,7 @@ public class UDP_Client extends Thread {
                 InetAddress address = packet.getAddress();
                 int port = packet.getPort();
                 packet = new DatagramPacket(buffer, buffer.length, address, port);
-                String received = new String(packet.getData(), 0, packet.getLength());
+                //String received = new String(packet.getData(), 0, packet.getLength());
                 System.out.println("received");
 
                 //Packet received

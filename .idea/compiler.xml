@@ -11,6 +11,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="chat" target="11" />
+      <module name="UML_java" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
