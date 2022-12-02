@@ -6,9 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="UML_java" />
         <module name="chat" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="chat" target="11" />
+      <module name="UML_java" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

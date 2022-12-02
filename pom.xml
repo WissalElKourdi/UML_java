@@ -8,9 +8,18 @@
     <artifactId>chat</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
+    <dependencies>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx</artifactId>
+        <version>20-ea+9</version>
+        <type>pom</type>
+    </dependency>
+    </dependencies>
 </project>
