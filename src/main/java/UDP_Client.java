@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.net.*;
 import java.lang.*;
@@ -26,7 +24,6 @@ public class UDP_Client extends Thread {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println("test");
                 InetAddress address = packet.getAddress();
                 int port = packet.getPort();
                 packet = new DatagramPacket(buffer, buffer.length, address, port);
