@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class TCP_Server {
@@ -27,7 +28,9 @@ public class TCP_Server {
                 public void run() {
                     while (true) { //teste la connexion
                         Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
-                        out.println(Message); // renvoyer le message ( à changer si on va créer une classe display)
+                        LocalTime time = LocalTime.now();
+                        new History().Add_Message_History(Message+time);
+                        out.println(Message + " " + time); // renvoyer le message ( à changer si on va créer une classe display)
                         out.flush(); // flush les buffers pour ne pas envoyer un null au client à la fin
                     }
                 }

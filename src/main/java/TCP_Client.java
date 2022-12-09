@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 
@@ -24,7 +25,8 @@ public class TCP_Client {
                 public void run() {
                     while(true){
                         msg = sc.nextLine();
-                        out.println(msg);
+                        LocalTime time = LocalTime.now();
+                        out.println(msg + " "+time);
                         out.flush();
                     }
                 }
