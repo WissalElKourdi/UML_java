@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class TCP_Server {
     public static void main(String[] args){
-        int port = 50000;
+        int port = 5000 ;
         final ServerSocket socketserver ; // final indique que l'élément ne peut pas être changé dans la suite
         final Socket clientSocket ;
         final BufferedReader in;//Lire le texte reçu à partir de l'émetteur
