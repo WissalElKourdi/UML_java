@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.util.Scanner;
 
 public class TCP_Server {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException{
         int port = 50000;
         final ServerSocket socketserver ; // final indique que l'élément ne peut pas être changé dans la suite
         final Socket clientSocket ;
@@ -27,6 +27,11 @@ public class TCP_Server {
                 String Message;
                 public void run() {
                     while (true) { //teste la connexion
+                        if(in.read() == -1) {// true if client is disconnected
+                            // Notify via terminal, close connection
+                            System.out.println("client disconnected. Socket closing...");
+                            socketserver.close();
+                        }
                         Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
                         LocalTime time = LocalTime.now();
                         new History().Add_Message_History(Message+time);
