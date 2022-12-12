@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class UDP_Server {
          send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
     }
 
-    //static ou pas ??
+    //broadcast la connection auprès des autres utilisateurs
     public void broadcast_connection (String pseudo, ArrayList userList) throws IOException{
         if (check_pseudo(pseudo,userList)) {
             AddConnectedUser(pseudo,userList);
@@ -33,19 +32,27 @@ public class UDP_Server {
         }
     }
 
-    //static ou pas ??
+    //se déconnecter et broadcast auprès des autres utilisateurs
     public void broadcast_deconnection (String pseudo,ArrayList userList) throws IOException{
         broadcast(pseudo);
         DeleteInactiveUser(pseudo,userList);
         System.out.println("deconnection");
     }
 
-    //static ou pas ??
+
+  /*  //static ou pas ??
     public void broadcast_ChangePseudo (String pseudo,ArrayList userList) throws IOException{
         if (check_pseudo(pseudo,userList)) {
             broadcast(pseudo);
             InsertData DB = new InsertData();
             DB.insert_pseudo(pseudo, InetAddress.getLocalHost());
+*/
+    //changer de pseudo et le broadcast auprès des autres utilisateurs
+    public void broadcast_ChangePseudo (String pseudo, String newpseudo, ArrayList userList) throws IOException{
+        if (check_pseudo(newpseudo,userList)) {
+            userList.set(userList.indexOf(pseudo), newpseudo);
+            broadcast(newpseudo);
+
             System.out.println("Pseudo changed:");
         } else {
             System.out.println("Choose new pseudo : this one is already taken");
@@ -54,18 +61,18 @@ public class UDP_Server {
 
 
     //-----------------------------LIST--------------------------------------------
+
+    //ajouter à la liste un utilisateur qui vient de se connecter
     public void AddConnectedUser(String Name, ArrayList userList){
         userList.add(Name);
     }
 
-    /*public void SendActiveUserList(){
-        System.out.println("TO DO: SendActiveUserList()");
-    }*/
-
+    //ajouter à la liste un utilisateur qui vient de se déconnecter
     public void  DeleteInactiveUser(String Name,ArrayList userList ){
         userList.remove(Name);
     }
 
+    //vérifier que le pseudo choisi par l'utilisateur n'est pas déjà utilisé
     public boolean check_pseudo (String pseudo, ArrayList userList) {
         boolean result = true;
 

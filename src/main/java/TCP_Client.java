@@ -6,14 +6,13 @@ import java.net.Socket;
 import java.time.LocalTime;
 import java.util.Scanner;
 
+import static java.lang.System.out;
+
 
 public class TCP_Client {
-    public static void main(String[] args) {
 
-        final Socket clientSocket;
-        final BufferedReader in;
-        final PrintWriter out;
-        final Scanner sc = new Scanner(System.in);//pour lire à partir du clavier
+    private final Socket clientSocket;
+
 
         try {
             clientSocket = new Socket("localhost",5000);
@@ -21,42 +20,83 @@ public class TCP_Client {
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));//flux pour recevoir
             Thread envoyer = new Thread(new Runnable() {
                 String msg;
+
                 @Override
                 public void run() {
-                    while(true){
+                    while (true) {
                         msg = sc.nextLine();
                         LocalTime time = LocalTime.now();
-                        out.println(msg + " "+time);
+                        out.println(msg + " " + time);
 
                         out.flush();
                     }
                 }
-            });
-            envoyer.start();
+            }
+    }
+}
+/*
 
-            Thread recevoir = new Thread(new Runnable() {
-                String msg;
-                @Override
-                public void run() {
-                    try {
-                        msg = in.readLine();
-                        while(msg!=null){
-                            System.out.println("Serveur : "+msg);
-                            msg = in.readLine();
-                        }
-                        System.out.println("Serveur déconecté");
-                        out.close();
-                        clientSocket.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+    public TCP_Client (int port) throws IOException {
+        clientSocket = new Socket("localhost", port);
+    }
+    public TCP_Client(Socket clientSocket) {
+        this.clientSocket = clientSocket;
+    }
+
+    public void envoi() throws IOException {
+
+        final Scanner sc = new Scanner(System.in);//pour lire à partir du clavier
+        final PrintWriter out;
+        out = new PrintWriter(clientSocket.getOutputStream()); //flux pour envoyer
+        Thread envoyer = new Thread(new Runnable() {
+            String msg;
+            @Override
+            public void run() {
+                while(true){
+                    msg = sc.nextLine();
+                    LocalTime time = LocalTime.now();
+                    out.println(msg + " "+time);
+                    out.flush();
+
                 }
-            });
-            recevoir.start();
+            }
+        });
+        envoyer.start();
+    }
 
+    public void recevoir() throws IOException {
+        final BufferedReader in;
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        Thread recevoir = new Thread(new Runnable() {
+            String msg;
+            @Override
+            public void run() {
+                try {
+                    msg = in.readLine();
+                    while(msg!=null){
+                        out.println("Serveur : "+msg);
+                        msg = in.readLine();
+                    }
+                    out.println("Serveur déconecté");
+                    out.close();
+                    clientSocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        recevoir.start();
+    }
+    public static void main(String[] args) {
+
+        try {
+            TCP_Client client = new TCP_Client(50000);
+            client.envoi();
+            client.recevoir();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
 
+*/
