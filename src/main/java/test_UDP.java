@@ -8,8 +8,8 @@ public class test_UDP {
         //tests UDP
         new UDP_Client().start();
         new UDP_Server().broadcast("YOO");
-        Thread.sleep(3000);
-        new UDP_Server().broadcast("end");
+      //  Thread.sleep(3000);
+        // new UDP_Server().broadcast("end");
 
         //création liste : créer liste commune où on va ajouter tous les noms
         //à faire la prochaine fois

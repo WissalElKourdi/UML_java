@@ -4,16 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 
     public class createNewDataBase {
 
-        /**
-         * Connect to a sample database
-         *
-         * @param fileName the database file name
-         */
+
         public static void createNewDatabase(String fileName) {
 
             String url = "jdbc:sqlite:sqlite/" + fileName;
@@ -30,11 +26,11 @@ import java.sql.Statement;
             }
         }
 
-        /**
-         * @param args the command line arguments
-         */
+
         public static void main(String[] args) {
+
             createNewDatabase("MyDataBase.db");
+
         }
     }
 

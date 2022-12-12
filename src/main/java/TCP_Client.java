@@ -16,7 +16,7 @@ public class TCP_Client {
         final Scanner sc = new Scanner(System.in);//pour lire à partir du clavier
 
         try {
-            clientSocket = new Socket("localhost",50000);
+            clientSocket = new Socket("localhost",5000);
             out = new PrintWriter(clientSocket.getOutputStream()); //flux pour envoyer
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));//flux pour recevoir
             Thread envoyer = new Thread(new Runnable() {
@@ -27,6 +27,7 @@ public class TCP_Client {
                         msg = sc.nextLine();
                         LocalTime time = LocalTime.now();
                         out.println(msg + " "+time);
+
                         out.flush();
                     }
                 }

@@ -44,6 +44,8 @@ public class UDP_Server {
     public void broadcast_ChangePseudo (String pseudo,ArrayList userList) throws IOException{
         if (check_pseudo(pseudo,userList)) {
             broadcast(pseudo);
+            InsertData DB = new InsertData();
+            DB.insert_pseudo(pseudo, InetAddress.getLocalHost());
             System.out.println("Pseudo changed:");
         } else {
             System.out.println("Choose new pseudo : this one is already taken");

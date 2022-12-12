@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Scanner;
 
@@ -30,6 +31,9 @@ public class TCP_Server {
                         Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
                         LocalTime time = LocalTime.now();
                         new History().Add_Message_History(Message+time);
+                        InsertData DB = new InsertData();
+                       Time time1 = Time.valueOf(time);
+                      DB.insert(Message,time1,socketserver.getLocalPort());
                         out.println(Message + " " + time); // renvoyer le message ( à changer si on va créer une classe display)
                         out.flush(); // flush les buffers pour ne pas envoyer un null au client à la fin
                     }
