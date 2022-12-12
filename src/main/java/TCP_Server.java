@@ -27,11 +27,11 @@ public class TCP_Server {
                 String Message;
                 public void run() {
                     while (true) { //teste la connexion
-                        if(in.read() == -1) {// true if client is disconnected
+                        /*if(in.read() == -1) {// true if client is disconnected
                             // Notify via terminal, close connection
                             System.out.println("client disconnected. Socket closing...");
                             socketserver.close();
-                        }
+                        }*/
                         Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
                         LocalTime time = LocalTime.now();
                         new History().Add_Message_History(Message+time);
@@ -54,7 +54,7 @@ public class TCP_Server {
                             Message = in.readLine();
                         }
                         //sortir de la boucle si le client a déconecté
-                        System.out.println("Client déconecté");
+                        System.out.println("Client déconnecté");
                         //fermer le flux et la session socket
                         out.close();
                         clientSocket.close();
