@@ -30,7 +30,7 @@ public class TCP_Server {
                     while (true) { //teste la connexion
                         Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
                         LocalTime time = LocalTime.now();
-                        new History().Add_Message_History(Message+time);
+                        //new History().Add_Message_History(Message+time);
                         InsertData DB = new InsertData();
                        Time time1 = Time.valueOf(time);
                       DB.insert(Message,time1,socketserver.getLocalPort());
