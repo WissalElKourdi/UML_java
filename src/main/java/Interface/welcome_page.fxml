@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <!-- The Beginning of Login form -->
+            <Label layoutX="255.0" layoutY="65.0" prefHeight="30.0" prefWidth="90.0" style="-fx-text-fill: #A9A9A9;" text="Welcome to "Le Chat">
+               <font>
+                  <Font name="SansSerif Regular" size="30.0" />
+               </font>
+            </Label>
+
+            <!-- Cancel Button -->
+            <Button fx:id="LogInButton" layoutX="502.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #A9A9A9; -fx-border-width: 2; -fx-border-color: #A9A9A9; -fx-border-radius: 5;" text="Click here to LogIn" onAction="#LogInClicked">
+               <font>
+                  <Font name="SansSerif Regular" size="15.0" />
+               </font>
+            </Button>
+
+            <!-- Inputs -->
+
+            <CheckBox layoutX="150.0" layoutY="195.0" mnemonicParsing="false" style="-fx-text-fill: #A9A9A9;" text="Remember Me">
+               <font>
+                  <Font name="SansSerif Regular" size="15.0" />
+               </font>
+            </CheckBox>
+
+
+
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
