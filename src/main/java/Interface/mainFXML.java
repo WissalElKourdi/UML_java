@@ -17,7 +17,10 @@ public class mainFXML extends Application {
         stage.setWidth(300);
         stage.setHeight(200);
 
+        //Load fxml file
         FXMLLoader loader = new FXMLLoader();
+        loader.setController(new Controller());
+
         URL xmlUrl = getClass().getResource("/welcome_page.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
