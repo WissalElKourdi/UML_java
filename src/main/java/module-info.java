@@ -4,7 +4,7 @@ module UML_java {
 
     opens Interface to javafx.fxml;
 
-    exports History;
+    exports Database;
     exports Interface ;
     exports Test;
     exports TCP;
