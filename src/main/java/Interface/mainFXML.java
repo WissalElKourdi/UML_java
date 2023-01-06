@@ -1,7 +1,7 @@
 package Interface;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import javafx.application.*;
+import javafx.stage.*;
 import javafx.scene.*;
 import javafx.fxml.*;
 import java.net.URL;
@@ -16,12 +16,16 @@ public class mainFXML extends Application {
     @Override
     public void start(Stage stage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome_page.fxml"));    //Tell the FXMLLoader where the FXML file is
-        Parent root = loader.load();                     //create the view and link it with the Controller
+        Parent parent = loader.load();                     //create the view and link it with the Controller
         Controller controller = loader.getController();
         controller.setLabelText("Injected Text");
 
+        Group root = new Group();
+        ObservableList list = root.getChildren();
+        list.add(NodeObject);
+
         stage.setTitle("Hello World");
-        stage.setScene(new Scene(root, 300, 275));
+        stage.setScene(new Scene(parent, 300, 275));
         stage.show();
     }
 }
