@@ -3,7 +3,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import static java.lang.System.out;
@@ -11,9 +14,9 @@ import static java.lang.System.out;
 
 public class TCP_Client {
 
-    private final Socket clientSocket;
+    //private final Socket clientSocket;
 
-
+/*
         try {
             clientSocket = new Socket("localhost",5000);
             out = new PrintWriter(clientSocket.getOutputStream()); //flux pour envoyer
@@ -25,14 +28,21 @@ public class TCP_Client {
                 public void run() {
                     while (true) {
                         msg = sc.nextLine();
-                        LocalTime time = LocalTime.now();
+                        LocalDateTime currentLocalDateTime = LocalDateTime.now();
+                        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        String time = currentLocalDateTime.format(dateTimeFormatter);
                         out.println(msg + " " + time);
+                        InsertData data = new InsertData();
+                        int num = clientSocket.getPort();
+                        data.insert(msg, time, num);
 
                         out.flush();
                     }
                 }
             }
     }
+
+ */
 }
 /*
 

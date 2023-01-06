@@ -5,13 +5,15 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import static java.lang.System.out;
 
 public class TCP_Server {
-
+/*
     public static void main(String[] args){
         int port = 5000 ;
         final ServerSocket socketserver ; // final indique que l'élément ne peut pas être changé dans la suite
@@ -32,11 +34,12 @@ public class TCP_Server {
                 public void run() {
                     while (true) { //teste la connexion
                         Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
-                        LocalTime time = LocalTime.now();
-                        //new History().Add_Message_History(Message+time);
+
+                        LocalDateTime currentLocalDateTime = LocalDateTime.now();
+                        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        String time = currentLocalDateTime.format(dateTimeFormatter);
                         InsertData DB = new InsertData();
-                       Time time1 = Time.valueOf(time);
-                      DB.insert(Message,time1,socketserver.getLocalPort());
+                        DB.insert(Message,time,socketserver.getLocalPort());
                         out.println(Message + " " + time); // renvoyer le message ( à changer si on va créer une classe display)
                         out.flush(); // flush les buffers pour ne pas envoyer un null au client à la fin
                     }
@@ -94,7 +97,7 @@ public class TCP_Server {
         });
         recevoir.start();
     }*/
-
+/*
     public static void main(String[] args) throws IOException {
         try {
             TCP_Server serv= new TCP_Server(50000);
@@ -113,9 +116,9 @@ public class TCP_Server {
     } catch (IOException e) {
             throw new RuntimeException(e);
         }
-     /* finally {
-         serv.so
-        }*/
-    }
+     // finally {
+     //    serv.so
+     //   }
+    }*/
 
     }
