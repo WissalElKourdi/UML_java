@@ -1,5 +1,7 @@
 package UDP;
 
+import Database.createNewDataBase;
+
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -23,15 +25,31 @@ public class UDP_Server {
          send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
     }
 
+    public void broadcast_ChangePseudo (String pseudo, String newpseudo) throws IOException{
+        createNewDataBase DB = new createNewDataBase();
+
+        if ( DB.check(newpseudo,"MyDataBase.db") ) {
+            DB.insertIpseudo(newpseudo, socket.getLocalSocketAddress().toString(), "MyDataBase.db");
+            broadcast(newpseudo);
+            System.out.println("Pseudo changed:");
+        } else {
+            System.out.println("Choose new pseudo : this one is already taken");
+        }
+    }
+
+
     //broadcast la connection auprès des autres utilisateurs
-    public void broadcast_connection (String pseudo, ArrayList userList) throws IOException{
-        if (check_pseudo(pseudo,userList)) {
-            AddConnectedUser(pseudo,userList);
+    public void broadcast_connection (String pseudo) throws IOException{
+        createNewDataBase DB = new createNewDataBase();
+
+        if ( DB.check(pseudo,"MyDataBase.db") ) {
+            DB.insertIpseudo(pseudo, socket.getLocalSocketAddress().toString(), "MyDataBase.db");
             broadcast(pseudo);
             System.out.println("connected");
         } else {
             System.out.println("Choose new pseudo : this one is already taken");
         }
+
     }
 
     //se déconnecter et broadcast auprès des autres utilisateurs
@@ -50,16 +68,7 @@ public class UDP_Server {
             DB.insert_pseudo(pseudo, InetAddress.getLocalHost());
 */
     //changer de pseudo et le broadcast auprès des autres utilisateurs
-    public void broadcast_ChangePseudo (String pseudo, String newpseudo, ArrayList userList) throws IOException{
-        if (check_pseudo(newpseudo,userList)) {
-            userList.set(userList.indexOf(pseudo), newpseudo);
-            broadcast(newpseudo);
 
-            System.out.println("Pseudo changed:");
-        } else {
-            System.out.println("Choose new pseudo : this one is already taken");
-        }
-    }
 
 
     //-----------------------------LIST--------------------------------------------
