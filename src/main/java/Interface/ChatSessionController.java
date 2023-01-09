@@ -1,10 +1,14 @@
-import javafx.fxml.FXML;
+import javafx.fxml.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 public class LoginChatSession {
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     @FXML
     private Button disconnect;
@@ -23,7 +27,7 @@ public class LoginChatSession {
 
     @FXML
     void disconnect(ActionEvent event) {
-        broadcast_deconnection(); //quels arguments
+        //broadcast_deconnection(); //quels arguments
         //close window ?
     }
 
@@ -35,6 +39,11 @@ public class LoginChatSession {
     @FXML
     void backToMenu(ActionEvent event) {
         //retour vers la page principale
+        root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene (root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
