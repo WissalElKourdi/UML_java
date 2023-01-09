@@ -197,22 +197,19 @@ import java.sql.*;
         // tester udp avec db
         // assert
         //
-/*
-        public void changeIpseudo(String pseudo, String addr, String filename) {
-            String sql = " REPLACE INTO IPseudo(pseudo) VALUES(value_list); " +
-                    "INSERT INTO IPseudo( pseudo, addr) VALUES(?,?)";
 
+        public void changeIpseudo(String pseudo, String addr, String filename) {
+            String sql = "update IPseudo set pseudo="+ pseudo +" where addr like " + addr +";";
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setString(1, pseudo);
-                stmt.setString(2, String.valueOf(addr));
                 stmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(
                         e.getMessage());
             }
+
         }
-*/
+
         public void getMessagefromdate (String date, String filename){
             String sql = "SELECT message, date, pseudo,addr, port "
                     + "FROM history WHERE date > ?";

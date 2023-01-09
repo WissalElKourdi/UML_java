@@ -1,4 +1,4 @@
-package Interface;
+/*package Interface;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,3 +64,4 @@ public class LoginChatSession {
     }
 
 }
+*/
