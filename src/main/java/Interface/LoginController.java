@@ -1,22 +1,42 @@
 package Interface;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 public class LoginController {
-    @FXML private TextField user;
-    @FXML private TextField password;
-    @FXML private Button loginButton;
+    @FXML
+    private TextField user;
+    @FXML
+    private TextField password;
+    @FXML
+    private Button loginButton;
 
-    public void initialize(){
+
+    public class PleaseProvideControllerClassName {
+
+        @FXML
+        private CheckBox remember;
+
+        @FXML
+        private Button cancelButton;
+
+        @FXML
+        private TextField loginUsernameTextField;
+
+        @FXML
+        private Button LoginButton;
+
+        @FXML
+        void CancelClicked(ActionEvent event) {
+            System.out.println("Button clicked!");
+        }
+
     }
 
-    //insert on click events and other functions for interface-user interaction
-    public void CancelClicked() {
-        System.out.println("Button clicked!");
-    }
+    @FXML
+    void remembering(ActionEvent event) {
 
+    }
 }
