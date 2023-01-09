@@ -10,14 +10,14 @@
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
             <!-- The Beginning of Login form -->
-            <Label layoutX="255.0" layoutY="65.0" prefHeight="30.0" prefWidth="90.0" style="-fx-text-fill: #A9A9A9;" text="Login">
+            <Label layoutX="255.0" layoutY="57.0" prefHeight="65.0" prefWidth="104.0" style="-fx-text-fill: #A9A9A9;" text="Login">
                <font>
-                  <Font name="SansSerif Regular" size="30.0" />
+                  <Font name="SansSerif Regular" size="36.0" />
                </font>
             </Label>
 
             <!-- Cancel Button -->
-            <Button fx:id="cancelButton" layoutX="502.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #A9A9A9; -fx-border-width: 2; -fx-border-color: #A9A9A9; -fx-border-radius: 5;" text="Cancel" onAction="#CancelClicked">
+            <Button fx:id="cancelButton" layoutX="502.0" layoutY="13.0" mnemonicParsing="false" onAction="#CancelClicked" style="-fx-background-color: transparent; -fx-text-fill: #A9A9A9; -fx-border-width: 2; -fx-border-color: #A9A9A9; -fx-border-radius: 5;" text="Cancel">
                <font>
                   <Font name="SansSerif Regular" size="15.0" />
                </font>
@@ -44,11 +44,13 @@
             </Button>
 
             <!-- Login Button -->
-            <Button fx:id="LoginButton" layoutX="348.0" layoutY="189.0" mnemonicParsing="false" style="-fx-background-color: #24a0ed; -fx-text-fill: white; -fx-border-radius: 5; -fx-border-width: 2; -fx-border-color: #24a0ed;" text="Login">
+            <Button fx:id="LoginButton" layoutX="348.0" layoutY="165.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="90.0" style="-fx-background-color: #24a0ed; -fx-text-fill: white; -fx-border-radius: 5; -fx-border-width: 2; -fx-border-color: #24a0ed;" text="Login">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
+            <Button layoutX="88.0" layoutY="34.0" mnemonicParsing="false" text="Button" />
+            <Button layoutX="128.0" layoutY="308.0" mnemonicParsing="false" text="Button" />
             <!-- End of Login Form -->
 
          </children>
