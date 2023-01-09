@@ -1,3 +1,6 @@
+package Interface;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -27,6 +30,9 @@ public class LoginChatSession {
         //close window ?
     }
 
+    private void broadcast_deconnection() {
+    }
+
     @FXML
     void send(ActionEvent event) {
         //envoi du message tapé dans la zone de texte
@@ -42,6 +48,8 @@ public class LoginChatSession {
         broadcast_ChangePseudo(); //quels arguments
 
     }
+
+
 
 
     @FXML

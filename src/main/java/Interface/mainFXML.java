@@ -16,7 +16,6 @@ public class mainFXML extends Application {
         //controller.wait("Test Label");
         //Preparing the Scene
         Scene scene = new Scene(parent, 600, 300);
-
         //Preparing the stage
         stage.setTitle("Test stage");
         stage.setScene(scene);

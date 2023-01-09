@@ -18,7 +18,7 @@
             </Label>
 
             <!-- Cancel Button -->
-            <Button fx:id="cancelButton" layoutX="502.0" layoutY="13.0" mnemonicParsing="false" onAction="#CancelClicked" style="-fx-background-color: transparent; -fx-text-fill: #A9A9A9; -fx-border-width: 2; -fx-border-color: #A9A9A9; -fx-border-radius: 5;" text="Cancel">
+            <Button fx:id="cancelButton" layoutX="505.0" layoutY="345.0" mnemonicParsing="false" onAction="#CancelClicked" style="-fx-background-color: transparent; -fx-text-fill: #A9A9A9; -fx-border-width: 2; -fx-border-color: #A9A9A9; -fx-border-radius: 5;" text="Cancel">
                <font>
                   <Font name="SansSerif Regular" size="15.0" />
                </font>
@@ -26,33 +26,23 @@
 
             <!-- Inputs -->
 
-            <CheckBox fx:id="remember" layoutX="150.0" layoutY="195.0" mnemonicParsing="false" onAction="#remembering" style="-fx-text-fill: #A9A9A9;" text="Remember Me">
+            <CheckBox fx:id="remember" layoutX="112.0" layoutY="214.0" mnemonicParsing="false" onAction="#remembering" style="-fx-text-fill: #A9A9A9;" text="Remember Me">
                <font>
                   <Font name="SansSerif Regular" size="15.0" />
                </font>
             </CheckBox>
 
-            <!-- Forgot your password button -->
-            <Button layoutX="190.0" layoutY="235.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #Aac9A9A9;" text="Forgot your Password?" underline="true">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-
             <!-- Login Button -->
-            <Button fx:id="LoginButton" layoutX="348.0" layoutY="165.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="90.0" style="-fx-background-color: #24a0ed; -fx-text-fill: white; -fx-border-radius: 5; -fx-border-width: 2; -fx-border-color: #24a0ed;" text="Login">
+            <Button fx:id="LoginButton" layoutX="255.0" layoutY="143.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="90.0" style="-fx-background-color: #24a0ed; -fx-text-fill: white; -fx-border-radius: 5; -fx-border-width: 2; -fx-border-color: #24a0ed;" text="Login">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button layoutX="88.0" layoutY="34.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="128.0" layoutY="308.0" mnemonicParsing="false" text="Button" />
+            <Button fx:id="ok" layoutX="396.0" layoutY="212.0" mnemonicParsing="false" onAction="#loginaccepted" text="ok" />
             <!-- End of Login Form -->
 
          </children>
       </Pane>
-      <Canvas height="200.0" width="200.0" />
-      <Canvas height="200.0" width="200.0" />
       <Canvas height="200.0" layoutX="-167.0" layoutY="-231.0" width="200.0" />
       <Canvas layoutX="200.0" layoutY="200.0" />
    </children>
