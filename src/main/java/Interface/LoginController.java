@@ -13,6 +13,10 @@ public class LoginController {
     @FXML
     private Button loginButton;
 
+    public void CancelClicked(ActionEvent actionEvent) {
+        System.out.println("cancel is clicked succesffully");
+    }
+
 
     public class PleaseProvideControllerClassName {
 

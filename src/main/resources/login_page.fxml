@@ -25,11 +25,6 @@
             </Button>
 
             <!-- Inputs -->
-            <TextField fx:id="loginUsernameTextField" layoutX="150.0" layoutY="129.0" onDragDetected="#dragdet" prefHeight="30.0" prefWidth="300.0" promptText="Username / Email" style="-fx-border-width: 2; -fx-border-color: #A9A9A9; -fx-border-radius: 5;">
-               <font>
-                  <Font name="SansSerif Regular" size="14.0" />
-               </font>
-            </TextField>
 
             <CheckBox fx:id="remember" layoutX="150.0" layoutY="195.0" mnemonicParsing="false" onAction="#remembering" style="-fx-text-fill: #A9A9A9;" text="Remember Me">
                <font>
