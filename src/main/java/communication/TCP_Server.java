@@ -65,7 +65,7 @@ public class TCP_Server {
             System.err.println(e.getMessage());
         }
     }
-    public static void main(String[] args) throws IOException {
+   public static void main(String[] args) throws IOException {
         int port = 50000;
         try {
             ServerSocket socketserver = new ServerSocket(port);

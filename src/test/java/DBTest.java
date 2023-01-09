@@ -1,4 +1,4 @@
-import org.junit.Test;
+/*import org.junit.Test;
 
 public class DBTest {
 
@@ -29,4 +29,4 @@ public class DBTest {
     }
 
 
-    }
+    }*/

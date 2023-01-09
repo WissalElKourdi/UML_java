@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.LoginController">
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -24,13 +25,8 @@
             </Button>
 
             <!-- Inputs -->
-            <TextField fx:id="loginUsernameTextField" layoutX="150.0" layoutY="129.0" prefHeight="30.0" prefWidth="300.0" promptText="Username / Email" style="-fx-border-width: 2; -fx-border-color: #A9A9A9; -fx-border-radius: 5;">
-               <font>
-                  <Font name="SansSerif Regular" size="14.0" />
-               </font>
-            </TextField>
 
-            <CheckBox layoutX="150.0" layoutY="195.0" mnemonicParsing="false" style="-fx-text-fill: #A9A9A9;" text="Remember Me">
+            <CheckBox fx:id="remember" layoutX="150.0" layoutY="195.0" mnemonicParsing="false" onAction="#remembering" style="-fx-text-fill: #A9A9A9;" text="Remember Me">
                <font>
                   <Font name="SansSerif Regular" size="15.0" />
                </font>
@@ -55,5 +51,9 @@
 
          </children>
       </Pane>
+      <Canvas height="200.0" width="200.0" />
+      <Canvas height="200.0" width="200.0" />
+      <Canvas height="200.0" layoutX="-167.0" layoutY="-231.0" width="200.0" />
+      <Canvas layoutX="200.0" layoutY="200.0" />
    </children>
 </AnchorPane>
