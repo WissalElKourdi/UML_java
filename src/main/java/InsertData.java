@@ -57,7 +57,7 @@ public class InsertData {
             }
         }
     public void insert_pseudo(String pseudo, InetAddress addr) {
-        String sql = "INSERT INTO warehouses(name,capacity) VALUES(?,?)";
+        String sql = "INSERT INTO warehouses(pseudo,capacity) VALUES(?,?)";
 
         try (Connection conn = this.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
