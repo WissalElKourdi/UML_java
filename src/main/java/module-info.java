@@ -5,10 +5,10 @@ module UML_java {
 
     opens Interface to javafx.fxml;
 
-    exports communication;
+    //exports communication;
     //exports Database;
-    exports Interface ;
-    exports Test;
-    exports UDP;
+    //exports Interface ;
+    //exports Test;
+    //exports UDP;
 
 }
