@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -17,7 +18,7 @@
             </Label>
 
             <!-- Cancel Button -->
-            <Button fx:id="cancelButton" layoutX="502.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #A9A9A9; -fx-border-width: 2; -fx-border-color: #A9A9A9; -fx-border-radius: 5;" text="Cancel" onAction="#CancelClicked">
+            <Button fx:id="cancelButton" layoutX="502.0" layoutY="13.0" mnemonicParsing="false" onAction="#CancelClicked" style="-fx-background-color: transparent; -fx-text-fill: #A9A9A9; -fx-border-width: 2; -fx-border-color: #A9A9A9; -fx-border-radius: 5;" text="Cancel">
                <font>
                   <Font name="SansSerif Regular" size="15.0" />
                </font>
@@ -53,5 +54,9 @@
 
          </children>
       </Pane>
+      <Canvas height="200.0" width="200.0" />
+      <Canvas height="200.0" width="200.0" />
+      <Canvas height="200.0" layoutX="-167.0" layoutY="-231.0" width="200.0" />
+      <Canvas layoutX="200.0" layoutY="200.0" />
    </children>
 </AnchorPane>
