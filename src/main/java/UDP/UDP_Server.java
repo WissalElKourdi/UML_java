@@ -1,6 +1,6 @@
 package UDP;
 
-import Database.createNewDataBase;
+import Database.createDB;
 
 import java.io.*;
 import java.net.*;
@@ -10,7 +10,7 @@ public class UDP_Server {
     private static DatagramSocket socket = null;
     private InetAddress Address;
     public static int port = 4000;
-
+    private String Name_DB;
     public static void send_udp(String broadcastMSg, InetAddress Address) throws IOException {
         socket = new DatagramSocket();
         socket.setBroadcast(true);
@@ -26,7 +26,7 @@ public class UDP_Server {
     }
 
     public void broadcast_ChangePseudo (String pseudo, String newpseudo) throws IOException{
-        createNewDataBase DB = new createNewDataBase();
+        createDB DB = new createDB(Name_DB);
 
         if ( DB.check(newpseudo,"MyDataBase.db") ) {
             DB.insertIpseudo(newpseudo, socket.getLocalSocketAddress().toString(), "MyDataBase.db");
@@ -40,7 +40,7 @@ public class UDP_Server {
 
     //broadcast la connection auprès des autres utilisateurs
     public void broadcast_connection (String pseudo) throws IOException{
-        createNewDataBase DB = new createNewDataBase();
+        createDB DB = new createDB(Name_DB);
 
         if ( DB.check(pseudo,"MyDataBase.db") ) {
             DB.insertIpseudo(pseudo, socket.getLocalSocketAddress().toString(), "MyDataBase.db");

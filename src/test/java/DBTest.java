@@ -1,5 +1,5 @@
 
-import Database.createNewDataBase;
+import Database.createDB;
 import org.junit.Test;
 public class DBTest {
 
@@ -23,10 +23,10 @@ public class DBTest {
         app.delete("MyTestDB.db");
         app1.selectAll("MyTestDB.db");*/
 
-        createNewDataBase DB = new createNewDataBase();
-        DB.connect(DB_NAME);
-        DB.creatTablehistory(DB_NAME);
-        DB.creatTablepseudo(DB_NAME);
+        createDB DB = new createDB(DB_NAME);
+        //DB.connect(DB_NAME);
+        //DB.creatTablehistory(DB_NAME);
+        //DB.creatTablepseudo(DB_NAME);
         DB.insertHistory("yoo", "2023-01-02 1:50","lelo", "149.255.255.255", 5000, "MyTestDB.db");
         DB.insertIpseudo("MA","10.10.2",DB_NAME );
         DB.selectAllMsgHistory(DB_NAME);

@@ -8,10 +8,15 @@ import java.sql.SQLException;
 import java.sql.*;
 
 
-    public class createNewDataBase {
+    public class createDB<Name_DB> {
+        String Name_DB;
+        public createDB(String Name_DB){
+            creatTablehistory(Name_DB);
+            creatTablepseudo(Name_DB);
+        }
 
 
-        public static void createNewDatabase(String fileName) {
+        public static void createNewDB(String fileName) {
 
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
@@ -199,15 +204,17 @@ import java.sql.*;
         //
 
         public void changeIpseudo(String pseudo, String addr, String filename) {
-            String sql = "update IPseudo set pseudo="+ pseudo +" where addr like " + addr +";";
+            String sql = "UPDATE IPseudo SET pseudo=? WHERE addr = ?;";
+
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, pseudo);
+                stmt.setString(2, String.valueOf(addr));
                 stmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(
                         e.getMessage());
             }
-
         }
 
         public void getMessagefromdate (String date, String filename){
@@ -265,7 +272,7 @@ import java.sql.*;
 
         public static void main(String[] args) {
 
-            createNewDatabase("MyDataBase.db");
+
 
         }
     }
