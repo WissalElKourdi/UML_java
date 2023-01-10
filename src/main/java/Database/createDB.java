@@ -13,7 +13,10 @@ import java.sql.*;
         public createDB(String Name_DB){
             creatTablehistory(Name_DB);
             creatTablepseudo(Name_DB);
+            creatTableconnected(Name_DB);
         }
+
+
 
 
         public static void createNewDB(String fileName) {
@@ -104,7 +107,22 @@ import java.sql.*;
             }
         }
 
+        public void creatTableconnected(String fileName) {
+            String url = "jdbc:sqlite:sqlite/" + fileName;
 
+
+            String sql = "CREATE TABLE IF NOT EXISTS Connected (\n"
+                    + " pseudo NOT NULL);";
+
+            try (Connection conn = DriverManager.getConnection(url);
+                 Statement stmt = conn.createStatement()) {
+                // create a new table
+                stmt.execute(sql);
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         public void insertHistory(String message, String date, String pseudo, String addr, int port, String filename) {
             String sql = "INSERT INTO history(message,date, pseudo, addr, port) VALUES(?,?,?,?,?)";
@@ -123,19 +141,45 @@ import java.sql.*;
         }
         public void insertIpseudo(String pseudo, String addr, String filename) {
             String sql = "INSERT INTO IPseudo( pseudo, addr) VALUES(?,?)";
-            System.out.println("here");
+
             try (Connection conn = this.connect(filename);
-
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-                System.out.println("addr : "+ addr);
                 stmt.setString(1, pseudo);
-
                 stmt.setString(2,  String.valueOf(addr));
                 stmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(
                         e.getMessage());
+            }
+        }
+
+        public void insertConnected(String pseudo, String filename) {
+            String sql = "INSERT INTO Connected( pseudo) VALUES(?)";
+
+            try (Connection conn = this.connect(filename);
+                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, pseudo);
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(
+                        e.getMessage());
+            }
+        }
+
+
+        public void deleteConnected (String pseudo, String filename) {
+            String sql = "DELETE FROM Connected WHERE pseudo = ?";
+
+            try (Connection conn = this.connect(filename);
+                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                // set the corresponding param
+                stmt.setString(1, pseudo);
+                // execute the delete statement
+                stmt.executeUpdate();
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
         }
 
@@ -180,8 +224,26 @@ import java.sql.*;
                 System.out.println(e.getMessage());
             }
         }
-        public boolean check(String element, String filename){
-            String sql = "SELECT EXISTS(SELECT 1 FROM IPseudo WHERE pseudo=" + element + ");" ;
+
+        public void selectAllConnected(String filename){
+            String sql = "SELECT pseudo FROM Connected";
+            try (Connection conn = this.connect(filename);
+                 Statement stmt  = conn.createStatement();
+                 ResultSet rs    = stmt.executeQuery(sql)){
+
+                // loop through the result set
+                while (rs.next()) {
+                    System.out.println(
+                            rs.getString("pseudo"));
+
+                }
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        public boolean check(String pseudo, String filename){
+            String sql = "SELECT EXISTS(SELECT 1 FROM IPseudo WHERE pseudo=" + pseudo + ");" ;
             try (Connection conn = this.connect(filename);
                  Statement stmt  = conn.createStatement();
                  ResultSet rs    = stmt.executeQuery(sql)){
@@ -202,9 +264,8 @@ import java.sql.*;
             }
             return false;
         }
-        //        Afinir change pseudo
-        // finir udp
-        // tester udp avec db
+
+
         // assert
         //
 
