@@ -10,8 +10,8 @@ public class UDP_Server {
     private static DatagramSocket socket = null;
     private InetAddress Address;
     public static int port = 4000;
-    private String Name_DB;
-    public static void send_udp(String broadcastMSg, InetAddress Address) throws IOException {
+    private static String Name_DB = "DB_MSG.db";
+    public static void send_udp(String broadcastMSg, InetAddress Address, String pseudo) throws IOException {
         socket = new DatagramSocket();
         socket.setBroadcast(true);
         byte[] buffer = broadcastMSg.getBytes();
@@ -21,16 +21,32 @@ public class UDP_Server {
     }
 
     //-----------------------------BROADCAST--------------------------------------------
-    public static void broadcast(String broadcastMSg) throws IOException {
-         send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
+    public static void broadcast(String broadcastMSg, String pseudo) throws IOException {
+         send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"), pseudo);
     }
+    public void broadcast_Pseudo (String pseudo ) throws IOException{
+        createDB DB = new createDB(Name_DB);
+
+        if ( DB.check(pseudo,Name_DB) ) {
+            System.out.println("Choose new pseudo : this one is already taken");
+        } else {
+            System.out.println("here");
+
+            DB.insertIpseudo(pseudo, socket.getLocalSocketAddress().toString(), Name_DB);
+            broadcast("change",pseudo);
+            System.out.println("Pseudo changed:"+ pseudo);
+
+        }
+    }
+
+
 
     public void broadcast_ChangePseudo (String pseudo, String newpseudo) throws IOException{
         createDB DB = new createDB(Name_DB);
 
-        if ( DB.check(newpseudo,"MyDataBase.db") ) {
-            DB.insertIpseudo(newpseudo, socket.getLocalSocketAddress().toString(), "MyDataBase.db");
-            broadcast(newpseudo);
+        if ( DB.check(newpseudo,Name_DB) ) {
+            DB.insertIpseudo(newpseudo, socket.getLocalSocketAddress().toString(), Name_DB);
+            broadcast("change",newpseudo);
             System.out.println("Pseudo changed:");
         } else {
             System.out.println("Choose new pseudo : this one is already taken");
@@ -42,9 +58,9 @@ public class UDP_Server {
     public void broadcast_connection (String pseudo) throws IOException{
         createDB DB = new createDB(Name_DB);
 
-        if ( DB.check(pseudo,"MyDataBase.db") ) {
-            DB.insertIpseudo(pseudo, socket.getLocalSocketAddress().toString(), "MyDataBase.db");
-            broadcast(pseudo);
+        if ( DB.check(pseudo,Name_DB) ) {
+            DB.insertIpseudo(pseudo, socket.getLocalSocketAddress().toString(), Name_DB);
+            broadcast("change",pseudo);
             System.out.println("connected");
         } else {
             System.out.println("Choose new pseudo : this one is already taken");
@@ -54,7 +70,7 @@ public class UDP_Server {
 
     //se déconnecter et broadcast auprès des autres utilisateurs
     public void broadcast_deconnection (String pseudo,ArrayList userList) throws IOException{
-        broadcast(pseudo);
+        broadcast("change pseudo",pseudo);
         DeleteInactiveUser(pseudo,userList);
         System.out.println("deconnection");
     }

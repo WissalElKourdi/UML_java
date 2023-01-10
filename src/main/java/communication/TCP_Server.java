@@ -2,6 +2,7 @@ package communication;
 
 import Database.InsertData;
 import Database.Select_Data_DB;
+import Database.createDB;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -58,8 +59,9 @@ public class TCP_Server {
                     Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
                     LocalTime time = LocalTime.now();
                     //db
-                    InsertData app = new InsertData();
-                    app.insert(Message, time.toString(),"sissou",socket.getLocalSocketAddress().toString(), socket.getPort(), "DB_MSG.db");
+                    String DB_NAME = "DB_MSG.db";
+                    createDB app = new createDB(DB_NAME);
+                    app.insertHistory(Message, time.toString(),"sissou",socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
 
                     out.println(Message + " " + time); // renvoyer le message ( à changer si on va créer une classe display)
                     out.flush(); // flush les buffers pour ne pas envoyer un null au client à la fin

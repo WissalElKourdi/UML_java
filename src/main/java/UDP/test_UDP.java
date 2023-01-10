@@ -14,7 +14,7 @@ public class test_UDP {
         //Thread.sleep(3000);
         //new UDP_Server().broadcast("end");
 
-        new UDP_Server().broadcast("j'adore java");
+        new UDP_Server().broadcast("j'adore java", "sirine");
 
 
         //création liste : créer liste commune où on va ajouter tous les noms

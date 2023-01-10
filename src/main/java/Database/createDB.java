@@ -123,11 +123,15 @@ import java.sql.*;
         }
         public void insertIpseudo(String pseudo, String addr, String filename) {
             String sql = "INSERT INTO IPseudo( pseudo, addr) VALUES(?,?)";
-
+            System.out.println("here");
             try (Connection conn = this.connect(filename);
+
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                System.out.println("addr : "+ addr);
                 stmt.setString(1, pseudo);
-                stmt.setString(2, String.valueOf(addr));
+
+                stmt.setString(2,  String.valueOf(addr));
                 stmt.executeUpdate();
             } catch (SQLException e) {
                 System.out.println(
@@ -168,7 +172,7 @@ import java.sql.*;
                 while (rs.next()) {
                     System.out.println(
                             rs.getString("pseudo")+  "\t" +
-                                    rs.getInt("addr"));
+                                    rs.getString("addr"));
 
                 }
 
@@ -181,7 +185,7 @@ import java.sql.*;
             try (Connection conn = this.connect(filename);
                  Statement stmt  = conn.createStatement();
                  ResultSet rs    = stmt.executeQuery(sql)){
-
+                System.out.println("here");
                 // loop through the result set
                 if (rs.next()) {
                     boolean found = rs.getBoolean(1);
@@ -191,6 +195,7 @@ import java.sql.*;
                        return true;
                     }
                 }
+
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -217,7 +222,30 @@ import java.sql.*;
             }
         }
 
-        public void getMessagefromdate (String date, String filename){
+        public void getPseudo (String addr, String filename) throws SQLException {
+            String sql = "SELECT  pseudo,addr "
+                    + "FROM IPseudo WHERE addr= ?";
+
+        try (Connection conn = this.connect(filename);
+             PreparedStatement stmt  = conn.prepareStatement(sql)){
+             stmt.setString(1,addr);
+            ResultSet rs    = stmt.executeQuery();
+
+            // loop through the result set
+            while (rs.next()) {
+                System.out.println(
+                        rs.getString("pseudo") +  "\t" +
+                                rs.getString("addr"));
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+        public void getMessagefromdate(String date, String filename){
             String sql = "SELECT message, date, pseudo,addr, port "
                     + "FROM history WHERE date > ?";
 
