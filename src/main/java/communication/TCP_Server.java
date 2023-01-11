@@ -1,5 +1,9 @@
 package communication;
 
+import Database.InsertData;
+import Database.Select_Data_DB;
+import Database.createDB;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -54,7 +58,11 @@ public class TCP_Server {
                 while (true) { //teste la connexion
                     Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
                     LocalTime time = LocalTime.now();
-                    //new History().Add_Message_History(Message+time);
+                    //db
+                    String DB_NAME = "DB_MSG.db";
+                    createDB app = new createDB(DB_NAME);
+                    app.insertHistory(Message, time.toString(),"sissou",socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
+
                     out.println(Message + " " + time); // renvoyer le message ( à changer si on va créer une classe display)
                     out.flush(); // flush les buffers pour ne pas envoyer un null au client à la fin
                 }
@@ -73,12 +81,13 @@ public class TCP_Server {
                 System.out.println("Serveur est à l'écoute du port " + socketserver.getLocalPort());
                 Socket clientSocket = socketserver.accept();
                 System.out.println("Connecté");
-                //TCP_Server.SenderThread(clientSocket);
+                TCP_Server.SenderThread(clientSocket);
                 TCP_Server.launchReceiverThread(clientSocket);
             }
         }catch(IOException e){
                 e.printStackTrace();
             }
+
 
     }
 }

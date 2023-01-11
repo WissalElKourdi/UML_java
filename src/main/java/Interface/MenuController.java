@@ -1,9 +1,12 @@
 package Interface;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.fxml.*;
+import javafx.stage.*;
+import javafx.scene.*;
+
+import java.io.IOException;
 
 public class MenuController {
 
@@ -16,12 +19,27 @@ public class MenuController {
 
     @FXML
     void display_list(ActionEvent event) {
-
+        //display list
     }
 
     @FXML
     void open_chat_session(ActionEvent event) {
+        //choose a person to chat with and switch to chatsession window
+        try {
+            //retour vers la page principale
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));    //Tell the FXMLLoader where the FXML file is
+            Parent parent = loader.load();                     //create the view and link it with the Controller
+            Scene scene = new Scene(parent, 600, 300);
+            Stage stage = new Stage();
 
+            //Preparing the stage
+            stage.setTitle("Chat App");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
