@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.Scanner;
 
@@ -60,7 +61,10 @@ public class TCP_Server {
                     LocalTime time = LocalTime.now();
                     //db
                     String DB_NAME = "DB_MSG.db";
-                    createDB app = new createDB(DB_NAME);
+                    createDB app = null;
+
+                        app = new createDB(DB_NAME);
+
                     app.insertHistory(Message, time.toString(),"sissou",socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
 
                     out.println(Message + " " + time); // renvoyer le message ( à changer si on va créer une classe display)

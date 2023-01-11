@@ -10,33 +10,37 @@ import java.sql.*;
 
     public class createDB<Name_DB> {
         String Name_DB;
+        private static Connection conn;
+
         public createDB(String Name_DB){
             creatTablehistory(Name_DB);
             creatTablepseudo(Name_DB);
             creatTableconnected(Name_DB);
+
+
         }
 
 
 
 
-        public static boolean createNewDB(String fileName) {
 
+
+
+        public boolean createNewDB(String fileName) throws SQLException {
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
-            try (Connection conn = DriverManager.getConnection(url)) {
-                if (conn != null) {
+           // try (Connection conn = DriverManager.getConnection(url)) {
+            conn=this.connect(fileName);
+                if ( conn != null) {
                     DatabaseMetaData meta = conn.getMetaData();
                     System.out.println("The driver name is " + meta.getDriverName());
                     System.out.println("A new database has been created.");
+                    this.disconnect(fileName);
                     return true;
-                }
-                return false;
-
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            }else{
             return false;
-        }
+        }}
+
         public Connection connect(String fileName ) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/"+ fileName;
@@ -48,28 +52,30 @@ import java.sql.*;
             }
             return conn;
         }
-        public Connection deconnect (String fileName ) {
+        public Connection disconnect (String fileName ) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/"+ fileName;
             Connection conn = null;
             try {
                 conn = DriverManager.getConnection(url);
+                conn.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
             return conn;
         }
 
+
         public boolean deletefile (String fileName){
-            try
-
-            {
-
+            System.out.println("je suis la");
+            try {
                 File file = new File(fileName);
                 String path = file.getAbsolutePath();
                 File f= new File(path);
                 System.out.println(path);
-                if(file.delete()) {
+
+              //  this.deletefile(fileName);
+                if( f.delete()) {
                     System.out.println(f.getName()+"deleted");
                     return true;
                } else {
@@ -102,11 +108,14 @@ import java.sql.*;
                  Statement stmt = conn.createStatement()) {
                 // create a new table
                 stmt.execute(sql);
+                conn.close();
+
                 return true;
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
+
             return false;
         }
 
@@ -125,6 +134,8 @@ import java.sql.*;
                  Statement stmt = conn.createStatement()) {
                 // create a new table
                 stmt.execute(sql);
+                conn.close();
+
                 return true;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -143,6 +154,8 @@ import java.sql.*;
                  Statement stmt = conn.createStatement()) {
                 // create a new table
                 stmt.execute(sql);
+                conn.close();
+
                 return true;
 
             } catch (SQLException e) {
@@ -162,6 +175,8 @@ import java.sql.*;
                 stmt.setString(4, String.valueOf(addr));
                 stmt.setDouble(5, port);
                 stmt.executeUpdate();
+                conn.close();
+
                 return true;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -170,12 +185,14 @@ import java.sql.*;
         }
         public boolean insertIpseudo(String pseudo, String addr, String filename) {
             String sql = "INSERT INTO IPseudo( pseudo, addr) VALUES(?,?)";
-
+            System.out.println("insert IP pseudo");
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, pseudo);
                 stmt.setString(2,  String.valueOf(addr));
                 stmt.executeUpdate();
+                conn.close();
+
                 return true;
             } catch (SQLException e) {
                 System.out.println(
@@ -191,6 +208,8 @@ import java.sql.*;
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, pseudo);
                 stmt.executeUpdate();
+                conn.close();
+
                 return true;
             } catch (SQLException e) {
                 System.out.println(
@@ -210,6 +229,8 @@ import java.sql.*;
                 stmt.setString(1, pseudo);
                 // execute the delete statement
                 stmt.executeUpdate();
+                conn.close();
+
                 return true;
 
             } catch (SQLException e) {
@@ -218,74 +239,89 @@ import java.sql.*;
             return false;
         }
 
-        public boolean selectAllMsgHistory(String filename){
+        public String selectAllMsgHistory(String filename){
             String sql = "SELECT message, date, pseudo, addr, port FROM history";
-
+            String result ="";
             try (Connection conn = this.connect(filename);
                  Statement stmt  = conn.createStatement();
                  ResultSet rs    = stmt.executeQuery(sql)){
 
                 // loop through the result set
                 while (rs.next()) {
-                    System.out.println(
+                    result = result + "\n" + rs.getString("message")+  "\t" +
+                                    rs.getString("date")+  "\t" +
+                                    rs.getString("pseudo")+  "\t" +
+                                    rs.getString("addr")+  "\t" +
+                                    rs.getInt("port");
+
+                    /*
                             rs.getString("message")+  "\t" +
                                     rs.getString("date")+  "\t" +
                                     rs.getString("pseudo")+  "\t" +
                                     rs.getString("addr")+  "\t" +
                                     rs.getInt("port"));
 
+*/
                 }
-                return true;
+                conn.close();
+
+
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            return false;
+            return result;
         }
 
-        public boolean selectAllMsgIPseudo(String filename){
+        public String selectAllMsgIPseudo(String filename){
             String sql = "SELECT pseudo, addr FROM IPseudo";
+            String result ="";
             try (Connection conn = this.connect(filename);
                  Statement stmt  = conn.createStatement();
                  ResultSet rs    = stmt.executeQuery(sql)){
 
                 // loop through the result set
                 while (rs.next()) {
-                    System.out.println(
-                            rs.getString("pseudo")+  "\t" +
-                                    rs.getString("addr"));
+                    result = result + "\n" + rs.getString("pseudo")+  "\t" + rs.getString("addr");
+                   // System.out.println(rs.getString("pseudo")+  "\t" + rs.getString("addr"));
 
                 }
-                return true;
+                conn.close();
+
+
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            return false;
+            return result;
         }
 
-        public boolean selectAllConnected(String filename){
+        public String selectAllConnected(String filename) throws SQLException {
             String sql = "SELECT pseudo FROM Connected";
-            try (Connection conn = this.connect(filename);
+            String result ="";
+            Connection conn ;
+            conn = this.connect(filename);
+            try ( conn ;
                  Statement stmt  = conn.createStatement();
                  ResultSet rs    = stmt.executeQuery(sql)){
 
                 // loop through the result set
                 while (rs.next()) {
-                    System.out.println(
-                            rs.getString("pseudo"));
+                    result =   rs.getString("pseudo").trim();
+                   // System.out.println(rs.getString("pseudo"));
 
                 }
-                return true;
+
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            return false;
+            conn.close();
+            return result;
         }
-        public boolean getPseudo (String addr, String filename) throws SQLException {
+        public String getPseudo (String addr, String filename) throws SQLException {
             String sql = "SELECT  pseudo,addr FROM IPseudo WHERE addr= ?";
-
+            String result ="";
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt  = conn.prepareStatement(sql)){
                 stmt.setString(1,addr);
@@ -293,24 +329,27 @@ import java.sql.*;
 
                 // loop through the result set
                 while (rs.next()) {
-                    System.out.println(
-                            rs.getString("pseudo") +  "\t" +
-                                    rs.getString("addr"));
+                    result = result + "\n" + rs.getString("pseudo") +  "\t" +
+                            rs.getString("addr");
+                  //  System.out.println(
+                    //        rs.getString("pseudo") +  "\t" +
+                      //              rs.getString("addr"));
 
                 }
-                return true;
+                conn.close();
+
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            return false;
+            return result;
         }
 
         public boolean check(String pseudo, String filename) {
             String sql = "SELECT EXISTS(SELECT * FROM IPseudo WHERE pseudo= ?);";
             System.out.println("oooo");
-            createDB DB = new createDB("MyTestDB.db");
-            DB.selectAllMsgIPseudo("MyTestDB.db");
+
+            this.selectAllMsgIPseudo("MyTestDB.db");
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)){
                  stmt.setString(1,pseudo);
@@ -321,6 +360,7 @@ import java.sql.*;
                     boolean found = rs.getBoolean(1);
                     System.out.println(found);
                     System.out.println("oooo");
+                    conn.close();
                    return found;
                 }
 
@@ -342,6 +382,7 @@ import java.sql.*;
 
                     boolean found = rs.getBoolean(1);
                     System.out.println(found);
+                    conn.close();
                     if (found) {
                         return false;
                     } else {
@@ -365,6 +406,7 @@ import java.sql.*;
                 stmt.setString(1, pseudo);
                 stmt.setString(2, String.valueOf(addr));
                 stmt.executeUpdate();
+                conn.close();
                 return true;
             } catch (SQLException e) {
                 System.out.println(
@@ -395,7 +437,7 @@ import java.sql.*;
                             rs.getString("addr")+  "\t" +
                             rs.getInt("port"));
                 }
-                System.out.println("hey");
+                conn.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }

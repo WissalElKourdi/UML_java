@@ -17,7 +17,7 @@ public class UDP_Server {
         byte[] buffer = broadcastMSg.getBytes();
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length, Address, port);
         socket.send(packet);
-        socket.close();
+        //socket.close();
     }
 
     //-----------------------------BROADCAST--------------------------------------------
