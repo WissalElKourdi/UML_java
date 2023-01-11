@@ -1,4 +1,4 @@
-/*package Interface;
+package Interface;
 
 import javafx.application.*;
 import javafx.stage.*;
@@ -28,4 +28,3 @@ public class mainFXML extends Application {
     }
 
 }
-}*/

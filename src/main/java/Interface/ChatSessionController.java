@@ -1,13 +1,19 @@
-/*package Interface;
+package Interface;
 
+import javafx.fxml.*;
+import javafx.stage.*;
+import javafx.scene.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
-public class LoginChatSession {
+import java.io.IOException;
+
+public class ChatSessionController {
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     @FXML
     private Button disconnect;
@@ -26,11 +32,8 @@ public class LoginChatSession {
 
     @FXML
     void disconnect(ActionEvent event) {
-        broadcast_deconnection(); //quels arguments
+        //broadcast_deconnection(); //quels arguments
         //close window ?
-    }
-
-    private void broadcast_deconnection() {
     }
 
     @FXML
@@ -40,16 +43,28 @@ public class LoginChatSession {
 
     @FXML
     void backToMenu(ActionEvent event) {
-        //retour vers la page principale
+        try {
+            //retour vers la page principale
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));    //Tell the FXMLLoader where the FXML file is
+            Parent parent = loader.load();                     //create the view and link it with the Controller
+            Scene scene = new Scene(parent, 600, 300);
+            Stage stage = new Stage();
+
+            //Preparing the stage
+            stage.setTitle("Chat App");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void changepseudo(ActionEvent event) {
-        broadcast_ChangePseudo(); //quels arguments
+        //broadcast_ChangePseudo(); //quels arguments
 
     }
-
-
 
 
     @FXML
@@ -64,4 +79,3 @@ public class LoginChatSession {
     }
 
 }
-*/
