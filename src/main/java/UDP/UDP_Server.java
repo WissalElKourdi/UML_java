@@ -7,12 +7,11 @@ import java.net.*;
 import java.util.ArrayList;
 
 public class UDP_Server {
-    private static DatagramSocket socket = null;
     private InetAddress Address;
     public static int port = 4000;
-    private static String Name_DB = "DB_MSG.db";
+    private static final String Name_DB = "DB_MSG.db";
     public static void send_udp(String broadcastMSg, InetAddress Address) throws IOException {
-        socket = new DatagramSocket();
+        DatagramSocket socket = new DatagramSocket();
         socket.setBroadcast(true);
         byte[] buffer = broadcastMSg.getBytes();
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length, Address, port);

@@ -8,9 +8,7 @@ import java.sql.SQLException;
 import java.sql.*;
 
 
-    public class createDB<Name_DB> {
-        String Name_DB;
-        private static Connection conn;
+    public class createDB {
 
         public createDB(String Name_DB){
             creatTablehistory(Name_DB);
@@ -20,17 +18,11 @@ import java.sql.*;
 
         }
 
-
-
-
-
-
-
         public boolean createNewDB(String fileName) throws SQLException {
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
            // try (Connection conn = DriverManager.getConnection(url)) {
-            conn=this.connect(fileName);
+            Connection conn = this.connect(fileName);
                 if ( conn != null) {
                     DatabaseMetaData meta = conn.getMetaData();
                     System.out.println("The driver name is " + meta.getDriverName());
@@ -52,7 +44,7 @@ import java.sql.*;
             }
             return conn;
         }
-        public Connection disconnect (String fileName ) {
+        public void disconnect (String fileName ) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/"+ fileName;
             Connection conn = null;
@@ -62,11 +54,10 @@ import java.sql.*;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            return conn;
         }
 
 
-        public boolean deletefile (String fileName){
+        public void deletefile (String fileName){
             System.out.println("je suis la");
             try {
                 File file = new File(fileName);
@@ -77,10 +68,8 @@ import java.sql.*;
               //  this.deletefile(fileName);
                 if( f.delete()) {
                     System.out.println(f.getName()+"deleted");
-                    return true;
-               } else {
+                } else {
                     System.out.println("failed");
-                    return false;
                 }
             }
             catch(Exception e)
@@ -88,9 +77,8 @@ import java.sql.*;
                 e.printStackTrace();
             }
             //return false;
-            return false;
         }
-        public static boolean creatTablehistory(String fileName) {
+        public boolean creatTablehistory(String fileName) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
@@ -119,7 +107,7 @@ import java.sql.*;
             return false;
         }
 
-        public static boolean creatTablepseudo(String fileName) {
+        public boolean creatTablepseudo(String fileName) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
