@@ -74,6 +74,9 @@ public class UDP_Server {
         }
 
     }
+    public void broadcast_end() throws IOException {
+
+        broadcast("end");}
 
 
   /*  //static ou pas ??

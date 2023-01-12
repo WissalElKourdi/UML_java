@@ -14,7 +14,7 @@ public class DBTest {
     private String Name_DB = "DB_MSG.db";
     @Test
     public void dbCreationTest() throws SQLException, IOException, InterruptedException {
-     /*   System.out.println("-----------------------------TEST DATABASE -----------------------");
+       System.out.println("-----------------------------TEST DATABASE -----------------------");
        createDB DB = new createDB(DB_NAME);
         Connection conn = DB.connect("DB_Test.db");
 
@@ -39,8 +39,6 @@ public class DBTest {
         assert DB.selectAllMsgHistory(DB_NAME)=="Bonjour !\t2023-01-02 1:50\tLeonie\t149.255.255.255\t5000";
         assert DB.selectAllMsgIPseudo(DB_NAME)=="Leonie\t149.255.255.255";
         assert DB.selectAllConnected(DB_NAME)=="";
-
-
         assert DB.check("Wissal", DB_NAME)==false;
         assert    DB.insertIpseudo("Wissal","10.10.2.0",DB_NAME )==true;
         assert  DB.check("Wissal", DB_NAME)==true;
@@ -48,35 +46,26 @@ public class DBTest {
         assert  DB.getPseudo("10.10.2.0",DB_NAME)=="Wiwi";
 
 
-/**/
-        createDB DB = new createDB(Name_DB);
+        createDB DB_UDP = new createDB(Name_DB);
         DB.connect(Name_DB);
-        DB.selectAllConnected(Name_DB);
         System.out.println("-----------------------------TEST DATABASE UDP-----------------------");
-       // broadcast_ChangePseudo
-
         new UDP_Client().start();
        new UDP_Server().broadcast("TEST");
-      // Thread.sleep(100000);
+        new UDP_Server().broadcast_end();
        new UDP_Server().broadcast_Pseudo("Sirine");
-        System.out.println("here");
-     //   Thread.sleep(100000);
-        DB.selectAllMsgIPseudo(Name_DB);
+        new UDP_Server().broadcast_end();
+        System.out.println(DB_UDP.selectAllMsgIPseudo(Name_DB));
        new UDP_Server().broadcast_ChangePseudo("Sissou");
-
-        DB.selectAllMsgIPseudo(Name_DB);
-     //   Thread.sleep(9000);
+        new UDP_Server().broadcast_end();
+        System.out.println(DB_UDP.selectAllMsgIPseudo(Name_DB));
         new UDP_Server().broadcast_connection("WIWI");
-      //  Thread.sleep(100000);
-        DB.selectAllConnected(Name_DB);
-        new UDP_Server().broadcast_deconnection("Leo");
-     //   Thread.sleep(100000);
-        DB.selectAllConnected(Name_DB);
-        Thread.sleep(90000);
-
-
-        new UDP_Server().broadcast("end");
- //createDB DB = new createDB(Name_DB);
+        new UDP_Server().broadcast_end();
+        new UDP_Server().broadcast_connection("LEo");
+        new UDP_Server().broadcast_end();
+        System.out.println(DB_UDP.selectAllConnected(Name_DB));
+        new UDP_Server().broadcast_deconnection("WIWI");
+        new UDP_Server().broadcast_end();
+        System.out.println(DB_UDP.selectAllConnected(Name_DB));
         DB.selectAllMsgIPseudo(Name_DB);
 
     }

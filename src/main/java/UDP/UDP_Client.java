@@ -7,6 +7,8 @@ import java.net.*;
 import java.lang.*;
 
 public class UDP_Client extends Thread {
+
+
 public void handler1(String msg, createDB DB, DatagramPacket packet) {
     System.out.println("11111111111111&");
     if (msg.startsWith("new pseudo :")) {
@@ -59,22 +61,28 @@ public void handler1(String msg, createDB DB, DatagramPacket packet) {
                 System.out.println("Ready to receive broadcast packets!");
                 //Receive a packet
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-                try {
-                    socket.receive(packet);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                socket.receive(packet);
                 InetAddress address = packet.getAddress();
+                String msg_rcv = new String (packet.getData(), 0, packet.getLength());
+             /*
+
                 int port = packet.getPort();
                 packet = new DatagramPacket(buffer, buffer.length, address, port);
                 //String received = new String(packet.getData(), 0, packet.getLength());
                 System.out.println("received");
               //  Thread sendMessage = new Thread(new Runnable());
                         //Packet received
-                String msg_rcv = new String (packet.getData(), 0, packet.getLength());
+              */
                 msg_rcv = msg_rcv.trim();
                 System.out.println("msg received : "+msg_rcv+ "!   ");
+               UDPManager.update(msg_rcv,DB,packet);
+               msg_rcv = "";
+               // while (!msg_rcv.equals("end")){
+               //     System.out.println("I am waiting");
+               // wait(10);
+               // }
 
+                /*
                 handler1(msg_rcv,DB,packet);
                 System.out.println("je suis sortie");
                 Thread.sleep(90000);
@@ -84,18 +92,19 @@ public void handler1(String msg, createDB DB, DatagramPacket packet) {
                 Thread.sleep(90000);
                 handler4(msg_rcv,DB,packet);
                 Thread.sleep(90000);
-
+*/
 
                 if (msg_rcv.equals("end")){
                     running = false;
                     System.out.println("Socket closed");
                 }
             }
+Thread.yield();
 
-            socket.close();
+           // socket.close();
         } catch (SocketException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

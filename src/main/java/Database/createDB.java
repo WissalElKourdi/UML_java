@@ -185,7 +185,7 @@ import java.sql.*;
         }
         public boolean insertIpseudo(String pseudo, String addr, String filename) {
             String sql = "INSERT INTO IPseudo( pseudo, addr) VALUES(?,?)";
-            System.out.println("insert IP pseudo");
+
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, pseudo);
@@ -347,19 +347,16 @@ import java.sql.*;
 
         public boolean check(String pseudo, String filename) {
             String sql = "SELECT EXISTS(SELECT * FROM IPseudo WHERE pseudo= ?);";
-            System.out.println("oooo");
+            System.out.println("je check le pseudo : "+ pseudo);
 
-            this.selectAllMsgIPseudo("MyTestDB.db");
+
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)){
                  stmt.setString(1,pseudo);
                  ResultSet rs = stmt.executeQuery() ;
-                System.out.println("here");
                 // loop through the result set
                 if (rs.next()) {
                     boolean found = rs.getBoolean(1);
-                    System.out.println(found);
-                    System.out.println("oooo");
                     conn.close();
                    return found;
                 }
