@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.MenuController">
    <children>
       <ListView fx:id="connected_users_list" layoutX="14.0" layoutY="52.0" onEditStart="#display_list" onMouseClicked="#open_chat_session" prefHeight="334.0" prefWidth="281.0" />
       <Text layoutX="99.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected Users" />

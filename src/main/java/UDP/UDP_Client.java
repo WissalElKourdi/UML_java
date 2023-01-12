@@ -35,6 +35,7 @@ public void handler1(String msg, createDB DB, DatagramPacket packet) {
             }
         }
             public void handler4(String msg, createDB DB, DatagramPacket packet) {
+    //deconnection
                 System.out.println("44444444444");
                 if (msg.startsWith("Deconnected :")) {
                     String pseudo = msg.substring(msg.lastIndexOf(':') + 1);

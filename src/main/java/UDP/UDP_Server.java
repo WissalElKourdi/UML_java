@@ -88,7 +88,7 @@ public class UDP_Server {
     //changer de pseudo et le broadcast auprès des autres utilisateurs
 
 
-
+/*
     //-----------------------------LIST--------------------------------------------
 
     //ajouter à la liste un utilisateur qui vient de se connecter
@@ -113,4 +113,7 @@ public class UDP_Server {
         }
         return result;
     }
+
+ */
 }
+

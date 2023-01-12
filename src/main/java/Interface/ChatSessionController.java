@@ -1,5 +1,7 @@
 package Interface;
 
+import UDP.UDP_Server;
+
 import javafx.fxml.*;
 import javafx.stage.*;
 import javafx.scene.*;
@@ -32,17 +34,17 @@ public class ChatSessionController {
 
     @FXML
     void disconnect(ActionEvent event) {
-        //broadcast_deconnection(); //quels arguments
-        //close window ?
+        //deconnexion
     }
 
     @FXML
     void send(ActionEvent event) {
         //envoi du message tapé dans la zone de texte
+        //send_udp();
     }
 
     @FXML
-    void backToMenu(ActionEvent event) {
+    void backToMenu(ActionEvent event) throws IOException {
         try {
             //retour vers la page principale
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));    //Tell the FXMLLoader where the FXML file is

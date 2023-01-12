@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ChangeLoginController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <!-- The Beginning of Login form -->
+            <Label layoutX="174.0" layoutY="64.0" prefHeight="65.0" prefWidth="253.0" style="-fx-text-fill: #A9A9A9;" text="Change Login">
+               <font>
+                  <Font name="SansSerif Regular" size="36.0" />
+               </font>
+            </Label>
+
+            <!-- Cancel Button -->
+            <Button fx:id="cancelButton" layoutX="152.0" layoutY="208.0" mnemonicParsing="false" onAction="#CancelClicked" style="-fx-background-color: transparent; -fx-text-fill: #A9A9A9; -fx-border-width: 2; -fx-border-color: #A9A9A9; -fx-border-radius: 5;" text="Cancel">
+               <font>
+                  <Font name="SansSerif Regular" size="15.0" />
+               </font>
+            </Button>
+
+            <!-- Login Button -->
+            <Button fx:id="SaveButton" layoutX="256.0" layoutY="196.0" mnemonicParsing="false" onAction="#SaveNewLogin" prefHeight="57.0" prefWidth="90.0" style="-fx-background-color: #24a0ed; -fx-text-fill: white; -fx-border-radius: 5; -fx-border-width: 2; -fx-border-color: #24a0ed;" text="Save">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <TextArea fx:id="NewLoginArea" layoutX="201.0" layoutY="145.0" prefHeight="33.0" prefWidth="200.0" promptText="Enter new login" />
+            <!-- End of Login Form -->
+
+         </children>
+      </Pane>
+      <Canvas height="200.0" layoutX="-167.0" layoutY="-231.0" width="200.0" />
+      <Canvas layoutX="200.0" layoutY="200.0" />
+   </children>
+</AnchorPane>
