@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -19,7 +20,7 @@
             </ScrollPane>
             <Button fx:id="change" layoutX="463.0" layoutY="66.0" mnemonicParsing="false" onAction="#changepseudo" text="Change Pseudo" />
             <Text layoutX="132.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chatting with" />
-            <Text fx:id="pseudo_autre" layoutX="228.0" layoutY="91.0" onDragDetected="#find_other_pseudo" strokeType="OUTSIDE" strokeWidth="0.0" text="?" />
+            <TextFlow fx:id="pseudo_autre" layoutX="219.0" layoutY="74.0" onMouseClicked="#receiveData" prefHeight="25.0" prefWidth="200.0" />
          </children>
       </Pane>
    </children>

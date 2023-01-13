@@ -6,8 +6,10 @@ import UDP.UDP_Server;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.event.ActionEvent;
+import javafx.scene.input.*;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.scene.Node;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -95,9 +97,15 @@ public class ChatSessionController {
         //utiliser get message from pour les 2 username ??
     }
 
+
     @FXML
-    void find_other_pseudo(ActionEvent event ) {
-        //enregistrer le pseudo de l'autre personne pour le display dans la zone de texte prévue
-        //pseudo_autre.getChildren().add(MenuController.handleMouseClicked);
+    private String receiveData(MouseEvent event) {
+        Node node = (Node) event.getSource();
+        //Stage stage = (Stage) node.getScene().getWindow();
+        User v = (User) mainFXML.mainStage.getUserData();
+        String name = User.getName(v);
+        //+modify textfield
+        //+save name elsewhere
+        return name;
     }
 }
