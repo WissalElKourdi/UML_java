@@ -35,7 +35,7 @@ public class UDP_Server {
 
     }
 
-    public static boolean broadcast_ChangePseudo ( String newpseudo) throws IOException{
+    public static boolean broadcast_ChangePseudo (String newpseudo) throws IOException{
 
         createDB DB = new createDB(Name_DB);
 
@@ -89,35 +89,7 @@ public class UDP_Server {
             InsertData DB = new InsertData();
             DB.insert_pseudo(pseudo, InetAddress.getLocalHost());
 */
-    //changer de pseudo et le broadcast auprès des autres utilisateurs
 
 
-/*
-    //-----------------------------LIST--------------------------------------------
-
-    //ajouter à la liste un utilisateur qui vient de se connecter
-    public void AddConnectedUser(String Name, ArrayList userList){
-        userList.add(Name);
-    }
-
-    //ajouter à la liste un utilisateur qui vient de se déconnecter
-    public void  DeleteInactiveUser(String Name,ArrayList userList ){
-        userList.remove(Name);
-    }
-
-    //vérifier que le pseudo choisi par l'utilisateur n'est pas déjà utilisé
-    public boolean check_pseudo (String pseudo, ArrayList userList) {
-        boolean result = true;
-
-        for (int i=0 ; i < userList.size(); i++) {
-            if (userList.get(i) == pseudo) {
-                result = false;
-                break;
-            }
-        }
-        return result;
-    }
-
- */
 }
 
