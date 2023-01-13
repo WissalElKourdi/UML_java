@@ -1,5 +1,7 @@
 package Interface;
 
+import Database.createDB;
+import UDP.UDP_Server;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.fxml.*;
@@ -7,9 +9,13 @@ import javafx.stage.*;
 import javafx.scene.*;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
 
 public class MenuController {
 
+    private String DB_name = "My-DB.db";
     @FXML
     private Button disconnect;
     @FXML
@@ -61,7 +67,9 @@ public class MenuController {
     }
 
     @FXML
-    void disconnect(ActionEvent event) {
+    void disconnect(ActionEvent event) throws IOException, SQLException {
+        createDB DB = new createDB(DB_name);
+        UDP_Server.broadcast_deconnection(DB.getPseudo(InetAddress.getLocalHost().toString(),DB_name));
 
     }
 

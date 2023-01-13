@@ -307,7 +307,7 @@ import java.sql.*;
             conn.close();
             return result;
         }
-        public synchronized String getPseudo (String addr, String filename) throws SQLException {
+        public synchronized String getPseudo(String addr, String filename) throws SQLException {
             String sql = "SELECT  pseudo,addr FROM IPseudo WHERE addr= ?";
             String result ="";
             try (Connection conn = this.connect(filename);
