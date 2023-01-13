@@ -16,10 +16,11 @@ import java.util.List;
 public class createDB {
         private static Connection conn;
         public createDB(String Name_DB) throws SQLException {
+            this.conn = this.connect(Name_DB);
             creatTablehistory(Name_DB);
             creatTablepseudo(Name_DB);
             creatTableconnected(Name_DB);
-             this.conn = this.connect(Name_DB);
+
 
 
         }

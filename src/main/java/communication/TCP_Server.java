@@ -3,6 +3,7 @@ package communication;
 import Database.InsertData;
 import Database.Select_Data_DB;
 import Database.createDB;
+import Interface.ChatSessionController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -57,6 +58,9 @@ public class TCP_Server {
             String Message;
             public void run() {
                 while (true) { //teste la connexion
+                    //comment récupérer le message tapé dans le zone de test de chatcontroller
+                    //pour ensuite l'envoyer ????
+                    //Message = ChatSessionController.message
                     Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
                     LocalTime time = LocalTime.now();
                     //db
