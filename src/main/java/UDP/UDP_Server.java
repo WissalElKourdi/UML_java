@@ -4,7 +4,6 @@ import Database.createDB;
 
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
 
 public class UDP_Server {
     private InetAddress Address;
@@ -23,32 +22,36 @@ public class UDP_Server {
     public static void broadcast(String broadcastMSg) throws IOException {
          send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"));
     }
-    public void broadcast_Pseudo (String pseudo ) throws IOException{
+    public static boolean broadcast_Pseudo (String pseudo ) throws IOException{
         createDB DB = new createDB(Name_DB);
         if ( DB.check(pseudo,Name_DB) ) {
             System.out.println("Choose new pseudo : this one is already taken");
-            //affichage
+            return false;
         } else {
             broadcast("new pseudo :" + pseudo);
             System.out.println("Pseudo chosen:"+ pseudo);
-
+            return true;
         }
+
     }
 
-    public void broadcast_ChangePseudo ( String newpseudo) throws IOException{
+    public static boolean broadcast_ChangePseudo ( String newpseudo) throws IOException{
+
         createDB DB = new createDB(Name_DB);
 
         if ( DB.check(newpseudo,Name_DB) ) {
             System.out.println("Choose new pseudo : this one is already taken");
+            return false;
         } else {
             broadcast("change pseudo :" + newpseudo);
             System.out.println("Pseudo changed:" + newpseudo);
+            return true;
         }
     }
 
 
     //broadcast la connection auprès des autres utilisateurs
-    public void broadcast_connection (String pseudo) throws IOException{
+    public static void broadcast_connection (String pseudo) throws IOException{
         createDB DB = new createDB(Name_DB);
 
         if ( DB.check(pseudo,Name_DB) ) {
@@ -62,7 +65,7 @@ public class UDP_Server {
     }
 
     //se déconnecter et broadcast auprès des autres utilisateurs
-    public void broadcast_deconnection (String pseudo) throws IOException{
+    public static void broadcast_deconnection (String pseudo) throws IOException{
         createDB DB = new createDB(Name_DB);
 
         if ( DB.check(pseudo,Name_DB) ) {
@@ -74,7 +77,7 @@ public class UDP_Server {
         }
 
     }
-    public void broadcast_end() throws IOException {
+    public static void broadcast_end() throws IOException {
 
         broadcast("end");}
 
