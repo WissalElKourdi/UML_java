@@ -10,6 +10,7 @@ public class UDPManager extends UDP_Client{
         if (msg.startsWith("new pseudo :")) {
             String pseudo1 = msg.substring(msg.lastIndexOf(':') + 1);
             DB.insertIpseudo(pseudo1.trim(), packet.getAddress().toString(), "DB_MSG.db");
+            // pseudo ok commencer chat session
 
         }else  if (msg.startsWith("change pseudo :")) {
             String pseudo2 = msg.substring(msg.lastIndexOf(':') + 1);

@@ -27,6 +27,7 @@ public class UDP_Server {
         createDB DB = new createDB(Name_DB);
         if ( DB.check(pseudo,Name_DB) ) {
             System.out.println("Choose new pseudo : this one is already taken");
+            //affichage
         } else {
             broadcast("new pseudo :" + pseudo);
             System.out.println("Pseudo chosen:"+ pseudo);
