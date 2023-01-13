@@ -4,7 +4,6 @@ import Database.createDB;
 import UDP.UDP_Server;
 
 import javafx.fxml.*;
-import javafx.stage.*;
 import javafx.scene.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
@@ -12,14 +11,9 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 public class ChatSessionController {
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
     private String DB_name = "DB_MSG.db";
 
@@ -61,7 +55,6 @@ public class ChatSessionController {
     void send(ActionEvent event) {
         //récupération du message tapé dans la zone de texte
         String  message = writtenMessage.getText();
-
         //send_udp();
     }
 
@@ -98,15 +91,13 @@ public class ChatSessionController {
 
     @FXML
     void Display_previous_messages(ActionEvent event) {
-
         //display the previous messages with the other person (stored in db)
+        //utiliser get message from pour les 2 username ??
     }
 
     @FXML
     void find_other_pseudo(ActionEvent event ) {
-        //enregistrer le pseudo de l'autre personne et le display dans la zone de texte prévue
+        //enregistrer le pseudo de l'autre personne pour le display dans la zone de texte prévue
         //pseudo_autre.getChildren().add(MenuController.handleMouseClicked);
-
     }
-
 }
