@@ -18,7 +18,7 @@ import java.sql.*;
 
         }
 
-        public boolean createNewDB(String fileName) throws SQLException {
+        public synchronized boolean createNewDB(String fileName) throws SQLException {
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
            // try (Connection conn = DriverManager.getConnection(url)) {
@@ -33,7 +33,7 @@ import java.sql.*;
             return false;
         }}
 
-        public Connection connect(String fileName ) {
+        private Connection connect(String fileName ) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/"+ fileName;
             Connection conn = null;
@@ -78,7 +78,7 @@ import java.sql.*;
             }
             //return false;
         }
-        public boolean creatTablehistory(String fileName) {
+        public synchronized boolean creatTablehistory(String fileName) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
@@ -107,7 +107,7 @@ import java.sql.*;
             return false;
         }
 
-        public boolean creatTablepseudo(String fileName) {
+        public synchronized boolean creatTablepseudo(String fileName) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
@@ -131,7 +131,7 @@ import java.sql.*;
             return false;
         }
 
-        public boolean creatTableconnected(String fileName) {
+        public synchronized boolean creatTableconnected(String fileName) {
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
 
@@ -152,7 +152,7 @@ import java.sql.*;
             return false;
         }
 
-        public boolean insertHistory(String message, String date, String pseudo, String addr, int port, String filename) {
+        public synchronized boolean insertHistory(String message, String date, String pseudo, String addr, int port, String filename) {
             String sql = "INSERT INTO history(message,date, pseudo, addr, port) VALUES(?,?,?,?,?)";
 
             try (Connection conn = this.connect(filename);
@@ -171,7 +171,7 @@ import java.sql.*;
             }
             return false;
         }
-        public boolean insertIpseudo(String pseudo, String addr, String filename) {
+        public synchronized boolean insertIpseudo(String pseudo, String addr, String filename) {
             String sql = "INSERT INTO IPseudo( pseudo, addr) VALUES(?,?)";
 
             try (Connection conn = this.connect(filename);
@@ -189,7 +189,7 @@ import java.sql.*;
             return false;
         }
 
-        public boolean insertConnected(String pseudo, String filename) {
+        public synchronized boolean insertConnected(String pseudo, String filename) {
             String sql = "INSERT INTO Connected( pseudo) VALUES(?)";
 
             try (Connection conn = this.connect(filename);
@@ -207,7 +207,7 @@ import java.sql.*;
         }
 
 
-        public boolean deleteConnected (String pseudo, String filename) {
+        public synchronized boolean deleteConnected (String pseudo, String filename) {
             String sql = "DELETE FROM Connected WHERE pseudo = ?";
 
             try (Connection conn = this.connect(filename);
@@ -227,7 +227,7 @@ import java.sql.*;
             return false;
         }
 
-        public String selectAllMsgHistory(String filename){
+        public synchronized String selectAllMsgHistory(String filename){
             String sql = "SELECT message, date, pseudo, addr, port FROM history";
             String result ="";
             try (Connection conn = this.connect(filename);
@@ -261,7 +261,7 @@ import java.sql.*;
             return result;
         }
 
-        public String selectAllMsgIPseudo(String filename){
+        public synchronized String selectAllMsgIPseudo(String filename){
             String sql = "SELECT pseudo, addr FROM IPseudo";
             String result ="";
             try (Connection conn = this.connect(filename);
@@ -284,7 +284,7 @@ import java.sql.*;
             return result;
         }
 
-        public String selectAllConnected(String filename) throws SQLException {
+        public synchronized String selectAllConnected(String filename) throws SQLException {
             String sql = "SELECT pseudo FROM Connected";
             String result ="";
             Connection conn ;
@@ -307,7 +307,7 @@ import java.sql.*;
             conn.close();
             return result;
         }
-        public String getPseudo (String addr, String filename) throws SQLException {
+        public synchronized String getPseudo (String addr, String filename) throws SQLException {
             String sql = "SELECT  pseudo,addr FROM IPseudo WHERE addr= ?";
             String result ="";
             try (Connection conn = this.connect(filename);
@@ -333,7 +333,7 @@ import java.sql.*;
             return result;
         }
 
-        public boolean check(String pseudo, String filename) {
+        public synchronized boolean check(String pseudo, String filename) {
             String sql = "SELECT EXISTS(SELECT * FROM IPseudo WHERE pseudo= ?);";
             System.out.println("je check le pseudo : "+ pseudo);
 
@@ -355,7 +355,7 @@ import java.sql.*;
             return false;
         }
 
-        public boolean check1(String pseudo, String filename) throws SQLException {
+        public synchronized boolean check1(String pseudo, String filename) throws SQLException {
             String sql = "SELECT EXISTS(SELECT 1 FROM IPseudo WHERE pseudo=" + pseudo + ");";
             Boolean exist = false;
             try (Connection conn = this.connect(filename);
@@ -383,7 +383,7 @@ import java.sql.*;
                 // assert
         //
 
-        public boolean changeIpseudo(String pseudo, String addr, String filename) {
+        public synchronized boolean changeIpseudo(String pseudo, String addr, String filename) {
             String sql = "UPDATE IPseudo SET pseudo=? WHERE addr = ?;";
 
             try (Connection conn = this.connect(filename);

@@ -64,6 +64,7 @@ public class ChatSessionController {
 
     @FXML
     void changepseudo(ActionEvent event) {
+
         //broadcast_ChangePseudo(); //quels arguments
 
     }
