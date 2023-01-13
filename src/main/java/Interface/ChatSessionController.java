@@ -57,6 +57,8 @@ public class ChatSessionController {
             stage.setScene(scene);
             stage.show();
 
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

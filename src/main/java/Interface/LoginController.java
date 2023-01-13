@@ -27,6 +27,9 @@ public class LoginController {
     private Button LoginButton;
 
     @FXML
+    private TextField choose_username;
+
+    @FXML
     void CancelClicked(ActionEvent event) {
         System.out.println("Button clicked!");
     }
@@ -52,6 +55,11 @@ public class LoginController {
 
     @FXML
     void remembering(ActionEvent event) {
+
+    }
+
+    @FXML
+    void saveUsername(ActionEvent event) {
 
     }
 }

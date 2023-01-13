@@ -39,6 +39,7 @@
                </font>
             </Button>
             <Button fx:id="ok" layoutX="396.0" layoutY="212.0" mnemonicParsing="false" onAction="#loginaccepted" text="ok" />
+            <TextField fx:id="choose_username" layoutX="222.0" layoutY="110.0" onAction="#saveUsername" promptText="Enter your username" />
             <!-- End of Login Form -->
 
          </children>
