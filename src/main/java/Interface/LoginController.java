@@ -10,6 +10,7 @@ import javafx.scene.text.*;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginController {
 
@@ -22,6 +23,7 @@ public class LoginController {
 
     @FXML
     void CheckLogin(ActionEvent event) throws IOException {
+        //fonction pour rediriger vers le menu quand on lcique sur ok, à supprimer à la fin des tests
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
             Parent parent = loader.load();
@@ -32,12 +34,11 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 
     @FXML
-    void saveUsername(ActionEvent event) throws IOException {
+    void saveUsername(ActionEvent event) throws IOException, SQLException {
         //get new username and check that it's not already used : if it's not, change to menu scene
         String name = choose_username.getText();
         if (UDP_Server.broadcast_Pseudo(name)) {

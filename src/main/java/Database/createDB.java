@@ -1,19 +1,25 @@
 package Database;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
-    public class createDB {
-
-        public createDB(String Name_DB){
+public class createDB {
+        private static Connection conn;
+        public createDB(String Name_DB) throws SQLException {
             creatTablehistory(Name_DB);
             creatTablepseudo(Name_DB);
             creatTableconnected(Name_DB);
+             this.conn = this.connect(Name_DB);
 
 
         }
@@ -22,7 +28,7 @@ import java.sql.*;
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
            // try (Connection conn = DriverManager.getConnection(url)) {
-            Connection conn = this.connect(fileName);
+
                 if ( conn != null) {
                     DatabaseMetaData meta = conn.getMetaData();
                     System.out.println("The driver name is " + meta.getDriverName());
@@ -36,7 +42,7 @@ import java.sql.*;
         private Connection connect(String fileName ) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/"+ fileName;
-            Connection conn = null;
+            conn = null;
             try {
                 conn = DriverManager.getConnection(url);
             } catch (SQLException e) {
@@ -47,7 +53,7 @@ import java.sql.*;
         public void disconnect (String fileName ) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/"+ fileName;
-            Connection conn = null;
+             conn = null;
             try {
                 conn = DriverManager.getConnection(url);
                 conn.close();
@@ -78,7 +84,7 @@ import java.sql.*;
             }
             //return false;
         }
-        public synchronized boolean creatTablehistory(String fileName) {
+        public synchronized boolean creatTablehistory(String fileName) throws SQLException {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
@@ -92,19 +98,14 @@ import java.sql.*;
                     + " port NOT NULL\n"
                     + ");";
 
-            try (Connection conn = DriverManager.getConnection(url);
-                 Statement stmt = conn.createStatement()) {
+
+                try( Statement stmt = conn.createStatement()) {
                 // create a new table
                 stmt.execute(sql);
                 conn.close();
-
+            }
                 return true;
 
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-
-            return false;
         }
 
         public synchronized boolean creatTablepseudo(String fileName) {
@@ -284,9 +285,28 @@ import java.sql.*;
             return result;
         }
 
-        public synchronized String selectAllConnected(String filename) throws SQLException {
+        public synchronized static ObservableList selectAllConnected(String filename) throws SQLException {
             String sql = "SELECT pseudo FROM Connected";
+            ObservableList<String> list = FXCollections.observableArrayList();
+
+           try ( Statement stmt  = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+
+                // loop through the result set
+                while (rs.next()) {
+                    list.add(rs.getString("pseudo").trim());
+                    // System.out.println(rs.getString("pseudo"));
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            conn.close();
+            return list;
+        }
+
+            /*String sql = "SELECT pseudo FROM Connected";
             String result ="";
+
             Connection conn ;
             conn = this.connect(filename);
             try ( conn ;
@@ -295,10 +315,12 @@ import java.sql.*;
 
                 // loop through the result set
                 while (rs.next()) {
-                    result =   rs.getString("pseudo").trim();
+                    result = result + "\n" +  rs.getString("pseudo").trim();
                    // System.out.println(rs.getString("pseudo"));
 
                 }
+
+
 
 
             } catch (SQLException e) {
@@ -307,6 +329,7 @@ import java.sql.*;
             conn.close();
             return result;
         }
+        */
         public synchronized String getPseudo(String addr, String filename) throws SQLException {
             String sql = "SELECT  pseudo,addr FROM IPseudo WHERE addr= ?";
             String result ="";

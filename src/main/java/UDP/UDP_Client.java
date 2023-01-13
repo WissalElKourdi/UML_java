@@ -5,6 +5,7 @@ import Database.createDB;
 import java.io.IOException;
 import java.net.*;
 import java.lang.*;
+import java.sql.SQLException;
 
 public class UDP_Client extends Thread {
 
@@ -51,7 +52,12 @@ public void handler1(String msg, createDB DB, DatagramPacket packet) {
         running = true;
         String Name_DB = "DB_MSG.db";
 
-        createDB DB = new createDB("DB_MSG.db");
+        createDB DB = null;
+        try {
+            DB = new createDB("DB_MSG.db");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         try {
             socket = new DatagramSocket(UDP_Server.port);
             System.out.println("Creating Socket");

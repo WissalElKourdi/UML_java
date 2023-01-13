@@ -63,7 +63,11 @@ public class TCP_Server {
                     String DB_NAME = "DB_MSG.db";
                     createDB app = null;
 
+                    try {
                         app = new createDB(DB_NAME);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     app.insertHistory(Message, time.toString(),"sissou",socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
 
