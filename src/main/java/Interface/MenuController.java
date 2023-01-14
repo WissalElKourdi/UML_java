@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -40,7 +41,7 @@ public class MenuController {
          */
     }
 
-    @FXML public void handleMouseClick(MouseEvent arg0) {
+    @FXML public void handleMouseClick(MouseEvent arg0) throws SQLException {
         //sauvegarder l'user choisi par l'utilisateur (évènement on click)
         String User = (String) connected_users_list.getSelectionModel().getSelectedItem();
 
@@ -56,8 +57,10 @@ public class MenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        createDB DB = new createDB(DB_name);
+
         //System.out.println("clicked on " + connected_users_list.getSelectionModel().getSelectedItem());
-        ListView<String> connected_users_list = new ListView<String>(createDB.selectAllConnected(DB_name));
+        ListView<String> connected_users_list = new ListView<String>(DB.selectAllConnected(DB_name));
     }
 
 
