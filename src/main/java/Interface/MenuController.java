@@ -106,6 +106,7 @@ public class MenuController {
 
         } catch (IOException e) {
             e.printStackTrace();
+
         }
 
         //retour à la page d'accueil (login)
