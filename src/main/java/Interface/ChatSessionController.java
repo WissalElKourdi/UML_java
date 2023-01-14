@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class ChatSessionController {
 
     private String DB_name = "DB_MSG.db";
-
+    private static final int port =2000;
     @FXML
     private Button disconnect;
     @FXML
@@ -36,7 +36,7 @@ public class ChatSessionController {
     void disconnect(ActionEvent event) throws SQLException, IOException {
         //deconnexion
         createDB DB = new createDB(DB_name);
-        UDP_Server.broadcast_deconnection(DB.getPseudo(InetAddress.getLocalHost().toString(),DB_name));
+        UDP_Server.broadcast_deconnection(DB.getPseudo(InetAddress.getLocalHost().toString(),DB_name),port);
 
         //retour à la page d'accueil (login)
         try {
