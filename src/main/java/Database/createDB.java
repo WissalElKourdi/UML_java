@@ -16,8 +16,8 @@ import java.util.List;
 public class createDB {
         private static Connection conn;
         public createDB(String Name_DB) throws SQLException {
-            this.conn = this.connect(Name_DB);
-            creatTablehistory(Name_DB);
+            conn = this.connect(Name_DB);
+            creatTablehistory(Name_DB,conn);
             creatTablepseudo(Name_DB);
             creatTableconnected(Name_DB);
 
@@ -40,7 +40,7 @@ public class createDB {
             return false;
         }}
 
-        private Connection connect(String fileName ) {
+        private synchronized Connection connect(String fileName ) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/"+ fileName;
             conn = null;
@@ -85,7 +85,7 @@ public class createDB {
             }
             //return false;
         }
-        public synchronized boolean creatTablehistory(String fileName) throws SQLException {
+        public synchronized boolean creatTablehistory(String fileName,Connection conn) throws SQLException {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
@@ -179,7 +179,7 @@ public class createDB {
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, pseudo);
-                stmt.setString(2,  String.valueOf(addr));
+                stmt.setString(2, (addr));
                 stmt.executeUpdate();
                 conn.close();
 
@@ -272,7 +272,7 @@ public class createDB {
 
                 // loop through the result set
                 while (rs.next()) {
-                    result = result + "\n" + rs.getString("pseudo")+  "\t" + rs.getString("addr");
+                    result += "\n" + rs.getString("pseudo")+  "\t" + rs.getString("addr");
                    // System.out.println(rs.getString("pseudo")+  "\t" + rs.getString("addr"));
 
                 }
@@ -286,15 +286,17 @@ public class createDB {
             return result;
         }
 
-        public synchronized static ObservableList selectAllConnected(String filename) throws SQLException {
+        public synchronized ObservableList selectAllConnected(String filename) throws SQLException {
             String sql = "SELECT pseudo FROM Connected";
             ObservableList<String> list = FXCollections.observableArrayList();
-
-           try ( Statement stmt  = conn.createStatement();
+         //   System.out.println("je suis dans selecte all connected   debut");
+            try (Connection conn = this.connect(filename);
+            Statement stmt  = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
 
                 // loop through the result set
                 while (rs.next()) {
+                 //   System.out.println("je suis dans selecte all connected   " + rs.getString("pseudo").trim());
                     list.add(rs.getString("pseudo").trim());
                     // System.out.println(rs.getString("pseudo"));
                 }
@@ -341,8 +343,7 @@ public class createDB {
 
                 // loop through the result set
                 while (rs.next()) {
-                    result = result + "\n" + rs.getString("pseudo") +  "\t" +
-                            rs.getString("addr");
+                    result = rs.getString("pseudo") ;
                   //  System.out.println(
                     //        rs.getString("pseudo") +  "\t" +
                       //              rs.getString("addr"));
@@ -406,22 +407,38 @@ public class createDB {
                 // assert
         //
 
-        public synchronized boolean changeIpseudo(String pseudo, String addr, String filename) {
+        public synchronized boolean changeIpseudo(String pseudo, String addr, String filename,String old_pseudo) {
             String sql = "UPDATE IPseudo SET pseudo=? WHERE addr = ?;";
 
+            System.out.println("aadr = " + addr);
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, pseudo);
                 stmt.setString(2, String.valueOf(addr));
                 stmt.executeUpdate();
                 conn.close();
-                return true;
+
             } catch (SQLException e) {
                 System.out.println(
                         e.getMessage());
             }
+
+
+     sql = "UPDATE Connected SET pseudo=? WHERE pseudo = ?;";
+
+            try (Connection conn = this.connect(filename);
+    PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setString(1, pseudo);
+        stmt.setString(2, old_pseudo);
+        stmt.executeUpdate();
+        conn.close();
+        return true;
+    } catch (SQLException e) {
+        System.out.println(
+                e.getMessage());
+    }
             return false;
-        }
+}
 
 
 

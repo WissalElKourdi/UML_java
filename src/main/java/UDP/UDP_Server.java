@@ -68,12 +68,11 @@ public class UDP_Server {
         createDB DB = new createDB(Name_DB);
 
         if ( DB.check(pseudo,Name_DB) ) {
-            System.out.println("Failed ");
-
-        } else {
             broadcast("Deconnected :" + pseudo, port);
             System.out.println("Deconnected :" + pseudo);
-        }
+        } else {
+            System.out.println("Failed ");
+            }
 
     }
     public static void broadcast_end(int port) throws IOException {

@@ -33,12 +33,15 @@ public class UDP_Client extends Thread {
             }
             String msg_rcv = new String (packet.getData(), 0, packet.getLength());
             msg_rcv = msg_rcv.trim();
-                System.out.println("msg received : "+msg_rcv+ "!   ");
+                System.out.println("msg received : "+msg_rcv);
+            try {
                 UDPManager.update(msg_rcv,DB,packet,socket);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
-            System.out.println("ICI");
                 if(msg_rcv.equals("end")) {
-                    System.out.println("socket closed");
+
                     running = false;
 
             }
@@ -46,7 +49,7 @@ public class UDP_Client extends Thread {
 
                 }
         socket.close();
-        System.out.println("LAA");
+
         System.out.println("socket closed port : " + socket.getPort());
         socket.close();
     }}

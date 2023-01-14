@@ -1,6 +1,7 @@
 package Interface;
 
 import Database.createDB;
+import UDP.UDP_Client;
 import UDP.UDP_Server;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,7 +30,8 @@ public class MenuController {
     @FXML
     void display_list(ActionEvent event) throws SQLException {
         //afficher la liste des users connectés
-        ListView<String> connected_users_list = new ListView<String>(createDB.selectAllConnected(DB_name));
+        createDB DB = new createDB(DB_name);
+        ListView<String> connected_users_list = new ListView<String>(DB.selectAllConnected(DB_name));
 
         /*connected_users_list.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -46,7 +48,6 @@ public class MenuController {
 
         try {
             Text text = new Text (User);
-
             //ouvrir la page de chat avec l'user choisi => pb sur comment transmettre l'user choisi
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
             Parent parent = loader.load();
@@ -95,7 +96,15 @@ public class MenuController {
     @FXML
     void disconnect(ActionEvent event) throws IOException, SQLException {
         createDB DB = new createDB(DB_name);
-        UDP_Server.broadcast_deconnection(DB.getPseudo(InetAddress.getLocalHost().toString(),DB_name), port);
+       // System.out.println(DB.selectAllConnected(DB_name));
+       // System.out.println("je suis ici ---------"  );
+        String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
+       // System.out.println(addr);
+      //  System.out.println(DB.selectAllMsgIPseudo(DB_name));
+     //   System.out.println(DB.getPseudo(addr,DB_name));
+        new UDP_Client(port).start();
+        UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
+        UDP_Server.broadcast_end(port);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
             Parent parent = loader.load();

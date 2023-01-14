@@ -55,7 +55,7 @@ public class ChangeLoginController {
                 new UDP_Client(port).start();
                 if (UDP_Server.broadcast_ChangePseudo(name, port)) {
                         try {
-                                UDP_Server.broadcast_connection(name, port);
+                                //UDP_Server.broadcast_connection(name, port);
                                 UDP_Server.broadcast_end(port);
                                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                                 Parent parent = loader.load();
