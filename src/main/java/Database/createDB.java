@@ -358,9 +358,8 @@ public class createDB {
         }
 
         public boolean check(String pseudo, String filename) {
-            String sql = "SELECT EXISTS(SELECT * FROM IPseudo WHERE pseudo= ?);";
+            String sql = "SELECT EXISTS(SELECT * FROM Connected WHERE pseudo= ?);";
             System.out.println("je check le pseudo : "+ pseudo);
-
 
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)){
