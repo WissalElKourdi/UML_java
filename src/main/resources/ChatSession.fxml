@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -14,18 +13,14 @@
             <TextField fx:id="writtenMessage" layoutX="132.0" layoutY="348.0" prefHeight="25.0" prefWidth="249.0" promptText="Write your message here..." />
             <Button fx:id="send" layoutX="405.0" layoutY="348.0" mnemonicParsing="false" onAction="#send" text="Send" />
             <Button fx:id="Back" layoutX="14.0" layoutY="31.0" mnemonicParsing="false" onAction="#backToMenu" text="Back" />
+            <ScrollPane fx:id="Conversation" layoutX="132.0" layoutY="100.0" onDragDetected="#Display_previous_messages" prefHeight="233.0" prefWidth="331.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
             <Button fx:id="change" layoutX="463.0" layoutY="66.0" mnemonicParsing="false" onAction="#changepseudo" text="Change Pseudo" />
             <Text layoutX="132.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chatting with" />
-            <Text fx:id="pseudo_autre" layoutX="228.0" layoutY="91.0" onDragDetected="#find_other_pseudo" strokeType="OUTSIDE" strokeWidth="0.0" text="?" />
-            <TextFlow layoutX="133.0" layoutY="109.0" prefHeight="225.0" prefWidth="249.0">
-               <effect>
-                  <Shadow>
-                     <input>
-                        <ColorAdjust />
-                     </input>
-                  </Shadow>
-               </effect>
-            </TextFlow>
+            <TextFlow fx:id="pseudo_autre" layoutX="219.0" layoutY="74.0" onMouseClicked="#receiveData" prefHeight="25.0" prefWidth="200.0" />
          </children>
       </Pane>
    </children>

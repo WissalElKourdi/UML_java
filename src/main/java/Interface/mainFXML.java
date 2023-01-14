@@ -20,7 +20,7 @@ public class mainFXML extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/login_page.fxml"));    //Tell the FXMLLoader where the FXML file is
             Parent parent = loader.load();                     //create the view and link it with the Controller
 
-            Scene scene = new Scene(parent, 600, 300);
+            Scene scene = new Scene(parent, 600, 400);
 
             stage.setTitle("Chat App");
             stage.setScene(scene);
