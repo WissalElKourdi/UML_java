@@ -13,11 +13,12 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class MenuController {
 
     private static final int port =2000;
-    private String DB_name = "DB_MSG.db";
+    private final String DB_name = "DB_MSG.db";
 
     @FXML
     private Button disconnect;
@@ -27,9 +28,10 @@ public class MenuController {
     private ListView<?> connected_users_list;
 
     @FXML
-    void display_list(ActionEvent event) throws SQLException {
+    void display_list(ListView.EditEvent<?> event) throws SQLException {
         //afficher la liste des users connectés
         createDB DB = new createDB(DB_name);
+        System.out.println("here");
         ListView<String> connected_users_list = new ListView<String>(DB.selectAllConnected(DB_name));
 
         /*connected_users_list.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -92,19 +94,6 @@ public class MenuController {
         new UDP_Client(port).start();
         UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
         UDP_Server.broadcast_end(port);
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 300);
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-
         //retour à la page d'accueil (login)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
@@ -118,18 +107,38 @@ public class MenuController {
         }
     }
 
+
+    @FXML
+    void Display_previous_messages(ActionEvent event) {
+        //display the previous messages with the other person (stored in db)
+        //utiliser get message from pour les 2 username ??
+    }
+
+
+    @FXML
+    private void receiveData(MouseEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+        //Stage stage = (Stage) node.getScene().getWindow();
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("ChatSession.fxml")));
+        Scene scene = new Scene(parent, 600, 400);
+        mainFXML.mainStage.setTitle("Chat App");
+        mainFXML.mainStage.setScene(scene);
+        mainFXML.mainStage.show();
+    }
+
+
     @FXML
     private void sendData(MouseEvent event) {
         User u = new User();
-        u.name = (String) connected_users_list.getSelectionModel().getSelectedItem();
+        User.name = (String) connected_users_list.getSelectionModel().getSelectedItem();
         //Node node = (Node) event.getSource();
        // Stage stage = (Stage) node.getScene().getWindow();
         //stage.close();
         try {
-            Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("ChatSession.fxml"));
+            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("ChatSession.fxml")));
             mainFXML.mainStage.setUserData(u);
             Scene scene = new Scene(parent,600, 400);
-            mainFXML.mainStage.setTitle("Chatting with " + u.name);
+            mainFXML.mainStage.setTitle("Chatting with " + User.name);
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
         } catch (IOException e) {

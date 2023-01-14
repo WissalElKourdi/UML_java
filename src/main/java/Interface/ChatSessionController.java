@@ -1,6 +1,7 @@
 package Interface;
 
 import Database.createDB;
+import UDP.UDP_Client;
 import UDP.UDP_Server;
 
 import javafx.fxml.*;
@@ -41,8 +42,10 @@ public class ChatSessionController {
     void disconnect(ActionEvent event) throws SQLException, IOException {
         //deconnexion
         createDB DB = new createDB(DB_name);
-        UDP_Server.broadcast_deconnection(DB.getPseudo(InetAddress.getLocalHost().toString(),DB_name),port);
-
+        String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
+        new UDP_Client(port).start();
+        UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
+        UDP_Server.broadcast_end(port);
         //retour à la page d'accueil (login)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
@@ -83,33 +86,13 @@ public class ChatSessionController {
         //redirige vers la page de changement de login
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    void Display_previous_messages(ActionEvent event) {
-        //display the previous messages with the other person (stored in db)
-        //utiliser get message from pour les 2 username ??
-    }
-
-
-    @FXML
-    private void receiveData(MouseEvent event) {
-        Node node = (Node) event.getSource();
-        //Stage stage = (Stage) node.getScene().getWindow();
-        User v = (User) mainFXML.mainStage.getUserData();
+       User v = (User) mainFXML.mainStage.getUserData();
         OtherUser = User.getName(v);
 
         //modify textfield to display the username of the other person
         Text text = new Text (OtherUser);
         pseudo_autre.getChildren().add(text);
-    }
-}
+    } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }}
