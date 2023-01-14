@@ -4,14 +4,18 @@ import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.event.ActionEvent;
 import javafx.scene.input.*;
 import javafx.scene.control.*;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.text.*;
 import javafx.scene.text.Text;
 import javafx.scene.Node;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -37,6 +41,7 @@ public class ChatSessionController {
     private Button send;
 
     String OtherUser;
+
 
     @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {

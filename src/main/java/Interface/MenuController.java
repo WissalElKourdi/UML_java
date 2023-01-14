@@ -3,19 +3,30 @@ package Interface;
 import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
-
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.fxml.*;
+import javafx.scene.*;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class MenuController {
+import static javafx.application.Application.launch;
+
+public class MenuController implements  Initializable {
 
     private static final int port =2000;
     private final String DB_name = "DB_MSG.db";
@@ -24,14 +35,21 @@ public class MenuController {
     private Button disconnect;
     @FXML
     private Button change_pseudo;
+
+
     @FXML
     private ListView<?> connected_users_list;
 
+    public MenuController(){
+        System.out.println("here");
+
+    }
     @FXML
-    void display_list(ListView.EditEvent<?> event) throws SQLException {
+
+    public void initialize(ListView.EditEvent<?> event) throws SQLException {
         //afficher la liste des users connectés
         createDB DB = new createDB(DB_name);
-        System.out.println("here");
+
         ListView<String> connected_users_list = new ListView<String>(DB.selectAllConnected(DB_name));
 
         /*connected_users_list.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -42,6 +60,23 @@ public class MenuController {
         });
          */
     }
+    public void start(Stage primaryStage) {
+
+        ListView<String> list = new ListView<>();
+        FXCollections FXCollections = null;
+        ObservableList<String> arr = javafx.collections.FXCollections.observableArrayList("Java", "HTML", "CSS", "C++", "PHP");
+        list.setItems(arr);
+        FlowPane root = new FlowPane();
+        root.getChildren().add(list);
+
+        Scene scene = new Scene(root, 300, 250);
+
+        primaryStage.setTitle("ListView");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+
 
     @FXML public void handleMouseClick(MouseEvent arg0) throws SQLException {
         //sauvegarder l'user choisi par l'utilisateur (évènement on click)
@@ -145,5 +180,33 @@ public class MenuController {
             e.printStackTrace();        }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+     /*   System.out.println("here");
+        ListView<String> list = new ListView<>();
+        ObservableList<String> arr = FXCollections.observableArrayList("Java", "HTML", "CSS", "C++", "PHP");
+        list.setItems(arr);
+        list.setPrefWidth(100);
+        list.setPrefHeight(70);
+        list.setOrientation(Orientation.HORIZONTAL);
+        System.out.println("list " + list);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MenuController.fxml"));
+        Parent parent; 
+        try {
+            parent = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
+        Scene scene = new Scene(parent, 300, 250);
+
+        mainFXML.mainStage.setTitle("ListView");
+        mainFXML.mainStage.setScene(scene);
+        mainFXML.mainStage.show();
+        System.out.println("la");
+        connected_users_list.getChildrenUnmodifiable().add(list);
+*/
+    }
 }
 
