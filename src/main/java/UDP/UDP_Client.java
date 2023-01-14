@@ -5,6 +5,7 @@ import Database.createDB;
 import java.io.IOException;
 import java.net.*;
 import java.lang.*;
+import java.sql.SQLException;
 
 public class UDP_Client extends Thread {
     static DatagramSocket socket = null;
@@ -12,7 +13,7 @@ public class UDP_Client extends Thread {
     private  boolean running;
 
     private createDB DB;
-    public UDP_Client(int port) throws SocketException {
+    public UDP_Client(int port) throws SocketException, SQLException {
         socket = new DatagramSocket(port);
         // if this fails (SocketException), the exception is non-recoverable and is propagated
         System.out.println("Creating Socket");

@@ -55,6 +55,7 @@ public class ChatSessionController {
     void send(ActionEvent event) {
         //récupération du message tapé dans la zone de texte
         String  message = writtenMessage.getText();
+
         //send_udp();
     }
 

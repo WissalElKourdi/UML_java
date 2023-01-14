@@ -5,10 +5,11 @@ import Database.createDB;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import java.sql.SQLException;
 
 public class UDPManager extends UDP_Client{
 
-    public UDPManager(int port) throws SocketException {
+    public UDPManager(int port) throws SocketException, SQLException {
         super(port);
     }
 
