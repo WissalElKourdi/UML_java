@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.SocketException;
+import java.sql.SQLException;
 
 public class LoginController {
     private static final int port = 2000;
@@ -21,11 +22,10 @@ public class LoginController {
     private TextField choose_username;
     @FXML
     private TextFlow returnText;
-    public LoginController() {
 
-    }
     @FXML
     void CheckLogin(ActionEvent event) throws IOException {
+        //fonction pour rediriger vers le menu quand on lcique sur ok, à supprimer à la fin des tests
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
             Parent parent = loader.load();
@@ -41,7 +41,7 @@ public class LoginController {
 
 
     @FXML
-    void saveUsername(ActionEvent event) throws IOException {
+    void saveUsername(ActionEvent event) throws IOException, SQLException {
         //get new username and check that it's not already used : if it's not, change to menu scene
         String name = choose_username.getText();
        // System.out.println("je suis ici" + UDP_Server.broadcast_Pseudo(name));
@@ -55,7 +55,6 @@ public class LoginController {
                 Scene scene = new Scene(parent, 600, 300);
                 mainFXML.mainStage.setTitle("Chat App");
                 mainFXML.mainStage.setScene(scene);
-
                 mainFXML.mainStage.show();
 
             } catch (IOException e) {

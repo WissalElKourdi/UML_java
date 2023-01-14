@@ -11,6 +11,7 @@ import javafx.scene.text.*;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ChangeLoginController {
         private static final int port = 2000;
@@ -47,7 +48,7 @@ public class ChangeLoginController {
         }
 
         @FXML
-        void SaveNewLogin(ActionEvent event) throws IOException{
+        void SaveNewLogin(ActionEvent event) throws IOException, SQLException {
                 //get new username
                 String name = NewLoginArea.getText();
                 //if it's not already used, change to menu scene

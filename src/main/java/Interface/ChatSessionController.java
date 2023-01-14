@@ -1,21 +1,21 @@
 package Interface;
 
+import Database.createDB;
 import UDP.UDP_Server;
 
 import javafx.fxml.*;
-import javafx.stage.*;
 import javafx.scene.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.sql.SQLException;
 
 public class ChatSessionController {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private String DB_name = "DB_MSG.db";
 
     @FXML
     private Button disconnect;
@@ -28,18 +28,33 @@ public class ChatSessionController {
     @FXML
     private Text pseudo_autre;
     @FXML
-    private TextField message;
+    private TextField writtenMessage;
     @FXML
     private Button send;
 
     @FXML
-    void disconnect(ActionEvent event) {
+    void disconnect(ActionEvent event) throws SQLException, IOException {
         //deconnexion
+        createDB DB = new createDB(DB_name);
+        UDP_Server.broadcast_deconnection(DB.getPseudo(InetAddress.getLocalHost().toString(),DB_name));
+
+        //retour à la page d'accueil (login)
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent, 600, 300);
+            mainFXML.mainStage.setTitle("Chat App");
+            mainFXML.mainStage.setScene(scene);
+            mainFXML.mainStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void send(ActionEvent event) {
-        //envoi du message tapé dans la zone de texte
+        //récupération du message tapé dans la zone de texte
+        String  message = writtenMessage.getText();
         //send_udp();
     }
 
@@ -47,40 +62,42 @@ public class ChatSessionController {
     void backToMenu(ActionEvent event) throws IOException {
         try {
             //retour vers la page principale
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));    //Tell the FXMLLoader where the FXML file is
-            Parent parent = loader.load();                     //create the view and link it with the Controller
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
+            Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 300);
-            //Stage stage = new Stage();
-
-            //Preparing the stage
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    void changepseudo(ActionEvent event) {
-
-        //broadcast_ChangePseudo(); //quels arguments
-
+    void changepseudo(ActionEvent event) throws IOException {
+        //redirige vers la page de changement de login
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent, 600, 300);
+            mainFXML.mainStage.setTitle("Chat App");
+            mainFXML.mainStage.setScene(scene);
+            mainFXML.mainStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @FXML
     void Display_previous_messages(ActionEvent event) {
-        //display the previous messages with the other person
+        //display the previous messages with the other person (stored in db)
+        //utiliser get message from pour les 2 username ??
     }
 
     @FXML
-    void find_other_pseudo(ActionEvent event) {
-        //afficher le pseudo de l'interlocuteur
-
+    void find_other_pseudo(ActionEvent event ) {
+        //enregistrer le pseudo de l'autre personne pour le display dans la zone de texte prévue
+        //pseudo_autre.getChildren().add(MenuController.handleMouseClicked);
     }
-
 }
