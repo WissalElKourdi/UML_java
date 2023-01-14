@@ -8,7 +8,7 @@ module UML_java {
     exports communication;
     exports Database;
     exports Interface ;
-    exports Test;
+    //exports Test;
     exports UDP;
 
 }

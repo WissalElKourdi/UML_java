@@ -4,21 +4,19 @@ import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.sql.SQLException;
 
 public class MenuController {
+
     private static final int port =2000;
     private String DB_name = "DB_MSG.db";
-
 
     @FXML
     private Button disconnect;
@@ -59,23 +57,9 @@ public class MenuController {
             e.printStackTrace();
         }
         //System.out.println("clicked on " + connected_users_list.getSelectionModel().getSelectedItem());
+        ListView<String> connected_users_list = new ListView<String>(createDB.selectAllConnected(DB_name));
     }
 
-
-    @FXML
-    void open_chat_session(ActionEvent event)throws IOException {
-        //choose a person to chat with and switch to chatsession window
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 300);
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     void change_pseudo(ActionEvent event) {
@@ -83,7 +67,7 @@ public class MenuController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 300);
+            Scene scene = new Scene(parent, 600, 400);
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -122,13 +106,31 @@ public class MenuController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 300);
+            Scene scene = new Scene(parent, 600, 400);
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void sendData(MouseEvent event) {
+        User u = new User();
+        u.name = (String) connected_users_list.getSelectionModel().getSelectedItem();
+        //Node node = (Node) event.getSource();
+       // Stage stage = (Stage) node.getScene().getWindow();
+        //stage.close();
+        try {
+            Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("ChatSession.fxml"));
+            mainFXML.mainStage.setUserData(u);
+            Scene scene = new Scene(parent,600, 400);
+            mainFXML.mainStage.setTitle("Chatting with " + u.name);
+            mainFXML.mainStage.setScene(scene);
+            mainFXML.mainStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();        }
     }
 
 }

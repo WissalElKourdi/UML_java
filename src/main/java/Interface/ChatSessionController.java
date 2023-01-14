@@ -6,8 +6,11 @@ import UDP.UDP_Server;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.event.ActionEvent;
+import javafx.scene.input.*;
 import javafx.scene.control.*;
+import javafx.scene.text.*;
 import javafx.scene.text.Text;
+import javafx.scene.Node;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -26,11 +29,13 @@ public class ChatSessionController {
     @FXML
     private ScrollPane Conversation;
     @FXML
-    private Text pseudo_autre;
+    private TextFlow pseudo_autre;
     @FXML
     private TextField writtenMessage;
     @FXML
     private Button send;
+
+    String OtherUser;
 
     @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
@@ -42,7 +47,7 @@ public class ChatSessionController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 300);
+            Scene scene = new Scene(parent, 600, 400);
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -64,7 +69,7 @@ public class ChatSessionController {
             //retour vers la page principale
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 300);
+            Scene scene = new Scene(parent, 600, 400);
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -79,7 +84,7 @@ public class ChatSessionController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 300);
+            Scene scene = new Scene(parent, 600, 400);
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -95,9 +100,16 @@ public class ChatSessionController {
         //utiliser get message from pour les 2 username ??
     }
 
+
     @FXML
-    void find_other_pseudo(ActionEvent event ) {
-        //enregistrer le pseudo de l'autre personne pour le display dans la zone de texte prévue
-        //pseudo_autre.getChildren().add(MenuController.handleMouseClicked);
+    private void receiveData(MouseEvent event) {
+        Node node = (Node) event.getSource();
+        //Stage stage = (Stage) node.getScene().getWindow();
+        User v = (User) mainFXML.mainStage.getUserData();
+        OtherUser = User.getName(v);
+
+        //modify textfield to display the username of the other person
+        Text text = new Text (OtherUser);
+        pseudo_autre.getChildren().add(text);
     }
 }

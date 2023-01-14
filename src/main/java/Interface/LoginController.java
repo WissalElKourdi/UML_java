@@ -29,7 +29,7 @@ public class LoginController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 300);
+            Scene scene = new Scene(parent, 600, 400);
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -52,7 +52,7 @@ public class LoginController {
                 UDP_Server.broadcast_end(port);
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                 Parent parent = loader.load();
-                Scene scene = new Scene(parent, 600, 300);
+                Scene scene = new Scene(parent, 600, 400);
                 mainFXML.mainStage.setTitle("Chat App");
                 mainFXML.mainStage.setScene(scene);
                 mainFXML.mainStage.show();
