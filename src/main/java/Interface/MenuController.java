@@ -3,33 +3,42 @@ package Interface;
 import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.fxml.*;
 import javafx.scene.*;
 import java.io.IOException;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
+import Database.createDB;
 import static javafx.application.Application.launch;
 
 public class MenuController implements  Initializable {
 
     private static final int port =2000;
-    private final String DB_name = "DB_MSG.db";
 
     @FXML
     private Button disconnect;
@@ -38,27 +47,46 @@ public class MenuController implements  Initializable {
 
 
     @FXML
-    private ListView<?> connected_users_list;
+    private ListView<String> myListView;
+    @FXML
+    private Label myLabel;
 
-    public MenuController(){
+    List<String> connected = new ArrayList<>();
+
+   String currentConnected;
+    String name_db = "DB_MSG.db";
+
+    public MenuController() throws SQLException {
+
+        createDB BD = new createDB(name_db);
+
+       /* connected.add("Wissal");
+        connected.add("LEo");
+        connected.add("SIS");
+        */
+
+        connected = BD.selectAllConnected(name_db);
+        System.out.println("cooo "+ BD.selectAllConnected(name_db));
+        System.out.println(connected);
         System.out.println("here");
 
     }
-    @FXML
+ /*   @FXML
 
     public void initialize(ListView.EditEvent<?> event) throws SQLException {
         //afficher la liste des users connectés
         createDB DB = new createDB(DB_name);
 
+
         ListView<String> connected_users_list = new ListView<String>(DB.selectAllConnected(DB_name));
 
-        /*connected_users_list.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      connected_users_list.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("clicked on"+ connected_users_list.getSelectionModel().getSelectedItem());
             }
         });
-         */
+
     }
     public void start(Stage primaryStage) {
 
@@ -100,7 +128,7 @@ public class MenuController implements  Initializable {
         ListView<String> connected_users_list = new ListView<String>(DB.selectAllConnected(DB_name));
     }
 
-
+*/
     @FXML
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
@@ -119,16 +147,27 @@ public class MenuController implements  Initializable {
 
     @FXML
     void disconnect(ActionEvent event) throws IOException, SQLException {
+        String DB_name = "DB_MSG.db";
         createDB DB = new createDB(DB_name);
-       // System.out.println(DB.selectAllConnected(DB_name));
-       // System.out.println("je suis ici ---------"  );
-        String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
-       // System.out.println(addr);
-      //  System.out.println(DB.selectAllMsgIPseudo(DB_name));
-     //   System.out.println(DB.getPseudo(addr,DB_name));
+        // System.out.println(DB.selectAllConnected(DB_name));
+        String addr ;
+        try (final DatagramSocket datagramSocket = new DatagramSocket()) {
+            datagramSocket.connect(InetAddress.getByName("255.255.255.255"), 12345);
+            addr = datagramSocket.getLocalAddress().getHostAddress();
+        }
+        //   System.out.println("ADRRR");
+        // InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
+        // System.out.println(addr);
+        //  System.out.println(DB.selectAllMsgIPseudo(DB_name));
+        //   System.out.println(DB.getPseudo(addr,DB_name));
         new UDP_Client(port).start();
-        UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
+        System.out.println(DB.selectAllMsgIPseudo(DB_name));
+        System.out.println("PSEUDOOO" + DB.getPseudo(addr, DB_name));
+        UDP_Server.broadcast_deconnection(DB.getPseudo(addr, DB_name), port);
         UDP_Server.broadcast_end(port);
+        createDB BD = new createDB(name_db);
+        connected = BD.selectAllConnected(name_db);
+        System.out.println("connected updated after deconection");
         //retour à la page d'accueil (login)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
@@ -162,7 +201,7 @@ public class MenuController implements  Initializable {
     }
 
 
-    @FXML
+ /*   @FXML
     private void sendData(MouseEvent event) {
         User u = new User();
         User.name = (String) connected_users_list.getSelectionModel().getSelectedItem();
@@ -179,34 +218,18 @@ public class MenuController implements  Initializable {
         } catch (IOException e) {
             e.printStackTrace();        }
     }
-
+*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-     /*   System.out.println("here");
-        ListView<String> list = new ListView<>();
-        ObservableList<String> arr = FXCollections.observableArrayList("Java", "HTML", "CSS", "C++", "PHP");
-        list.setItems(arr);
-        list.setPrefWidth(100);
-        list.setPrefHeight(70);
-        list.setOrientation(Orientation.HORIZONTAL);
-        System.out.println("list " + list);
+        myListView.getItems().addAll(connected);
+        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MenuController.fxml"));
-        Parent parent; 
-        try {
-            parent = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        
-        Scene scene = new Scene(parent, 300, 250);
-
-        mainFXML.mainStage.setTitle("ListView");
-        mainFXML.mainStage.setScene(scene);
-        mainFXML.mainStage.show();
-        System.out.println("la");
-        connected_users_list.getChildrenUnmodifiable().add(list);
-*/
+    @Override
+    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+        currentConnected = myListView.getSelectionModel().getSelectedItem();
+        myLabel.setText(currentConnected);
+    }
+});
     }
 }
 

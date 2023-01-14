@@ -44,6 +44,9 @@ public class UDPManager extends UDP_Client{
         } else  if (msg.startsWith("Deconnected :")) {
             String pseudo = msg.substring(msg.lastIndexOf(':') + 1);
             DB.deleteConnected(pseudo.trim(), name_db);
+            System.out.println("---");
+            System.out.println(DB.selectAllConnected(name_db));
+            System.out.println("---");
 
         }
         System.out.println("je suis sortie et j'ai fini update");

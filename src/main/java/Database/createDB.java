@@ -214,11 +214,11 @@ public class createDB {
 
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
-
                 // set the corresponding param
                 stmt.setString(1, pseudo);
                 // execute the delete statement
                 stmt.executeUpdate();
+                System.out.println(pseudo + "deleted from connected");
                 conn.close();
 
                 return true;
@@ -286,24 +286,27 @@ public class createDB {
             return result;
         }
 
-        public synchronized ObservableList selectAllConnected(String filename) throws SQLException {
+        public synchronized List<String> selectAllConnected(String filename) throws SQLException {
             String sql = "SELECT pseudo FROM Connected";
-            ObservableList<String> list = FXCollections.observableArrayList();
+            List<String> list = new ArrayList<>();
+            System.out.println("SELECT");
          //   System.out.println("je suis dans selecte all connected   debut");
             try (Connection conn = this.connect(filename);
-            Statement stmt  = conn.createStatement();
+                 Statement stmt  = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
 
                 // loop through the result set
                 while (rs.next()) {
+                    System.out.println("icii");
                  //   System.out.println("je suis dans selecte all connected   " + rs.getString("pseudo").trim());
+                    System.out.println("pseudo" + rs.getString("pseudo").trim());
                     list.add(rs.getString("pseudo").trim());
                     // System.out.println(rs.getString("pseudo"));
                 }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            conn.close();
+            //conn.close();
             return list;
         }
 
@@ -336,6 +339,7 @@ public class createDB {
         public synchronized String getPseudo(String addr, String filename) throws SQLException {
             String sql = "SELECT  pseudo,addr FROM IPseudo WHERE addr= ?";
             String result ="";
+
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt  = conn.prepareStatement(sql)){
                 stmt.setString(1,addr);
@@ -343,6 +347,7 @@ public class createDB {
 
                 // loop through the result set
                 while (rs.next()) {
+
                     result = rs.getString("pseudo") ;
                   //  System.out.println(
                     //        rs.getString("pseudo") +  "\t" +

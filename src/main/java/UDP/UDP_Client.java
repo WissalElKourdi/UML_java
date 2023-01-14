@@ -18,6 +18,7 @@ public class UDP_Client extends Thread {
         // if this fails (SocketException), the exception is non-recoverable and is propagated
         System.out.println("Creating Socket");
         DB = new createDB(Name_DB);
+
     }
 
     public void run (){
@@ -25,33 +26,33 @@ public class UDP_Client extends Thread {
        running = true;
 
         while (running){
+
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
             try {
                 socket.receive(packet);
+                System.out.println("socket ");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
             String msg_rcv = new String (packet.getData(), 0, packet.getLength());
             msg_rcv = msg_rcv.trim();
-                System.out.println("msg received : "+msg_rcv);
             try {
                 UDPManager.update(msg_rcv,DB,packet,socket);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-
-                if(msg_rcv.equals("end")) {
+            System.out.println("msg  " + msg_rcv);
+            if(msg_rcv.equals("end")) {
 
                     running = false;
 
-            }
-            msg_rcv = "";
-
-                }
+            }  }
         socket.close();
-
         System.out.println("socket closed port : " + socket.getPort());
-        socket.close();
+
+
+
     }}
             /*
         DatagramSocket socket ;
