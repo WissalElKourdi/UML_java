@@ -23,22 +23,6 @@ public class LoginController {
     @FXML
     private TextFlow returnText;
 
-    @FXML
-    void CheckLogin(ActionEvent event) throws IOException {
-        //fonction pour rediriger vers le menu quand on lcique sur ok, à supprimer à la fin des tests
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
     @FXML
     void saveUsername(ActionEvent event) throws IOException, SQLException {

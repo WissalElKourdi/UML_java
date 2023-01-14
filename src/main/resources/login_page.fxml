@@ -23,7 +23,6 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="ok" layoutX="359.0" layoutY="188.0" mnemonicParsing="false" onAction="#CheckLogin" text="ok" />
             <TextField fx:id="choose_username" layoutX="222.0" layoutY="110.0" onAction="#saveUsername" promptText="Enter your username" />
             <TextFlow fx:id="returnText" layoutX="207.0" layoutY="135.0" prefHeight="33.0" prefWidth="200.0" />
             <!-- End of Login Form -->

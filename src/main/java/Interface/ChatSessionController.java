@@ -98,6 +98,7 @@ public class ChatSessionController {
     void Display_previous_messages(ActionEvent event) {
         //display the previous messages with the other person (stored in db)
         //utiliser get message from pour les 2 username ??
+        //afficher les messages + la personne qui l'a envoyé et la date
     }
 
 

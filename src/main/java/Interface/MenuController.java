@@ -12,6 +12,15 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.sql.SQLException;
 
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
 public class MenuController {
 
     private static final int port =2000;
@@ -27,7 +36,9 @@ public class MenuController {
     @FXML
     void display_list(ActionEvent event) throws SQLException {
         //afficher la liste des users connectés
-        ListView<String> connected_users_list = new ListView<String>(createDB.selectAllConnected(DB_name));
+        //ListView<String> connected_users_list = new ListView<String>(createDB.selectAllConnected(DB_name));
+        ListView<String> connected_users_list = new ListView<String>();
+        ListView.setItems(createDB.selectAllConnected(DB_name));
     }
 
 
