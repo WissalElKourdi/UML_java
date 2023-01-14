@@ -1,5 +1,6 @@
 package Interface;
 
+import UDP.UDP_Client;
 import UDP.UDP_Server;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 
 public class ChangeLoginController {
+        private static final int port = 2000;
         @FXML
         private Button cancelButton;
         @FXML
@@ -20,6 +22,14 @@ public class ChangeLoginController {
         private TextArea NewLoginArea;
         @FXML
         private TextFlow result;
+  /*      public ChangeLoginController() {
+                try {
+                       new UDP_Client(port).start();
+                } catch (IOException e) {
+                        throw new RuntimeException(e);
+                }
+        }*/
+
 
         @FXML
         void CancelClicked(ActionEvent event) throws IOException{
@@ -41,18 +51,23 @@ public class ChangeLoginController {
                 //get new username
                 String name = NewLoginArea.getText();
                 //if it's not already used, change to menu scene
-                if (UDP_Server.broadcast_ChangePseudo(name)) {
+                new UDP_Client(port).start();
+                if (UDP_Server.broadcast_ChangePseudo(name, port)) {
                         try {
+                                UDP_Server.broadcast_connection(name, port);
+                                UDP_Server.broadcast_end(port);
                                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                                 Parent parent = loader.load();
                                 Scene scene = new Scene(parent, 600, 300);
                                 mainFXML.mainStage.setTitle("Chat App");
                                 mainFXML.mainStage.setScene(scene);
                                 mainFXML.mainStage.show();
+
                         } catch (IOException e) {
                                 e.printStackTrace();
                         }
                 }else{
+                        UDP_Server.broadcast_end(port);
                         Text text = new Text ("This username is already taken, choose another one");
                         result.getChildren().add(text);
                 }

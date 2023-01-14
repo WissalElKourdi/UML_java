@@ -15,7 +15,7 @@ public class DBTest {
     private String Name_DB = "DB_MSG.db";
     @Test
     public void dbCreationTest() throws SQLException, IOException, InterruptedException {
-       System.out.println("-----------------------------TEST DATABASE -----------------------");
+   /*    System.out.println("-----------------------------TEST DATABASE -----------------------");
       createDB DB = new createDB(DB_NAME);
         //Connection conn = DB.connect("DB_Test.db");
 
@@ -48,12 +48,12 @@ public class DBTest {
         assert DB.changeIpseudo("Wiwi", "10.10.2.0", DB_NAME);
         assert Objects.equals(DB.getPseudo("10.10.2.0", DB_NAME), "Wiwi");
 
-*/
+/*
 
-        createDB DB_UDP = new createDB(Name_DB);
-        System.out.println(DB_UDP.selectAllMsgIPseudo(Name_DB));
+        //createDB DB_UDP = new createDB(Name_DB);
+       // System.out.println(DB_UDP.selectAllMsgIPseudo(Name_DB));
        // DB.connect(Name_DB);
-        System.out.println("-----------------------------TEST DATABASE UDP-----------------------");
+       // System.out.println("-----------------------------TEST DATABASE UDP-----------------------");
         new UDP_Client().start();
        new UDP_Server().broadcast("TEST");
         new UDP_Server().broadcast_end();
@@ -72,6 +72,9 @@ public class DBTest {
         new UDP_Server().broadcast_end();
         System.out.println(DB_UDP.selectAllConnected(Name_DB));
         DB.selectAllMsgIPseudo(Name_DB);
-
+*/
+        createDB DB = new createDB("DB_MSG.db");
+      //  System.out.println(DB.selectAllConnected(Name_DB));
+        System.out.println(DB.selectAllMsgIPseudo(Name_DB));
     }
 }

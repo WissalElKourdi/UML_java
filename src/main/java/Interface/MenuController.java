@@ -14,8 +14,8 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 public class MenuController {
-
-    private String DB_name = "My-DB.db";
+    private static final int port =2000;
+    private String DB_name = "DB_MSG.db";
     @FXML
     private Button disconnect;
     @FXML
@@ -69,7 +69,18 @@ public class MenuController {
     @FXML
     void disconnect(ActionEvent event) throws IOException, SQLException {
         createDB DB = new createDB(DB_name);
-        UDP_Server.broadcast_deconnection(DB.getPseudo(InetAddress.getLocalHost().toString(),DB_name));
+        UDP_Server.broadcast_deconnection(DB.getPseudo(InetAddress.getLocalHost().toString(),DB_name), port);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent, 600, 300);
+            mainFXML.mainStage.setTitle("Chat App");
+            mainFXML.mainStage.setScene(scene);
+            mainFXML.mainStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

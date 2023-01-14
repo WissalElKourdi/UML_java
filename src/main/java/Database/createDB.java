@@ -333,7 +333,7 @@ import java.sql.*;
             return result;
         }
 
-        public synchronized boolean check(String pseudo, String filename) {
+        public boolean check(String pseudo, String filename) {
             String sql = "SELECT EXISTS(SELECT * FROM IPseudo WHERE pseudo= ?);";
             System.out.println("je check le pseudo : "+ pseudo);
 
