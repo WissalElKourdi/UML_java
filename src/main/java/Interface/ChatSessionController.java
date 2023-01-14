@@ -2,16 +2,21 @@ package Interface;
 
 import Database.createDB;
 import UDP.UDP_Server;
+import java.net.Socket;
 
+import communication.TCP_Server;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.sql.SQLException;
+
+
 
 public class ChatSessionController {
 
@@ -31,6 +36,7 @@ public class ChatSessionController {
     private TextField writtenMessage;
     @FXML
     private Button send;
+    /*private final TextFlow CHAT = new TextFlow();*/
 
     @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
@@ -50,11 +56,11 @@ public class ChatSessionController {
             e.printStackTrace();
         }
     }
-
     @FXML
     void send(ActionEvent event) {
         //récupération du message tapé dans la zone de texte
         String  message = writtenMessage.getText();
+        /*CHAT.getChildren().add(new Text(message));*/
 
         //send_udp();
     }
