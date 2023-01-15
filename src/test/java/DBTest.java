@@ -75,6 +75,12 @@ public class DBTest {
 */
         createDB DB = new createDB("DB_MSG.db");
       //  System.out.println(DB.selectAllConnected(Name_DB));
+        System.out.println("---");
         System.out.println(DB.selectAllMsgIPseudo(Name_DB));
+        System.out.println("---");
+        System.out.println(DB.selectAllConnected(Name_DB));
+        System.out.println("---");
+        System.out.println(DB.selectAllMsgHistory(Name_DB));
+        System.out.println("---");
     }
 }
