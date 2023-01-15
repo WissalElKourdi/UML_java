@@ -32,7 +32,6 @@ public class UDP_Server {
             System.out.println("Pseudo chosen:"+ pseudo);
             return true;
         }
-
     }
 
     public static boolean broadcast_ChangePseudo (String newpseudo, int port) throws IOException, SQLException {
@@ -61,7 +60,6 @@ public class UDP_Server {
             broadcast("Connected :" + pseudo, port);
             System.out.println("connected :" + pseudo);
         }
-
     }
 
     //se déconnecter et broadcast auprès des autres utilisateurs
@@ -72,12 +70,11 @@ public class UDP_Server {
             System.out.println("Deconnected :" + pseudo);
         } else {
             System.out.println("Failed ");
-            }
-
+        }
     }
     public static void broadcast_end(int port) throws IOException {
-
-        broadcast("end", port);}
+        broadcast("end", port);
+    }
 
 
   /*  //static ou pas ??

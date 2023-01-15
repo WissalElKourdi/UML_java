@@ -44,26 +44,18 @@ public class UDP_Client extends Thread {
             }
 
             if(msg_rcv.equals("end")) {
-
                     running = false;
-
             }  }
         socket.close();
         System.out.println("socket closed port : " + socket.getPort());
-
-
-
-    }}
+    }
+}
             /*
         DatagramSocket socket ;
         boolean running;
         running = true;
 
         socket = new DatagramSocket(UDP_Server.port);
-
-
-
-
 
                 System.out.println("Ready to receive broadcast packets!");
                 //Receive a packet
@@ -72,8 +64,6 @@ public class UDP_Client extends Thread {
                 InetAddress address = packet.getAddress();
 
              /*
-
-
                 packet = new DatagramPacket(buffer, buffer.length, address, port);
                 //String received = new String(packet.getData(), 0, packet.getLength());
                 System.out.println("received");
@@ -97,15 +87,12 @@ public class UDP_Client extends Thread {
                 handler4(msg_rcv,DB,packet);
                 Thread.sleep(90000);
 
-
                 if (msg_rcv.equals("end")){
                     running = false;
                     System.out.println("Socket closed");
                 }
-
             }
 //Thread.yield();
-
            // socket.close();
         } catch (SocketException e) {
             e.printStackTrace();
@@ -113,6 +100,5 @@ public class UDP_Client extends Thread {
             throw new RuntimeException(e);
         }
     }
-
                  */
 

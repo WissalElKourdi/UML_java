@@ -11,21 +11,21 @@
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
             <!-- The Beginning of Login form -->
-            <Label layoutX="76.0" layoutY="71.0" prefHeight="65.0" prefWidth="427.0" style="-fx-text-fill: #A9A9A9;" text="Change your username">
+            <Label layoutX="76.0" layoutY="71.0" prefHeight="65.0" prefWidth="427.0"  text="Change your username">
                <font>
                   <Font name="SansSerif Regular" size="36.0" />
                </font>
             </Label>
 
             <!-- Cancel Button -->
-            <Button fx:id="cancelButton" layoutX="190.0" layoutY="221.0" mnemonicParsing="false" onAction="#CancelClicked" style="-fx-background-color: transparent; -fx-text-fill: #A9A9A9; -fx-border-width: 2; -fx-border-color: #A9A9A9; -fx-border-radius: 5;" text="Cancel">
+            <Button fx:id="cancelButton" layoutX="190.0" layoutY="221.0" mnemonicParsing="false" onAction="#CancelClicked" text="Cancel">
                <font>
                   <Font name="SansSerif Regular" size="15.0" />
                </font>
             </Button>
 
             <!-- Login Button -->
-            <Button fx:id="SaveButton" layoutX="301.0" layoutY="209.0" mnemonicParsing="false" onAction="#SaveNewLogin" prefHeight="57.0" prefWidth="90.0" style="-fx-background-color: #24a0ed; -fx-text-fill: white; -fx-border-radius: 5; -fx-border-width: 2; -fx-border-color: #24a0ed;" text="Save">
+            <Button fx:id="SaveButton" layoutX="301.0" layoutY="209.0" mnemonicParsing="false" onAction="#SaveNewLogin" prefHeight="57.0" prefWidth="90.0"  text="Save">
                <font>
                   <Font size="15.0" />
                </font>

@@ -160,6 +160,7 @@ public class MenuController extends Thread implements  Initializable {
           FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
           Parent parent = loader.load();
           Scene scene = new Scene(parent, 600, 400);
+          scene.getStylesheets().add("/styles.css");
           mainFXML.mainStage.setTitle("Chat App");
           mainFXML.mainStage.setScene(scene);
           mainFXML.mainStage.show();
@@ -215,10 +216,12 @@ public class MenuController extends Thread implements  Initializable {
 
                 try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
                     Parent parent = loader.load();
-                Scene scene = new Scene(parent, 600, 400);
-                mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
-                mainFXML.mainStage.setScene(scene);
-                mainFXML.mainStage.show();
+                    Scene scene = new Scene(parent, 600, 400);
+                    scene.getStylesheets().add("/styles.css");
+
+                    mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
+                    mainFXML.mainStage.setScene(scene);
+                    mainFXML.mainStage.show();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

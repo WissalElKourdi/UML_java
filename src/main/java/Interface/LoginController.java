@@ -16,6 +16,7 @@ import java.sql.SQLException;
 
 public class LoginController {
     private static final int port = 2000;
+
     @FXML
     private Button LoginButton;
     @FXML
@@ -37,6 +38,8 @@ public class LoginController {
                 Parent parent = loader.load();
 
                 Scene scene = new Scene(parent, 600, 400);
+                scene.getStylesheets().add("/styles.css");
+
                 mainFXML.mainStage.setTitle("Chat App");
                 mainFXML.mainStage.setScene(scene);
                 mainFXML.mainStage.show();
