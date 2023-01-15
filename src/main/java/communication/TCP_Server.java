@@ -11,8 +11,12 @@ import java.util.Scanner;
 
 public class TCP_Server extends Thread {
     private Socket socket;
+/*
+    public  TCP_Server(Socket socket){
+        this.socket=socket;
+    }*/
 
-
+      //fonction qui permet de recevoir les messages
     public static void receivemessage(String Message,Socket socket) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         try {
@@ -31,6 +35,8 @@ public class TCP_Server extends Thread {
             System.err.println(e.getMessage());
         }
     }
+
+    //fonction qui permet d'envoyer les messages
     public static void sendMessage(String Message,Socket socket) throws IOException {
         Scanner sc = new Scanner(System.in);
         PrintWriter out = new PrintWriter(socket.getOutputStream());
@@ -39,7 +45,7 @@ public class TCP_Server extends Thread {
         out.println(Message + " " + time); // renvoyer le message ( à changer si on va créer une classe display)
         out.flush(); // flush les buffers pour ne pas envoyer un null au client à la fin
     }
-
+ // un thread qui tourne constamment qui permet de recevoir les messages à tout moment
     public static void launchReceiverThread(Socket socket) {
 
         try {
@@ -61,12 +67,15 @@ public class TCP_Server extends Thread {
                 System.err.println(e.getMessage());
             }
         }
+
+        // Un thread qui permet d'envoyer les messages en boucle
         public static void SenderThread (Socket socket, String Message) throws SQLException {
             //Scanner sc = new Scanner(System.in);
             String DB_NAME = "DB_MSG.db";
         //    createDB DB = new createDB(DB_NAME);
             // PrintWriter out = new PrintWriter(socket.getOutputStream());
             Thread envoi = new Thread(new Runnable() {// la création des 2 threads a pour but de permettre l'envoi et la réception simultanément
+                String Message;
 
                 public void run() {
 

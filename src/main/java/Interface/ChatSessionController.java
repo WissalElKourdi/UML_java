@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,6 +46,8 @@ public class ChatSessionController implements Initializable {
     private ListView<String> myListView;
     @FXML
     private Label myLabel;
+    @FXML
+            private Socket socket;
     String OtherUser;
 
     List<String> msgs = new ArrayList<>();
@@ -110,7 +113,9 @@ public ChatSessionController( )  throws SQLException {
         createDB DB = new createDB(DB_name);
         int port = DB.selectPort(pseudo,DB_name);
         TCP_Server server= new TCP_Server();
-        TCP_Client client = new TCP_Client();
+        TCP_Server.launchReceiverThread(socket);
+        TCP_Server.SenderThread(socket);
+        //TCP_Client client = new TCP_Client();
        //TCP_Client t_c = new TCP_Client();
        //TCP_Client.goClient(message,port);
        //TCP_Server.goThreadsend(port,message);
