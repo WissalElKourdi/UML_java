@@ -67,47 +67,53 @@ public class MenuController extends Thread implements  Initializable {
     public MenuController() throws SQLException {
 
         createDB BD = new createDB(name_db);
-       /* connected.add("Wissal");
-        connected.add("LEo");
-        connected.add("SIS");
-        */
         connected = BD.selectAllConnected(name_db);
 
     }
- /*   @FXML
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            TCP_Server.servtcp();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-    public void initialize(ListView.EditEvent<?> event) throws SQLException {
-        //afficher la liste des users connectés
-        createDB DB = new createDB(DB_name);
-
-
-        ListView<String> connected_users_list = new ListView<String>(DB.selectAllConnected(DB_name));
-
-      connected_users_list.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        myListView.getItems().addAll(connected);
+        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("clicked on"+ connected_users_list.getSelectionModel().getSelectedItem());
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                currentConnected = myListView.getSelectionModel().getSelectedItem();
+                myLabel.setText(currentConnected);
+
+                try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
+                    Parent parent = loader.load();
+                    Scene scene = new Scene(parent, 600, 400);
+                    scene.getStylesheets().add("/styles.css");
+                    mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
+                    mainFXML.mainStage.setScene(scene);
+                    mainFXML.mainStage.show();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
     }
-    public void start(Stage primaryStage) {
 
+    public void start(Stage primaryStage) {
         ListView<String> list = new ListView<>();
         FXCollections FXCollections = null;
         ObservableList<String> arr = javafx.collections.FXCollections.observableArrayList("Java", "HTML", "CSS", "C++", "PHP");
         list.setItems(arr);
         FlowPane root = new FlowPane();
         root.getChildren().add(list);
-
         Scene scene = new Scene(root, 300, 250);
-
         primaryStage.setTitle("ListView");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-*/
+
     @FXML
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
@@ -124,7 +130,54 @@ public class MenuController extends Thread implements  Initializable {
 
     }
 
-  /*  @FXML
+
+  @FXML
+  void disconnect(ActionEvent event) throws SQLException, IOException {
+      //deconnexion
+      createDB DB = new createDB(DB_name);
+      String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
+      new UDP_Client(port).start();
+      UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
+      UDP_Server.broadcast_end(port);
+      //retour à la page d'accueil (login)
+      try {
+          FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
+          Parent parent = loader.load();
+          Scene scene = new Scene(parent, 600, 400);
+          scene.getStylesheets().add("/styles.css");
+          mainFXML.mainStage.setTitle("Chat App");
+          mainFXML.mainStage.setScene(scene);
+          mainFXML.mainStage.show();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+  }
+
+
+
+}
+
+
+
+ /*   @FXML
+    private void sendData(MouseEvent event) {
+        User u = new User();
+        User.name = (String) connected_users_list.getSelectionModel().getSelectedItem();
+        //Node node = (Node) event.getSource();
+       // Stage stage = (Stage) node.getScene().getWindow();
+        //stage.close();
+        try {
+            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("ChatSession.fxml")));
+            mainFXML.mainStage.setUserData(u);
+            Scene scene = new Scene(parent,600, 400);
+            mainFXML.mainStage.setTitle("Chatting with " + User.name);
+            mainFXML.mainStage.setScene(scene);
+            mainFXML.mainStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();        }
+    }
+*/
+/*  @FXML
     void disconnect(ActionEvent event) throws IOException, SQLException {
         String DB_name = "DB_MSG.db";
         createDB DB = new createDB(DB_name);
@@ -151,100 +204,4 @@ public class MenuController extends Thread implements  Initializable {
             e.printStackTrace();
         }
     }*/
-
-  @FXML
-  void disconnect(ActionEvent event) throws SQLException, IOException {
-      //deconnexion
-      createDB DB = new createDB(DB_name);
-      String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
-      new UDP_Client(port).start();
-      UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
-      UDP_Server.broadcast_end(port);
-      //retour à la page d'accueil (login)
-      try {
-          FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
-          Parent parent = loader.load();
-          Scene scene = new Scene(parent, 600, 400);
-          scene.getStylesheets().add("/styles.css");
-          mainFXML.mainStage.setTitle("Chat App");
-          mainFXML.mainStage.setScene(scene);
-          mainFXML.mainStage.show();
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-  }
-
-
-
- /*   @FXML
-    private void sendData(MouseEvent event) {
-        User u = new User();
-        User.name = (String) connected_users_list.getSelectionModel().getSelectedItem();
-        //Node node = (Node) event.getSource();
-       // Stage stage = (Stage) node.getScene().getWindow();
-        //stage.close();
-        try {
-            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("ChatSession.fxml")));
-            mainFXML.mainStage.setUserData(u);
-            Scene scene = new Scene(parent,600, 400);
-            mainFXML.mainStage.setTitle("Chatting with " + User.name);
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();        }
-    }
-*/
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            TCP_Server.servtcp();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            server = new ServerTcp(new ServerSocket(1234));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        createDB DB = null;
-        try (final DatagramSocket datagramSocket = new DatagramSocket()) {
-            DB = new createDB("DB_MSG.db");
-            String addr ;
-            datagramSocket.connect(InetAddress.getByName("255.255.255.255"), 12345);
-            addr = datagramSocket.getLocalAddress().getHostAddress();
-             ///port= DB.selectPort( DB.getPseudo(addr,"DB_MSG.db"),"DB_MSG.db");
-            //port = 5000;
-           // TCP_Server TCP_srv = new TCP_Server();
-
-            //TCP_Server.goThreadwait(port);
-           // TCP_Server.launchReceiverThread(socket);
-        } catch (SQLException | UnknownHostException | SocketException e) {
-            throw new RuntimeException(e);
-        }
-
-        myListView.getItems().addAll(connected);
-        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-               currentConnected = myListView.getSelectionModel().getSelectedItem();
-               myLabel.setText(currentConnected);
-
-                try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
-                    Parent parent = loader.load();
-                    Scene scene = new Scene(parent, 600, 400);
-                    scene.getStylesheets().add("/styles.css");
-
-                    mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
-                    mainFXML.mainStage.setScene(scene);
-                    mainFXML.mainStage.show();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
-    }
-}
 

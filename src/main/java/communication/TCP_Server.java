@@ -1,6 +1,8 @@
 package communication;
 
 import Database.createDB;
+import Interface.ServerController;
+import javafx.scene.layout.VBox;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -49,7 +51,7 @@ public class TCP_Server extends Thread {
     public static void launchReceiverThread(Socket socket) {
 
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            //BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             Thread recevoir = new Thread(new Runnable() {
                 String Message;
@@ -90,7 +92,9 @@ public class TCP_Server extends Thread {
             });
             envoi.start();
         }
-        public static void servtcp () throws IOException {
+
+
+    public static void servtcp () throws IOException {
             new Thread(new Runnable() {
                 public void run() {
             int port = 50000;
