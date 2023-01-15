@@ -8,23 +8,15 @@ import communication.TCP_Client;
 import communication.TCP_Server;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.event.ActionEvent;
-import javafx.scene.input.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.text.*;
 import javafx.scene.text.Text;
-import javafx.scene.Node;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -111,16 +103,13 @@ public ChatSessionController( )  throws SQLException {
         String pseudo = mainFXML.mainStage.getTitle();
         createDB DB = new createDB(DB_name);
         int port = DB.selectPort(pseudo,DB_name);
-       TCP_Client t_c = new TCP_Client();
-       TCP_Client.goClient(message,port);
-       TCP_Server.goThreadsend(port,message);
+        TCP_Server server= new TCP_Server();
+        TCP_Client client = new TCP_Client();
+       //TCP_Client t_c = new TCP_Client();
+       //TCP_Client.goClient(message,port);
+       //TCP_Server.goThreadsend(port,message);
     }
-
-
-
         //send_udp();
-
-
     @FXML
     void backToMenu(ActionEvent event) throws IOException {
         try {
