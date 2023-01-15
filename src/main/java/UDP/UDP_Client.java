@@ -30,7 +30,7 @@ public class UDP_Client extends Thread {
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
             try {
                 socket.receive(packet);
-                System.out.println("socket ");
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -42,7 +42,7 @@ public class UDP_Client extends Thread {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("msg  " + msg_rcv);
+
             if(msg_rcv.equals("end")) {
 
                     running = false;

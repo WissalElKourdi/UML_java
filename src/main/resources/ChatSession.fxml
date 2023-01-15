@@ -13,14 +13,18 @@
             <TextField fx:id="writtenMessage" layoutX="132.0" layoutY="348.0" prefHeight="25.0" prefWidth="249.0" promptText="Write your message here..." />
             <Button fx:id="send" layoutX="405.0" layoutY="348.0" mnemonicParsing="false" onAction="#send" text="Send" />
             <Button fx:id="Back" layoutX="14.0" layoutY="31.0" mnemonicParsing="false" onAction="#backToMenu" text="Back" />
-            <ScrollPane fx:id="Conversation" layoutX="132.0" layoutY="100.0" onDragDetected="#Display_previous_messages" prefHeight="233.0" prefWidth="331.0">
+            <ScrollPane fx:id="Conversation" layoutX="132.0" layoutY="100.0"  prefHeight="233.0" prefWidth="331.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                 <AnchorPane fx:id="history_msg" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                 <children>
+                    <ListView fx:id="myListView" layoutX="43.0" layoutY="12.0" prefHeight="200.0" prefWidth="200.0" />
+                 </children>
               </content>
             </ScrollPane>
             <Button fx:id="change" layoutX="463.0" layoutY="66.0" mnemonicParsing="false" onAction="#changepseudo" text="Change Pseudo" />
             <Text layoutX="132.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chatting with" />
-            <TextFlow fx:id="pseudo_autre" layoutX="219.0" layoutY="74.0" onMouseClicked="#receiveData" prefHeight="25.0" prefWidth="200.0" />
+            <TextFlow fx:id="pseudo_autre" layoutX="219.0" layoutY="74.0"  prefHeight="25.0" prefWidth="200.0" />
+            <Label fx:id="myLabel" layoutX="259.0" layoutY="55.0" text="Label" />
          </children>
       </Pane>
    </children>

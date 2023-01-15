@@ -4,6 +4,10 @@ import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
 
+import communication.TCP_Client;
+import communication.TCP_Server;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.*;
@@ -19,9 +23,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class ChatSessionController {
+public class ChatSessionController implements Initializable {
 
     private String DB_name = "DB_MSG.db";
     private static final int port =2000;
@@ -39,11 +49,40 @@ public class ChatSessionController {
     private TextField writtenMessage;
     @FXML
     private Button send;
-
+    @FXML
+    private ListView<String> myListView;
+    @FXML
+    private Label myLabel;
     String OtherUser;
 
+    List<String> msgs = new ArrayList<>();
 
-    @FXML
+    String currentmsg;
+
+public ChatSessionController( )  throws SQLException {
+
+    createDB BD = new createDB(DB_name);
+
+       /* connected.add("Wissal");
+        connected.add("LEo");
+        connected.add("SIS");
+        */
+
+    msgs = BD.selectAllMsgHistory(DB_name);
+    System.out.println(msgs);
+}
+    public void initialize(URL url, ResourceBundle resourceBundle){
+        myListView.getItems().addAll(msgs);
+        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+
+
+    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+        currentmsg = myListView.getSelectionModel().getSelectedItem();
+        myLabel.setText(currentmsg);
+    }
+        });}
+        @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
         //deconnexion
         createDB DB = new createDB(DB_name);
@@ -65,11 +104,22 @@ public class ChatSessionController {
     }
 
     @FXML
-    void send(ActionEvent event) {
+    void send(ActionEvent event) throws SQLException {
         //récupération du message tapé dans la zone de texte
         String  message = writtenMessage.getText();
-        //send_udp();
+        System.out.println("MEssage written : " + message);
+        String pseudo = mainFXML.mainStage.getTitle();
+        createDB DB = new createDB(DB_name);
+        int port = DB.selectPort(pseudo,DB_name);
+       TCP_Client t_c = new TCP_Client();
+       TCP_Client.goClient(message,port);
+       TCP_Server.goThreadsend(port,message);
     }
+
+
+
+        //send_udp();
+
 
     @FXML
     void backToMenu(ActionEvent event) throws IOException {
@@ -100,4 +150,8 @@ public class ChatSessionController {
     } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }}
+    }
+
+
+
+}

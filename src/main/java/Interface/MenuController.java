@@ -3,6 +3,7 @@ package Interface;
 import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
+import communication.TCP_Server;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -25,9 +26,7 @@ import javafx.scene.Node;
 import javafx.fxml.*;
 import javafx.scene.*;
 import java.io.IOException;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.URL;
+import java.net.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +35,9 @@ import java.util.ResourceBundle;
 import Database.createDB;
 import static javafx.application.Application.launch;
 
-public class MenuController implements  Initializable {
+public class MenuController extends Thread implements  Initializable {
 
-    private static final int port =2000;
+    //private static final int port =2000;
 
     @FXML
     private Button disconnect;
@@ -66,9 +65,6 @@ public class MenuController implements  Initializable {
         */
 
         connected = BD.selectAllConnected(name_db);
-        System.out.println("cooo "+ BD.selectAllConnected(name_db));
-        System.out.println(connected);
-        System.out.println("here");
 
     }
  /*   @FXML
@@ -149,25 +145,17 @@ public class MenuController implements  Initializable {
     void disconnect(ActionEvent event) throws IOException, SQLException {
         String DB_name = "DB_MSG.db";
         createDB DB = new createDB(DB_name);
-        // System.out.println(DB.selectAllConnected(DB_name));
         String addr ;
         try (final DatagramSocket datagramSocket = new DatagramSocket()) {
             datagramSocket.connect(InetAddress.getByName("255.255.255.255"), 12345);
             addr = datagramSocket.getLocalAddress().getHostAddress();
         }
-        //   System.out.println("ADRRR");
-        // InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
-        // System.out.println(addr);
-        //  System.out.println(DB.selectAllMsgIPseudo(DB_name));
-        //   System.out.println(DB.getPseudo(addr,DB_name));
+        int port=900;
         new UDP_Client(port).start();
-        System.out.println(DB.selectAllMsgIPseudo(DB_name));
-        System.out.println("PSEUDOOO" + DB.getPseudo(addr, DB_name));
         UDP_Server.broadcast_deconnection(DB.getPseudo(addr, DB_name), port);
         UDP_Server.broadcast_end(port);
         createDB BD = new createDB(name_db);
         connected = BD.selectAllConnected(name_db);
-        System.out.println("connected updated after deconection");
         //retour à la page d'accueil (login)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
@@ -221,13 +209,40 @@ public class MenuController implements  Initializable {
 */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        createDB DB = null;
+
+
+        try (final DatagramSocket datagramSocket = new DatagramSocket()) {
+            DB = new createDB("DB_MSG.db");
+            String addr ;
+            datagramSocket.connect(InetAddress.getByName("255.255.255.255"), 12345);
+            addr = datagramSocket.getLocalAddress().getHostAddress();
+           int port= DB.selectPort( DB.getPseudo(addr,"DB_MSG.db"),"DB_MSG.db");
+            port = 5000;
+            TCP_Server TCP_srv = new TCP_Server();
+            TCP_Server.goThread(port);
+        } catch (SQLException | UnknownHostException | SocketException e) {
+            throw new RuntimeException(e);
+        }
+
+
         myListView.getItems().addAll(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
     @Override
     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-        currentConnected = myListView.getSelectionModel().getSelectedItem();
-        myLabel.setText(currentConnected);
+       currentConnected = myListView.getSelectionModel().getSelectedItem();
+       myLabel.setText(currentConnected);
+
+        try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
+            Parent parent = loader.load();
+        Scene scene = new Scene(parent, 600, 400);
+        mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
+        mainFXML.mainStage.setScene(scene);
+        mainFXML.mainStage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 });
     }

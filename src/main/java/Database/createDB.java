@@ -138,7 +138,9 @@ public class createDB {
 
 
             String sql = "CREATE TABLE IF NOT EXISTS Connected (\n"
-                    + " pseudo NOT NULL);";
+                    + " pseudo NOT NULL,\n"
+                    + " port NOT NULL\n"
+                    + ");";
 
             try (Connection conn = DriverManager.getConnection(url);
                  Statement stmt = conn.createStatement()) {
@@ -191,12 +193,13 @@ public class createDB {
             return false;
         }
 
-        public synchronized boolean insertConnected(String pseudo, String filename) {
-            String sql = "INSERT INTO Connected( pseudo) VALUES(?)";
+        public synchronized boolean insertConnected(String pseudo,int port ,String filename) {
+            String sql = "INSERT INTO Connected( pseudo,port) VALUES(?,?)";
 
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, pseudo);
+                stmt.setInt(2, port);
                 stmt.executeUpdate();
                 conn.close();
 
@@ -216,9 +219,10 @@ public class createDB {
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
                 // set the corresponding param
                 stmt.setString(1, pseudo);
+
                 // execute the delete statement
                 stmt.executeUpdate();
-                System.out.println(pseudo + "deleted from connected");
+
                 conn.close();
 
                 return true;
@@ -229,39 +233,32 @@ public class createDB {
             return false;
         }
 
-        public synchronized String selectAllMsgHistory(String filename){
+        public synchronized List<String> selectAllMsgHistory(String filename){
             String sql = "SELECT message, date, pseudo, addr, port FROM history";
-            String result ="";
+            List<String> list = new ArrayList<>();
+
+
             try (Connection conn = this.connect(filename);
                  Statement stmt  = conn.createStatement();
-                 ResultSet rs    = stmt.executeQuery(sql)){
+                 ResultSet rs = stmt.executeQuery(sql)) {
 
                 // loop through the result set
                 while (rs.next()) {
-                    result = result + "\n" + rs.getString("message")+  "\t" +
-                                    rs.getString("date")+  "\t" +
-                                    rs.getString("pseudo")+  "\t" +
-                                    rs.getString("addr")+  "\t" +
-                                    rs.getInt("port");
-
-                    /*
-                            rs.getString("message")+  "\t" +
-                                    rs.getString("date")+  "\t" +
-                                    rs.getString("pseudo")+  "\t" +
-                                    rs.getString("addr")+  "\t" +
-                                    rs.getInt("port"));
-
-*/
+                    list.add( rs.getString("message")+  "\t" +
+                            rs.getString("date")+  "\t" +
+                            rs.getString("pseudo").trim()+  "\t" +
+                            rs.getString("addr")+  "\t" +
+                            rs.getInt("port"));
+                    // System.out.println(rs.getString("pseudo"));
                 }
-                conn.close();
-
-
-
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-            return result;
+            //conn.close();
+
+            return list;
         }
+
 
         public synchronized String selectAllMsgIPseudo(String filename){
             String sql = "SELECT pseudo, addr FROM IPseudo";
@@ -289,17 +286,14 @@ public class createDB {
         public synchronized List<String> selectAllConnected(String filename) throws SQLException {
             String sql = "SELECT pseudo FROM Connected";
             List<String> list = new ArrayList<>();
-            System.out.println("SELECT");
-         //   System.out.println("je suis dans selecte all connected   debut");
+
+
             try (Connection conn = this.connect(filename);
                  Statement stmt  = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
 
                 // loop through the result set
                 while (rs.next()) {
-                    System.out.println("icii");
-                 //   System.out.println("je suis dans selecte all connected   " + rs.getString("pseudo").trim());
-                    System.out.println("pseudo" + rs.getString("pseudo").trim());
                     list.add(rs.getString("pseudo").trim());
                     // System.out.println(rs.getString("pseudo"));
                 }
@@ -310,6 +304,21 @@ public class createDB {
             return list;
         }
 
+    public synchronized int selectPort(String pseudo,String filename) throws SQLException {
+        String sql = "SELECT port FROM Connected WHERE pseudo= ?";
+        int port = 0;
+        try (Connection conn = this.connect(filename);
+             PreparedStatement stmt  = conn.prepareStatement(sql)){
+            stmt.setString(1,pseudo);
+            ResultSet rs    = stmt.executeQuery();
+            while (rs.next()) {
+                port = rs.getInt("port") ;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return port;
+    }
             /*String sql = "SELECT pseudo FROM Connected";
             String result ="";
 
@@ -365,7 +374,6 @@ public class createDB {
 
         public boolean check(String pseudo, String filename) {
             String sql = "SELECT EXISTS(SELECT * FROM Connected WHERE pseudo= ?);";
-            System.out.println("je check le pseudo : "+ pseudo);
 
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)){
@@ -395,7 +403,7 @@ public class createDB {
                 if (rs.next()) {
 
                     boolean found = rs.getBoolean(1);
-                    System.out.println(found);
+
                     conn.close();
                     if (found) {
                         return false;
@@ -415,7 +423,7 @@ public class createDB {
         public synchronized boolean changeIpseudo(String pseudo, String addr, String filename,String old_pseudo) {
             String sql = "UPDATE IPseudo SET pseudo=? WHERE addr = ?;";
 
-            System.out.println("aadr = " + addr);
+
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, pseudo);
