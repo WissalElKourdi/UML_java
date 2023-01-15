@@ -12,7 +12,11 @@ import java.util.Scanner;
 public class TCP_Server extends Thread {
     private Socket socket;
 
+    public  TCP_Server(Socket socket){
+        this.socket=socket;
+    }
 
+      //fonction qui permet de recevoir les messages
     public static void receivemessage(String Message,Socket socket) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         try {
@@ -31,6 +35,8 @@ public class TCP_Server extends Thread {
             System.err.println(e.getMessage());
         }
     }
+
+    //fonction qui permet d'envoyer les messages
     public static void sendMessage(String Message,Socket socket) throws IOException {
         Scanner sc = new Scanner(System.in);
         PrintWriter out = new PrintWriter(socket.getOutputStream());
@@ -39,7 +45,7 @@ public class TCP_Server extends Thread {
         out.println(Message + " " + time); // renvoyer le message ( à changer si on va créer une classe display)
         out.flush(); // flush les buffers pour ne pas envoyer un null au client à la fin
     }
-
+ // un thread qui tourne constamment qui permet de recevoir les messages à tout moment
     public static void launchReceiverThread(Socket socket) {
 
         try {
@@ -61,10 +67,12 @@ public class TCP_Server extends Thread {
                 System.err.println(e.getMessage());
             }
         }
+
+        // Un thread qui permet d'envoyer les messages en boucle
         public static void SenderThread (Socket socket) throws SQLException {
             //Scanner sc = new Scanner(System.in);
             String DB_NAME = "DB_MSG.db";
-        //    createDB DB = new createDB(DB_NAME);
+          createDB DB = new createDB(DB_NAME);
             // PrintWriter out = new PrintWriter(socket.getOutputStream());
             Thread envoi = new Thread(new Runnable() {// la création des 2 threads a pour but de permettre l'envoi et la réception simultanément
                 String Message;
@@ -81,7 +89,32 @@ public class TCP_Server extends Thread {
             });
             envoi.start();
         }
-        public static void main (String[]args) throws IOException {
+
+        public static void ThreadServ(ServerSocket socketserver,int port){
+            try {
+                while (true) {
+                    System.out.println("Serveur est à l'écoute du port " + socketserver.getLocalPort());
+                    Socket clientSocket = socketserver.accept();
+                    System.out.println("Connecté");
+                    TCP_Server.SenderThread(clientSocket);
+                    TCP_Server.launchReceiverThread(clientSocket);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+
+
+
+
+
+
+
+        /*public static void main (String[]args) throws IOException {
             int port = 50000;
             try {
                 ServerSocket socketserver = new ServerSocket(port);
@@ -95,7 +128,7 @@ public class TCP_Server extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-    }
+    }*/
 }
 
 //Message = ChatSessionController.message
