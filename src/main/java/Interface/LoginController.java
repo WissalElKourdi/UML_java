@@ -24,23 +24,6 @@ public class LoginController {
     private TextFlow returnText;
 
     @FXML
-    void CheckLogin(ActionEvent event) throws IOException {
-        //fonction pour rediriger vers le menu quand on lcique sur ok, à supprimer à la fin des tests
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    @FXML
     void saveUsername(ActionEvent event) throws IOException, SQLException {
         //get new username and check that it's not already used : if it's not, change to menu scene
         String name = choose_username.getText();
@@ -48,7 +31,6 @@ public class LoginController {
         new UDP_Client(port).start();
         if (UDP_Server.broadcast_Pseudo(name,port)) {
             try {
-
                 UDP_Server.broadcast_connection(name, port);
                 UDP_Server.broadcast_end(port);
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
@@ -58,7 +40,6 @@ public class LoginController {
                 mainFXML.mainStage.setTitle("Chat App");
                 mainFXML.mainStage.setScene(scene);
                 mainFXML.mainStage.show();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -15,6 +15,7 @@ import javafx.scene.*;
 import javafx.event.ActionEvent;
 import javafx.scene.input.*;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.*;
 import javafx.scene.text.Text;
@@ -33,6 +34,7 @@ import java.util.ResourceBundle;
 
 public class ChatSessionController implements Initializable {
 
+
     private String DB_name = "DB_MSG.db";
     private static final int port =2000;
     @FXML
@@ -44,8 +46,6 @@ public class ChatSessionController implements Initializable {
     @FXML
     private ScrollPane Conversation;
     @FXML
-    private TextFlow pseudo_autre;
-    @FXML
     private TextField writtenMessage;
     @FXML
     private Button send;
@@ -53,36 +53,37 @@ public class ChatSessionController implements Initializable {
     private ListView<String> myListView;
     @FXML
     private Label myLabel;
-    String OtherUser;
+
+    private final VBox chatBox = new VBox(5);
 
     List<String> msgs = new ArrayList<>();
 
     String currentmsg;
 
-public ChatSessionController( )  throws SQLException {
+    public ChatSessionController( )  throws SQLException {
 
-    createDB BD = new createDB(DB_name);
+        createDB BD = new createDB(DB_name);
 
-       /* connected.add("Wissal");
-        connected.add("LEo");
-        connected.add("SIS");
-        */
+           /* connected.add("Wissal");
+            connected.add("LEo");
+            connected.add("SIS");
+            */
 
-    msgs = BD.selectAllMsgHistory(DB_name);
-    System.out.println(msgs);
-}
+        msgs = BD.selectAllMsgHistory(DB_name);
+        System.out.println(msgs);
+    }
+
     public void initialize(URL url, ResourceBundle resourceBundle){
         myListView.getItems().addAll(msgs);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-
-
-    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-        currentmsg = myListView.getSelectionModel().getSelectedItem();
-        myLabel.setText(currentmsg);
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                currentmsg = myListView.getSelectionModel().getSelectedItem();
+                myLabel.setText(currentmsg);
+            }
+        });
     }
-        });}
-        @FXML
+
+    @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
         //deconnexion
         createDB DB = new createDB(DB_name);
@@ -111,15 +112,10 @@ public ChatSessionController( )  throws SQLException {
         String pseudo = mainFXML.mainStage.getTitle();
         createDB DB = new createDB(DB_name);
         int port = DB.selectPort(pseudo,DB_name);
-       TCP_Client t_c = new TCP_Client();
-       TCP_Client.goClient(message,port);
-       TCP_Server.goThreadsend(port,message);
+        TCP_Client t_c = new TCP_Client();
+        TCP_Client.goClient(message,port);
+        TCP_Server.goThreadsend(port,message);
     }
-
-
-
-        //send_udp();
-
 
     @FXML
     void backToMenu(ActionEvent event) throws IOException {
@@ -138,20 +134,16 @@ public ChatSessionController( )  throws SQLException {
 
     @FXML
     void changepseudo(ActionEvent event) throws IOException {
-        //redirige vers la page de changement de login
+        //redirect to change pseudo page
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
-       User v = (User) mainFXML.mainStage.getUserData();
-        OtherUser = User.getName(v);
-
-        //modify textfield to display the username of the other person
-        Text text = new Text (OtherUser);
-        pseudo_autre.getChildren().add(text);
-    } catch (Exception e) {
-            throw new RuntimeException(e);
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent, 600, 400);
+            mainFXML.mainStage.setTitle("Chat App");
+            mainFXML.mainStage.setScene(scene);
+            mainFXML.mainStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
-
-
 }
