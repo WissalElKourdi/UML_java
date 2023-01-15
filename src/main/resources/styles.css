@@ -1,18 +1,21 @@
 /* CSS */
-
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 .button {
     -fx-font-size: 15pt;
+    -fx-font-family: 'Courier Prime', monospace;
 }
 
 .label{
     -fx-font-size:20pt;
     -fx-text-color: #0E1140;
-
+    -fx-font-family: 'Courier Prime', monospace;
 }
 
 .textflow {
     -fx-font-size: 15pt;
     -fx-text-color: #59052D;
+    -fx-font-family: 'Courier Prime', monospace;
+
 
 }
 
