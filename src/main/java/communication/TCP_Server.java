@@ -3,10 +3,7 @@ package communication;
 import Database.createDB;
 import Interface.MenuController;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -78,29 +75,25 @@ System.out.println("MSG histpry" +DB.selectAllMsgHistory(DB_NAME));
             System.err.println(e.getMessage());
         }
     }
-    public static void goThread( int port)  {
-        try {
-            ServerSocket socketserver = new ServerSocket(port);
-            Thread envoi= new Thread(new Runnable() {
-                    public void run(){
-                 while (true) {
-                     System.out.println("Serveur est à l'écoute du port " + socketserver.getLocalPort());
-                     Socket clientSocket = null;
-                     try {
-                         clientSocket = socketserver.accept();
-                     } catch (IOException e) {
-                         throw new RuntimeException(e);
-                     }
-                     System.out.println("Connecté");
-                    // TCP_Server.SenderThread(clientSocket);
-                     TCP_Server.launchReceiverThread(clientSocket);
-                 }}} );
-            envoi.start();
+    public static void goThreadwait( int port) {
+        Thread thread = new Thread() {
+            public void run() {
+                try {
+                    int port = 6779;
+                    ServerSocket socketserver = new ServerSocket(port);
+                    System.out.println("Serveur est à l'écoute du port " + socketserver.getLocalPort());
+                    Socket connectionSocket = socketserver.accept();
+                    ObjectOutputStream outToServer = new ObjectOutputStream(connectionSocket.getOutputStream());
+                    System.out.println("Connecté");
 
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        thread.start();
+
+    }
     public static void goThreadsend( int port, String msg)  {
         try {
             ServerSocket socketserver = new ServerSocket(port);

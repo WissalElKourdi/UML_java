@@ -58,12 +58,10 @@ public class MenuController extends Thread implements  Initializable {
     public MenuController() throws SQLException {
 
         createDB BD = new createDB(name_db);
-
        /* connected.add("Wissal");
         connected.add("LEo");
         connected.add("SIS");
         */
-
         connected = BD.selectAllConnected(name_db);
 
     }
@@ -210,8 +208,6 @@ public class MenuController extends Thread implements  Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createDB DB = null;
-
-
         try (final DatagramSocket datagramSocket = new DatagramSocket()) {
             DB = new createDB("DB_MSG.db");
             String addr ;
@@ -220,11 +216,12 @@ public class MenuController extends Thread implements  Initializable {
            int port= DB.selectPort( DB.getPseudo(addr,"DB_MSG.db"),"DB_MSG.db");
             port = 5000;
             TCP_Server TCP_srv = new TCP_Server();
-            TCP_Server.goThread(port);
+
+            TCP_Server.goThreadwait(port);
+           // TCP_Server.launchReceiverThread(socket);
         } catch (SQLException | UnknownHostException | SocketException e) {
             throw new RuntimeException(e);
         }
-
 
         myListView.getItems().addAll(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
