@@ -8,3 +8,6 @@ target/
 
 #ignorer les fichiers d'artefacts de compilation
 *.class
+
+#ignorer le fichier de la db
+*.db

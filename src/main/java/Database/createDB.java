@@ -20,14 +20,10 @@ public class createDB {
             creatTablehistory(Name_DB,conn);
             creatTablepseudo(Name_DB);
             creatTableconnected(Name_DB);
-
-
-
         }
 
         public synchronized boolean createNewDB(String fileName) throws SQLException {
             String url = "jdbc:sqlite:sqlite/" + fileName;
-
            // try (Connection conn = DriverManager.getConnection(url)) {
 
                 if ( conn != null) {
@@ -135,7 +131,6 @@ public class createDB {
 
         public synchronized boolean creatTableconnected(String fileName) {
             String url = "jdbc:sqlite:sqlite/" + fileName;
-
 
             String sql = "CREATE TABLE IF NOT EXISTS Connected (\n"
                     + " pseudo NOT NULL,\n"

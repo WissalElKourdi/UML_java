@@ -90,6 +90,7 @@ public ChatSessionController( )  throws SQLException {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 400);
+            scene.getStylesheets().add("/styles.css");
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -122,6 +123,7 @@ public ChatSessionController( )  throws SQLException {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 400);
+            scene.getStylesheets().add("/styles.css");
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -135,14 +137,14 @@ public ChatSessionController( )  throws SQLException {
         //redirige vers la page de changement de login
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
-       User v = (User) mainFXML.mainStage.getUserData();
-        OtherUser = User.getName(v);
-
-        //modify textfield to display the username of the other person
-        Text text = new Text (OtherUser);
-        pseudo_autre.getChildren().add(text);
-    } catch (Exception e) {
-            throw new RuntimeException(e);
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent, 600, 400);
+            scene.getStylesheets().add("/styles.css");
+            mainFXML.mainStage.setTitle("Chat App");
+            mainFXML.mainStage.setScene(scene);
+            mainFXML.mainStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
