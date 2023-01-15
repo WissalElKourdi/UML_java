@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.MenuController">
-   <children>
-      <ListView fx:id="connected_users_list" layoutX="14.0" layoutY="52.0" onEditStart="#display_list" onMouseClicked="#sendData" prefHeight="334.0" prefWidth="281.0" />
-      <Text layoutX="99.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected Users" />
-      <Button fx:id="change_pseudo" layoutX="403.0" layoutY="100.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
-      <Button fx:id="disconnect" layoutX="418.0" layoutY="150.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Interface.MenuController">
+  <children>
+    <Text layoutX="99.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected Users" />
+    <Button fx:id="change_pseudo" layoutX="403.0" layoutY="100.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
+    <Button fx:id="disconnect" layoutX="418.0" layoutY="150.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
+    <ListView fx:id="myListView" layoutX="100.0" layoutY="87.0" prefHeight="200.0" prefWidth="200.0" />
+    <Label fx:id="myLabel" layoutX="183.0" layoutY="57.0" prefWidth="171.0" text="Connected Users" />
+  </children>
 </AnchorPane>

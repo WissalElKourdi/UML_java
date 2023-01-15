@@ -32,10 +32,12 @@ public class LoginController {
         new UDP_Client(port).start();
         if (UDP_Server.broadcast_Pseudo(name,port)) {
             try {
+
                 UDP_Server.broadcast_connection(name, port);
                 UDP_Server.broadcast_end(port);
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                 Parent parent = loader.load();
+
                 Scene scene = new Scene(parent, 600, 400);
                 mainFXML.mainStage.setTitle("Chat App");
                 mainFXML.mainStage.setScene(scene);
@@ -45,7 +47,9 @@ public class LoginController {
                 e.printStackTrace();
             }
         }else{
+            System.out.println("je suis ici");
             UDP_Server.broadcast_end(port);
+            System.out.println("je suis ici");
             Text text = new Text ("This username is already taken, choose another one");
             returnText.getChildren().add(text);
         }

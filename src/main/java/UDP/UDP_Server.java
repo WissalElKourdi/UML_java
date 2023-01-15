@@ -14,12 +14,13 @@ public class UDP_Server {
         byte[] buffer = broadcastMSg.getBytes();
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length, Address, port);
         socket.send(packet);
+
         socket.close();
     }
 
     //-----------------------------BROADCAST--------------------------------------------
     public static void broadcast(String broadcastMSg, int port) throws IOException {
-         UDP_Server.send_udp(broadcastMSg, InetAddress.getLocalHost(),port);
+         UDP_Server.send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"),port);
     }
     public static boolean broadcast_Pseudo (String pseudo, int port ) throws IOException, SQLException {
         createDB DB = new createDB(Name_DB);
@@ -66,14 +67,12 @@ public class UDP_Server {
     //se déconnecter et broadcast auprès des autres utilisateurs
     public static void broadcast_deconnection (String pseudo, int port) throws IOException, SQLException {
         createDB DB = new createDB(Name_DB);
-
         if ( DB.check(pseudo,Name_DB) ) {
-            System.out.println("Failed ");
-
-        } else {
             broadcast("Deconnected :" + pseudo, port);
             System.out.println("Deconnected :" + pseudo);
-        }
+        } else {
+            System.out.println("Failed ");
+            }
 
     }
     public static void broadcast_end(int port) throws IOException {
