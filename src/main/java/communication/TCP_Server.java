@@ -17,6 +17,13 @@ import java.util.Scanner;
 
 public class TCP_Server {
 
+  private ServerSocket serverSocket;
+  private Socket socket;
+  public TCP_Server(ServerSocket serverSocket) throws IOException {
+      this.serverSocket=serverSocket;
+      this.socket = serverSocket.accept();
+  }
+
     public static void launchReceiverThread(Socket socket) {
 
         try {
@@ -49,19 +56,24 @@ public class TCP_Server {
             System.err.println(e.getMessage());
         }
     }
+    public void sendMessageToClient(String message) throws IOException {
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream());
+        out.write(message);
+    }
 
     public static void SenderThread(Socket socket){
         Scanner sc=new Scanner(System.in);
         try {
             PrintWriter out = new PrintWriter(socket.getOutputStream());
         Thread envoi= new Thread(new Runnable() {// la création des 2 threads a pour but de permettre l'envoi et la réception simultanément
-            String Message;
+           String Message;
             public void run() {
                 while (true) { //teste la connexion
                     //comment récupérer le message tapé dans le zone de test de chatcontroller
                     //pour ensuite l'envoyer ????
                     //Message = ChatSessionController.message
                     Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
+                   // sendMessageToClient(String Message);
                     LocalTime time = LocalTime.now();
                     //db
                     String DB_NAME = "DB_MSG.db";

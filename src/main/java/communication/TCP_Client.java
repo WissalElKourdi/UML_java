@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 
 public class TCP_Client {
+
     public static void main(String[] args) {
 
         final Socket clientSocket;

@@ -13,8 +13,10 @@
             <TextField fx:id="writtenMessage" layoutX="132.0" layoutY="348.0" prefHeight="25.0" prefWidth="249.0" promptText="Write your message here..." />
             <Button fx:id="send" layoutX="405.0" layoutY="348.0" mnemonicParsing="false" onAction="#send" text="Send" />
             <Button fx:id="Back" layoutX="14.0" layoutY="31.0" mnemonicParsing="false" onAction="#backToMenu" text="Back" />
-            <ScrollPane fx:id="Conversation" layoutX="132.0" layoutY="100.0" onDragDetected="#Display_previous_messages" prefHeight="233.0" prefWidth="331.0">
+            <ScrollPane fx:id="Conversation" layoutX="132.0" layoutY="100.0" onDragDetected="#Display_previous_messages" prefHeight="256.0" prefWidth="418.0" fitToHeight="true
+">
               <content>
+                 <VBox fx:id="vbox_messages" prefHeight="248" prefWidth="412"/>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
               </content>
             </ScrollPane>

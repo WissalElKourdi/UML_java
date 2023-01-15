@@ -8,15 +8,19 @@ import javafx.scene.*;
 import javafx.event.ActionEvent;
 import javafx.scene.input.*;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
 import javafx.scene.text.Text;
 import javafx.scene.Node;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class ChatSessionController {
+public class ChatSessionController implements Initializable {
 
     private String DB_name = "DB_MSG.db";
     private static final int port =2000;
@@ -34,8 +38,13 @@ public class ChatSessionController {
     private TextField writtenMessage;
     @FXML
     private Button send;
+    @FXML
+            private VBox vbox_messages;
+    @FXML
+            private ServerSocket server;
 
     String OtherUser;
+
 
     @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
@@ -60,6 +69,7 @@ public class ChatSessionController {
     void send(ActionEvent event) {
         //récupération du message tapé dans la zone de texte
         String  message = writtenMessage.getText();
+
         //send_udp();
     }
 
@@ -111,5 +121,10 @@ public class ChatSessionController {
         //modify textfield to display the username of the other person
         Text text = new Text (OtherUser);
         pseudo_autre.getChildren().add(text);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }
