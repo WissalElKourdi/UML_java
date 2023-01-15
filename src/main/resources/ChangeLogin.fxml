@@ -1,38 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ChangeLoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ChangeLoginController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="600.0">
+      <Pane prefHeight="800.0" prefWidth="1200.0">
          <children>
-            <!-- The Beginning of Login form -->
-            <Label layoutX="76.0" layoutY="71.0" prefHeight="65.0" prefWidth="427.0"  text="Change your username">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#024029" height="800.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
+            <Label layoutX="387.0" layoutY="217.0" text="Change your username">
                <font>
                   <Font name="SansSerif Regular" size="36.0" />
                </font>
             </Label>
-
-            <!-- Cancel Button -->
-            <Button fx:id="cancelButton" layoutX="190.0" layoutY="221.0" mnemonicParsing="false" onAction="#CancelClicked" text="Cancel">
-               <font>
-                  <Font name="SansSerif Regular" size="15.0" />
-               </font>
-            </Button>
-
-            <!-- Login Button -->
-            <Button fx:id="SaveButton" layoutX="301.0" layoutY="209.0" mnemonicParsing="false" onAction="#SaveNewLogin" prefHeight="57.0" prefWidth="90.0"  text="Save">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <TextArea fx:id="NewLoginArea" layoutX="190.0" layoutY="149.0" prefHeight="33.0" prefWidth="200.0" promptText="Enter new login" />
-            <TextFlow fx:id="result" layoutX="138.0" layoutY="184.0" prefHeight="33.0" prefWidth="326.0" />
-            <!-- End of Login Form -->
+            <Button fx:id="cancelButton" layoutX="535.0" layoutY="647.0" mnemonicParsing="false" onAction="#CancelClicked" text="Cancel"></Button>
+            <Button fx:id="SaveButton" layoutX="555.0" layoutY="383.0" mnemonicParsing="false" onAction="#SaveNewLogin" text="Save"></Button>
+            <TextArea fx:id="NewLoginArea" layoutX="500.0" layoutY="305.0" prefHeight="33.0" prefWidth="200.0" promptText="Enter new login" />
+            <TextFlow fx:id="result" layoutX="437.0" layoutY="338.0" prefHeight="33.0" prefWidth="326.0" />
 
          </children>
       </Pane>

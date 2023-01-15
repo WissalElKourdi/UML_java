@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.MenuController">
   <children>
-    <Button fx:id="change_pseudo" layoutX="403.0" layoutY="100.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
-    <Button fx:id="disconnect" layoutX="418.0" layoutY="150.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
-    <ListView fx:id="myListView" layoutX="38.0" layoutY="87.0" prefHeight="275.0" prefWidth="316.0" />
-    <Label fx:id="myLabel" layoutX="30.0" layoutY="63.0" prefHeight="15.0" prefWidth="332.0" text="Click on a connected user to start a chat session :" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#024029" height="800.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
+    <Button fx:id="change_pseudo" layoutX="774.0" layoutY="325.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
+    <Button fx:id="disconnect" layoutX="788.0" layoutY="388.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="664.0" layoutX="95.0" layoutY="69.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="434.0" />
+
+    <ListView fx:id="myListView" layoutX="138.0" layoutY="106.0" prefHeight="589.0" prefWidth="323.0" />
+    <Label fx:id="myLabel" layoutX="98.0" layoutY="23.0" prefHeight="44.0" prefWidth="434.0" text="Click on a connected user to start a chat session :" />
   </children>
 </AnchorPane>

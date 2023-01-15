@@ -37,7 +37,7 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                 Parent parent = loader.load();
 
-                Scene scene = new Scene(parent, 600, 400);
+                Scene scene = new Scene(parent, 1200,800);
                 scene.getStylesheets().add("/styles.css");
 
                 mainFXML.mainStage.setTitle("Chat App");

@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ChatSessionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ChatSessionController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="600.0">
+      <Pane prefHeight="800.0" prefWidth="1200.0">
          <children>
-            <Button fx:id="disconnect" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
-            <TextField fx:id="writtenMessage" layoutX="167.0" layoutY="348.0" prefHeight="25.0" prefWidth="323.0" promptText="Write your message here..." />
-            <Button fx:id="send" layoutX="498.0" layoutY="348.0" mnemonicParsing="false" onAction="#send" text="Send" />
-            <Button fx:id="Back" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#backToMenu" text="Back to Menu" />
-            <ScrollPane fx:id="Conversation" layoutX="147.0" layoutY="47.0" prefHeight="292.0" prefWidth="429.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#024029" height="800.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
+            <ScrollPane fx:id="Conversation" layoutX="48.0" layoutY="47.0" prefHeight="656.0" prefWidth="897.0">
               <content>
-                 <AnchorPane fx:id="history_msg" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                 <AnchorPane fx:id="history_msg" minHeight="0.0" minWidth="0.0" prefHeight="556.0" prefWidth="786.0">
                     <children>
-                       <ListView fx:id="myListView" layoutX="43.0" layoutY="12.0" prefHeight="266.0" prefWidth="349.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="656.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="897.0" />
+                        <TextFlow fx:id="pseudo_autre" layoutX="180.0" layoutY="43.0" prefHeight="25.0" prefWidth="200.0" />
+                       <ListView fx:id="myListView" layoutX="42.0" layoutY="99.0" prefHeight="515.0" prefWidth="814.0" />
+                        <Label fx:id="myLabel" layoutX="42.0" layoutY="35.0" prefHeight="41.0" prefWidth="808.0" text="Chatting with : " />
                     </children>
                  </AnchorPane>
               </content>
             </ScrollPane>
-            <Button fx:id="change" layoutX="14.0" layoutY="74.0" mnemonicParsing="false" onAction="#changepseudo" text="Change Pseudo" />
-            <TextFlow fx:id="pseudo_autre" layoutX="219.0" layoutY="74.0" prefHeight="25.0" prefWidth="200.0" />
-            <Label fx:id="myLabel" layoutX="167.0" layoutY="24.0" text="Label" />
+            <Button fx:id="change" layoutX="979.0" layoutY="318.0" mnemonicParsing="false" onAction="#changepseudo" text="Change Pseudo" />
+            <Button fx:id="Back" layoutX="982.0" layoutY="476.0" mnemonicParsing="false" onAction="#backToMenu" text="Back to Menu" />
+      
+                                          <Button fx:id="disconnect" layoutX="982.0" layoutY="394.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
+            <TextField fx:id="writtenMessage" layoutX="40.0" layoutY="729.0" prefHeight="54.0" prefWidth="905.0" promptText="Write your message here..." />
+            <Button fx:id="send" layoutX="982.0" layoutY="737.0" mnemonicParsing="false" onAction="#send" text="Send" />
          </children>
       </Pane>
    </children>

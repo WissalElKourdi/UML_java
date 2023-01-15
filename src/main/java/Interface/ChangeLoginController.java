@@ -38,7 +38,7 @@ public class ChangeLoginController {
                         //retour vers la page principale
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                         Parent parent = loader.load();
-                        Scene scene = new Scene(parent, 600, 400);
+                        Scene scene = new Scene(parent, 1200,800);
                         scene.getStylesheets().add("/styles.css");
                         mainFXML.mainStage.setTitle("Chat App");
                         mainFXML.mainStage.setScene(scene);
@@ -60,7 +60,7 @@ public class ChangeLoginController {
                                 UDP_Server.broadcast_end(port);
                                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                                 Parent parent = loader.load();
-                                Scene scene = new Scene(parent, 600, 400);
+                                Scene scene = new Scene(parent, 1200,800);
                                 scene.getStylesheets().add("/styles.css");
                                 mainFXML.mainStage.setTitle("Chat App");
                                 mainFXML.mainStage.setScene(scene);

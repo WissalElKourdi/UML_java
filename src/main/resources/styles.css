@@ -1,23 +1,29 @@
 /* CSS */
 
 .button {
-  -fx-background-color: #eb34d5;
-}
-
-#LoginButton {
-  -fx-background-color: #f54257;
-    -box-sizing: border-box;
-
+    -fx-font-size: 15pt;
 }
 
 .label{
-    -fx-font-size:15pt;
-    -fx-background-color: #f54257;
+    -fx-font-size:20pt;
+    -fx-text-color: #0E1140;
+
 }
 
-.pane{
-    -fx-background-color:  #8fbc8f;
+.textflow {
+    -fx-font-size: 15pt;
+    -fx-text-color: #59052D;
+
 }
+
+.textfield {
+        -fx-font-size: 17pt;
+
+
+}
+
+
+
 
 
 
