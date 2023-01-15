@@ -210,8 +210,6 @@ public class MenuController extends Thread implements  Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createDB DB = null;
-
-
         try (final DatagramSocket datagramSocket = new DatagramSocket()) {
             DB = new createDB("DB_MSG.db");
             String addr ;
@@ -224,7 +222,6 @@ public class MenuController extends Thread implements  Initializable {
         } catch (SQLException | UnknownHostException | SocketException e) {
             throw new RuntimeException(e);
         }
-
 
         myListView.getItems().addAll(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
