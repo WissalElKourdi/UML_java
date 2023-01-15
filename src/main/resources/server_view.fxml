@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="ap_main" prefHeight="272.0" prefWidth="467.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ServerController">
+<children>
+  <Button fx:id="button_send" layoutX="404" layoutY="340" text="Send" />
+  <TextField fx:id="tf_message" layoutX="34.0" layoutY="340" prefHeight="26" prefWidth="361" />
+  <ScrollPane fx:id="sp_main" fitToWidth="true" layoutX="30" layoutY="70" prefHeight="256" prefWidth="418">
+    <content>
+      <VBox fx:id="vBoxMessages" prefHeight="248" prefWidth="412"/>
+    </content>
+  </ScrollPane>
+</children>
+<Label layoutX="114" layoutY="26" text="Rusty Messenger!">
+  <font>
+    <Font name="Arial Rounded MT Bold" size="23"></Font>
+  </font>
+</Label>
+</AnchorPane>
