@@ -16,12 +16,12 @@ import java.sql.SQLException;
 
 
 public class TCP_Client {
-    public static void main(String[] args) {
+    public static void main(String msg) {
 
         final Socket clientSocket;
         try {
             clientSocket = new Socket("localhost",50000);
-            TCP_Server.SenderThread(clientSocket);
+            TCP_Server.SenderThread(clientSocket, msg);
             TCP_Server.launchReceiverThread(clientSocket);
 
         } catch (IOException | SQLException e) {

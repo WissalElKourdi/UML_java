@@ -64,8 +64,11 @@ public ChatSessionController( )  throws SQLException {
     System.out.println(msgs);
 }
     public void initialize(URL url, ResourceBundle resourceBundle){
+
+
         myListView.getItems().addAll(msgs);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+         // ServerTcp server = new ServerTcp()
 
 
 
@@ -100,6 +103,8 @@ public ChatSessionController( )  throws SQLException {
         //récupération du message tapé dans la zone de texte
         String  message = writtenMessage.getText();
         System.out.println("MEssage written : " + message);
+        TCP_Client.main(message);
+        System.out.println("MEssage sent");
         String pseudo = mainFXML.mainStage.getTitle();
         createDB DB = new createDB(DB_name);
         int port = DB.selectPort(pseudo,DB_name);

@@ -61,15 +61,15 @@ public class TCP_Server extends Thread {
                 System.err.println(e.getMessage());
             }
         }
-        public static void SenderThread (Socket socket) throws SQLException {
+        public static void SenderThread (Socket socket, String Message) throws SQLException {
             //Scanner sc = new Scanner(System.in);
             String DB_NAME = "DB_MSG.db";
         //    createDB DB = new createDB(DB_NAME);
             // PrintWriter out = new PrintWriter(socket.getOutputStream());
             Thread envoi = new Thread(new Runnable() {// la création des 2 threads a pour but de permettre l'envoi et la réception simultanément
-                String Message;
 
                 public void run() {
+
                     while (true) { //teste la connexion
                         try {
                             sendMessage(Message,socket);
@@ -81,22 +81,27 @@ public class TCP_Server extends Thread {
             });
             envoi.start();
         }
-        public static void main (String[]args) throws IOException {
+        public static void servtcp () throws IOException {
+            new Thread(new Runnable() {
+                public void run() {
             int port = 50000;
-            try {
-                ServerSocket socketserver = new ServerSocket(port);
-                while (true) {
+
+                    ServerSocket socketserver = null;
+                    try {
+                        socketserver = new ServerSocket(port);
+
+                    while (true) {
                     System.out.println("Serveur est à l'écoute du port " + socketserver.getLocalPort());
                     Socket clientSocket = socketserver.accept();
                     System.out.println("Connecté");
                     //TCP_Server.SenderThread(clientSocket);
                     TCP_Server.launchReceiverThread(clientSocket);
+                } } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-    }
-}
+
+        }}).start();
+}}
 
 //Message = ChatSessionController.message
 //Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé

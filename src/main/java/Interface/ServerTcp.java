@@ -5,12 +5,20 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerTcp {
+public class ServerTcp extends Thread {
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
 
-    public ServerTcp(ServerSocket serverSocket) {
+    public ServerTcp(ServerSocket serverSocket)  {
+
+        System.out.println("je suis ici");
+        new Thread(new Runnable() {
+            private BufferedReader bufferedReader;
+            private Socket socket;
+            private BufferedWriter bufferedWriter;
+            @Override
+            public void run() {
         try{
             this.socket = serverSocket.accept();
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -20,6 +28,10 @@ public class ServerTcp {
             e.printStackTrace();
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
+        System.out.println("je suis la");
+            }
+
+    }).start();
     }
 
     public void sendMessageToClient(String messageToClient){

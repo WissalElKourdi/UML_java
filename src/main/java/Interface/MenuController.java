@@ -25,7 +25,8 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.fxml.*;
 import javafx.scene.*;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -55,9 +56,13 @@ public class MenuController extends Thread implements  Initializable {
     private Label myLabel;
 
     List<String> connected = new ArrayList<>();
+    public static ServerTcp server;
 
    String currentConnected;
     String name_db = "DB_MSG.db";
+    private Socket sockett;
+    private BufferedReader bufferedReaderr;
+    private BufferedWriter bufferedWriterr;
 
     public MenuController() throws SQLException {
 
@@ -190,15 +195,27 @@ public class MenuController extends Thread implements  Initializable {
 */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            TCP_Server.servtcp();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            server = new ServerTcp(new ServerSocket(1234));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         createDB DB = null;
         try (final DatagramSocket datagramSocket = new DatagramSocket()) {
             DB = new createDB("DB_MSG.db");
             String addr ;
             datagramSocket.connect(InetAddress.getByName("255.255.255.255"), 12345);
             addr = datagramSocket.getLocalAddress().getHostAddress();
-            int port= DB.selectPort( DB.getPseudo(addr,"DB_MSG.db"),"DB_MSG.db");
-            port = 5000;
-            TCP_Server TCP_srv = new TCP_Server();
+             ///port= DB.selectPort( DB.getPseudo(addr,"DB_MSG.db"),"DB_MSG.db");
+            //port = 5000;
+           // TCP_Server TCP_srv = new TCP_Server();
 
             //TCP_Server.goThreadwait(port);
            // TCP_Server.launchReceiverThread(socket);
@@ -216,7 +233,7 @@ public class MenuController extends Thread implements  Initializable {
                 try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
                     Parent parent = loader.load();
                 Scene scene = new Scene(parent, 600, 400);
-                mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
+                mainFXML.mainStage.setTitle( currentConnected);
                 mainFXML.mainStage.setScene(scene);
                 mainFXML.mainStage.show();
                 } catch (IOException e) {
@@ -224,6 +241,7 @@ public class MenuController extends Thread implements  Initializable {
                 }
             }
         });
+
     }
 }
 
