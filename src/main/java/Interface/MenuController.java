@@ -39,6 +39,10 @@ public class MenuController extends Thread implements  Initializable {
 
     //private static final int port =2000;
 
+    private String DB_name = "DB_MSG.db";
+    private static final int port =2000;
+
+
     @FXML
     private Button disconnect;
     @FXML
@@ -139,7 +143,7 @@ public class MenuController extends Thread implements  Initializable {
 
     }
 
-    @FXML
+  /*  @FXML
     void disconnect(ActionEvent event) throws IOException, SQLException {
         String DB_name = "DB_MSG.db";
         createDB DB = new createDB(DB_name);
@@ -165,14 +169,27 @@ public class MenuController extends Thread implements  Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-    @FXML
-    void Display_previous_messages(ActionEvent event) {
-        //display the previous messages with the other person (stored in db)
-        //utiliser get message from pour les 2 username ??
-    }
+    }*/
+  @FXML
+  void disconnect(ActionEvent event) throws SQLException, IOException {
+      //deconnexion
+      createDB DB = new createDB(DB_name);
+      String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
+      new UDP_Client(port).start();
+      UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
+      UDP_Server.broadcast_end(port);
+      //retour à la page d'accueil (login)
+      try {
+          FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
+          Parent parent = loader.load();
+          Scene scene = new Scene(parent, 600, 400);
+          mainFXML.mainStage.setTitle("Chat App");
+          mainFXML.mainStage.setScene(scene);
+          mainFXML.mainStage.show();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+  }
 
 
     @FXML
@@ -225,23 +242,22 @@ public class MenuController extends Thread implements  Initializable {
 
         myListView.getItems().addAll(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+               currentConnected = myListView.getSelectionModel().getSelectedItem();
+               myLabel.setText(currentConnected);
 
-    @Override
-    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-       currentConnected = myListView.getSelectionModel().getSelectedItem();
-       myLabel.setText(currentConnected);
-
-        try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
-            Parent parent = loader.load();
-        Scene scene = new Scene(parent, 600, 400);
-        mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
-        mainFXML.mainStage.setScene(scene);
-        mainFXML.mainStage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-});
+                try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
+                    Parent parent = loader.load();
+                Scene scene = new Scene(parent, 600, 400);
+                mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
+                mainFXML.mainStage.setScene(scene);
+                mainFXML.mainStage.show();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 }
 

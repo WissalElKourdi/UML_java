@@ -44,8 +44,6 @@ public class ChatSessionController implements Initializable {
     @FXML
     private ScrollPane Conversation;
     @FXML
-    private TextFlow pseudo_autre;
-    @FXML
     private TextField writtenMessage;
     @FXML
     private Button send;
@@ -74,15 +72,14 @@ public ChatSessionController( )  throws SQLException {
     public void initialize(URL url, ResourceBundle resourceBundle){
         myListView.getItems().addAll(msgs);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-
-
-    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-        currentmsg = myListView.getSelectionModel().getSelectedItem();
-        myLabel.setText(currentmsg);
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                currentmsg = myListView.getSelectionModel().getSelectedItem();
+                myLabel.setText(currentmsg);
+            }
+        });
     }
-        });}
-        @FXML
+
+    @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
         //deconnexion
         createDB DB = new createDB(DB_name);
@@ -138,18 +135,18 @@ public ChatSessionController( )  throws SQLException {
 
     @FXML
     void changepseudo(ActionEvent event) throws IOException {
-        //redirige vers la page de changement de login
+        //redirect to change pseudo page
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
-       User v = (User) mainFXML.mainStage.getUserData();
-        OtherUser = User.getName(v);
-
-        //modify textfield to display the username of the other person
-        Text text = new Text (OtherUser);
-        pseudo_autre.getChildren().add(text);
-    } catch (Exception e) {
-            throw new RuntimeException(e);
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent, 600, 400);
+            mainFXML.mainStage.setTitle("Chat App");
+            mainFXML.mainStage.setScene(scene);
+            mainFXML.mainStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
 
