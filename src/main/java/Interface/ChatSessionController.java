@@ -15,6 +15,7 @@ import javafx.scene.*;
 import javafx.event.ActionEvent;
 import javafx.scene.input.*;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.*;
 import javafx.scene.text.Text;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ChatSessionController implements Initializable {
+
 
     private String DB_name = "DB_MSG.db";
     private static final int port =2000;
@@ -51,24 +53,26 @@ public class ChatSessionController implements Initializable {
     private ListView<String> myListView;
     @FXML
     private Label myLabel;
-    String OtherUser;
+
+    private final VBox chatBox = new VBox(5);
 
     List<String> msgs = new ArrayList<>();
 
     String currentmsg;
 
-public ChatSessionController( )  throws SQLException {
+    public ChatSessionController( )  throws SQLException {
 
-    createDB BD = new createDB(DB_name);
+        createDB BD = new createDB(DB_name);
 
-       /* connected.add("Wissal");
-        connected.add("LEo");
-        connected.add("SIS");
-        */
+           /* connected.add("Wissal");
+            connected.add("LEo");
+            connected.add("SIS");
+            */
 
-    msgs = BD.selectAllMsgHistory(DB_name);
-    System.out.println(msgs);
-}
+        msgs = BD.selectAllMsgHistory(DB_name);
+        System.out.println(msgs);
+    }
+
     public void initialize(URL url, ResourceBundle resourceBundle){
         myListView.getItems().addAll(msgs);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -108,15 +112,10 @@ public ChatSessionController( )  throws SQLException {
         String pseudo = mainFXML.mainStage.getTitle();
         createDB DB = new createDB(DB_name);
         int port = DB.selectPort(pseudo,DB_name);
-       TCP_Client t_c = new TCP_Client();
-       TCP_Client.goClient(message,port);
-       TCP_Server.goThreadsend(port,message);
+        TCP_Client t_c = new TCP_Client();
+        TCP_Client.goClient(message,port);
+        TCP_Server.goThreadsend(port,message);
     }
-
-
-
-        //send_udp();
-
 
     @FXML
     void backToMenu(ActionEvent event) throws IOException {
@@ -146,9 +145,5 @@ public ChatSessionController( )  throws SQLException {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
-
 }

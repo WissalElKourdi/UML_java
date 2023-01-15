@@ -10,22 +10,21 @@
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <!-- The Beginning of Login form -->
-            <Label layoutX="255.0" layoutY="57.0" prefHeight="65.0" prefWidth="104.0" style="-fx-text-fill: #A9A9A9;" text="Login">
-               <font>
-                  <Font name="SansSerif Regular" size="36.0" />
-               </font>
-            </Label>
 
             <!-- Login Button -->
-            <Button fx:id="LoginButton" layoutX="255.0" layoutY="184.0" mnemonicParsing="false" onAction="#saveUsername" prefHeight="57.0" prefWidth="90.0" style="-fx-background-color: #24a0ed; -fx-text-fill: white; -fx-border-radius: 5; -fx-border-width: 2; -fx-border-color: #24a0ed;" text="Login">
+            <Button fx:id="LoginButton" layoutX="262.0" layoutY="250.0" mnemonicParsing="false" onAction="#saveUsername" prefHeight="57.0" prefWidth="90.0" style="-fx-background-color: #24a0ed; -fx-text-fill: white; -fx-border-radius: 5; -fx-border-width: 2; -fx-border-color: #24a0ed;" text="Login">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="ok" layoutX="359.0" layoutY="188.0" mnemonicParsing="false" onAction="#CheckLogin" text="ok" />
-            <TextField fx:id="choose_username" layoutX="222.0" layoutY="110.0" onAction="#saveUsername" promptText="Enter your username" />
+            <TextField fx:id="choose_username" layoutX="222.0" layoutY="188.0" onAction="#saveUsername" promptText="Enter your username" />
             <TextFlow fx:id="returnText" layoutX="207.0" layoutY="135.0" prefHeight="33.0" prefWidth="200.0" />
+            <!-- The Beginning of Login form -->
+            <Label layoutX="76.0" layoutY="103.0" prefHeight="65.0" prefWidth="463.0" style="-fx-text-fill: #A9A9A9;" text="Welcome to the Chat App">
+               <font>
+                  <Font name="SansSerif Regular" size="36.0" />
+               </font>
+            </Label>
             <!-- End of Login Form -->
 
          </children>

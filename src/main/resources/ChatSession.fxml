@@ -9,22 +9,22 @@
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Button fx:id="disconnect" layoutX="495.0" layoutY="31.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
-            <TextField fx:id="writtenMessage" layoutX="132.0" layoutY="348.0" prefHeight="25.0" prefWidth="249.0" promptText="Write your message here..." />
-            <Button fx:id="send" layoutX="405.0" layoutY="348.0" mnemonicParsing="false" onAction="#send" text="Send" />
-            <Button fx:id="Back" layoutX="14.0" layoutY="31.0" mnemonicParsing="false" onAction="#backToMenu" text="Back" />
-            <ScrollPane fx:id="Conversation" layoutX="132.0" layoutY="100.0" prefHeight="233.0" prefWidth="331.0">
+            <Button fx:id="disconnect" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
+            <TextField fx:id="writtenMessage" layoutX="167.0" layoutY="348.0" prefHeight="25.0" prefWidth="323.0" promptText="Write your message here..." />
+            <Button fx:id="send" layoutX="498.0" layoutY="348.0" mnemonicParsing="false" onAction="#send" text="Send" />
+            <Button fx:id="Back" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#backToMenu" text="Back to Menu" />
+            <ScrollPane fx:id="Conversation" layoutX="147.0" layoutY="47.0" prefHeight="292.0" prefWidth="429.0">
               <content>
                  <AnchorPane fx:id="history_msg" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                     <children>
-                       <ListView fx:id="myListView" layoutX="43.0" layoutY="12.0" prefHeight="200.0" prefWidth="249.0" />
+                       <ListView fx:id="myListView" layoutX="43.0" layoutY="12.0" prefHeight="266.0" prefWidth="349.0" />
                     </children>
                  </AnchorPane>
               </content>
             </ScrollPane>
-            <Button fx:id="change" layoutX="463.0" layoutY="66.0" mnemonicParsing="false" onAction="#changepseudo" text="Change Pseudo" />
+            <Button fx:id="change" layoutX="14.0" layoutY="74.0" mnemonicParsing="false" onAction="#changepseudo" text="Change Pseudo" />
             <TextFlow fx:id="pseudo_autre" layoutX="219.0" layoutY="74.0" prefHeight="25.0" prefWidth="200.0" />
-            <Label fx:id="myLabel" layoutX="114.0" layoutY="59.0" text="Label" />
+            <Label fx:id="myLabel" layoutX="167.0" layoutY="24.0" text="Label" />
          </children>
       </Pane>
    </children>

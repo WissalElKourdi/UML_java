@@ -234,9 +234,9 @@ public class createDB {
         }
 
         public synchronized List<String> selectAllMsgHistory(String filename){
-            String sql = "SELECT message, date, pseudo, addr, port FROM history";
+            //String sql = "SELECT message, date, pseudo, addr, port FROM history";
+            String sql = "SELECT pseudo, message, date FROM history";
             List<String> list = new ArrayList<>();
-
 
             try (Connection conn = this.connect(filename);
                  Statement stmt  = conn.createStatement();
@@ -244,11 +244,16 @@ public class createDB {
 
                 // loop through the result set
                 while (rs.next()) {
+                    list.add(rs.getString("pseudo").trim()+  "\t" + rs.getString("message")+  "\t"
+                                    + rs.getString("date")+  "\t");
+                    /*
                     list.add( rs.getString("message")+  "\t" +
                             rs.getString("date")+  "\t" +
                             rs.getString("pseudo").trim()+  "\t" +
                             rs.getString("addr")+  "\t" +
                             rs.getInt("port"));
+
+                     */
                     // System.out.println(rs.getString("pseudo"));
                 }
             } catch (SQLException e) {

@@ -102,30 +102,6 @@ public class MenuController extends Thread implements  Initializable {
         primaryStage.show();
     }
 
-
-
-    @FXML public void handleMouseClick(MouseEvent arg0) throws SQLException {
-        //sauvegarder l'user choisi par l'utilisateur (évènement on click)
-        String User = (String) connected_users_list.getSelectionModel().getSelectedItem();
-
-        try {
-            Text text = new Text (User);
-            //ouvrir la page de chat avec l'user choisi => pb sur comment transmettre l'user choisi
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 300);
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        createDB DB = new createDB(DB_name);
-
-        //System.out.println("clicked on " + connected_users_list.getSelectionModel().getSelectedItem());
-        ListView<String> connected_users_list = new ListView<String>(DB.selectAllConnected(DB_name));
-    }
-
 */
     @FXML
     void change_pseudo(ActionEvent event) {
@@ -170,6 +146,7 @@ public class MenuController extends Thread implements  Initializable {
             e.printStackTrace();
         }
     }*/
+
   @FXML
   void disconnect(ActionEvent event) throws SQLException, IOException {
       //deconnexion
@@ -191,17 +168,6 @@ public class MenuController extends Thread implements  Initializable {
       }
   }
 
-
-    @FXML
-    private void receiveData(MouseEvent event) throws IOException {
-        Node node = (Node) event.getSource();
-        //Stage stage = (Stage) node.getScene().getWindow();
-        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("ChatSession.fxml")));
-        Scene scene = new Scene(parent, 600, 400);
-        mainFXML.mainStage.setTitle("Chat App");
-        mainFXML.mainStage.setScene(scene);
-        mainFXML.mainStage.show();
-    }
 
 
  /*   @FXML
