@@ -38,13 +38,15 @@ public class ChatSessController implements Initializable {
     private ScrollPane sp_main;
 
     private ClientTcp client;
-    private String DB_name = "DB_MSG.db";
+    private final String DB_name = "DB_MSG.db";
     private Label myLabel;
     List<String> msgs = new ArrayList<>();
     String currentmsg;
     private Socket socket;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        System.out.println("ChatSessController ");
         try{
 
 
@@ -55,13 +57,13 @@ public class ChatSessController implements Initializable {
             e.printStackTrace();
             System.out.println("Error creating Client ... ");
         }
-
         vbox_messages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 sp_main.setVvalue((Double) newValue);
             }
         });
+       //
 
         client.rcv(socket,vbox_messages);
         //client.receiveMessageFromServer(vbox_messages);

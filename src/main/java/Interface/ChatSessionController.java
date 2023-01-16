@@ -53,9 +53,11 @@ public class ChatSessionController implements Initializable {
         createDB BD = new createDB(DB_name);
         msgs = BD.selectAllMsgHistory(DB_name);
         System.out.println(msgs);
+        System.out.println("ChatSessionController");
     }
     public void initialize(URL url, ResourceBundle resourceBundle){
         myListView.getItems().addAll(msgs);
+        System.out.println("ChatSessionController");
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
