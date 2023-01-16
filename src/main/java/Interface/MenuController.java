@@ -85,6 +85,7 @@ public class MenuController extends Thread implements  Initializable {
         ArrayList<ServerTcp> sessionsList = new ArrayList<>();
         try {
             Srvsocket = new ServerSocket(5678);
+            ServerTcp.sock_acc(Srvsocket);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

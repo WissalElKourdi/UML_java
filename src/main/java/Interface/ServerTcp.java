@@ -78,6 +78,22 @@ public class ServerTcp extends Thread {
         }).start();
     }
 
+    public static void sock_acc(ServerSocket srvsocket){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                   srvsocket.accept();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+
+
     public void rcv(Socket socket,VBox vBoxMessages, ServerTcp server){
 
         new Thread(new Runnable() {

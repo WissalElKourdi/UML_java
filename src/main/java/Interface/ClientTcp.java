@@ -69,8 +69,11 @@ public class ClientTcp {
                 while(true){
                     try{
                         String messageFromServer = bufferedReader.readLine();
+                       //cmt j'accepte le server de celui avec qui je veux parler
+                        MenuController.Srvsocket.accept();
                         System.out.println("i am herze " + messageFromServer);
                         SessionChatController.addLabel(messageFromServer, vbox_messages);
+                        MenuController.Srvsocket.accept();
                     }catch (IOException e){
                         e.printStackTrace();
                         System.out.println("Error receiving message from the Server!");
@@ -111,15 +114,11 @@ public class ClientTcp {
 
     public void rcv(Socket socket, VBox vBoxMessages) {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        System.out.println("i am herze ");
 
                 receiveMessageFromServer(vBoxMessages, socket);
 
 
-            }
-        }).start();
     }
 
     public void send(Socket socket, String msg) {

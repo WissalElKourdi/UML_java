@@ -39,13 +39,16 @@ public class SessionChatController implements Initializable {
     private ScrollPane sp_main;
     private ServerTcp server;
     private Socket socket;
+    private ClientTcp client;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("SessionChatController");
         ArrayList<ServerTcp> sessionsList = new ArrayList<>();
         try{System.out.println("Connected to Client!");
 
-            socket = new Socket("localhost",5678);
-            server = new ServerTcp(socket,sessionsList);
+            socket = new Socket("10.1.5.52",5678);
+            client = new ClientTcp(socket);
+            //  server = new ServerTcp(socket,sessionsList);
             //  sessionsList.add(server);
             System.out.println("Connected to Client!");
 
@@ -61,7 +64,7 @@ public class SessionChatController implements Initializable {
         });
 
 
-        server.rcv(socket,vBoxMessages,server);
+        client.rcv(socket,vBoxMessages);
         // server.receiveMessageFromClient(vBoxMessages, socket.accept());
 
 
@@ -90,7 +93,7 @@ public class SessionChatController implements Initializable {
 
 
 
-                     server.send(socket,messageToSend,server);
+                    client.send(socket,messageToSend);
                     //    server.sendMessageToClient(messageToSend, socket.accept());
 
                     tf_message.clear();
