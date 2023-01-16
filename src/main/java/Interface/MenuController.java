@@ -158,7 +158,7 @@ public class MenuController extends Thread implements  Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
+            Scene scene = new Scene(parent, 1200, 800);
             scene.getStylesheets().add("/styles.css");
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);

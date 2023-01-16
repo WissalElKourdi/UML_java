@@ -17,7 +17,7 @@ public class mainFXML extends Application {
         mainStage = stage;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/login_page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login_page.fxml"));
             Parent parent = loader.load();
 
             Scene scene = new Scene(parent, 1200,800);

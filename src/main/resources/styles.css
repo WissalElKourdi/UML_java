@@ -1,7 +1,7 @@
 /*font import*/
 @font-face {
   font-family: 'CourierPrime-regular';
-  src: url('/font/CourierPrime-regular.ttf');
+  /*src: url(/font/CourierPrime-regular.ttf');*/
 }
 
 /* classes*/
