@@ -20,11 +20,13 @@
     -fx-font-size: 15pt;
     -fx-text-color: #59052D;
     -fx-font-family: 'Courier Prime Regular';
+    -fx-text-alignment: center ;
 }
 
 .textField {
     -fx-font-size: 17pt;
     -fx-font-family: 'Courier Prime Regular';
+    -fx-alignment: center ;
 }
 
 

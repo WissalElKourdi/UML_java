@@ -172,6 +172,8 @@ public class SessionChatController implements Initializable {
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("/styles.css");
+            mainFXML.mainStage.setResizable(false);
+
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -199,6 +201,8 @@ public class SessionChatController implements Initializable {
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("/styles.css");
+            mainFXML.mainStage.setResizable(false);
+
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -215,6 +219,8 @@ public class SessionChatController implements Initializable {
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("/styles.css");
+            mainFXML.mainStage.setResizable(false);
+
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();

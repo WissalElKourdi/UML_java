@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.*;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,28 +27,21 @@ public class LoginController {
     public static boolean isValid(String value) {
         String legalCharacters = "abcdefghijklmnopqrstuvwxzy0123456789";
         boolean valid = true;
-        if (value.length() < 5 || value.length() > 15) {
+        if (value.length() < 4 || value.length() > 15) {
             valid = false;
         }
         else {
-            // For each character in the value
             for (int x = 0; x < value.length() ; x++) {
                 boolean found = false;
-                // Look for the character in legalCharacters
                 for (int z = 0; z < legalCharacters.length(); z++) {
                     char c = value.charAt(x);
                     c = java.lang.Character.toLowerCase(c);
-                    // If we found the character
                     if (c == legalCharacters.charAt(z)) {
-                        // Remember we found it
                         found = true;
                     }
                 }
-                // If we did not find it
                 if (!found) {
-                    // This is an invalid value
                     valid = false;
-                    // Break out of the outer for loop
                     break;
                 }
             }
@@ -72,13 +66,22 @@ public class LoginController {
                     UDP_Server.broadcast_end(port);
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                     Parent parent = loader.load();
+                    mainFXML.mainStage.setResizable(false);
+
+
+                    //Stage newstage = new Stage();
 
                     Scene scene = new Scene(parent, 1200, 800);
                     scene.getStylesheets().add("/styles.css");
-
+/*
+                    newstage.setTitle("My New Stage Title");
+                    newstage.setScene(scene);
+                    newstage.show();
+                    */
                     mainFXML.mainStage.setTitle("Chat App");
                     mainFXML.mainStage.setScene(scene);
                     mainFXML.mainStage.show();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
