@@ -10,4 +10,4 @@ target/
 *.class
 
 #ignorer le fichier de la db
-*.db
+#*.db
