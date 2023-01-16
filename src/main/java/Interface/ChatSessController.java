@@ -1,4 +1,5 @@
 package Interface;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -9,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -20,8 +22,11 @@ import javafx.scene.text.TextFlow;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-public class SessionChatController implements Initializable {
+
+public class ChatSessController implements Initializable {
 
     @FXML
     private Button button_send;
@@ -33,10 +38,17 @@ public class SessionChatController implements Initializable {
     private ScrollPane sp_main;
 
     private ClientTcp client;
+    private String DB_name = "DB_MSG.db";
+    private Label myLabel;
+    List<String> msgs = new ArrayList<>();
+    String currentmsg;
+    private Socket socket;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
-            client = new ClientTcp(new Socket("localhost", 1234));
+
+            socket = new Socket("localhost", 3456);
+            client = new ClientTcp(socket);
             System.out.println("Connected to Server");
         }catch(IOException e){
             e.printStackTrace();
@@ -49,9 +61,8 @@ public class SessionChatController implements Initializable {
                 sp_main.setVvalue((Double) newValue);
             }
         });
-        Socket socket = null;
         client.rcv(socket,vbox_messages,client);
-      //  client.receiveMessageFromServer(vbox_messages);
+        //client.receiveMessageFromServer(vbox_messages);
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -74,9 +85,8 @@ public class SessionChatController implements Initializable {
 
                     hBox.getChildren().add(textFlow);
                     vbox_messages.getChildren().add(hBox);
-                    Socket socket = null;
                     client.send(socket,messageToSend,client);
-                    //client.sendMessageToServer(messageToSend, srvsocket.accept());
+                  // client.sendMessageToServer(messageToSend);
                     tf_message.clear();
                 }
             }

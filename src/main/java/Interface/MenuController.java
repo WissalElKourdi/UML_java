@@ -72,11 +72,17 @@ public class MenuController extends Thread implements  Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
+      /*  try{
+            server = new ServerTcp(new ServerSocket(1234));
+
+        }catch(IOException e){
+            e.printStackTrace();
+            System.out.println("Error creating Server ... ");
+        }  /* try {
             TCP_Server.servtcp();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         myListView.getItems().addAll(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -85,7 +91,7 @@ public class MenuController extends Thread implements  Initializable {
                 currentConnected = myListView.getSelectionModel().getSelectedItem();
                 myLabel.setText(currentConnected);
 
-                try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
+                try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("chatSess.fxml"));
                     Parent parent = loader.load();
                     Scene scene = new Scene(parent, 600, 400);
                     scene.getStylesheets().add("/styles.css");

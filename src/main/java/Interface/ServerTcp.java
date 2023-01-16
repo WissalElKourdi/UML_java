@@ -4,6 +4,8 @@ import javafx.scene.layout.VBox;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalTime;
+import java.util.Scanner;
 
 public class ServerTcp extends Thread {
     private Socket socket;
@@ -34,7 +36,7 @@ public class ServerTcp extends Thread {
     }).start();
     }
 
-    public void sendMessageToClient(String messageToClient){
+    public void sendMessageToClient(String messageToClient, Socket accept){
         try{
             bufferedWriter.write(messageToClient);
             bufferedWriter.newLine();
@@ -44,6 +46,14 @@ public class ServerTcp extends Thread {
             System.out.println("Error sending message to the Client!");
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
+    }
+    public static void sendMessage(String Message,Socket socket) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        PrintWriter out = new PrintWriter(socket.getOutputStream());
+        Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
+        LocalTime time = LocalTime.now();
+        out.println(Message + " " + time); // renvoyer le message ( à changer si on va créer une classe display)
+        out.flush(); // flush les buffers pour ne pas envoyer un null au client à la fin
     }
 
     public void receiveMessageFromClient(VBox vBox){

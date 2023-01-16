@@ -37,7 +37,7 @@ public class ServerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try{System.out.println("Connected to Client!");
+        try{System.out.println("Connected to Client!-------------");
             server = new ServerTcp(new ServerSocket(1234));
 
         }catch(IOException e){
@@ -76,7 +76,8 @@ public class ServerController implements Initializable {
                     hBox.getChildren().add(textFlow);
                     vBoxMessages.getChildren().add(hBox);
 
-                    server.sendMessageToClient(messageToSend);
+                 //   ClassReader socket;
+                 //   server.sendMessageToClient(messageToSend, socket.accept());
                     tf_message.clear();
                 }
             }
