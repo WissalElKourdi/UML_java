@@ -54,13 +54,14 @@ public class LoginController {
         //get new username and check that it's not already used : if it's not, change to menu scene
         String name = choose_username.getText();
        // System.out.println("je suis ici" + UDP_Server.broadcast_Pseudo(name));
-        new UDP_Client(port).start();
-        if (UDP_Server.broadcast_Pseudo(name,port)) {
-            if (!isValid(name)){
-                Text text = new Text ("Your username should contain between 5 and 15 characters, only letters and digits are allowed.");
-                returnText.getChildren().clear();
-                returnText.getChildren().add(text);
-            } else {
+        if (!isValid(name)){
+            Text text = new Text ("Your username should contain between 5 and 15 characters, only letters and digits are allowed.");
+            returnText.getChildren().clear();
+            returnText.getChildren().add(text);
+        } else {
+            new UDP_Client(port).start();
+
+            if (UDP_Server.broadcast_Pseudo(name, port)) {
                 try {
                     UDP_Server.broadcast_connection(name, port);
                     UDP_Server.broadcast_end(port);
@@ -73,11 +74,11 @@ public class LoginController {
 
                     Scene scene = new Scene(parent, 1200, 800);
                     scene.getStylesheets().add("/styles.css");
-/*
-                    newstage.setTitle("My New Stage Title");
-                    newstage.setScene(scene);
-                    newstage.show();
-                    */
+    /*
+                        newstage.setTitle("My New Stage Title");
+                        newstage.setScene(scene);
+                        newstage.show();
+                        */
                     mainFXML.mainStage.setTitle("Chat App");
                     mainFXML.mainStage.setScene(scene);
                     mainFXML.mainStage.show();
@@ -85,14 +86,15 @@ public class LoginController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+            } else {
+                System.out.println("je suis ici");
+                UDP_Server.broadcast_end(port);
+                System.out.println("je suis ici");
+                Text text = new Text("This username is already taken, choose another one");
+                returnText.getChildren().clear();
+                returnText.getChildren().add(text);
             }
-        }else{
-            System.out.println("je suis ici");
-            UDP_Server.broadcast_end(port);
-            System.out.println("je suis ici");
-            Text text = new Text ("This username is already taken, choose another one");
-            returnText.getChildren().clear();
-            returnText.getChildren().add(text);
         }
     }
 }

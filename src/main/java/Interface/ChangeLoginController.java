@@ -53,16 +53,14 @@ public class ChangeLoginController {
 
         @FXML
         void SaveNewLogin(ActionEvent event) throws IOException, SQLException {
-                //get new username
                 String name = NewLoginArea.getText();
-                //if it's not already used, change to menu scene
-                new UDP_Client(port).start();
-                if (UDP_Server.broadcast_ChangePseudo(name, port)) {
-                        if (!LoginController.isValid(name)){
-                                Text text = new Text ("Your username should contain between 5 and 15 characters, only letters and digits are allowed.");
-                                result.getChildren().clear();
-                                result.getChildren().add(text);
-                        } else {
+                if (!LoginController.isValid(name)){
+                        Text text = new Text ("Your username should contain between 5 and 15 characters, only letters and digits are allowed.");
+                        result.getChildren().clear();
+                        result.getChildren().add(text);
+                } else {
+                        new UDP_Client(port).start();
+                        if (UDP_Server.broadcast_ChangePseudo(name, port)) {
                                 try {
                                         //UDP_Server.broadcast_connection(name, port);
                                         UDP_Server.broadcast_end(port);
@@ -78,12 +76,13 @@ public class ChangeLoginController {
                                 } catch (IOException e) {
                                         e.printStackTrace();
                                 }
+
+                        } else {
+                                UDP_Server.broadcast_end(port);
+                                Text text = new Text("This username is already taken, choose another one");
+                                result.getChildren().clear();
+                                result.getChildren().add(text);
                         }
-                }else{
-                        UDP_Server.broadcast_end(port);
-                        Text text = new Text ("This username is already taken, choose another one");
-                        result.getChildren().clear();
-                        result.getChildren().add(text);
                 }
         }
 }
