@@ -4,76 +4,117 @@ import javafx.scene.layout.VBox;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.LocalTime;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class ServerTcp extends Thread {
-    private Socket socket;
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
 
-    public ServerTcp(ServerSocket serverSocket)  {
+    public Socket socket;
+    public BufferedReader bufferedReader;
+    public BufferedWriter bufferedWriter;
+    public ArrayList<ServerTcp> sessionsList;
+    public ServerTcp(Socket socket, ArrayList<ServerTcp> sessionsList )  {
 
-        System.out.println("je suis ici");
-        new Thread(new Runnable() {
-            private BufferedReader bufferedReader;
-            private Socket socket;
-            private BufferedWriter bufferedWriter;
-            @Override
-            public void run() {
-        try{
-            this.socket = serverSocket.accept();
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        }catch(IOException e){
-            System.out.println("Error creating Server!");
-            e.printStackTrace();
-            closeEverything(socket, bufferedReader, bufferedWriter);
-        }
-        System.out.println("je suis la");
+        this.sessionsList = sessionsList;
+        this.socket = socket;
+
+           /*  try{
+            while (true) {
+
+                this.socket = serverSocket.accept();
+                this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             }
-
-    }).start();
+             }catch(IOException e){
+                 System.out.println("Error creating Server!");
+                 e.printStackTrace();
+                 closeEverything(socket, bufferedReader, bufferedWriter);
+             }
+        System.out.println("je suis la");
+*/
     }
 
-    public void sendMessageToClient(String messageToClient, Socket accept){
+    public void sendMessageToClient(String messageToClient, Socket socket){
         try{
-            bufferedWriter.write(messageToClient);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
+            BufferedWriter bW = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+            bW.write(messageToClient);
+            bW.newLine();
+            bW.flush();
         }catch(IOException e){
             e.printStackTrace();
             System.out.println("Error sending message to the Client!");
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
     }
-    public static void sendMessage(String Message,Socket socket) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        PrintWriter out = new PrintWriter(socket.getOutputStream());
-        Message = sc.nextLine();//stocke le texte. Cette méthode au scanner créé
-        LocalTime time = LocalTime.now();
-        out.println(Message + " " + time); // renvoyer le message ( à changer si on va créer une classe display)
-        out.flush(); // flush les buffers pour ne pas envoyer un null au client à la fin
-    }
 
-    public void receiveMessageFromClient(VBox vBox){
+    public void receiveMessageFromClient(VBox vBox,Socket socket){
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(socket.isConnected()){
-                    try{
-                        String messageFromClient = bufferedReader.readLine();
-                        ServerController.addLabel(messageFromClient, vBox);
+
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                String messageFromClient = null;
+                try {
+                    messageFromClient = in.readLine();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                while(messageFromClient!=null){
+                    try{    messageFromClient = in.readLine();
+                        SessionChatController.addLabel(messageFromClient, vBox);
+
+
                     }catch (IOException e){
                         e.printStackTrace();
                         System.out.println("Error receiving message from the Client!");
                         closeEverything(socket, bufferedReader, bufferedWriter);
                         break;
-                    }
-                }
+                    }}
+
             }
         }).start();
     }
+
+    public void rcv(Socket socket,VBox vBoxMessages, ServerTcp server){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+
+                while (true) {
+                    try {
+                        Socket socket_accept =  MenuController.Srvsocket.accept();
+                        server.receiveMessageFromClient(vBoxMessages, socket_accept);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    // ArrayList<ClientTcp> sessionsList = new ArrayList<>();
+                    //    sessionsList.add(client);
+                    System.out.println("Connected to Server");
+                }
+            }}).start();
+    }
+    public void send(ServerSocket srvsocket,String msg,ServerTcp server){
+        Socket socket;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    server.sendMessageToClient(msg, srvsocket.accept());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }}).start();
+    }
+
 
     private void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
         try{

@@ -9,17 +9,17 @@ import java.util.Scanner;
 
 public class ClientTcp {
 
-   // private Socket socket;
+    // private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
-   public BufferedWriter bW;
+    public BufferedWriter bW;
 
 
     public ClientTcp(Socket socket) {
 
         try{
             System.out.println(" creating Client ... ");
-         //   this.socket = socket;
+            //   this.socket = socket;
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             System.out.println(" creating Client ... ");
@@ -63,22 +63,22 @@ public class ClientTcp {
     }
 
     public void receiveMessageFromServer(VBox vbox_messages, Socket socket) {
-     new Thread(new Runnable() {
-         @Override
-         public void run() {
-             while(socket.isConnected()){
-                 try{
-                     String messageFromServer = bufferedReader.readLine();
-                     ChatSessController.addLabel(messageFromServer, vbox_messages);
-                 }catch (IOException e){
-                     e.printStackTrace();
-                     System.out.println("Error receiving message from the Server!");
-                     closeEverything(socket, bufferedReader, bufferedWriter);
-                     break;
-                 }
-             }
-         }
-     }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(socket.isConnected()){
+                    try{
+                        String messageFromServer = bufferedReader.readLine();
+                        SessionChatController.addLabel(messageFromServer, vbox_messages);
+                    }catch (IOException e){
+                        e.printStackTrace();
+                        System.out.println("Error receiving message from the Server!");
+                        closeEverything(socket, bufferedReader, bufferedWriter);
+                        break;
+                    }
+                }
+            }
+        }).start();
     } /*  new Thread(new Runnable() {
             @Override
             public void run() {
@@ -127,7 +127,7 @@ public class ClientTcp {
             @Override
             public void run() {
 
-              client.sendMessageToServer(msg, socket);
+                client.sendMessageToServer(msg, socket);
 
 
             }

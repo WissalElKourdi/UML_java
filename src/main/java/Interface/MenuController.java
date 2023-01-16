@@ -34,6 +34,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import Database.createDB;
+
+import javax.crypto.SecretKeyFactory;
+
 import static javafx.application.Application.launch;
 
 public class MenuController extends Thread implements  Initializable {
@@ -56,13 +59,15 @@ public class MenuController extends Thread implements  Initializable {
     private Label myLabel;
 
     List<String> connected = new ArrayList<>();
-    public static ServerTcp server;
+    //  public static ServerTcp server;
 
-   String currentConnected;
+    String currentConnected;
     String name_db = "DB_MSG.db";
     private Socket sockett;
     private BufferedReader bufferedReaderr;
     private BufferedWriter bufferedWriterr;
+    private ServerTcp server;
+    public static ServerSocket Srvsocket;
 
     public MenuController() throws SQLException {
 
@@ -72,17 +77,21 @@ public class MenuController extends Thread implements  Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-      /*  try{
-            server = new ServerTcp(new ServerSocket(1234));
-
-        }catch(IOException e){
-            e.printStackTrace();
-            System.out.println("Error creating Server ... ");
-        }  /* try {
+      /*  try {
             TCP_Server.servtcp();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }*/
+        ArrayList<ServerTcp> sessionsList = new ArrayList<>();
+
+        try {
+            Srvsocket = new ServerSocket(5678);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //  server = new ServerTcp(Srvsocket,sessionsList);
+
+        System.out.println("Connected to Client!");
 
         myListView.getItems().addAll(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -91,7 +100,7 @@ public class MenuController extends Thread implements  Initializable {
                 currentConnected = myListView.getSelectionModel().getSelectedItem();
                 myLabel.setText(currentConnected);
 
-                try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("chatSess.fxml"));
+                try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
                     Parent parent = loader.load();
                     Scene scene = new Scene(parent, 600, 400);
                     scene.getStylesheets().add("/styles.css");
@@ -137,27 +146,27 @@ public class MenuController extends Thread implements  Initializable {
     }
 
 
-  @FXML
-  void disconnect(ActionEvent event) throws SQLException, IOException {
-      //deconnexion
-      createDB DB = new createDB(DB_name);
-      String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
-      new UDP_Client(port).start();
-      UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
-      UDP_Server.broadcast_end(port);
-      //retour à la page d'accueil (login)
-      try {
-          FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
-          Parent parent = loader.load();
-          Scene scene = new Scene(parent, 600, 400);
-          scene.getStylesheets().add("/styles.css");
-          mainFXML.mainStage.setTitle("Chat App");
-          mainFXML.mainStage.setScene(scene);
-          mainFXML.mainStage.show();
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-  }
+    @FXML
+    void disconnect(ActionEvent event) throws SQLException, IOException {
+        //deconnexion
+        createDB DB = new createDB(DB_name);
+        String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
+        new UDP_Client(port).start();
+        UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
+        UDP_Server.broadcast_end(port);
+        //retour à la page d'accueil (login)
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent, 600, 400);
+            scene.getStylesheets().add("/styles.css");
+            mainFXML.mainStage.setTitle("Chat App");
+            mainFXML.mainStage.setScene(scene);
+            mainFXML.mainStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

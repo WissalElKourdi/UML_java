@@ -1,7 +1,6 @@
 package communication;
 
 import Database.createDB;
-import Interface.ServerController;
 import javafx.scene.layout.VBox;
 
 import java.io.*;
