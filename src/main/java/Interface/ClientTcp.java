@@ -50,9 +50,9 @@ public class ClientTcp {
     public void sendMessageToServer(String messageToServer, Socket socket) {
         try {
 
-            bW.write(messageToServer);
-            bW.newLine();
-            bW.flush();
+            bufferedWriter.write(messageToServer);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
 
 
         } catch (IOException e) {
@@ -66,10 +66,14 @@ public class ClientTcp {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(socket.isConnected()){
+                while(true){
                     try{
                         String messageFromServer = bufferedReader.readLine();
+                       //cmt j'accepte le server de celui avec qui je veux parler
+                        MenuController.Srvsocket.accept();
+                        System.out.println("i am herze " + messageFromServer);
                         SessionChatController.addLabel(messageFromServer, vbox_messages);
+                        MenuController.Srvsocket.accept();
                     }catch (IOException e){
                         e.printStackTrace();
                         System.out.println("Error receiving message from the Server!");
@@ -108,26 +112,23 @@ public class ClientTcp {
 
 
 
-    public void rcv(Socket socket, VBox vBoxMessages, ClientTcp client) {
+    public void rcv(Socket socket, VBox vBoxMessages) {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        System.out.println("i am herze ");
 
-                client.receiveMessageFromServer(vBoxMessages, socket);
+                receiveMessageFromServer(vBoxMessages, socket);
 
 
-            }
-        }).start();
     }
 
-    public void send(Socket socket, String msg, ClientTcp client) {
+    public void send(Socket socket, String msg) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                client.sendMessageToServer(msg, socket);
+                sendMessageToServer(msg, socket);
+
 
 
             }
