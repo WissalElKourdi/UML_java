@@ -50,6 +50,7 @@ public class LoginController {
             UDP_Server.broadcast_end(port);
             System.out.println("je suis ici");
             Text text = new Text ("This username is already taken, choose another one");
+            returnText.getChildren().clear();
             returnText.getChildren().add(text);
         }
     }

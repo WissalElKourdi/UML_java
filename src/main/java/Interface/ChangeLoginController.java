@@ -65,13 +65,13 @@ public class ChangeLoginController {
                                 mainFXML.mainStage.setTitle("Chat App");
                                 mainFXML.mainStage.setScene(scene);
                                 mainFXML.mainStage.show();
-
                         } catch (IOException e) {
                                 e.printStackTrace();
                         }
                 }else{
                         UDP_Server.broadcast_end(port);
                         Text text = new Text ("This username is already taken, choose another one");
+                        result.getChildren().clear();
                         result.getChildren().add(text);
                 }
         }
