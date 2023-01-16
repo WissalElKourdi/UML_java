@@ -66,9 +66,10 @@ public class ClientTcp {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(socket.isConnected()){
+                while(true){
                     try{
                         String messageFromServer = bufferedReader.readLine();
+                        System.out.println("i am herze " + messageFromServer);
                         SessionChatController.addLabel(messageFromServer, vbox_messages);
                     }catch (IOException e){
                         e.printStackTrace();
@@ -108,26 +109,27 @@ public class ClientTcp {
 
 
 
-    public void rcv(Socket socket, VBox vBoxMessages, ClientTcp client) {
+    public void rcv(Socket socket, VBox vBoxMessages) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                client.receiveMessageFromServer(vBoxMessages, socket);
+                receiveMessageFromServer(vBoxMessages, socket);
 
 
             }
         }).start();
     }
 
-    public void send(Socket socket, String msg, ClientTcp client) {
+    public void send(Socket socket, String msg) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                client.sendMessageToServer(msg, socket);
+                sendMessageToServer(msg, socket);
+
 
 
             }

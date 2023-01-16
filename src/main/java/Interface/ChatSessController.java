@@ -47,7 +47,8 @@ public class ChatSessController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
 
-            socket = new Socket("localhost", 3456);
+
+            socket = new Socket("localhost", 5678);
             client = new ClientTcp(socket);
             System.out.println("Connected to Server");
         }catch(IOException e){
@@ -61,7 +62,8 @@ public class ChatSessController implements Initializable {
                 sp_main.setVvalue((Double) newValue);
             }
         });
-        client.rcv(socket,vbox_messages,client);
+
+        client.rcv(socket,vbox_messages);
         //client.receiveMessageFromServer(vbox_messages);
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
@@ -85,7 +87,7 @@ public class ChatSessController implements Initializable {
 
                     hBox.getChildren().add(textFlow);
                     vbox_messages.getChildren().add(hBox);
-                    client.send(socket,messageToSend,client);
+                    client.send(socket,messageToSend);
                   // client.sendMessageToServer(messageToSend);
                     tf_message.clear();
                 }

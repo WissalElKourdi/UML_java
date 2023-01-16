@@ -83,7 +83,6 @@ public class MenuController extends Thread implements  Initializable {
             throw new RuntimeException(e);
         }*/
         ArrayList<ServerTcp> sessionsList = new ArrayList<>();
-
         try {
             Srvsocket = new ServerSocket(5678);
         } catch (IOException e) {
@@ -155,6 +154,7 @@ public class MenuController extends Thread implements  Initializable {
         UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
         UDP_Server.broadcast_end(port);
         //retour à la page d'accueil (login)
+        Srvsocket.close();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
             Parent parent = loader.load();
