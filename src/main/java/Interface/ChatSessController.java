@@ -115,4 +115,6 @@ public class ChatSessController implements Initializable {
             }
         });
     }
+
+
 }

@@ -6,15 +6,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Interface.SessionChatController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.SessionChatController">
    <children>
-      <Button fx:id="button_send" layoutX="489.0" layoutY="305.0" mnemonicParsing="false" text="Button" />
-      <TextField id="tf_messages" fx:id="tf_message" layoutX="234.0" layoutY="305.0" prefWidth="200.0" />
-      <VBox fx:id="vBoxMessages" layoutX="446.0" layoutY="69.0" prefHeight="200.0" prefWidth="100.0" />
-      <ScrollPane fx:id="sp_main" layoutX="200.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0">
-         <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-         </content>
-      </ScrollPane>
+      <Button fx:id="button_send" layoutX="912.0" layoutY="680.0" mnemonicParsing="false" text="Button" />
+      <TextField id="tf_messages" fx:id="tf_message" layoutX="500.0" layoutY="680.0" prefWidth="200.0" />
+      <VBox fx:id="vBoxMessages" layoutX="14.0" layoutY="31.0" prefHeight="634.0" prefWidth="1168.0" />
+      <ScrollPane fx:id="sp_main" layoutX="200.0" layoutY="78.0" prefHeight="560.0" prefWidth="768.0" />
+
+
+      <Button fx:id="change" layoutX="979.0" layoutY="318.0" mnemonicParsing="false" onAction="#changepseudo" text="Change Pseudo" />
+      <Button fx:id="Back" layoutX="982.0" layoutY="476.0" mnemonicParsing="false" onAction="#backToMenu" text="Back to Menu" />
+
+      <Button fx:id="disconnect" layoutX="982.0" layoutY="394.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
+      <TextField fx:id="writtenMessage" layoutX="48.0" layoutY="696.0" prefHeight="54.0" prefWidth="905.0" promptText="Write your message here..." />
+      <Button fx:id="send" layoutX="979.0" layoutY="696.0" mnemonicParsing="false" onAction="#send" text="Send" />
    </children>
 </AnchorPane>
