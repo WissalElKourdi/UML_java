@@ -90,7 +90,7 @@ public class SessionChatController implements Initializable {
 
 
 
-                    //   server.send(socket,messageToSend,server);
+                     server.send(socket,messageToSend,server);
                     //    server.sendMessageToClient(messageToSend, socket.accept());
 
                     tf_message.clear();

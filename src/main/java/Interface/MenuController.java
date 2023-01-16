@@ -90,7 +90,7 @@ public class MenuController extends Thread implements  Initializable {
         }
         //  server = new ServerTcp(Srvsocket,sessionsList);
 
-        System.out.println("Connected to Client!");
+        //System.out.println("Connected to Client!");
 
         myListView.getItems().addAll(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -111,7 +111,6 @@ public class MenuController extends Thread implements  Initializable {
                 }
             }
         });
-
     }
 
     public void start(Stage primaryStage) {

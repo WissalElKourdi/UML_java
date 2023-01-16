@@ -50,9 +50,9 @@ public class ClientTcp {
     public void sendMessageToServer(String messageToServer, Socket socket) {
         try {
 
-            bW.write(messageToServer);
-            bW.newLine();
-            bW.flush();
+            bufferedWriter.write(messageToServer);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
 
 
         } catch (IOException e) {
