@@ -13,9 +13,6 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#024029" height="800.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="343.0" layoutX="301.0" layoutY="134.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="598.0" />
             <Label layoutX="444.0" layoutY="222.0" text="Change your username">
-               <font>
-                  <Font name="SansSerif Regular" size="36.0" />
-               </font>
             </Label>
             <Button fx:id="cancelButton" layoutX="553.0" layoutY="610.0" mnemonicParsing="false" onAction="#CancelClicked" text="Cancel" />
             <Button fx:id="SaveButton" layoutX="562.0" layoutY="381.0" mnemonicParsing="false" onAction="#SaveNewLogin" text="Save" />

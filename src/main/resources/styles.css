@@ -1,12 +1,10 @@
-/* CSS */
-/*@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
-*/
-
+/*font import*/
 @font-face {
   font-family: 'CourierPrime-regular';
   src: url('/font/CourierPrime-regular.ttf');
 }
 
+/* classes*/
 .button {
     -fx-font-size: 15pt;
     -fx-font-family: 'CourierPrime-regular';
@@ -22,8 +20,6 @@
     -fx-font-size: 15pt;
     -fx-text-color: #59052D;
     -fx-font-family: 'CourierPrime-regular';
-
-
 }
 
 .textField {

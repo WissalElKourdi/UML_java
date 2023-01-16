@@ -45,36 +45,35 @@ public class ChatSessionController implements Initializable {
     @FXML
     private Label myLabel;
     @FXML
-            private Socket socket;
+    private Socket socket;
     String OtherUser;
 
     List<String> msgs = new ArrayList<>();
 
     String currentmsg;
 
-public ChatSessionController( )  throws SQLException {
+    public ChatSessionController( )  throws SQLException {
 
-    createDB BD = new createDB(DB_name);
+        createDB BD = new createDB(DB_name);
 
-       /* connected.add("Wissal");
-        connected.add("LEo");
-        connected.add("SIS");
-        */
+           /* connected.add("Wissal");
+            connected.add("LEo");
+            connected.add("SIS");
+            */
 
-    msgs = BD.selectAllMsgHistory(DB_name);
-    System.out.println(msgs);
-}
+        msgs = BD.selectAllMsgHistory(DB_name);
+        System.out.println(msgs);
+    }
     public void initialize(URL url, ResourceBundle resourceBundle){
         myListView.getItems().addAll(msgs);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-
-
-    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-        currentmsg = myListView.getSelectionModel().getSelectedItem();
-        myLabel.setText(currentmsg);
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                currentmsg = myListView.getSelectionModel().getSelectedItem();
+                myLabel.setText(currentmsg);
+            }
+        });
     }
-        });}
+
         @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
         //deconnexion
@@ -113,7 +112,7 @@ public ChatSessionController( )  throws SQLException {
        //TCP_Client.goClient(message,port);
        //TCP_Server.goThreadsend(port,message);
     }
-        //send_udp();
+
     @FXML
     void backToMenu(ActionEvent event) throws IOException {
         try {

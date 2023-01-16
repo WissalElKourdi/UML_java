@@ -33,6 +33,7 @@ public class SessionChatController implements Initializable {
     private ScrollPane sp_main;
 
     private ClientTcp client;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{

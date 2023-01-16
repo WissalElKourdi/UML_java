@@ -23,7 +23,8 @@ public class ChangeLoginController {
         private TextArea NewLoginArea;
         @FXML
         private TextFlow result;
-  /*      public ChangeLoginController() {
+
+        /*      public ChangeLoginController() {
                 try {
                        new UDP_Client(port).start();
                 } catch (IOException e) {
