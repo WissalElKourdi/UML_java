@@ -12,7 +12,7 @@ public class ClientApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         mainStage = primaryStage;
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("/client-view.fxml"));    //Tell the FXMLLoader where the FXML file is
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("/pages/client-view.fxml"));    //Tell the FXMLLoader where the FXML file is
         Parent root = loader.load();                     //create the view and link it with the Controller
 
 

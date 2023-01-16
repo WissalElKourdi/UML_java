@@ -23,7 +23,8 @@ public class ChangeLoginController {
         private TextArea NewLoginArea;
         @FXML
         private TextFlow result;
-  /*      public ChangeLoginController() {
+
+        /*      public ChangeLoginController() {
                 try {
                        new UDP_Client(port).start();
                 } catch (IOException e) {
@@ -38,7 +39,7 @@ public class ChangeLoginController {
                         //retour vers la page principale
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                         Parent parent = loader.load();
-                        Scene scene = new Scene(parent, 600, 400);
+                        Scene scene = new Scene(parent, 1200,800);
                         scene.getStylesheets().add("/styles.css");
                         mainFXML.mainStage.setTitle("Chat App");
                         mainFXML.mainStage.setScene(scene);
@@ -60,18 +61,18 @@ public class ChangeLoginController {
                                 UDP_Server.broadcast_end(port);
                                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                                 Parent parent = loader.load();
-                                Scene scene = new Scene(parent, 600, 400);
+                                Scene scene = new Scene(parent, 1200,800);
                                 scene.getStylesheets().add("/styles.css");
                                 mainFXML.mainStage.setTitle("Chat App");
                                 mainFXML.mainStage.setScene(scene);
                                 mainFXML.mainStage.show();
-
                         } catch (IOException e) {
                                 e.printStackTrace();
                         }
                 }else{
                         UDP_Server.broadcast_end(port);
                         Text text = new Text ("This username is already taken, choose another one");
+                        result.getChildren().clear();
                         result.getChildren().add(text);
                 }
         }
