@@ -1,27 +1,33 @@
 /* CSS */
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+*/
+
+@font-face {
+  font-family: 'CourierPrime-regular';
+  src: url('/font/CourierPrime-regular.ttf');
+}
+
 .button {
     -fx-font-size: 15pt;
-    -fx-font-family: 'Courier Prime', monospace;
+    /*-fx-font-family: 'CourierPrime-regular';*/
 }
 
 .label{
     -fx-font-size:20pt;
     -fx-text-color: #0E1140;
-    -fx-font-family: 'Courier Prime', monospace;
+    /*-fx-font-family: 'Courier Prime', monospace;*/
 }
 
-.textflow {
+.textFlow {
     -fx-font-size: 15pt;
     -fx-text-color: #59052D;
-    -fx-font-family: 'Courier Prime', monospace;
+   /* -fx-font-family: 'Courier Prime', monospace;*/
 
 
 }
 
-.textfield {
+.textField {
         -fx-font-size: 17pt;
-
 
 }
 

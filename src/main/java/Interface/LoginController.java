@@ -11,7 +11,6 @@ import javafx.scene.text.*;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.net.SocketException;
 import java.sql.SQLException;
 
 public class LoginController {

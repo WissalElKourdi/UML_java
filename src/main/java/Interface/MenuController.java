@@ -6,33 +6,18 @@ import UDP.UDP_Server;
 import communication.TCP_Server;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.fxml.*;
 import javafx.scene.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.fxml.*;
-import javafx.scene.*;
+
 import java.io.IOException;
 import java.net.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import Database.createDB;
+
 import static javafx.application.Application.launch;
 
 public class MenuController extends Thread implements  Initializable {

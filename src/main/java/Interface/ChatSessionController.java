@@ -4,7 +4,6 @@ import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
 
-import communication.TCP_Client;
 import communication.TCP_Server;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,7 +12,6 @@ import javafx.scene.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.text.*;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.InetAddress;
