@@ -102,11 +102,23 @@ public class MenuController extends Thread implements  Initializable {
 
                 try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
                     Parent parent = loader.load();
-                    Scene scene = new Scene(parent, 600, 400);
+
+                    Stage newstage = new Stage();
+
+                    mainFXML.mainStage.setResizable(false);
+
+
+                    Scene scene = new Scene(parent, 1200, 800);
                     scene.getStylesheets().add("/styles.css");
+
+                    newstage.setTitle("My New Stage Title");
+                    newstage.setScene(scene);
+                    newstage.show();
+                    /*
                     mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
                     mainFXML.mainStage.setScene(scene);
                     mainFXML.mainStage.show();
+                    */
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -134,14 +146,17 @@ public class MenuController extends Thread implements  Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
+            Scene scene = new Scene(parent, 1200, 800);
+            scene.getStylesheets().add("/styles.css");
+
+            mainFXML.mainStage.setResizable(false);
+
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -160,6 +175,8 @@ public class MenuController extends Thread implements  Initializable {
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 1200, 800);
             scene.getStylesheets().add("/styles.css");
+            mainFXML.mainStage.setResizable(false);
+
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();

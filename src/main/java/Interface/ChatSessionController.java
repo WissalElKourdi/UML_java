@@ -86,7 +86,7 @@ public class ChatSessionController implements Initializable {
             e.printStackTrace();
         }
     }
-
+/*
     @FXML
     void send(ActionEvent event) throws SQLException {
         //récupération du message tapé dans la zone de texte
@@ -98,6 +98,8 @@ public class ChatSessionController implements Initializable {
         myListView.getItems().addAll(msgs);
 
     }
+    */
+
     @FXML
     void backToMenu(ActionEvent event) throws IOException {
         try {
