@@ -107,9 +107,9 @@ public ChatSessionController( )  throws SQLException {
         String pseudo = mainFXML.mainStage.getTitle();
         createDB DB = new createDB(DB_name);
         int port = DB.selectPort(pseudo,DB_name);
-        TCP_Server server= new TCP_Server();
-        TCP_Server.launchReceiverThread(socket);
-        TCP_Server.SenderThread(socket);
+        //TCP_Server server= new TCP_Server();
+        //TCP_Server.launchReceiverThread(socket);
+        //TCP_Server.SenderThread(socket);
         //TCP_Client client = new TCP_Client();
        //TCP_Client t_c = new TCP_Client();
        //TCP_Client.goClient(message,port);

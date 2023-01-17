@@ -90,7 +90,7 @@ public class TCP_Server extends Thread {
             envoi.start();
         }
 
-        public static void ThreadServ(ServerSocket socketserver,int port){
+        public static void ThreadServ(ServerSocket socketserver){
             try {
                 while (true) {
                     System.out.println("Serveur est à l'écoute du port " + socketserver.getLocalPort());

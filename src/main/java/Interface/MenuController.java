@@ -199,7 +199,7 @@ public class MenuController extends Thread implements  Initializable {
             addr = datagramSocket.getLocalAddress().getHostAddress();
             int port= DB.selectPort( DB.getPseudo(addr,"DB_MSG.db"),"DB_MSG.db");
             port = 5000;
-            TCP_Server TCP_srv = new TCP_Server();
+            //TCP_Server TCP_srv = new TCP_Server();
 
             //TCP_Server.goThreadwait(port);
            // TCP_Server.launchReceiverThread(socket);
