@@ -76,7 +76,6 @@ public class ChangeLoginController {
                                 } catch (IOException e) {
                                         e.printStackTrace();
                                 }
-
                         } else {
                                 UDP_Server.broadcast_end(port);
                                 Text text = new Text("This username is already taken, choose another one");

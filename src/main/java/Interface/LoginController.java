@@ -60,7 +60,6 @@ public class LoginController {
             returnText.getChildren().add(text);
         } else {
             new UDP_Client(port).start();
-
             if (UDP_Server.broadcast_Pseudo(name, port)) {
                 try {
                     UDP_Server.broadcast_connection(name, port);
