@@ -12,31 +12,18 @@ public class ServerTcp extends Thread {
     public BufferedReader bufferedReader;
     public BufferedWriter bufferedWriter;
     public ArrayList<ServerTcp> sessionsList;
-    public ServerTcp(Socket socket, ArrayList<ServerTcp> sessionsList )  {
+    public ServerTcp(Socket socket, ArrayList<ServerTcp> sessionsList ) {
 
         this.sessionsList = sessionsList;
         this.socket = socket;
-
-           /*  try{
-            while (true) {
-
-                this.socket = serverSocket.accept();
-                this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            }
-             }catch(IOException e){
-                 System.out.println("Error creating Server!");
-                 e.printStackTrace();
-                 closeEverything(socket, bufferedReader, bufferedWriter);
-             }
-        System.out.println("je suis la");
-*/
     }
 
+
+
+    /* this function takes the message and the client in argument and sends him the message*/
     public void sendMessageToClient(String messageToClient, Socket socket){
         try{
             BufferedWriter bW = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
             bW.write(messageToClient);
             bW.newLine();
             bW.flush();
@@ -79,21 +66,19 @@ public class ServerTcp extends Thread {
     }
 
     public static void sock_acc(ServerSocket srvsocket){
-
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                   srvsocket.accept();
+                  Socket socket1= srvsocket.accept();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-
     }
 
-
+/* thread pour recevoir */
     public void rcv(Socket socket,VBox vBoxMessages, ServerTcp server){
 
         new Thread(new Runnable() {
@@ -102,12 +87,11 @@ public class ServerTcp extends Thread {
                 while (true) {
                     try {
                         Socket socket_accept =  MenuController.Srvsocket.accept();
-                        server.receiveMessageFromClient(vBoxMessages, socket_accept);
-                        sessionsList.add(server);
-
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+                    server.receiveMessageFromClient(vBoxMessages, socket);
+                    sessionsList.add(server);
 
                     // ArrayList<ClientTcp> sessionsList = new ArrayList<>();
                     //    sessionsList.add(client);
@@ -115,6 +99,9 @@ public class ServerTcp extends Thread {
                 }
             }}).start();
     }
+
+
+    /*  thread pour envoyer */
     public void send(ServerSocket srvsocket,String msg,ServerTcp server){
         Socket socket;
         new Thread(new Runnable() {
@@ -129,7 +116,7 @@ public class ServerTcp extends Thread {
             }}).start();
     }
 
-
+/* this function closes all the buffers */
     private void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
         try{
             if (bufferedReader != null) {

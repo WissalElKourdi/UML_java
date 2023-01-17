@@ -57,7 +57,7 @@ public class MenuController extends Thread implements  Initializable {
     private ListView<String> myListView;
     @FXML
     private Label myLabel;
-
+private VBox Vbox;
     List<String> connected = new ArrayList<>();
     //  public static ServerTcp server;
 
@@ -83,15 +83,20 @@ public class MenuController extends Thread implements  Initializable {
             throw new RuntimeException(e);
         }*/
         ArrayList<ServerTcp> sessionsList = new ArrayList<>();
-        try {
-            Srvsocket = new ServerSocket(5678);
-            ServerTcp.sock_acc(Srvsocket);
+        try (ServerSocket Srvsocket = new ServerSocket(5678)){
+               ServerTcp.sock_acc(Srvsocket);
+                //ServerTcp thread = new ServerTcp(socket, sessionsList);
+               // sessionsList.add(thread);
+                //thread.rcv(socket,Vbox,thread);
+
+        //  server = new ServerTcp(Srvsocket,sessionsList);
+
+        System.out.println("Connected to Client!");
+
+            //ServerTcp.sock_acc(Srvsocket);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //  server = new ServerTcp(Srvsocket,sessionsList);
-
-        //System.out.println("Connected to Client!");
 
         myListView.getItems().addAll(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {

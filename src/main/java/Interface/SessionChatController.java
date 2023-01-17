@@ -159,6 +159,7 @@ public class SessionChatController implements Initializable {
             }
         });
     }
+    @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
         //deconnexion
         createDB DB = new createDB(DB_name);
