@@ -46,21 +46,17 @@ public class MenuController extends Thread implements  Initializable {
     private String DB_name = "DB_MSG.db";
     private static final int port =2000;
 
-
     @FXML
     private Button disconnect;
     @FXML
     private Button change_pseudo;
 
-
     @FXML
     private ListView<String> myListView;
     @FXML
     private Label myLabel;
-
     List<String> connected = new ArrayList<>();
     //  public static ServerTcp server;
-
     String currentConnected;
     String name_db = "DB_MSG.db";
     private Socket sockett;
