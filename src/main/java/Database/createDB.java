@@ -15,7 +15,6 @@ import java.util.List;
 
 public class createDB {
         private static Connection conn;
-
         public createDB(String Name_DB) throws SQLException {
             conn = this.connect(Name_DB);
             creatTablehistory(Name_DB);
@@ -439,7 +438,7 @@ public class createDB {
             }
 
 
-        sql = "UPDATE Connected SET pseudo=? WHERE pseudo = ?;";
+     sql = "UPDATE Connected SET pseudo=? WHERE pseudo = ?;";
 
             try (Connection conn = this.connect(filename);
     PreparedStatement stmt = conn.prepareStatement(sql)) {

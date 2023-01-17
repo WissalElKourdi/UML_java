@@ -50,9 +50,9 @@ public class ClientTcp {
     public void sendMessageToServer(String messageToServer, Socket socket) {
         try {
 
-            bufferedWriter.write(messageToServer);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
+            bW.write(messageToServer);
+            bW.newLine();
+            bW.flush();
 
 
         } catch (IOException e) {
@@ -66,14 +66,10 @@ public class ClientTcp {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(true){
+                while(socket.isConnected()){
                     try{
                         String messageFromServer = bufferedReader.readLine();
-                       //cmt j'accepte le server de celui avec qui je veux parler
-                        MenuController.Srvsocket.accept();
-                        System.out.println("i am herze " + messageFromServer);
                         SessionChatController.addLabel(messageFromServer, vbox_messages);
-                        MenuController.Srvsocket.accept();
                     }catch (IOException e){
                         e.printStackTrace();
                         System.out.println("Error receiving message from the Server!");
@@ -112,23 +108,26 @@ public class ClientTcp {
 
 
 
-    public void rcv(Socket socket, VBox vBoxMessages) {
-
-        System.out.println("i am herze ");
-
-                receiveMessageFromServer(vBoxMessages, socket);
-
-
-    }
-
-    public void send(Socket socket, String msg) {
+    public void rcv(Socket socket, VBox vBoxMessages, ClientTcp client) {
 
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                sendMessageToServer(msg, socket);
+                client.receiveMessageFromServer(vBoxMessages, socket);
 
+
+            }
+        }).start();
+    }
+
+    public void send(Socket socket, String msg, ClientTcp client) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                client.sendMessageToServer(msg, socket);
 
 
             }

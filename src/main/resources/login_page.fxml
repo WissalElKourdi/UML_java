@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -8,18 +7,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.LoginController">
    <children>
-      <Pane prefHeight="800.0" prefWidth="1200.0">
+      <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#024029" height="800.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="343.0" layoutX="302.0" layoutY="167.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="598.0" />
-            <Button fx:id="LoginButton" layoutX="573.0" layoutY="447.0" mnemonicParsing="false" onAction="#saveUsername" text="Login" />
-            <TextField fx:id="choose_username" layoutX="476.0" layoutY="337.0" onAction="#saveUsername" prefHeight="54.0" prefWidth="249.0" promptText="Enter your username" />
-            <TextFlow fx:id="returnText" layoutX="365.0" layoutY="391.0" prefHeight="56.0" prefWidth="471.0" textAlignment="CENTER" />
-
-            <Label alignment="CENTER" layoutX="413.0" layoutY="247.0" prefHeight="56.0" prefWidth="376.0" stylesheets="styles.css" text="Welcome to the Chat App" textAlignment="CENTER">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
+            <Button fx:id="LoginButton" layoutX="555.0" layoutY="477.0" mnemonicParsing="false" onAction="#saveUsername" text="Login" />
+            <TextField fx:id="choose_username" layoutX="419.0" layoutY="317.0" onAction="#saveUsername" prefHeight="83.0" prefWidth="334.0" promptText="Enter your username" />
+            <TextFlow fx:id="returnText" layoutX="355.0" layoutY="417.0" />
+            <Label layoutX="413.0" layoutY="233.0" text="Welcome to the Chat App" />
          </children>
       </Pane>
    </children>

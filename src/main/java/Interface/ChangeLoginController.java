@@ -20,7 +20,7 @@ public class ChangeLoginController {
         @FXML
         private Button SaveButton;
         @FXML
-        private TextField NewLoginArea;
+        private TextArea NewLoginArea;
         @FXML
         private TextFlow result;
 
@@ -41,8 +41,6 @@ public class ChangeLoginController {
                         Parent parent = loader.load();
                         Scene scene = new Scene(parent, 1200,800);
                         scene.getStylesheets().add("/styles.css");
-                        mainFXML.mainStage.setResizable(false);
-
                         mainFXML.mainStage.setTitle("Chat App");
                         mainFXML.mainStage.setScene(scene);
                         mainFXML.mainStage.show();
@@ -53,35 +51,29 @@ public class ChangeLoginController {
 
         @FXML
         void SaveNewLogin(ActionEvent event) throws IOException, SQLException {
+                //get new username
                 String name = NewLoginArea.getText();
-                if (!LoginController.isValid(name)){
-                        Text text = new Text ("Your username should contain between 5 and 15 characters, only letters and digits are allowed.");
+                //if it's not already used, change to menu scene
+                new UDP_Client(port).start();
+                if (UDP_Server.broadcast_ChangePseudo(name, port)) {
+                        try {
+                                //UDP_Server.broadcast_connection(name, port);
+                                UDP_Server.broadcast_end(port);
+                                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
+                                Parent parent = loader.load();
+                                Scene scene = new Scene(parent, 1200,800);
+                                scene.getStylesheets().add("/styles.css");
+                                mainFXML.mainStage.setTitle("Chat App");
+                                mainFXML.mainStage.setScene(scene);
+                                mainFXML.mainStage.show();
+                        } catch (IOException e) {
+                                e.printStackTrace();
+                        }
+                }else{
+                        UDP_Server.broadcast_end(port);
+                        Text text = new Text ("This username is already taken, choose another one");
                         result.getChildren().clear();
                         result.getChildren().add(text);
-                } else {
-                        new UDP_Client(port).start();
-                        if (UDP_Server.broadcast_ChangePseudo(name, port)) {
-                                try {
-                                        //UDP_Server.broadcast_connection(name, port);
-                                        UDP_Server.broadcast_end(port);
-                                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
-                                        Parent parent = loader.load();
-                                        Scene scene = new Scene(parent, 1200, 800);
-                                        mainFXML.mainStage.setResizable(false);
-
-                                        scene.getStylesheets().add("/styles.css");
-                                        mainFXML.mainStage.setTitle("Chat App");
-                                        mainFXML.mainStage.setScene(scene);
-                                        mainFXML.mainStage.show();
-                                } catch (IOException e) {
-                                        e.printStackTrace();
-                                }
-                        } else {
-                                UDP_Server.broadcast_end(port);
-                                Text text = new Text("This username is already taken, choose another one");
-                                result.getChildren().clear();
-                                result.getChildren().add(text);
-                        }
                 }
         }
 }

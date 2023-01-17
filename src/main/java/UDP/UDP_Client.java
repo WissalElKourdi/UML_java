@@ -11,8 +11,8 @@ public class UDP_Client extends Thread {
     static DatagramSocket socket = null;
     private final String Name_DB = "DB_MSG.db";
     private  boolean running;
-    private createDB DB;
 
+    private createDB DB;
     public UDP_Client(int port) throws SocketException, SQLException {
         socket = new DatagramSocket(port);
         // if this fails (SocketException), the exception is non-recoverable and is propagated

@@ -21,10 +21,8 @@ public class mainFXML extends Application {
             Parent parent = loader.load();
 
             Scene scene = new Scene(parent, 1200,800);
-            mainFXML.mainStage.setResizable(false);
-
             scene.getStylesheets().add("/styles.css");
-            stage.setResizable(false);
+
             stage.setTitle("Chat App");
             stage.setScene(scene);
             stage.show();

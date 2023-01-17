@@ -5,6 +5,7 @@ import UDP.UDP_Client;
 import UDP.UDP_Server;
 
 import communication.TCP_Client;
+import communication.TCP_Server;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.*;
@@ -12,6 +13,7 @@ import javafx.scene.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.text.*;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -53,11 +55,9 @@ public class ChatSessionController implements Initializable {
         createDB BD = new createDB(DB_name);
         msgs = BD.selectAllMsgHistory(DB_name);
         System.out.println(msgs);
-        System.out.println("ChatSessionController");
     }
     public void initialize(URL url, ResourceBundle resourceBundle){
         myListView.getItems().addAll(msgs);
-        System.out.println("ChatSessionController");
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -75,7 +75,7 @@ public class ChatSessionController implements Initializable {
         UDP_Server.broadcast_end(port);
         //retour à la page d'accueil (login)
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("/login_page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("/styles.css");
@@ -86,7 +86,7 @@ public class ChatSessionController implements Initializable {
             e.printStackTrace();
         }
     }
-/*
+
     @FXML
     void send(ActionEvent event) throws SQLException {
         //récupération du message tapé dans la zone de texte
@@ -98,13 +98,11 @@ public class ChatSessionController implements Initializable {
         myListView.getItems().addAll(msgs);
 
     }
-    */
-
     @FXML
     void backToMenu(ActionEvent event) throws IOException {
         try {
             //retour vers la page principale
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("/Menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("/styles.css");

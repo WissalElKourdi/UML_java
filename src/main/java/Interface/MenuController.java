@@ -71,27 +71,35 @@ public class MenuController extends Thread implements  Initializable {
 
     public MenuController() throws SQLException {
 
+
         createDB BD = new createDB(name_db);
         connected = BD.selectAllConnected(name_db);
 
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            new UDP_Client(port).start();
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
       /*  try {
             TCP_Server.servtcp();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }*/
         ArrayList<ServerTcp> sessionsList = new ArrayList<>();
+
         try {
             Srvsocket = new ServerSocket(5678);
-            ServerTcp.sock_acc(Srvsocket);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         //  server = new ServerTcp(Srvsocket,sessionsList);
 
-        //System.out.println("Connected to Client!");
+        System.out.println("Connected to Client!");
 
         myListView.getItems().addAll(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -102,28 +110,17 @@ public class MenuController extends Thread implements  Initializable {
 
                 try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
                     Parent parent = loader.load();
-
-                    Stage newstage = new Stage();
-
-                    mainFXML.mainStage.setResizable(false);
-
-
-                    Scene scene = new Scene(parent, 1200, 800);
+                    Scene scene = new Scene(parent, 600, 400);
                     scene.getStylesheets().add("/styles.css");
-
-                    newstage.setTitle("My New Stage Title");
-                    newstage.setScene(scene);
-                    newstage.show();
-                    /*
                     mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
                     mainFXML.mainStage.setScene(scene);
                     mainFXML.mainStage.show();
-                    */
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
         });
+
     }
 
     public void start(Stage primaryStage) {
@@ -146,17 +143,14 @@ public class MenuController extends Thread implements  Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 1200, 800);
-            scene.getStylesheets().add("/styles.css");
-
-            mainFXML.mainStage.setResizable(false);
-
+            Scene scene = new Scene(parent, 600, 400);
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -169,14 +163,11 @@ public class MenuController extends Thread implements  Initializable {
         UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
         UDP_Server.broadcast_end(port);
         //retour à la page d'accueil (login)
-        Srvsocket.close();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 1200, 800);
+            Scene scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("/styles.css");
-            mainFXML.mainStage.setResizable(false);
-
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();

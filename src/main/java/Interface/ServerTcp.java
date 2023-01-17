@@ -52,14 +52,18 @@ public class ServerTcp extends Thread {
             @Override
             public void run() {
 
-             //   BufferedReader in = null;
+                BufferedReader in = null;
                 try {
-                    BufferedReader  in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
+                    in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 String messageFromClient = null;
-
+                try {
                     messageFromClient = in.readLine();
-
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 while(messageFromClient!=null){
                     try{    messageFromClient = in.readLine();
                         SessionChatController.addLabel(messageFromClient, vBox);
@@ -70,41 +74,23 @@ public class ServerTcp extends Thread {
                         System.out.println("Error receiving message from the Client!");
                         closeEverything(socket, bufferedReader, bufferedWriter);
                         break;
-                    }}  } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+                    }}
 
             }
         }).start();
     }
-
-    public static void sock_acc(ServerSocket srvsocket){
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                   srvsocket.accept();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-    }
-
 
     public void rcv(Socket socket,VBox vBoxMessages, ServerTcp server){
 
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+
                 while (true) {
                     try {
                         Socket socket_accept =  MenuController.Srvsocket.accept();
                         server.receiveMessageFromClient(vBoxMessages, socket_accept);
-                        sessionsList.add(server);
-
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

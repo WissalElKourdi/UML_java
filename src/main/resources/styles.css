@@ -1,32 +1,30 @@
 /*font import*/
 @font-face {
-  font-family: 'CourierPrime-Regular';
-  src: url('font/CourierPrime-Regular.ttf');
+  font-family: 'CourierPrime-regular';
+  src: url('/font/CourierPrime-regular.ttf');
 }
 
 /* classes*/
 .button {
     -fx-font-size: 15pt;
-    -fx-font-family: "Courier Prime Regular";
+    -fx-font-family: 'CourierPrime-regular';
 }
 
 .label{
     -fx-font-size:20pt;
     -fx-text-color: #0E1140;
-    -fx-font-family: "Courier Prime Regular";
+    -fx-font-family: 'CourierPrime-regular';
 }
 
 .textFlow {
     -fx-font-size: 15pt;
     -fx-text-color: #59052D;
-    -fx-font-family: 'Courier Prime Regular';
-    -fx-text-alignment: center ;
+    -fx-font-family: 'CourierPrime-regular';
 }
 
 .textField {
     -fx-font-size: 17pt;
-    -fx-font-family: 'Courier Prime Regular';
-    -fx-alignment: center ;
+    -fx-font-family: 'CourierPrime-regular';
 }
 
 

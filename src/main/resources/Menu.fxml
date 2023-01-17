@@ -14,6 +14,6 @@
     <Button fx:id="disconnect" layoutX="788.0" layoutY="388.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="664.0" layoutX="95.0" layoutY="69.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="434.0" />
     <ListView fx:id="myListView" layoutX="138.0" layoutY="106.0" prefHeight="589.0" prefWidth="323.0" />
-    <Label fx:id="myLabel" layoutX="98.0" layoutY="23.0" prefHeight="44.0" prefWidth="1047.0" text="Click on a connected user to start a chat session :" />
+    <Label fx:id="myLabel" layoutX="98.0" layoutY="23.0" prefHeight="44.0" prefWidth="434.0" text="Click on a connected user to start a chat session :" />
   </children>
 </AnchorPane>
