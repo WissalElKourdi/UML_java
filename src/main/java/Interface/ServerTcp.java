@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class ServerTcp extends Thread {
 
     public Socket socket;
-    public BufferedReader bufferedReader;
-    public BufferedWriter bufferedWriter;
+    public static BufferedReader bufferedReader;
+    public static BufferedWriter bufferedWriter;
     public ArrayList<ServerTcp> sessionsList;
     public ServerTcp(Socket socket, ArrayList<ServerTcp> sessionsList )  {
 
@@ -47,7 +47,7 @@ public class ServerTcp extends Thread {
         }
     }
 
-    public void receiveMessageFromClient(VBox vBox,Socket socket){
+    public static void receiveMessageFromClient(VBox vBox, Socket socket){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -80,7 +80,7 @@ public class ServerTcp extends Thread {
         }).start();
     }
 
-    public void rcv(Socket socket,VBox vBoxMessages, ServerTcp server){
+    public static void rcv(Socket socket, VBox vBoxMessages){
 
         new Thread(new Runnable() {
             @Override
@@ -90,7 +90,7 @@ public class ServerTcp extends Thread {
                 while (true) {
                     try {
                         Socket socket_accept =  MenuController.Srvsocket.accept();
-                        server.receiveMessageFromClient(vBoxMessages, socket_accept);
+                        receiveMessageFromClient(vBoxMessages, socket_accept);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -116,7 +116,7 @@ public class ServerTcp extends Thread {
     }
 
 
-    private void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
+    private static void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
         try{
             if (bufferedReader != null) {
                 bufferedReader.close();
