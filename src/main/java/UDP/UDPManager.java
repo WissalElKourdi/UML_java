@@ -20,14 +20,17 @@ public class UDPManager extends UDP_Client{
         if (msg.startsWith("new pseudo :")) {
             String pseudo1 = msg.substring(msg.lastIndexOf(':') + 1);
             String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/")+1 );
+            System.out.println("ADDR DB" + addr);
             DB.insertIpseudo(pseudo1.trim(), addr, name_db);
+
 
 
         }else  if (msg.startsWith("change pseudo :")) {
             String pseudo2 = msg.substring(msg.lastIndexOf(':') + 1);
             String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/")+1 );
-            String old = DB.getPseudo(addr,name_db);
+            String old = DB.getMonPseudo(name_db);
             DB.changeIpseudo(pseudo2.trim(), addr, name_db,old );
+          //  DB.changeMonpseudo(pseudo2.trim());
 
 
         } else  if (msg.startsWith("Connected :")) {
