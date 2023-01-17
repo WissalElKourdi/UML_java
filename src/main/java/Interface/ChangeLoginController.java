@@ -1,5 +1,6 @@
 package Interface;
 
+import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
 import javafx.fxml.FXML;
@@ -15,8 +16,10 @@ import java.sql.SQLException;
 
 public class ChangeLoginController {
         private static final int port = 2000;
+        private String Name_DB = "DB_MSG.db";
         @FXML
         private Button cancelButton;
+
         @FXML
         private Button SaveButton;
         @FXML
@@ -54,9 +57,13 @@ public class ChangeLoginController {
                 //get new username
                 String name = NewLoginArea.getText();
                 //if it's not already used, change to menu scene
-                new UDP_Client(port).start();
+                // new UDP_Client(port).start();
                 if (UDP_Server.broadcast_ChangePseudo(name, port)) {
                         try {
+                                createDB DB = new createDB(Name_DB);
+
+                                System.out.println("ICIII"+DB.getMonPseudo(Name_DB));
+
                                 //UDP_Server.broadcast_connection(name, port);
                                 UDP_Server.broadcast_end(port);
                                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));

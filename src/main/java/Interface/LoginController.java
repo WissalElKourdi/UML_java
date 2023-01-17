@@ -1,5 +1,6 @@
 package Interface;
 
+import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
 import javafx.event.ActionEvent;
@@ -14,8 +15,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginController {
-    private static final int port = 5000;
-
+    private static final int port = 2000;
+    private final String Name_DB = "DB_MSG.db";
     @FXML
     private Button LoginButton;
     @FXML
@@ -31,6 +32,8 @@ public class LoginController {
         new UDP_Client(port).start();
         if (UDP_Server.broadcast_Pseudo(name,port)) {
             try {
+                createDB DB = new createDB(Name_DB);
+                DB.insertMonpseudo(name,Name_DB);
                 UDP_Server.broadcast_connection(name, port);
                 UDP_Server.broadcast_end(port);
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));

@@ -93,7 +93,7 @@ public class MenuController extends Thread implements  Initializable {
         ArrayList<ServerTcp> sessionsList = new ArrayList<>();
 
         try {
-            Srvsocket = new ServerSocket(5678);
+            Srvsocket = new ServerSocket(5679);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -141,6 +141,7 @@ public class MenuController extends Thread implements  Initializable {
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
         try {
+            Srvsocket.close();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 400);
@@ -156,11 +157,16 @@ public class MenuController extends Thread implements  Initializable {
 
     @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
+        Srvsocket.close();
         //deconnexion
         createDB DB = new createDB(DB_name);
         String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
-        new UDP_Client(port).start();
-        UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
+        System.out.println("ADDRR" +addr);
+
+        System.out.println( DB.getMonPseudo(DB_name));
+        // new UDP_Client(port).start();
+        UDP_Server.broadcast_deconnection( DB.getMonPseudo(DB_name), port);
+        System.out.println("PSEUDOOO" +DB.getPseudo(addr,DB_name));
         UDP_Server.broadcast_end(port);
         //retour à la page d'accueil (login)
         try {
