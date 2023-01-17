@@ -12,8 +12,9 @@
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#024029" height="800.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
     <Button fx:id="change_pseudo" layoutX="774.0" layoutY="325.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
     <Button fx:id="disconnect" layoutX="788.0" layoutY="388.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="664.0" layoutX="95.0" layoutY="69.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="434.0" />
-    <ListView fx:id="myListView" layoutX="138.0" layoutY="106.0" prefHeight="589.0" prefWidth="323.0" />
-    <Label fx:id="myLabel" layoutX="98.0" layoutY="23.0" prefHeight="44.0" prefWidth="434.0" text="Click on a connected user to start a chat session :" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="572.0" layoutX="95.0" layoutY="161.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="434.0" />
+    <ListView fx:id="myListView" layoutX="147.0" layoutY="268.0" prefHeight="435.0" prefWidth="331.0" />
+    <Label fx:id="myLabel" layoutX="96.0" layoutY="199.0" prefHeight="44.0" prefWidth="434.0" text="" />
+    <Label layoutX="95.0" layoutY="27.0" prefHeight="115.0" prefWidth="434.0" text="Double click on a connected user to start a chat session :" />
   </children>
 </AnchorPane>

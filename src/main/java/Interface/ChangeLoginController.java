@@ -20,7 +20,7 @@ public class ChangeLoginController {
         @FXML
         private Button SaveButton;
         @FXML
-        private TextArea NewLoginArea;
+        private TextField NewLoginArea;
         @FXML
         private TextFlow result;
 
@@ -42,6 +42,7 @@ public class ChangeLoginController {
                         Scene scene = new Scene(parent, 1200,800);
                         scene.getStylesheets().add("/styles.css");
                         mainFXML.mainStage.setTitle("Chat App");
+                        mainFXML.mainStage.setResizable(false);
                         mainFXML.mainStage.setScene(scene);
                         mainFXML.mainStage.show();
                 } catch (IOException e) {
@@ -54,26 +55,33 @@ public class ChangeLoginController {
                 //get new username
                 String name = NewLoginArea.getText();
                 //if it's not already used, change to menu scene
-                new UDP_Client(port).start();
-                if (UDP_Server.broadcast_ChangePseudo(name, port)) {
-                        try {
-                                //UDP_Server.broadcast_connection(name, port);
+                /*if (LoginController.isValid(name)) {*/
+                        new UDP_Client(port).start();
+                        if (UDP_Server.broadcast_ChangePseudo(name, port)) {
+                                try {
+                                        //UDP_Server.broadcast_connection(name, port);
+                                        UDP_Server.broadcast_end(port);
+                                        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
+                                        Parent parent = loader.load();
+                                        Scene scene = new Scene(parent, 1200, 800);
+                                        scene.getStylesheets().add("/styles.css");
+                                        mainFXML.mainStage.setTitle("Chat App");
+                                        mainFXML.mainStage.setResizable(false);
+                                        mainFXML.mainStage.setScene(scene);
+                                        mainFXML.mainStage.show();
+                                } catch (IOException e) {
+                                        e.printStackTrace();
+                                }
+                        } else {
                                 UDP_Server.broadcast_end(port);
-                                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
-                                Parent parent = loader.load();
-                                Scene scene = new Scene(parent, 1200,800);
-                                scene.getStylesheets().add("/styles.css");
-                                mainFXML.mainStage.setTitle("Chat App");
-                                mainFXML.mainStage.setScene(scene);
-                                mainFXML.mainStage.show();
-                        } catch (IOException e) {
-                                e.printStackTrace();
+                                Text text = new Text("This username is already taken, choose another one");
+                                result.getChildren().clear();
+                                result.getChildren().add(text);
                         }
-                }else{
-                        UDP_Server.broadcast_end(port);
-                        Text text = new Text ("This username is already taken, choose another one");
+                /*} else {
+                        Text text = new Text("Please choose a username between 5 and 15 characters containing only letters and digits, no special character.");
                         result.getChildren().clear();
                         result.getChildren().add(text);
-                }
+                }*/
         }
 }
