@@ -1,23 +1,34 @@
-/* CSS */
-
-.button {
-  -fx-background-color: #eb34d5;
+/*font import*/
+@font-face {
+  font-family: 'CourierPrime-regular';
+  /*src: url(/font/CourierPrime-regular.ttf');*/
 }
 
-#LoginButton {
-  -fx-background-color: #f54257;
-    -box-sizing: border-box;
-
+/* classes*/
+.button {
+    -fx-font-size: 15pt;
+    -fx-font-family: 'CourierPrime-regular';
 }
 
 .label{
-    -fx-font-size:15pt;
-    -fx-background-color: #f54257;
+    -fx-font-size:20pt;
+    -fx-text-color: #0E1140;
+    -fx-font-family: 'CourierPrime-regular';
 }
 
-.pane{
-    -fx-background-color:  #8fbc8f;
+.textFlow {
+    -fx-font-size: 15pt;
+    -fx-text-color: #59052D;
+    -fx-font-family: 'CourierPrime-regular';
 }
+
+.textField {
+    -fx-font-size: 17pt;
+    -fx-font-family: 'CourierPrime-regular';
+}
+
+
+
 
 
 

@@ -11,11 +11,10 @@ import javafx.scene.text.*;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.net.SocketException;
 import java.sql.SQLException;
 
 public class LoginController {
-    private static final int port = 2000;
+    private static final int port = 5000;
 
     @FXML
     private Button LoginButton;
@@ -37,7 +36,7 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                 Parent parent = loader.load();
 
-                Scene scene = new Scene(parent, 600, 400);
+                Scene scene = new Scene(parent, 1200,800);
                 scene.getStylesheets().add("/styles.css");
 
                 mainFXML.mainStage.setTitle("Chat App");
@@ -51,6 +50,7 @@ public class LoginController {
             UDP_Server.broadcast_end(port);
             System.out.println("je suis ici");
             Text text = new Text ("This username is already taken, choose another one");
+            returnText.getChildren().clear();
             returnText.getChildren().add(text);
         }
     }

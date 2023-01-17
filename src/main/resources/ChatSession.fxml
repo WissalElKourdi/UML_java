@@ -1,31 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import javafx.scene.text.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ChatSessionController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Interface.SessionChatController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <Button fx:id="disconnect" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
-            <TextField fx:id="writtenMessage" layoutX="167.0" layoutY="348.0" prefHeight="25.0" prefWidth="323.0" promptText="Write your message here..." />
-            <Button fx:id="send" layoutX="498.0" layoutY="348.0" mnemonicParsing="false" onAction="#send" text="Send" />
-            <Button fx:id="Back" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" onAction="#backToMenu" text="Back to Menu" />
-            <ScrollPane fx:id="Conversation" layoutX="147.0" layoutY="47.0" prefHeight="292.0" prefWidth="429.0">
-              <content>
-                 <AnchorPane fx:id="history_msg" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-                    <children>
-                       <ListView fx:id="myListView" layoutX="43.0" layoutY="12.0" prefHeight="266.0" prefWidth="349.0" />
-                    </children>
-                 </AnchorPane>
-              </content>
-            </ScrollPane>
-            <Button fx:id="change" layoutX="14.0" layoutY="74.0" mnemonicParsing="false" onAction="#changepseudo" text="Change Pseudo" />
-            <TextFlow fx:id="pseudo_autre" layoutX="219.0" layoutY="74.0" prefHeight="25.0" prefWidth="200.0" />
-            <Label fx:id="myLabel" layoutX="167.0" layoutY="24.0" text="Label" />
-         </children>
-      </Pane>
+      <Button fx:id="button_send" layoutX="489.0" layoutY="305.0" mnemonicParsing="false" text="Button" />
+      <TextField id="tf_messages" fx:id="tf_message" layoutX="234.0" layoutY="305.0" prefWidth="200.0" />
+      <VBox fx:id="vBoxMessages" layoutX="446.0" layoutY="69.0" prefHeight="200.0" prefWidth="100.0" />
+      <ScrollPane fx:id="sp_main" layoutX="200.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0">
+         <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

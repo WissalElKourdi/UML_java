@@ -4,10 +4,8 @@ import javafx.application.*;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.fxml.*;
-import javafx.css.*;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class mainFXML extends Application {
 
@@ -19,10 +17,10 @@ public class mainFXML extends Application {
         mainStage = stage;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login_page.fxml"));    //Tell the FXMLLoader where the FXML file is
-            Parent parent = loader.load();                     //create the view and link it with the Controller
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login_page.fxml"));
+            Parent parent = loader.load();
 
-            Scene scene = new Scene(parent, 600, 400);
+            Scene scene = new Scene(parent, 1200,800);
             scene.getStylesheets().add("/styles.css");
 
             stage.setTitle("Chat App");

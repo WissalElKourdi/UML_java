@@ -1,34 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.LoginController">
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
-
-            <!-- Login Button -->
-           <!-- <Button fx:id="LoginButton" layoutX="262.0" layoutY="250.0" mnemonicParsing="false" onAction="#saveUsername" prefHeight="57.0" prefWidth="90.0" style="-fx-background-color: #24a0ed; -fx-text-fill: white; -fx-border-radius: 5; -fx-border-width: 2; -fx-border-color: #24a0ed;" text="Login">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            -->
-            <Button fx:id="LoginButton" layoutX="262.0" layoutY="250.0" mnemonicParsing="false" onAction="#saveUsername" prefHeight="57.0" prefWidth="90.0"  text="Login"></Button>
-            <TextField fx:id="choose_username" layoutX="222.0" layoutY="188.0" onAction="#saveUsername" promptText="Enter your username" />
-            <TextFlow fx:id="returnText" layoutX="207.0" layoutY="135.0" prefHeight="33.0" prefWidth="200.0" />
-            <!-- The Beginning of Login form -->
-            <Label layoutX="76.0" layoutY="103.0" prefHeight="65.0" prefWidth="463.0" text="Welcome to the Chat App">
-               <font>
-                  <Font name="SansSerif Regular" size="36.0" />
-               </font>
-            </Label>
-            <!-- End of Login Form -->
-
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#024029" height="800.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
+            <Button fx:id="LoginButton" layoutX="555.0" layoutY="477.0" mnemonicParsing="false" onAction="#saveUsername" text="Login" />
+            <TextField fx:id="choose_username" layoutX="419.0" layoutY="317.0" onAction="#saveUsername" prefHeight="83.0" prefWidth="334.0" promptText="Enter your username" />
+            <TextFlow fx:id="returnText" layoutX="355.0" layoutY="417.0" />
+            <Label layoutX="413.0" layoutY="233.0" text="Welcome to the Chat App" />
          </children>
       </Pane>
    </children>

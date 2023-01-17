@@ -17,7 +17,7 @@ public class createDB {
         private static Connection conn;
         public createDB(String Name_DB) throws SQLException {
             conn = this.connect(Name_DB);
-            creatTablehistory(Name_DB,conn);
+            creatTablehistory(Name_DB);
             creatTablepseudo(Name_DB);
             creatTableconnected(Name_DB);
         }
@@ -81,7 +81,7 @@ public class createDB {
             }
             //return false;
         }
-        public synchronized boolean creatTablehistory(String fileName,Connection conn) throws SQLException {
+        public synchronized boolean creatTablehistory(String fileName) throws SQLException {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/" + fileName;
 
@@ -95,16 +95,17 @@ public class createDB {
                     + " port NOT NULL\n"
                     + ");";
 
-
-                try( Statement stmt = conn.createStatement()) {
+            try (Connection conn = DriverManager.getConnection(url);
+                 Statement stmt = conn.createStatement()) {
                 // create a new table
                 stmt.execute(sql);
                 conn.close();
-            }
                 return true;
-
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            return false;
         }
-
         public synchronized boolean creatTablepseudo(String fileName) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/" + fileName;
