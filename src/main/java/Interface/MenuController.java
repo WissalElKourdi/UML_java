@@ -71,12 +71,20 @@ public class MenuController extends Thread implements  Initializable {
 
     public MenuController() throws SQLException {
 
+
         createDB BD = new createDB(name_db);
         connected = BD.selectAllConnected(name_db);
 
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            new UDP_Client(port).start();
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
       /*  try {
             TCP_Server.servtcp();
         } catch (IOException e) {
