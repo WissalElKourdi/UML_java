@@ -90,6 +90,7 @@ public class MenuController extends Thread implements  Initializable {
 
         try {
             Srvsocket = new ServerSocket(5679);
+            ClientTcp.sock_acc(Srvsocket);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

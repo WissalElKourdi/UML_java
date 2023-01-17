@@ -33,6 +33,7 @@ public class ServerTcp extends Thread {
 */
     }
 
+
     public void sendMessageToClient(String messageToClient, Socket socket){
         try{
             BufferedWriter bW = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
