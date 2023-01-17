@@ -1,4 +1,4 @@
-package Interface;
+/*package Interface;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -37,9 +37,8 @@ public class ServerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("ChatSessionController");
-      /*  try{System.out.println("Connected to Client!-------------");
-          //  server = new ServerTcp(new ServerSocket(1234));
+        try{System.out.println("Connected to Client!-------------");
+            server = new ServerTcp(new ServerSocket(1234));
 
         }catch(IOException e){
             e.printStackTrace();
@@ -107,5 +106,5 @@ public class ServerController implements Initializable {
             }
         });
     }
-*/
-}}
+
+}*/

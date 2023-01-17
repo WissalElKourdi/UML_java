@@ -38,34 +38,30 @@ public class ChatSessController implements Initializable {
     private ScrollPane sp_main;
 
     private ClientTcp client;
-    private final String DB_name = "DB_MSG.db";
+    private String DB_name = "DB_MSG.db";
     private Label myLabel;
     List<String> msgs = new ArrayList<>();
     String currentmsg;
     private Socket socket;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        System.out.println("ChatSessController ");
         try{
 
-
-            socket = new Socket("localhost", 5678);
+            socket = new Socket("localhost", 3456);
             client = new ClientTcp(socket);
             System.out.println("Connected to Server");
         }catch(IOException e){
             e.printStackTrace();
             System.out.println("Error creating Client ... ");
         }
+
         vbox_messages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 sp_main.setVvalue((Double) newValue);
             }
         });
-       //
-
-        client.rcv(socket,vbox_messages);
+        client.rcv(socket,vbox_messages,client);
         //client.receiveMessageFromServer(vbox_messages);
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
@@ -89,7 +85,7 @@ public class ChatSessController implements Initializable {
 
                     hBox.getChildren().add(textFlow);
                     vbox_messages.getChildren().add(hBox);
-                    client.send(socket,messageToSend);
+                    client.send(socket,messageToSend,client);
                   // client.sendMessageToServer(messageToSend);
                     tf_message.clear();
                 }
@@ -119,6 +115,4 @@ public class ChatSessController implements Initializable {
             }
         });
     }
-
-
 }

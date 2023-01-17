@@ -57,7 +57,7 @@ public class MenuController extends Thread implements  Initializable {
     private ListView<String> myListView;
     @FXML
     private Label myLabel;
-private VBox Vbox;
+
     List<String> connected = new ArrayList<>();
     //  public static ServerTcp server;
 
@@ -71,32 +71,35 @@ private VBox Vbox;
 
     public MenuController() throws SQLException {
 
+
         createDB BD = new createDB(name_db);
         connected = BD.selectAllConnected(name_db);
 
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            new UDP_Client(port).start();
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
       /*  try {
             TCP_Server.servtcp();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }*/
         ArrayList<ServerTcp> sessionsList = new ArrayList<>();
-        try (ServerSocket Srvsocket = new ServerSocket(5678)){
-               ServerTcp.sock_acc(Srvsocket);
-                //ServerTcp thread = new ServerTcp(socket, sessionsList);
-               // sessionsList.add(thread);
-                //thread.rcv(socket,Vbox,thread);
 
-        //  server = new ServerTcp(Srvsocket,sessionsList);
-
-        System.out.println("Connected to Client!");
-
-            //ServerTcp.sock_acc(Srvsocket);
+        try {
+            Srvsocket = new ServerSocket(5679);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        //  server = new ServerTcp(Srvsocket,sessionsList);
+
+        System.out.println("Connected to Client!");
 
         myListView.getItems().addAll(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -107,28 +110,17 @@ private VBox Vbox;
 
                 try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
                     Parent parent = loader.load();
-
-                    Stage newstage = new Stage();
-
-                    mainFXML.mainStage.setResizable(false);
-
-
-                    Scene scene = new Scene(parent, 1200, 800);
+                    Scene scene = new Scene(parent, 600, 400);
                     scene.getStylesheets().add("/styles.css");
-
-                    newstage.setTitle("My New Stage Title");
-                    newstage.setScene(scene);
-                    newstage.show();
-                    /*
                     mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
                     mainFXML.mainStage.setScene(scene);
                     mainFXML.mainStage.show();
-                    */
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
         });
+
     }
 
     public void start(Stage primaryStage) {
@@ -149,39 +141,39 @@ private VBox Vbox;
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
         try {
+            Srvsocket.close();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 1200, 800);
-            scene.getStylesheets().add("/styles.css");
-
-            mainFXML.mainStage.setResizable(false);
-
+            Scene scene = new Scene(parent, 600, 400);
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 
     @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
+        Srvsocket.close();
         //deconnexion
         createDB DB = new createDB(DB_name);
         String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
-        new UDP_Client(port).start();
-        UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
+        System.out.println("ADDRR" +addr);
+
+        System.out.println( DB.getMonPseudo(DB_name));
+        // new UDP_Client(port).start();
+        UDP_Server.broadcast_deconnection( DB.getMonPseudo(DB_name), port);
+        System.out.println("PSEUDOOO" +DB.getPseudo(addr,DB_name));
         UDP_Server.broadcast_end(port);
         //retour à la page d'accueil (login)
-        Srvsocket.close();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 1200, 800);
+            Scene scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("/styles.css");
-            mainFXML.mainStage.setResizable(false);
-
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
