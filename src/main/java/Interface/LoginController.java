@@ -29,7 +29,7 @@ public class LoginController {
         //get new username and check that it's not already used : if it's not, change to menu scene
         String name = choose_username.getText();
        // System.out.println("je suis ici" + UDP_Server.broadcast_Pseudo(name));
-        new UDP_Client(port).start();
+       // new UDP_Client(port).start();
         if (UDP_Server.broadcast_Pseudo(name,port)) {
             try {
                 createDB DB = new createDB(Name_DB);
