@@ -1,6 +1,7 @@
 package UDP;
 
 import Database.createDB;
+import Interface.List_Connected;
 import Interface.MenuController;
 
 import java.io.IOException;
@@ -52,15 +53,13 @@ public class UDPManager extends UDP_Client{
             //port = 2000;
                     //(int) Math.floor(Math.random() * (max - min + 1) + min);
             String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
+IP_addr monIP = new IP_addr();
+            if (addr != monIP.get_my_IP().toString()){
 
-            if (addr != IP_addr.get_my_IP().toString(){
-            String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
-System.out.println("addrrrrrr" + InetAddress.getLocalHost().toString());
-            if ( addr == InetAddress.getLocalHost().toString() ) {
-                MenuController.connected.add(pseudo3);
-            }
+                List_Connected co = new List_Connected();
+                co.add_co(pseudo3);
             DB.insertConnected(pseudo3.trim(), port, name_db);
-
+            }
         } else if (msg.startsWith("Deconnected :")) {
             String pseudo = msg.substring(msg.lastIndexOf(':') + 1);
             DB.deleteConnected(pseudo.trim(), name_db);

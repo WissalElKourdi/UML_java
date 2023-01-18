@@ -6,7 +6,7 @@ import java.util.Enumeration;
 public class IP_addr {
     private InetAddress MonIP;
 
-    public static InetAddress get_my_IP()   {
+    public InetAddress get_my_IP()   {
         try {
             Enumeration<NetworkInterface> networkInterfaceEnumeration = NetworkInterface.getNetworkInterfaces();
             while (networkInterfaceEnumeration.hasMoreElements()) {

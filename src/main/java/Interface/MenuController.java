@@ -71,6 +71,9 @@ public class MenuController extends Thread implements  Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        List_Connected co = new List_Connected();
+
+        connected = co.get_List();
         try {
             createDB BD = new createDB(name_db);
         //  connected = BD.selectAllConnected(name_db);
@@ -88,8 +91,8 @@ public class MenuController extends Thread implements  Initializable {
         //  server = new ServerTcp(Srvsocket,sessionsList);
 
         System.out.println("Connected to Client!");
-        MenuController.connected = FXCollections.observableArrayList();
-        myListView.getItems().addAll(MenuController.connected);
+        connected = FXCollections.observableArrayList();
+        myListView.getItems().addAll(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
