@@ -1,6 +1,7 @@
 
 package Interface;
 import Interface.ServerTcp;
+import communication.Sender;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -39,21 +41,16 @@ public class SessionChatController implements Initializable {
     private ScrollPane sp_main;
     private ServerTcp server;
     private Socket socket;
+    private Sender sender;
+    Pseudo pseudo= Pseudo.getInstance();
+    private Label Id;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<ServerTcp> sessionsList = new ArrayList<>();
-        try{System.out.println("Connected to Client!");
 
-            socket = new Socket("10.32.1.13",5679);
-            server = new ServerTcp(socket,sessionsList);
-
-            //  sessionsList.add(server);
             System.out.println("Connected to Client!");
 
-        }catch(IOException e){
-            e.printStackTrace();
-            System.out.println("Error creating Server ... ");
-        }
+//            Id.setText(pseudo.getPseudo());
+
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -62,7 +59,7 @@ public class SessionChatController implements Initializable {
         });
 
 
-        ServerTcp.rcv(socket,vBoxMessages);
+       // ServerTcp.rcv(socket,vBoxMessages);
         // server.receiveMessageFromClient(vBoxMessages, socket.accept());
 
 
@@ -87,7 +84,13 @@ public class SessionChatController implements Initializable {
                     text.setFill(Color.color(0.934, 0.925, 0.996));
 
                     hBox.getChildren().add(textFlow);
+                    //Socket sock = MenuController.session.map_socket.get(pseudo);
+                    //sender = new Sender(sock,pseudo);
+
+
+
                     vBoxMessages.getChildren().add(hBox);
+
 
 
 
