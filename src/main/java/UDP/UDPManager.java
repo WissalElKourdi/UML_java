@@ -7,7 +7,6 @@ import Interface.MenuController;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
 import java.sql.SQLException;
 
@@ -29,6 +28,7 @@ public class UDPManager extends UDP_Client{
 
     public static void update(String msg, createDB DB, DatagramPacket packet, DatagramSocket socket) throws SQLException, IOException {
         String name_db = "DB_MSG.db";
+        List_Connected co = new List_Connected();
 
         int port = 2000;
         if (msg.startsWith("new pseudo :")) {
@@ -52,14 +52,20 @@ public class UDPManager extends UDP_Client{
             int max = 10000;
             //port = 2000;
                     //(int) Math.floor(Math.random() * (max - min + 1) + min);
-            String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
-IP_addr monIP = new IP_addr();
-            if (addr != monIP.get_my_IP().toString()){
+            String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1).trim();
+            IP_addr monIP = new IP_addr();
 
-                List_Connected co = new List_Connected();
+            String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
+            System.out.println("je suis ici addr = " + addr + "mon ip = " + mine);
+            System.out.println("§"+addr+"§");
+            System.out.println("§"+mine+"§");
+            System.out.println(  addr.equals(mine));
+            if (!addr.equals(mine)){
+                System.out.println("je suis ici addr = " + addr + "mon ip = " + monIP.get_my_IP().toString() );
                 co.add_co(pseudo3);
             DB.insertConnected(pseudo3.trim(), port, name_db);
             }
+            MenuController.update_list();
         } else if (msg.startsWith("Deconnected :")) {
             String pseudo = msg.substring(msg.lastIndexOf(':') + 1);
             DB.deleteConnected(pseudo.trim(), name_db);

@@ -1,17 +1,17 @@
 package Interface;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
 public class List_Connected {
-    private final ObservableList<String> listCo = FXCollections.observableArrayList();
+    private static final ArrayList<String> listCo= new ArrayList<>();
 
-    public ObservableList<String> get_List(){
-        return this.listCo;
+
+    public ArrayList<String> get_List(){
+        return listCo;
     }
     public void add_co(String pseudo){
-        this.listCo.add(pseudo);
+        listCo.add(pseudo);
     }
 }

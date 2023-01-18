@@ -1,45 +1,29 @@
 package Interface;
 
 import Database.createDB;
-import UDP.UDP_Client;
 import UDP.UDP_Server;
-import communication.TCP_Server;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.fxml.*;
 import javafx.scene.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.fxml.*;
-import javafx.scene.*;
 
 import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import Database.createDB;
-
-import javax.crypto.SecretKeyFactory;
 
 import static javafx.application.Application.launch;
 
 public class MenuController extends Thread implements  Initializable {
+   // private static Legend myListView;
 
     //private static final int port =2000;
 
@@ -54,7 +38,7 @@ public class MenuController extends Thread implements  Initializable {
     private Button change_pseudo;
 
     @FXML
-    private ListView<String> myListView;
+    private static ListView<String> myListView;
     @FXML
     private Label myLabel;
     //List<String> connected = new ArrayList<>();
@@ -72,8 +56,8 @@ public class MenuController extends Thread implements  Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List_Connected co = new List_Connected();
-
-        connected = co.get_List();
+     //   connected = FXCollections.observableArrayList();
+        connected.addAll( co.get_List());
         try {
             createDB BD = new createDB(name_db);
         //  connected = BD.selectAllConnected(name_db);
@@ -91,8 +75,9 @@ public class MenuController extends Thread implements  Initializable {
         //  server = new ServerTcp(Srvsocket,sessionsList);
 
         System.out.println("Connected to Client!");
-        connected = FXCollections.observableArrayList();
+
         myListView.getItems().addAll(connected);
+        myListView.setItems(connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -112,6 +97,15 @@ public class MenuController extends Thread implements  Initializable {
                 }
             }
         });
+
+    }
+
+    public static void update_list(){
+        List_Connected co = new List_Connected();
+      //  connected = FXCollections.observableArrayList();
+        connected.addAll( co.get_List());
+      //  myListView.getItems().addAll(connected);
+        myListView.setItems(connected);
 
     }
 
@@ -160,7 +154,7 @@ public class MenuController extends Thread implements  Initializable {
         UDP_Server serv_udp = new UDP_Server();
         serv_udp.broadcast_deconnection( DB.getMonPseudo(DB_name), port);
         System.out.println("PSEUDOOO" +DB.getPseudo(addr,DB_name));
-        serv_udp.broadcast_end(port);
+      //  serv_udp.broadcast_end(port);
         //retour à la page d'accueil (login)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
