@@ -12,6 +12,7 @@ import javafx.scene.text.*;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.sql.SQLException;
 
 public class ChangeLoginController {
@@ -26,6 +27,10 @@ public class ChangeLoginController {
         private TextArea NewLoginArea;
         @FXML
         private TextFlow result;
+        UDP_Server serv_udp = new UDP_Server();
+
+        public ChangeLoginController() throws SocketException {
+        }
 
         /*      public ChangeLoginController() {
                 try {
@@ -58,14 +63,14 @@ public class ChangeLoginController {
                 String name = NewLoginArea.getText();
                 //if it's not already used, change to menu scene
                 // new UDP_Client(port).start();
-                if (UDP_Server.broadcast_ChangePseudo(name, port)) {
+                if (serv_udp.broadcast_ChangePseudo(name, port)) {
                         try {
                                 createDB DB = new createDB(Name_DB);
 
                                 System.out.println("ICIII"+DB.getMonPseudo(Name_DB));
 
                                 //UDP_Server.broadcast_connection(name, port);
-                                UDP_Server.broadcast_end(port);
+                                serv_udp.broadcast_end(port);
                                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                                 Parent parent = loader.load();
                                 Scene scene = new Scene(parent, 1200,800);
@@ -77,7 +82,7 @@ public class ChangeLoginController {
                                 e.printStackTrace();
                         }
                 }else{
-                        UDP_Server.broadcast_end(port);
+                        serv_udp.broadcast_end(port);
                         Text text = new Text ("This username is already taken, choose another one");
                         result.getChildren().clear();
                         result.getChildren().add(text);

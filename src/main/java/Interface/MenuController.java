@@ -162,9 +162,10 @@ public class MenuController extends Thread implements  Initializable {
 
         System.out.println( DB.getMonPseudo(DB_name));
         // new UDP_Client(port).start();
-        UDP_Server.broadcast_deconnection( DB.getMonPseudo(DB_name), port);
+        UDP_Server serv_udp = new UDP_Server();
+        serv_udp.broadcast_deconnection( DB.getMonPseudo(DB_name), port);
         System.out.println("PSEUDOOO" +DB.getPseudo(addr,DB_name));
-        UDP_Server.broadcast_end(port);
+        serv_udp.broadcast_end(port);
         //retour à la page d'accueil (login)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));

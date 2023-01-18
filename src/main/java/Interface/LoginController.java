@@ -12,10 +12,12 @@ import javafx.scene.text.*;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.sql.SQLException;
 
 public class LoginController {
     private static final int port = 2000;
+    UDP_Server serv_udp = new UDP_Server();
     private final String Name_DB = "DB_MSG.db";
     @FXML
     private Button LoginButton;
@@ -24,18 +26,23 @@ public class LoginController {
     @FXML
     private TextFlow returnText;
 
+    public LoginController() throws SocketException, SQLException {
+        new UDP_Client(port).start();
+    }
+
     @FXML
     void saveUsername(ActionEvent event) throws IOException, SQLException {
         //get new username and check that it's not already used : if it's not, change to menu scene
         String name = choose_username.getText();
        // System.out.println("je suis ici" + UDP_Server.broadcast_Pseudo(name));
        // new UDP_Client(port).start();
-        if (UDP_Server.broadcast_Pseudo(name,port)) {
+        serv_udp.broadcast_AskState(name,port);
+        if (serv_udp.broadcast_Pseudo(name,port)) {
             try {
                 createDB DB = new createDB(Name_DB);
                 DB.insertMonpseudo(name,Name_DB);
-                UDP_Server.broadcast_connection(name, port);
-                UDP_Server.broadcast_end(port);
+                serv_udp.broadcast_connection(name, port);
+                serv_udp.broadcast_end(port);
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                 Parent parent = loader.load();
 
@@ -50,7 +57,7 @@ public class LoginController {
             }
         }else{
             System.out.println("je suis ici");
-            UDP_Server.broadcast_end(port);
+            serv_udp.broadcast_end(port);
             System.out.println("je suis ici");
             Text text = new Text ("This username is already taken, choose another one");
             returnText.getChildren().clear();
