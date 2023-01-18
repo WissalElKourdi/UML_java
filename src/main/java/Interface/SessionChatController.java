@@ -42,17 +42,19 @@ public class SessionChatController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<ServerTcp> sessionsList = new ArrayList<>();
-        try{System.out.println("Connected to Client!");
+        //try{
+        System.out.println("Connected to Client!");
 
-            socket = new Socket("localhost",5678);
-            server = new ServerTcp(socket,sessionsList);
+         //   socket = new Socket("10.32.1.13",5679);
+         //   server = new ServerTcp(socket,sessionsList);
+
             //  sessionsList.add(server);
             System.out.println("Connected to Client!");
 
-        }catch(IOException e){
+      /*  }catch(IOException e){
             e.printStackTrace();
             System.out.println("Error creating Server ... ");
-        }
+        }*/
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -61,7 +63,7 @@ public class SessionChatController implements Initializable {
         });
 
 
-        server.rcv(socket,vBoxMessages,server);
+        ServerTcp.rcv(socket,vBoxMessages);
         // server.receiveMessageFromClient(vBoxMessages, socket.accept());
 
 

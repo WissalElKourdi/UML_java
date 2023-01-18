@@ -3,6 +3,7 @@ package Interface;
 import javafx.scene.layout.VBox;
 
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalTime;
 import java.util.Scanner;
@@ -60,6 +61,18 @@ public class ClientTcp {
             System.out.println("Error sending message to the Server!");
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
+    }
+    public static void sock_acc(ServerSocket srvSock){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    srvSock.accept();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
     }
 
     public void receiveMessageFromServer(VBox vbox_messages, Socket socket) {

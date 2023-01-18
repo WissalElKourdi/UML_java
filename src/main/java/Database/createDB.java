@@ -20,6 +20,7 @@ public class createDB {
             creatTablehistory(Name_DB);
             creatTablepseudo(Name_DB);
             creatTableconnected(Name_DB);
+            creatTableMonPSeudo(Name_DB);
         }
 
         public synchronized boolean createNewDB(String fileName) throws SQLException {
@@ -151,6 +152,44 @@ public class createDB {
             }
             return false;
         }
+    public synchronized boolean creatTableMonPSeudo(String fileName) throws SQLException {
+        // SQLite connection string
+        String url = "jdbc:sqlite:sqlite/" + fileName;
+
+        // SQL statement for creating a new table
+
+        String sql = "CREATE TABLE IF NOT EXISTS Monpseudo (\n"
+                + " pseudo NOT NULL\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+            conn.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    public synchronized boolean insertMonpseudo( String pseudo, String filename) {
+        String sql = "INSERT INTO Monpseudo(pseudo) VALUES(?)";
+
+        try (Connection conn = this.connect(filename);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, pseudo);
+
+            stmt.executeUpdate();
+            conn.close();
+
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 
         public synchronized boolean insertHistory(String message, String date, String pseudo, String addr, int port, String filename) {
             String sql = "INSERT INTO history(message,date, pseudo, addr, port) VALUES(?,?,?,?,?)";
@@ -372,6 +411,32 @@ public class createDB {
             }
             return result;
         }
+    public synchronized String getMonPseudo(String filename) throws SQLException {
+        String sql = "SELECT pseudo FROM Monpseudo ";
+        String result ="";
+
+        try (Connection conn = this.connect(filename);
+             PreparedStatement stmt  = conn.prepareStatement(sql)){
+
+            ResultSet rs    = stmt.executeQuery();
+
+            // loop through the result set
+            while (rs.next()) {
+
+                result = rs.getString("pseudo") ;
+                //  System.out.println(
+                //        rs.getString("pseudo") +  "\t" +
+                //              rs.getString("addr"));
+
+            }
+            conn.close();
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
 
         public boolean check(String pseudo, String filename) {
             String sql = "SELECT EXISTS(SELECT * FROM Connected WHERE pseudo= ?);";
@@ -419,11 +484,12 @@ public class createDB {
 
 
                 // assert
+
         //
+    //changeMonpseudo
 
         public synchronized boolean changeIpseudo(String pseudo, String addr, String filename,String old_pseudo) {
             String sql = "UPDATE IPseudo SET pseudo=? WHERE addr = ?;";
-
 
             try (Connection conn = this.connect(filename);
                  PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -445,8 +511,24 @@ public class createDB {
         stmt.setString(1, pseudo);
         stmt.setString(2, old_pseudo);
         stmt.executeUpdate();
-        conn.close();
-        return true;
+
+    } catch (SQLException e) {
+        System.out.println(
+                e.getMessage());
+    }
+
+
+
+            System.out.println("j'update pseudo");
+          //  return false;
+    sql = "UPDATE Monpseudo SET pseudo=? WHERE pseudo = ?;";
+
+            try (Connection conn = this.connect(filename);
+    PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setString(1, pseudo);
+        stmt.setString(2, old_pseudo);
+        stmt.executeUpdate();
+
     } catch (SQLException e) {
         System.out.println(
                 e.getMessage());

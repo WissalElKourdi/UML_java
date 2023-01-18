@@ -71,8 +71,9 @@ public class ChatSessionController implements Initializable {
         createDB DB = new createDB(DB_name);
         String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
         new UDP_Client(port).start();
-        UDP_Server.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
-        UDP_Server.broadcast_end(port);
+            UDP_Server serv_udp = new UDP_Server();
+        serv_udp.broadcast_deconnection(DB.getPseudo(addr,DB_name), port);
+        serv_udp.broadcast_end(port);
         //retour à la page d'accueil (login)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
