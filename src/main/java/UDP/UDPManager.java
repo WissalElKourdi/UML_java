@@ -10,7 +10,6 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.sql.SQLException;
 
-//import static Interface.MenuController.coo;
 
 public class UDPManager extends UDP_Client{
 

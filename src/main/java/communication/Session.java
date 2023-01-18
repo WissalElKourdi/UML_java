@@ -32,7 +32,6 @@ public class Session extends Thread {
 }
     public Session() throws IOException { // ce thread crée le serveur principal et attribue à chaque client un socket
         user= new ServerSocket(5000);
-
         map_socket=new HashMap<>();
     }
 

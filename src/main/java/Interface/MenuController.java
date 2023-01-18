@@ -3,6 +3,7 @@ package Interface;
 import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
+import communication.Launch_receive;
 import communication.Sender;
 import communication.Session;
 import javafx.application.Platform;
@@ -62,14 +63,16 @@ public class MenuController extends Thread implements  Initializable {
 
   //  ObservableList<String> co = FXCollections.observableArrayList();
    // ListView<String> listView = new ListView(co);
+
+
     String name_db = "DB_MSG.db";
     private Socket sockett;
     private BufferedReader bufferedReaderr;
     private BufferedWriter bufferedWriterr;
     //private ServerTcp server;
 
-    public static Session session;
-    public static ServerSocket Srvsocket;
+    //public static Session session;
+    //public static ServerSocket Srvsocket;
 
 
 
@@ -92,28 +95,7 @@ public class MenuController extends Thread implements  Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
-       /* try {
-            session = new Session();
-            session.start();// on launce l'écout
-            createDB BD = new createDB(name_db);
-<<<<<<< HEAD
-        //  connected = BD.selectAllConnected(name_db);
-          //  new UDP_Client(port).start();
-        //    TCP_Server.servtcp();
-            //ArrayList<ServerTcp> sessionsList = new ArrayList<>();
-            //Srvsocket = new ServerSocket(5679);
-            //ClientTcp.sock_acc(Srvsocket);
-=======
-
->>>>>>> 3077e142be2b548f341e08669f1e26600c64cd96
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-           } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
-
-
+        Session.getInstance().start();
         System.out.println("Connected to Client!");
 
 
@@ -136,12 +118,11 @@ public class MenuController extends Thread implements  Initializable {
                 }
            /*     try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
                     Parent parent = loader.load();
-                    Stage stage = new Stage();
-                    Scene scene = new Scene(parent, 1200, 800);
+                    Scene scene = new Scene(parent, 600, 400);
                     scene.getStylesheets().add("/styles.css");
-                    stage.setTitle("Chatting with  "+ currentConnected);
-                    stage.setScene(scene);
-                    stage.show();
+                    mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
+                    mainFXML.mainStage.setScene(scene);
+                    mainFXML.mainStage.show();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -257,7 +238,6 @@ public class MenuController extends Thread implements  Initializable {
         FlowPane root = new FlowPane();
         root.getChildren().add(list);
         Scene scene = new Scene(root, 300, 250);
-
         primaryStage.setTitle("ListView");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -268,13 +248,11 @@ public class MenuController extends Thread implements  Initializable {
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
         try {
-            Srvsocket.close();
+            //Srvsocket.close();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 1200, 800);
+            Scene scene = new Scene(parent, 600, 400);
             mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setResizable(false);
-
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
         } catch (IOException e) {
@@ -286,7 +264,7 @@ public class MenuController extends Thread implements  Initializable {
 
     @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
-        Srvsocket.close();
+        //Srvsocket.close();
         //deconnexion
         String DB_name = "DB_MSG.db";
         createDB DB = new createDB(DB_name);
@@ -306,8 +284,6 @@ public class MenuController extends Thread implements  Initializable {
             Scene scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("/styles.css");
             mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setResizable(false);
-
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
         } catch (IOException e) {
@@ -320,6 +296,7 @@ public class MenuController extends Thread implements  Initializable {
     }
 
 
-
+    public void esteban(ActionEvent actionEvent) {
+    }
 }
 
