@@ -7,22 +7,26 @@ import java.net.*;
 import java.sql.SQLException;
 
 public class UDP_Server {
+    private DatagramSocket socket;
     private static final String Name_DB = "DB_MSG.db";
-    public static void send_udp(String broadcastMSg, InetAddress Address, int port) throws IOException {
-        DatagramSocket socket = new DatagramSocket();
-       // socket.setBroadcast(true);
+
+    public UDP_Server() throws SocketException {
+        this.socket = new DatagramSocket();
+    }
+    public void send_udp(String broadcastMSg, InetAddress Address, int port) throws IOException {
+       // DatagramSocket socket = new DatagramSocket();
+        socket.setBroadcast(true);
         byte[] buffer = broadcastMSg.getBytes();
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length, Address, port);
-        socket.send(packet);
-
-        socket.close();
+        this.socket.send(packet);
+       // this.socket.close();
     }
 
     //-----------------------------BROADCAST--------------------------------------------
-    public static void broadcast(String broadcastMSg, int port) throws IOException {
-         UDP_Server.send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"),port);
+    public void broadcast(String broadcastMSg, int port) throws IOException {
+        this.send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"),port);
     }
-    public static boolean broadcast_Pseudo (String pseudo, int port ) throws IOException, SQLException {
+    public boolean broadcast_Pseudo (String pseudo, int port ) throws IOException, SQLException {
         createDB DB = new createDB(Name_DB);
         if ( DB.check(pseudo,Name_DB) ) {
             System.out.println("Choose new pseudo : this one is already taken");
@@ -34,7 +38,7 @@ public class UDP_Server {
         }
     }
 
-    public static boolean broadcast_ChangePseudo (String newpseudo, int port) throws IOException, SQLException {
+    public boolean broadcast_ChangePseudo (String newpseudo, int port) throws IOException, SQLException {
 
         createDB DB = new createDB(Name_DB);
 
@@ -50,7 +54,7 @@ public class UDP_Server {
 
 
     //broadcast la connection auprès des autres utilisateurs
-    public static void broadcast_connection (String pseudo, int port) throws IOException, SQLException {
+    public void broadcast_connection (String pseudo, int port) throws IOException, SQLException {
         createDB DB = new createDB(Name_DB);
 
         if ( DB.check(pseudo,Name_DB) ) {
@@ -63,7 +67,7 @@ public class UDP_Server {
     }
 
     //se déconnecter et broadcast auprès des autres utilisateurs
-    public static void broadcast_deconnection (String pseudo, int port) throws IOException, SQLException {
+    public void broadcast_deconnection (String pseudo, int port) throws IOException, SQLException {
         createDB DB = new createDB(Name_DB);
         if ( DB.check(pseudo,Name_DB) ) {
             broadcast("Deconnected :" + pseudo, port);
@@ -72,8 +76,17 @@ public class UDP_Server {
             System.out.println("Failed ");
         }
     }
-    public static void broadcast_end(int port) throws IOException {
+    public void broadcast_end(int port) throws IOException {
         broadcast("end", port);
+    }
+    public void broadcast_MyState (String pseudo, int port) throws IOException, SQLException {
+        broadcast("UpdtateState :" + pseudo, port);
+        System.out.println("UpdtateState :" + pseudo);
+    }
+
+    public void broadcast_AskState (String pseudo, int port) throws IOException, SQLException {
+        broadcast("AskForState :" + pseudo, port);
+        System.out.println("AskForState :" + pseudo);
     }
 
 
