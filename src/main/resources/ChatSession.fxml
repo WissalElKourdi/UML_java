@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -25,8 +26,13 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.SessionChatController">
    <children>
-      <Button fx:id="button_send" layoutX="1039.0" layoutY="682.0" mnemonicParsing="false" text="Send" />
-      <TextArea id="tf_messages" fx:id="tf_message" layoutX="224.0" layoutY="657.0" prefHeight="74.0" prefWidth="756.0" />
+      <ImageView fitHeight="836.0" fitWidth="1427.0" layoutX="-228.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/city.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="button_send" layoutX="902.0" layoutY="682.0" mnemonicParsing="false" text="Send" />
+      <TextArea id="tf_messages" fx:id="tf_message" layoutX="232.0" layoutY="658.0" prefHeight="74.0" prefWidth="635.0" />
       <ScrollPane fx:id="sp_main" hbarPolicy="NEVER" layoutX="226.0" layoutY="76.0" prefHeight="560.0" prefWidth="749.0" vbarPolicy="ALWAYS">
          <content>
             <AnchorPane id="anchor" fx:id="anchor" minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="733.0">
