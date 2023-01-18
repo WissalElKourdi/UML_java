@@ -10,7 +10,7 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.sql.SQLException;
 
-import static Interface.MenuController.coo;
+//import static Interface.MenuController.coo;
 
 public class UDPManager extends UDP_Client{
 
@@ -66,7 +66,7 @@ public class UDPManager extends UDP_Client{
                 System.out.println("je suis ici addr = " + addr + "mon ip = " + monIP.get_my_IP().toString() );
                 co.add_co(pseudo3);
                 MenuController.update_list();
-                coo.add(pseudo3);
+                //coo.add(pseudo3);
             DB.insertConnected(pseudo3.trim(), port, name_db);
             }
            // System.out.println("I am adding to the list co" + pseudo3);
