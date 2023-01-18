@@ -26,6 +26,8 @@ public class LoginController {
     private TextField choose_username;
     @FXML
     private TextFlow returnText;
+    @FXML
+    private Label Titre;
 
     public LoginController() throws SocketException, SQLException {
         new UDP_Client(port).start();

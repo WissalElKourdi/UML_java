@@ -21,7 +21,7 @@
             <Button fx:id="LoginButton" layoutX="541.0" layoutY="455.0" mnemonicParsing="false" onAction="#saveUsername" text="Login" />
             <TextField fx:id="choose_username" layoutX="401.0" layoutY="318.0" onAction="#saveUsername" prefHeight="83.0" prefWidth="334.0" promptText="Enter your username" />
             <TextFlow fx:id="returnText" layoutX="439.0" layoutY="400.0" prefHeight="47.0" prefWidth="258.0" style="-fx-font-family: 'Courier Prime Regular'" textAlignment="CENTER" />
-            <Label alignment="CENTER" layoutX="313.0" layoutY="253.0" prefHeight="47.0" prefWidth="510.0" text="Welcome to the Chat App" />
+            <Label fx:id="Titre" alignment="CENTER" layoutX="313.0" layoutY="253.0" prefHeight="47.0" prefWidth="510.0" text="Welcome to the Chat App" />
          </children>
       </Pane>
    </children>
