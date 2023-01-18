@@ -86,8 +86,6 @@ public class MenuController extends Thread implements  Initializable {
     public MenuController() throws SQLException {
 
         createDB BD = new createDB(name_db);
-        BD.insertIpseudo("leonie","10.1.5.75",name_db);
-        BD.insertConnected("leonie",5000,name_db);
         connected = BD.selectAllConnected(name_db);
         System.out.println(connected);
 
@@ -97,7 +95,17 @@ public class MenuController extends Thread implements  Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-      Session.getInstance().start();
+       /* try {
+            session = new Session();
+            session.start();// on launce l'écout
+            createDB BD = new createDB(name_db);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+           } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }*/
+
 
         System.out.println("Connected to Client!");
 

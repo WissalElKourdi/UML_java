@@ -10,6 +10,8 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.sql.SQLException;
 
+import static Interface.MenuController.coo;
+
 public class UDPManager extends UDP_Client{
 
     static UDP_Server serv_udp;
@@ -63,10 +65,15 @@ public class UDPManager extends UDP_Client{
             if (!addr.equals(mine)){
                 System.out.println("je suis ici addr = " + addr + "mon ip = " + monIP.get_my_IP().toString() );
                 co.add_co(pseudo3);
+                MenuController.update_list();
+                coo.add(pseudo3);
             DB.insertConnected(pseudo3.trim(), port, name_db);
             }
-          //  DB.insertConnected(pseudo3.trim(), port, name_db);
-            MenuController.update_list();
+           // System.out.println("I am adding to the list co" + pseudo3);
+         //   co.add_co(pseudo3);
+         //   co.print_co(co.get_List());
+            //  DB.insertConnected(pseudo3.trim(), port, name_db);
+
         } else if (msg.startsWith("Deconnected :")) {
             String pseudo = msg.substring(msg.lastIndexOf(':') + 1);
             DB.deleteConnected(pseudo.trim(), name_db);
