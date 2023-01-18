@@ -5,24 +5,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
 <?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.MenuController">
   <children>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#024029" height="800.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
-      <TabPane fx:id="onglets" layoutX="-3.0" prefHeight="800.0" prefWidth="1207.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="onglets" layoutX="-3.0" prefHeight="800.0" prefWidth="1207.0">
         <tabs>
           <Tab text="Menu principal">
             <content>
-              <AnchorPane fx:id="connected_users" minHeight="0.0" minWidth="0.0" prefHeight="741.0" prefWidth="546.0">
+              <AnchorPane fx:id="connected_users" minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="1207.0">
                      <children>
                       <ListView fx:id="myListView" layoutX="115.0" layoutY="92.0" prefHeight="589.0" prefWidth="323.0" />
                         <AnchorPane layoutX="651.0" layoutY="55.0" prefHeight="664.0" prefWidth="433.0">
                            <children>
                             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="664.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="434.0" />
                             <Button fx:id="change_pseudo" alignment="CENTER" layoutX="158.0" layoutY="421.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
-                              <Text layoutX="123.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click on a connected to user to open a chat tab with them " textAlignment="CENTER" wrappingWidth="189.40771484375" />
+                              <Text layoutX="123.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: 'Courier Prime Regular'" text="Click on a connected to user to open a chat tab with them " textAlignment="CENTER" wrappingWidth="189.40771484375" />
                             <Button fx:id="disconnect" alignment="CENTER" layoutX="172.0" layoutY="371.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
                               <Text layoutX="123.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have selected :" textAlignment="CENTER" wrappingWidth="189.40771484375" />
                             <Label fx:id="myLabel" layoutX="57.0" layoutY="301.0" prefHeight="44.0" prefWidth="322.0" />

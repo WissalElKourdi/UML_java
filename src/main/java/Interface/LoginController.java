@@ -62,9 +62,9 @@ public class LoginController {
         String name = choose_username.getText();
         // System.out.println("je suis ici" + UDP_Server.broadcast_Pseudo(name));
         // new UDP_Client(port).start();
-        serv_udp.broadcast_AskState(name, port);
 
         if (isValid(name)){
+            serv_udp.broadcast_AskState(name, port);
 
             if (serv_udp.broadcast_Pseudo(name, port)) {
                 try {

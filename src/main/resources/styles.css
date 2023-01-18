@@ -1,8 +1,19 @@
 /*font import*/
+
 @font-face {
   font-family: 'CourierPrime-Regular';
   src: url('font/CourierPrime-Regular.ttf');
 }
+
+@font-face {
+  font-family: 'Chivo ExtraBold';
+  src: url('font/Chivo-ExtraBold.ttf');
+}
+
+
+
+
+
 
 /* classes*/
 .button {
@@ -11,9 +22,10 @@
 }
 
 .label{
-    -fx-font-size:20pt;
-    -fx-text-color: #0E1140;
-    -fx-font-family: 'Courier Prime Regular';
+    -fx-font-size:15pt;
+    -fx-font-family: 'Chivo ExtraBold';
+    /*
+    -fx-font-family: 'Courier Prime Regular';*/
 }
 
 .textFlow {
