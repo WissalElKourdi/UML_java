@@ -3,6 +3,7 @@ package Interface;
 import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
+import communication.Launch_receive;
 import communication.Sender;
 import communication.Session;
 import javafx.application.Platform;
@@ -70,8 +71,8 @@ public class MenuController extends Thread implements  Initializable {
     private BufferedWriter bufferedWriterr;
     //private ServerTcp server;
 
-    public static Session session;
-    public static ServerSocket Srvsocket;
+    //public static Session session;
+    //public static ServerSocket Srvsocket;
 
 
 
@@ -94,19 +95,7 @@ public class MenuController extends Thread implements  Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
-       /* try {
-            session = new Session();
-            session.start();// on launce l'écout
-            createDB BD = new createDB(name_db);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-           } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
-
-
+        Session.getInstance().start();
         System.out.println("Connected to Client!");
 
 
@@ -259,7 +248,7 @@ public class MenuController extends Thread implements  Initializable {
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
         try {
-            Srvsocket.close();
+            //Srvsocket.close();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 400);
@@ -275,7 +264,7 @@ public class MenuController extends Thread implements  Initializable {
 
     @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
-        Srvsocket.close();
+        //Srvsocket.close();
         //deconnexion
         String DB_name = "DB_MSG.db";
         createDB DB = new createDB(DB_name);
@@ -307,6 +296,7 @@ public class MenuController extends Thread implements  Initializable {
     }
 
 
-
+    public void esteban(ActionEvent actionEvent) {
+    }
 }
 

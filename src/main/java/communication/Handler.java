@@ -4,6 +4,7 @@ import Database.createDB;
 import Interface.MenuController;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.sql.SQLException;
 
@@ -24,12 +25,12 @@ public class Handler {
         }
         try {
             ip = DB.getADDR(pseudo, DB_name);
-            System.out.println(ip);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         System.out.println("pseudo to connect with : "+pseudo);
-        Socket socket= new Socket(ip,5000);
+        Socket socket= new Socket(InetAddress.getLocalHost(),5000);
+        System.out.println("the adresse im talking to is " +InetAddress.getLocalHost());
 
      Session.getInstance().addSock(pseudo,socket);
      return socket;}
