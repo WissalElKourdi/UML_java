@@ -95,11 +95,11 @@ public class MenuController extends Thread implements  Initializable {
     @FXML
     private Label myLabel;
     //List<String> connected;
-    String currentConnected;
+    static String currentConnected;
      // ListView<String> listView = new ListView(co);
 
     List<String> connected;
-    static String currentConnected;
+   // static String currentConnected;
 
     public MenuController() throws SQLException {
 
@@ -145,7 +145,7 @@ public class MenuController extends Thread implements  Initializable {
 
         //update_list();
 
-        myListView.getItems().addAll(connected);
+      //  myListView.getItems().addAll(connected);
 
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -278,14 +278,11 @@ public class MenuController extends Thread implements  Initializable {
         });
     }
 
-    public static void update_list(){
-        List_Connected co = new List_Connected();
-      //  connected = FXCollections.observableArrayList();
-        //connected.addAll( co.get_List());
-      //  myListView.getItems().addAll(connected);
-       // myListView.setItems(connected);
 
-    }
+
+
+
+
 
     public void start(Stage primaryStage) {
         ListView<String> list = new ListView<>();
