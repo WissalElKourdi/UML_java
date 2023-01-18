@@ -65,6 +65,7 @@ public class UDPManager extends UDP_Client{
                 co.add_co(pseudo3);
             DB.insertConnected(pseudo3.trim(), port, name_db);
             }
+          //  DB.insertConnected(pseudo3.trim(), port, name_db);
             MenuController.update_list();
         } else if (msg.startsWith("Deconnected :")) {
             String pseudo = msg.substring(msg.lastIndexOf(':') + 1);

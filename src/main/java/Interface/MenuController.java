@@ -40,7 +40,6 @@ public class MenuController extends Thread implements  Initializable {
     public VBox vbox_messages;
     @FXML
     public VBox vbox_messages1;
-    private String DB_name = "DB_MSG.db";
     private static final int port =2000;
 
     @FXML
@@ -50,7 +49,7 @@ public class MenuController extends Thread implements  Initializable {
 
     @FXML
     private Button button_send;
-    private static ListView<String> myListView;
+
     @FXML
     private TextField tf_message;
     @FXML
@@ -60,17 +59,8 @@ public class MenuController extends Thread implements  Initializable {
     private ServerTcp server;
     private Socket socket;
     private Sender sender;
-    Pseudo pseudo= Pseudo.getInstance();
-    //@FXML
-   // private Label Id;
-    public static  String currentPseudo= null;
 
-    //  public static ServerTcp server;
-  //  String currentConnected;
-
-    //Pseudo pseudo= Pseudo.getInstance();
   //  ObservableList<String> co = FXCollections.observableArrayList();
-
    // ListView<String> listView = new ListView(co);
 
 
@@ -82,9 +72,6 @@ public class MenuController extends Thread implements  Initializable {
 
     public static Session session;
     public static ServerSocket Srvsocket;
-
-
-
 
 
 
@@ -104,22 +91,15 @@ public class MenuController extends Thread implements  Initializable {
 
     }
 
-    //private void setdata(String pseudo1){
-       // pseudo.setPseudo(pseudo1);
-   // }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
       /*     // onglets.getTabs().add(new Tab("tab1"));
         List_Connected co = new List_Connected();
      //   connected = FXCollections.observableArrayList();
         connected.addAll( co.get_List());*/
-        try {
-            new UDP_Client(port).start();
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+        //    new UDP_Client(port).start();
+
         try {
             session = new Session();
             session.start();// on launce l'écout
@@ -127,7 +107,7 @@ public class MenuController extends Thread implements  Initializable {
         //  connected = BD.selectAllConnected(name_db);
           //  new UDP_Client(port).start();
         //    TCP_Server.servtcp();
-            ArrayList<ServerTcp> sessionsList = new ArrayList<>();
+            //ArrayList<ServerTcp> sessionsList = new ArrayList<>();
             Srvsocket = new ServerSocket(5679);
             ClientTcp.sock_acc(Srvsocket);
         } catch (IOException e) {
@@ -269,9 +249,9 @@ public class MenuController extends Thread implements  Initializable {
     public static void update_list(){
         List_Connected co = new List_Connected();
       //  connected = FXCollections.observableArrayList();
-        connected.addAll( co.get_List());
+        //connected.addAll( co.get_List());
       //  myListView.getItems().addAll(connected);
-        myListView.setItems(connected);
+       // myListView.setItems(connected);
 
     }
 
@@ -311,6 +291,7 @@ public class MenuController extends Thread implements  Initializable {
     void disconnect(ActionEvent event) throws SQLException, IOException {
         Srvsocket.close();
         //deconnexion
+        String DB_name = "DB_MSG.db";
         createDB DB = new createDB(DB_name);
         String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
         System.out.println("ADDRR" +addr);
@@ -319,7 +300,7 @@ public class MenuController extends Thread implements  Initializable {
         // new UDP_Client(port).start();
         UDP_Server serv_udp = new UDP_Server();
         serv_udp.broadcast_deconnection( DB.getMonPseudo(DB_name), port);
-        System.out.println("PSEUDOOO" +DB.getPseudo(addr,DB_name));
+        System.out.println("PSEUDOOO" +DB.getPseudo(addr, DB_name));
       //  serv_udp.broadcast_end(port);
         //retour à la page d'accueil (login)
         try {
