@@ -50,6 +50,9 @@ public class UDPManager extends UDP_Client{
             int max = 10000;
             //port = 2000;
                     //(int) Math.floor(Math.random() * (max - min + 1) + min);
+            String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
+
+            if (addr != IP_addr.get_my_IP().toString(){
             DB.insertConnected(pseudo3.trim(), port, name_db);
 
         } else if (msg.startsWith("Deconnected :")) {
