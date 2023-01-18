@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class Session extends Thread {
     private ServerSocket user;
-   /* private static Session Session;
+    private static Session Session;
     // cette fonction permet qu'à chaque initiation de conversation avec un client un socket se crée pour lui
 
     static {
@@ -21,16 +21,15 @@ public class Session extends Thread {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }*/
+    }
    public Map<String, Socket> map_socket = new HashMap<>();
 
-   /* public static Session getInstance(){
+    public static Session getInstance(){
         return Session;
-}*/
+}
     public Session() throws IOException { // ce thread crée le serveur principal et attribue à chaque client un socket
         user= new ServerSocket(1000);
         map_socket=new HashMap<>();
-
     }
 
     //fonction qui  cherche un utilisateur dans notre base de données
@@ -56,9 +55,10 @@ public void run () {
                 throw new RuntimeException(e);
             }
             if(socket!=null){
+                System.out.println("from lis ip = "+socket.getInetAddress().getHostAddress()+" port = "+socket.getPort());
                 //search for pseudo dans la base de données
                 //search for ip adresse
-                map_socket.put(pseudo,socket);
+                //map_socket.put(pseudo,socket);
                 if(!pseudo.equals("")){
                     Launch_receive receiver = new Launch_receive(socket,pseudo);
                     Launch_receive.sessions.add(receiver);

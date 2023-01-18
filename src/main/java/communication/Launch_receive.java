@@ -17,7 +17,7 @@ public class Launch_receive extends Thread  {
     private Socket socket;
     private String pseudo;
     private BufferedWriter bufferedWriter;
-    private BufferedReader bufferedReader;
+    private BufferedReader bufferedReader=null;
 
     public static List<Launch_receive> sessions = new ArrayList<>();
 

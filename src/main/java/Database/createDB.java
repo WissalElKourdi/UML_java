@@ -411,6 +411,32 @@ public class createDB {
             }
             return result;
         }
+    public synchronized String getADDR(String pseudo, String filename) throws SQLException {
+        String sql = "SELECT addr FROM IPseudo WHERE pseudo= ?";
+        String result ="";
+
+        try (Connection conn = this.connect(filename);
+             PreparedStatement stmt  = conn.prepareStatement(sql)){
+            stmt.setString(1,pseudo);
+            ResultSet rs    = stmt.executeQuery();
+
+            // loop through the result set
+            while (rs.next()) {
+
+                result = rs.getString("addr") ;
+                //  System.out.println(
+                //        rs.getString("pseudo") +  "\t" +
+                //              rs.getString("addr"));
+
+            }
+            conn.close();
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
     public synchronized String getMonPseudo(String filename) throws SQLException {
         String sql = "SELECT pseudo FROM Monpseudo ";
         String result ="";
