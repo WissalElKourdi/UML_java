@@ -13,7 +13,7 @@
 <AnchorPane id="Content" layoutX="616.0" layoutY="106.0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
       <TabPane fx:id="onglets" layoutX="-3.0" prefHeight="800.0" prefWidth="1207.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Untitled Tab 1">
+          <Tab text="Menu principal">
             <content>
               <AnchorPane fx:id="connected_users" minHeight="0.0" minWidth="0.0" prefHeight="741.0" prefWidth="546.0">
                      <children>
@@ -26,6 +26,7 @@
                   </AnchorPane>
             </content>
           </Tab>
+            <!--
           <Tab text="Untitled Tab 2">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -49,6 +50,7 @@
                   </AnchorPane>
             </content>
           </Tab>
+          -->
         </tabs>
       </TabPane>
 </children>

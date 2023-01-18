@@ -62,8 +62,6 @@ public class MenuController extends Thread implements  Initializable {
 
   //  ObservableList<String> co = FXCollections.observableArrayList();
    // ListView<String> listView = new ListView(co);
-
-
     String name_db = "DB_MSG.db";
     private Socket sockett;
     private BufferedReader bufferedReaderr;
