@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginController {
-    private static final int port = 5000;
+    private static final int port = 2000;
 
     @FXML
     private Button LoginButton;

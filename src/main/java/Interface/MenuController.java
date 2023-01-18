@@ -141,6 +141,7 @@ public class MenuController extends Thread implements  Initializable {
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
         try {
+            UDP_Server.broadcast_end(port);
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 400);
