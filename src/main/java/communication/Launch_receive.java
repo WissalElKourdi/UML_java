@@ -16,7 +16,7 @@ public class Launch_receive extends Thread  {
     static final String DB_NAME ="DB_MSG.db" ;
     private Socket socket;
     private String pseudo;
-    private BufferedWriter bufferedWriter;
+    //private BufferedWriter bufferedWriter;
     private BufferedReader bufferedReader;
 
     public static List<Launch_receive> sessions = new ArrayList<>();
@@ -26,7 +26,7 @@ public class Launch_receive extends Thread  {
             this.socket=socket;
             this.pseudo=pseudo;
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            //this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

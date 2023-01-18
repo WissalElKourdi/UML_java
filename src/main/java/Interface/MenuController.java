@@ -79,7 +79,7 @@ public class MenuController extends Thread implements  Initializable {
     @FXML
     private Label myLabel;
     List<String> connected;
-    String currentConnected;
+    static String currentConnected;
 
     public MenuController() throws SQLException {
 
@@ -91,46 +91,41 @@ public class MenuController extends Thread implements  Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-      /*     // onglets.getTabs().add(new Tab("tab1"));
-        List_Connected co = new List_Connected();
-     //   connected = FXCollections.observableArrayList();
-        connected.addAll( co.get_List());*/
 
-        //    new UDP_Client(port).start();
 
-        try {
+       /* try {
             session = new Session();
             session.start();// on launce l'écout
             createDB BD = new createDB(name_db);
+<<<<<<< HEAD
         //  connected = BD.selectAllConnected(name_db);
           //  new UDP_Client(port).start();
         //    TCP_Server.servtcp();
             //ArrayList<ServerTcp> sessionsList = new ArrayList<>();
             //Srvsocket = new ServerSocket(5679);
             //ClientTcp.sock_acc(Srvsocket);
+=======
+
+>>>>>>> 3077e142be2b548f341e08669f1e26600c64cd96
         } catch (IOException e) {
             throw new RuntimeException(e);
            } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
-        //  server = new ServerTcp(Srvsocket,sessionsList);
 
-        //System.out.println("Connected to Client!");
         System.out.println("Connected to Client!");
-        //Id.setText(pseudo.getPseudo());
 
-     //   vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
 
 
         myListView.getItems().addAll(connected);
-      //  myListView.setItems(connected);
+
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
                  //   (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 currentConnected = myListView.getSelectionModel().getSelectedItem();
-                //setdata(currentPseudo);
+
 
 
                 myLabel.setText(currentConnected);
@@ -320,55 +315,11 @@ public class MenuController extends Thread implements  Initializable {
         }
     }
 
+    public static String get_pseudo_user(){
+        return currentConnected;
+    }
+
 
 
 }
-
-
-
- /*   @FXML
-    private void sendData(MouseEvent event) {
-        User u = new User();
-        User.name = (String) connected_users_list.getSelectionModel().getSelectedItem();
-        //Node node = (Node) event.getSource();
-       // Stage stage = (Stage) node.getScene().getWindow();
-        //stage.close();
-        try {
-            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("ChatSession.fxml")));
-            mainFXML.mainStage.setUserData(u);
-            Scene scene = new Scene(parent,600, 400);
-            mainFXML.mainStage.setTitle("Chatting with " + User.name);
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();        }
-    }
-*/
-/*  @FXML
-    void disconnect(ActionEvent event) throws IOException, SQLException {
-        String DB_name = "DB_MSG.db";
-        createDB DB = new createDB(DB_name);
-        String addr ;
-        try (final DatagramSocket datagramSocket = new DatagramSocket()) {
-            datagramSocket.connect(InetAddress.getByName("255.255.255.255"), 12345);
-            addr = datagramSocket.getLocalAddress().getHostAddress();
-        }
-        int port=900;
-        new UDP_Client(port).start();
-        UDP_Server.broadcast_deconnection(DB.getPseudo(addr, DB_name), port);
-        UDP_Server.broadcast_end(port);
-        createDB BD = new createDB(name_db);
-        connected = BD.selectAllConnected(name_db);
-        //retour à la page d'accueil (login)
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 

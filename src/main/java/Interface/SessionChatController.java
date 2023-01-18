@@ -1,7 +1,11 @@
 
 package Interface;
+import Database.createDB;
 import Interface.ServerTcp;
+import communication.Handler;
+import communication.Launch_receive;
 import communication.Sender;
+import communication.Session;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,6 +27,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -39,29 +44,17 @@ public class SessionChatController implements Initializable {
     AnchorPane anchor;
     @FXML
     private ScrollPane sp_main;
-    private ServerTcp server;
     private Socket socket;
     private Sender sender;
+    private String  ip;
+    private Launch_receive receiver;
     Pseudo pseudo= Pseudo.getInstance();
     private Label Id;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<ServerTcp> sessionsList = new ArrayList<>();
-        //try{
-        System.out.println("Connected to Client!");
 
-         //   socket = new Socket("10.32.1.13",5679);
-         //   server = new ServerTcp(socket,sessionsList);
 
-            //  sessionsList.add(server);
-            System.out.println("Connected to Client!");
 
-//            Id.setText(pseudo.getPseudo());
-
-      /*  }catch(IOException e){
-            e.printStackTrace();
-            System.out.println("Error creating Server ... ");
-        }*/
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -77,7 +70,9 @@ public class SessionChatController implements Initializable {
         button_send.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                String pseudo = MenuController.get_pseudo_user();
                 String messageToSend = tf_message.getText();
+                Socket sock=null;
                 if (!messageToSend.isBlank()) {
                     HBox hBox = new HBox();
                     hBox.setAlignment(Pos.CENTER_RIGHT);
@@ -96,12 +91,59 @@ public class SessionChatController implements Initializable {
                     text.setFill(Color.color(0.934, 0.925, 0.996));
 
                     hBox.getChildren().add(textFlow);
-                    //Socket sock = MenuController.session.map_socket.get(pseudo);
-                    //sender = new Sender(sock,pseudo);
 
                     //ScrollPane scroll = new ScrollPane();
                     sp_main.setContent(vBoxMessages);
                     //anchor.setStyle("-fx-background-color: #d7d4d3;");
+                    System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
+
+                    //cas 1 : la session avec l'utilisateur est déja établie
+                    if(Handler.getInstance().isEtablished(pseudo)){
+                        System.out.println("old connection");
+                        try {
+                            //Session.getInstance().start();
+                            sock=Session.getInstance().getSock(pseudo);
+                            sender= new Sender(socket,pseudo,messageToSend);
+                        }
+                        catch (IOException e) {
+                            System.out.println("ooooooooow");
+                            throw new RuntimeException(e);
+
+                        }
+                     }else {
+                        System.out.println("new Connection");
+                        try {
+                            //Session.getInstance().start();
+                            sock =Handler.getInstance().startConnection(pseudo);
+                        } catch (IOException e) {
+                            System.out.println("erreur création du socket ");
+                            throw new RuntimeException(e);
+                        }
+                        // sender = new Sender(sock, pseudo, messageToSend);
+
+                        if (sock.isConnected()) {
+                            try {
+                                System.out.println("Connected");
+                                sender = new Sender(sock, pseudo, messageToSend); // le thread qui envoie les messages au client
+                                System.out.println("the sender is created");
+                                receiver = new Launch_receive(socket, pseudo); // le thread qui reçoit les messages
+                                System.out.println("the receiver is created ");
+                                Launch_receive.sessions.add(receiver);
+                                receiver.start();
+                                System.out.println("the receiver is ready to receive youpii");
+
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+
+                    if(messageToSend.isEmpty() && sock.isConnected()){
+                        sender.start();
+                        tf_message.clear();
+                    }
+
+
                     vBoxMessages.getChildren().add(hBox);
 
 
@@ -110,7 +152,7 @@ public class SessionChatController implements Initializable {
                     //   server.send(socket,messageToSend,server);
                     //    server.sendMessageToClient(messageToSend, socket.accept());
 
-                    tf_message.clear();
+
                 }
             }
         });
