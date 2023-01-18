@@ -303,7 +303,8 @@ public class MenuController extends Thread implements  Initializable {
                  conn.add_co("Sirine");
             conn.add_co("wissal");
                 conn.add_co("leoonie");
-           conn.print_co();      }
+           conn.print_co();
+    coo.add("eeeeeee");}
 
 
 
