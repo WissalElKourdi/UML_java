@@ -1,17 +1,27 @@
-package Interface;
 
-import javafx.collections.ObservableList;
+package Interface;
 
 import java.util.ArrayList;
 
 public class List_Connected {
-    private static final ArrayList<String> listCo= new ArrayList<>();
+    public List_Connected() {
+        this.listCo.add("ststst");
+    }
 
-
+    ArrayList<String> listCo= new ArrayList<>();
     public ArrayList<String> get_List(){
-        return listCo;
+        return this.listCo;
     }
     public void add_co(String pseudo){
-        listCo.add(pseudo);
+        this.listCo.add(pseudo);
     }
+    public void print_co() {
+
+
+        for (int i = 0; i < this.listCo.size();i++)
+        {
+            System.out.println(this.listCo.get(i));
+        }
+    }
+
 }

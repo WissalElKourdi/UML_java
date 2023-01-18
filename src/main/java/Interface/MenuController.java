@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -16,20 +17,22 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.fxml.*;
 import javafx.scene.*;
+import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.application.Application.launch;
+import static javafx.collections.FXCollections.observableArrayList;
 
 public class MenuController extends Thread implements  Initializable {
     @FXML
@@ -60,8 +63,6 @@ public class MenuController extends Thread implements  Initializable {
     private Socket socket;
     private Sender sender;
 
-  //  ObservableList<String> co = FXCollections.observableArrayList();
-   // ListView<String> listView = new ListView(co);
 
 
     String name_db = "DB_MSG.db";
@@ -76,138 +77,80 @@ public class MenuController extends Thread implements  Initializable {
 
 
     //List users :
+    static List_Connected conn = new List_Connected();
+    //private static ArrayList<String> users_co = conn.get_List();
+
+  //  private static final String[] users_co = {"Wissal","LEo","Sis"} ;
+
+  public static ArrayList<String> coo = new ArrayList<>(conn.get_List());
+  @FXML
+  static
+  ObservableList<String> observable_co = FXCollections.observableArrayList(coo);
+  //public ObservableList<String> observable_co = observableArrayList(coo);
     @FXML
-    private ListView<String> myListView;
+    static final ListView<String> myListView = new ListView<>();
     @FXML
     private Label myLabel;
-    List<String> connected;
+    //List<String> connected;
     String currentConnected;
+     // ListView<String> listView = new ListView(co);
+
 
     public MenuController() throws SQLException {
 
-        createDB BD = new createDB(name_db);
-        connected = BD.selectAllConnected(name_db);
-        System.out.println(connected);
+    //    createDB BD = new createDB(name_db);
+      //  connected = BD.selectAllConnected(name_db);
+     //   System.out.println(connected);
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-      /*     // onglets.getTabs().add(new Tab("tab1"));
-        List_Connected co = new List_Connected();
-     //   connected = FXCollections.observableArrayList();
-        connected.addAll( co.get_List());*/
+        //myListView.setEditable(true);
 
-        //    new UDP_Client(port).start();
+
+
+
 
         try {
             session = new Session();
             session.start();// on launce l'écout
             createDB BD = new createDB(name_db);
-        //  connected = BD.selectAllConnected(name_db);
-          //  new UDP_Client(port).start();
-        //    TCP_Server.servtcp();
-            //ArrayList<ServerTcp> sessionsList = new ArrayList<>();
             Srvsocket = new ServerSocket(5679);
             ClientTcp.sock_acc(Srvsocket);
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
-           } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+           }
 
-        //  server = new ServerTcp(Srvsocket,sessionsList);
+      //  observable_co.addAll("A", "B", "C", "D", "E");
+       // data.add("double click to sleect user");
+      //  update_list();
+       // System.out.println("Connected to Client!");
+     //  observable_co.addListener((ListChangeListener<? super String>) observable_co);
+     //  observable_co.addAll(coo);
+       myListView.setItems(observable_co);
+        myListView.getItems().addAll();
+                 // myListView.
+      //  myListView.ysetCellFactory(ComboBoxListCell.forListView(observable_co));
 
-        //System.out.println("Connected to Client!");
-        System.out.println("Connected to Client!");
-        //Id.setText(pseudo.getPseudo());
 
-     //   vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
-
-
-        myListView.getItems().addAll(connected);
-      //  myListView.setItems(connected);
+        //update_list();
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
                  //   (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                currentConnected = myListView.getSelectionModel().getSelectedItem();
-                //setdata(currentPseudo);
 
-
+                currentConnected =     myListView.getSelectionModel().getSelectedItem();
                 myLabel.setText(currentConnected);
+              //  scrollPane.setVvalue((Double) newValue);
                 try {
                     addTab(currentConnected);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-           /*     try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
-                    Parent parent = loader.load();
-                    Scene scene = new Scene(parent, 600, 400);
-                    scene.getStylesheets().add("/styles.css");
-                    mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
-                    mainFXML.mainStage.setScene(scene);
-                    mainFXML.mainStage.show();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }*/
-
-
-            }
-
-               // sp_main.setVvalue((Double) newValue);
-
-        });
-
-
-        // ServerTcp.rcv(socket,vBoxMessages);
-        // server.receiveMessageFromClient(vBoxMessages, socket.accept());
-
-
-     /*   button_send.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                String messageToSend = tf_message.getText();
-                if (!messageToSend.isBlank()) {
-                    HBox hBox = new HBox();
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
-                    hBox.setPadding(new Insets(5, 5, 5, 10));
-
-                    Text text = new Text(messageToSend);
-                    TextFlow textFlow = new TextFlow(text);
-
-                    textFlow.setStyle(
-                            "-fx-color: rgb(239, 242, 255);" +
-                                    "-fx-background-color: rgb(15, 125, 242);" +
-                                    "-fx-background-radius: 20px;");
-
-                    textFlow.setPadding(new Insets(5, 10, 5, 10));
-                    text.setFill(Color.color(0.934, 0.925, 0.996));
-
-                    hBox.getChildren().add(textFlow);
-                    //Socket sock = MenuController.session.map_socket.get(pseudo);
-                    //sender = new Sender(sock,pseudo);
-
-
-
-                    vBoxMessages.getChildren().add(hBox);
-
-
-
-
-                    //   server.send(socket,messageToSend,server);
-                    //    server.sendMessageToClient(messageToSend, socket.accept());
-
-                    tf_message.clear();
-                }
             }
         });
 
-
-*/
-
-    /*******************************/
 
     }
     @FXML
@@ -215,9 +158,17 @@ public class MenuController extends Thread implements  Initializable {
         int numTabs = onglets.getTabs().size();
         Tab tab = new Tab(pseudo);
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
-
         tab.setContent(loader.load());
         onglets.getTabs().add(tab);
+    }
+
+    @FXML
+    public static void update_list(){
+
+        observable_co.clear();
+        observable_co.addAll(coo);
+        myListView.setItems(observable_co);
+
     }
     @FXML
     private void listTabs() {
@@ -246,19 +197,12 @@ public class MenuController extends Thread implements  Initializable {
         });
     }
 
-    public static void update_list(){
-        List_Connected co = new List_Connected();
-      //  connected = FXCollections.observableArrayList();
-        //connected.addAll( co.get_List());
-      //  myListView.getItems().addAll(connected);
-       // myListView.setItems(connected);
 
-    }
 
     public void start(Stage primaryStage) {
         ListView<String> list = new ListView<>();
         FXCollections FXCollections = null;
-        ObservableList<String> arr = javafx.collections.FXCollections.observableArrayList("Java", "HTML", "CSS", "C++", "PHP");
+        ObservableList<String> arr = observableArrayList("Java", "HTML", "CSS", "C++", "PHP");
         list.setItems(arr);
         FlowPane root = new FlowPane();
         root.getChildren().add(list);
@@ -270,6 +214,15 @@ public class MenuController extends Thread implements  Initializable {
 
 
     @FXML
+    void esteban(ActionEvent event){
+                 conn.add_co("Sirine");
+            conn.add_co("wissal");
+                conn.add_co("leoonie");
+           conn.print_co();      }
+
+
+
+           @FXML
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
         try {

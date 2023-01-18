@@ -52,7 +52,6 @@ public class SessionChatController implements Initializable {
 
          //   socket = new Socket("10.32.1.13",5679);
          //   server = new ServerTcp(socket,sessionsList);
-
             //  sessionsList.add(server);
             System.out.println("Connected to Client!");
 
