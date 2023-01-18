@@ -24,6 +24,7 @@ public class Handler {
         }
         try {
             ip = DB.getADDR(pseudo, DB_name);
+            System.out.println(ip);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
