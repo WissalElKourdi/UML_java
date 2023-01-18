@@ -16,7 +16,7 @@
             </Label>
             <Button fx:id="cancelButton" layoutX="553.0" layoutY="610.0" mnemonicParsing="false" onAction="#CancelClicked" text="Cancel" />
             <Button fx:id="SaveButton" layoutX="562.0" layoutY="381.0" mnemonicParsing="false" onAction="#SaveNewLogin" text="Save" />
-            <TextField fx:id="NewLoginArea" layoutX="476.0" layoutY="284.0" prefHeight="54.0" prefWidth="249.0" promptText="Enter new username" />
+            <TextField fx:id="NewLogin" layoutX="476.0" layoutY="284.0" prefHeight="54.0" prefWidth="249.0" promptText="Enter new username" />
             <TextFlow fx:id="result" layoutX="437.0" layoutY="338.0" prefHeight="33.0" prefWidth="326.0" textAlignment="CENTER"/>
 
          </children>

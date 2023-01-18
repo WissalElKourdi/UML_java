@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -24,15 +25,18 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.SessionChatController">
    <children>
-      <Button fx:id="button_send" layoutX="964.0" layoutY="669.0" mnemonicParsing="false" text="Send" />
-      <TextField id="tf_messages" fx:id="tf_message" layoutX="289.0" layoutY="669.0" prefHeight="25.0" prefWidth="587.0" />
-      <ScrollPane fx:id="sp_main" hbarPolicy="NEVER" layoutX="200.0" layoutY="78.0" prefHeight="191.0" prefWidth="355.0" vbarPolicy="ALWAYS">
+      <Button fx:id="button_send" layoutX="1039.0" layoutY="682.0" mnemonicParsing="false" text="Send" />
+      <TextArea id="tf_messages" fx:id="tf_message" layoutX="224.0" layoutY="657.0" prefHeight="74.0" prefWidth="756.0" />
+      <ScrollPane fx:id="sp_main" hbarPolicy="NEVER" layoutX="226.0" layoutY="76.0" prefHeight="560.0" prefWidth="749.0" vbarPolicy="ALWAYS">
          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="161.0" prefWidth="303.0">
+            <AnchorPane id="anchor" fx:id="anchor" minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="733.0">
                <children>
-                  <VBox fx:id="vBoxMessages" layoutX="20.0" layoutY="25.0" prefHeight="141.0" prefWidth="307.0" />
+                  <VBox fx:id="vBoxMessages" layoutX="28.0" layoutY="25.0" opacity="1.0" prefHeight="517.0" prefWidth="673.0" />
                </children></AnchorPane>
          </content>
+         <effect>
+            <Glow />
+         </effect>
       </ScrollPane>
    </children>
 </AnchorPane>

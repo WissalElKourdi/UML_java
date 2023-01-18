@@ -17,7 +17,7 @@
 }
 
 .textFlow {
-    -fx-font-size: 15pt;
+    -fx-font-size: 20pt;
     -fx-text-color: #59052D;
     -fx-font-family: 'Courier Prime Regular';
 }
@@ -30,6 +30,11 @@
 .text {
     -fx-font-size: 17pt;
     -fx-font-family: 'Courier Prime Regular';
+}
+
+.scroll-pane {
+   -fx-background: #d7d4d3;
+   -fx-border-color: #d7d4d3;
 }
 
 

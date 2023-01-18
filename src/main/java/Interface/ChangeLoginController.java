@@ -24,7 +24,7 @@ public class ChangeLoginController {
         @FXML
         private Button SaveButton;
         @FXML
-        private TextArea NewLoginArea;
+        private TextArea NewLogin;
         @FXML
         private TextFlow result;
         UDP_Server serv_udp = new UDP_Server();
@@ -60,7 +60,7 @@ public class ChangeLoginController {
         @FXML
         void SaveNewLogin(ActionEvent event) throws IOException, SQLException {
                 //get new username
-                String name = NewLoginArea.getText();
+                String name = NewLogin.getText();
                 //if it's not already used, change to menu scene
                 // new UDP_Client(port).start();
                 if (LoginController.isValid(name)) {
