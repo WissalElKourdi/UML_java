@@ -3,6 +3,7 @@ package Interface;
 import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +43,7 @@ public class LoginController {
                 createDB DB = new createDB(Name_DB);
                 DB.insertMonpseudo(name,Name_DB);
                 serv_udp.broadcast_connection(name, port);
-                serv_udp.broadcast_end(port);
+            //    serv_udp.broadcast_end(port);
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                 Parent parent = loader.load();
 

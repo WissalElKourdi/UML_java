@@ -46,6 +46,8 @@ public class MenuController extends Thread implements  Initializable {
     private String DB_name = "DB_MSG.db";
     private static final int port =2000;
 
+    public static ObservableList<String> connected;
+
     @FXML
     private Button disconnect;
     @FXML
@@ -55,7 +57,8 @@ public class MenuController extends Thread implements  Initializable {
     private ListView<String> myListView;
     @FXML
     private Label myLabel;
-    List<String> connected = new ArrayList<>();
+    //List<String> connected = new ArrayList<>();
+
     //  public static ServerTcp server;
     String currentConnected;
     String name_db = "DB_MSG.db";
@@ -65,45 +68,34 @@ public class MenuController extends Thread implements  Initializable {
     private ServerTcp server;
     public static ServerSocket Srvsocket;
 
-    public MenuController() throws SQLException {
 
-
-        createDB BD = new createDB(name_db);
-        connected = BD.selectAllConnected(name_db);
-
-    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            new UDP_Client(port).start();
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-      /*  try {
-            TCP_Server.servtcp();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-        ArrayList<ServerTcp> sessionsList = new ArrayList<>();
-
-        try {
+            createDB BD = new createDB(name_db);
+        //  connected = BD.selectAllConnected(name_db);
+          //  new UDP_Client(port).start();
+        //    TCP_Server.servtcp();
+            ArrayList<ServerTcp> sessionsList = new ArrayList<>();
             Srvsocket = new ServerSocket(5679);
             ClientTcp.sock_acc(Srvsocket);
         } catch (IOException e) {
             throw new RuntimeException(e);
+           } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+
         //  server = new ServerTcp(Srvsocket,sessionsList);
 
         System.out.println("Connected to Client!");
-
-        myListView.getItems().addAll(connected);
+        MenuController.connected = FXCollections.observableArrayList();
+        myListView.getItems().addAll(MenuController.connected);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 currentConnected = myListView.getSelectionModel().getSelectedItem();
                 myLabel.setText(currentConnected);
+
 
                 try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
                     Parent parent = loader.load();
