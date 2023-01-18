@@ -98,7 +98,8 @@ public class SessionChatController implements Initializable {
                     //Socket sock = MenuController.session.map_socket.get(pseudo);
                     //sender = new Sender(sock,pseudo);
 
-
+                    //ScrollPane scroll = new ScrollPane();
+                    sp_main.setContent(vBoxMessages);
 
                     vBoxMessages.getChildren().add(hBox);
 
@@ -125,6 +126,8 @@ public class SessionChatController implements Initializable {
         textFlow.setStyle(
                 "-fx-background-color: rgb(233, 233, 235);" +
                         "-fx-background-radius: 20px;");
+
+
 
         textFlow.setPadding(new Insets(5, 10, 5, 10));
         hBox.getChildren().add(textFlow);

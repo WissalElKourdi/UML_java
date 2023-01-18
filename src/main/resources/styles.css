@@ -27,6 +27,11 @@
     -fx-font-family: 'Courier Prime Regular';
 }
 
+.text {
+    -fx-font-size: 17pt;
+    -fx-font-family: 'Courier Prime Regular';
+}
+
 
 
 
