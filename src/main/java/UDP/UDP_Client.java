@@ -37,9 +37,12 @@ public class UDP_Client extends Thread {
 
             String msg_rcv = new String (packet.getData(), 0, packet.getLength());
             msg_rcv = msg_rcv.trim();
+            System.out.println("msg received :" +msg_rcv);
             try {
                 UDPManager.update(msg_rcv,DB,packet,socket);
             } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 

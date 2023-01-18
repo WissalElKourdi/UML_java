@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class ClientTcp {
 
-    // private Socket socket;
+     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     public BufferedWriter bW;
@@ -20,10 +20,10 @@ public class ClientTcp {
 
         try{
             System.out.println(" creating Client ... ");
-            //   this.socket = socket;
+            this.socket = socket;
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            System.out.println(" creating Client ... ");
+            //System.out.println(" creating Client ... ");
         }catch(IOException e){
             System.out.println("Error creating Client!");
             e.printStackTrace();
@@ -62,6 +62,8 @@ public class ClientTcp {
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
     }
+
+
     public static void sock_acc(ServerSocket srvSock){
         new Thread(new Runnable() {
             @Override

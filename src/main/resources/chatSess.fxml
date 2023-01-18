@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Interface.ChatSessController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ChatSessController">
   <children>
     <Button fx:id="button_send" layoutX="488.0" layoutY="307.0" mnemonicParsing="false" text="Button" />
     <TextField fx:id="tf_message" layoutX="228.0" layoutY="307.0" prefWidth="200.0" />
@@ -16,5 +16,10 @@
         <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
       </content>
     </ScrollPane>
+      <Label fx:id="Id" layoutX="10.0" layoutY="30.0" prefHeight="32.0" prefWidth="131.0" text="Label">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
   </children>
 </AnchorPane>

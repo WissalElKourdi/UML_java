@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class TCP_Server extends Thread {
     private Socket socket;
+    private  int port = 40000;
 /*
     public  TCP_Server(Socket socket){
         this.socket=socket;
@@ -115,7 +116,7 @@ public TCP_Server(ServerSocket serverSocket)  {
     public static void servtcp () throws IOException {
             new Thread(new Runnable() {
                 public void run() {
-            int port = 40000;
+                    int port = 40000;
 
                     ServerSocket socketserver = null;
                     try {

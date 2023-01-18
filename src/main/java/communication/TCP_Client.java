@@ -27,7 +27,6 @@ public class TCP_Client {
             LocalTime time = LocalTime.now();
 
             clientSocket = new Socket("localhost",50000);
-
             TCP_Server.SenderThread(clientSocket, msg);
             TCP_Server.launchReceiverThread(clientSocket);
             DB.insertHistory(msg,time.toString(),pseudo,clientSocket.getLocalAddress().toString(),clientSocket.getPort(),name_db);
