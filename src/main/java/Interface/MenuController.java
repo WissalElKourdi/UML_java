@@ -1,7 +1,9 @@
 package Interface;
 
+import static Interface.LoginController.client;
 import Database.createDB;
 import UDP.UDP_Server;
+import USERS.List_Connected;
 import communication.Sender;
 import communication.Session;
 import javafx.beans.value.ChangeListener;
@@ -20,7 +22,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static Interface.LoginController.client;
 import static javafx.application.Application.launch;
 
 public class MenuController extends Thread implements  Initializable {
@@ -48,7 +49,6 @@ public class MenuController extends Thread implements  Initializable {
     VBox vBoxMessages;
     @FXML
     private ScrollPane sp_main;
-    private ServerTcp server;
     private Socket socket;
     private Sender sender;
 
@@ -69,7 +69,6 @@ public class MenuController extends Thread implements  Initializable {
     @FXML
     private ListView<String> myListconnected;
     private ObservableList<String> list ;
-   // private List_Connected list_co;
     private static String currentConnected;
 
 
@@ -141,7 +140,6 @@ public class MenuController extends Thread implements  Initializable {
                 System.out.println("ADDRR" + addr);
 
                 System.out.println(DB.getMonPseudo(DB_name));
-                // new UDP_Client(port).start();
                 UDP_Server serv_udp = new UDP_Server();
                 serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
                 System.out.println("PSEUDOOO" + DB.getPseudo(addr, DB_name));

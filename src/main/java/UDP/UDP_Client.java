@@ -1,7 +1,7 @@
 package UDP;
 
 import Database.createDB;
-import Interface.List_Connected;
+import USERS.List_Connected;
 import Interface.MenuController;
 import javafx.application.Platform;
 
@@ -45,22 +45,30 @@ public class UDP_Client extends Thread {
             String msg_rcv = new String (packet.getData(), 0, packet.getLength());
             msg_rcv = msg_rcv.trim();
             System.out.println("msg received :" +msg_rcv);
-            if ( menu != null){
-                String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1);
-                String finalMsg_rcv = msg_rcv;
+                String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1).trim();
+                //String finalMsg_rcv = msg_rcv;
                 Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
                            // if(finalMsg_rcv.startsWith("Connected :") ){
                            // List_Connected.add_co(pseudo);
-                            List_Connected.add_co(pseudo);
-                           // List_Connected.print_co();
-                            //    }
+                            String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
+                            IP_addr monIP = new IP_addr();
+                            String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
+                            System.out.println("Minee" + mine + "youuurs" + addr);
+                            List_Connected.add_co("moi");
+                            if (!addr.equals(mine)){
+                                System.out.println("ADDR" + addr);
+                                List_Connected.add_co(pseudo);
+                                List_Connected.print_co();
+                            }
                             System.out.println("AAAAAAAAAAAAAAAAAAA");
+                            if ( menu != null){
                             menu.update_list();
+                                List_Connected.print_co();}
                         }
                     });
-            }
+
             try {
                 UDPManager.update(msg_rcv,DB,packet,socket);
             } catch (SQLException | IOException e) {
@@ -78,55 +86,3 @@ public class UDP_Client extends Thread {
         this.menu = Menu;
     }
 }
-            /*
-        DatagramSocket socket ;
-        boolean running;
-        running = true;
-
-        socket = new DatagramSocket(UDP_Server.port);
-
-                System.out.println("Ready to receive broadcast packets!");
-                //Receive a packet
-              //
-
-                InetAddress address = packet.getAddress();
-
-             /*
-                packet = new DatagramPacket(buffer, buffer.length, address, port);
-                //String received = new String(packet.getData(), 0, packet.getLength());
-                System.out.println("received");
-              //  Thread sendMessage = new Thread(new Runnable());
-                        //Packet received
-              */
-
-               // while (!msg_rcv.equals("end")){
-               //     System.out.println("I am waiting");
-               // wait(10);
-               // }
-
-                /*
-                handler1(msg_rcv,DB,packet);
-                System.out.println("je suis sortie");
-                Thread.sleep(90000);
-                handler2(msg_rcv,DB,packet);
-                Thread.sleep(90000);
-                handler3(msg_rcv,DB,packet);
-                Thread.sleep(90000);
-                handler4(msg_rcv,DB,packet);
-                Thread.sleep(90000);
-
-                if (msg_rcv.equals("end")){
-                    running = false;
-                    System.out.println("Socket closed");
-                }
-            }
-//Thread.yield();
-           // socket.close();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-                 */
-
