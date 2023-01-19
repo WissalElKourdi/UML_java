@@ -1,4 +1,4 @@
-package Interface;
+package USERS;
 
 import java.util.ArrayList;
 
@@ -18,4 +18,5 @@ public class Remote_Users {
     public Remote_Users get_user(){
         return this;
     }
+
 }

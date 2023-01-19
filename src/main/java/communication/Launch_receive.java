@@ -20,7 +20,7 @@ public class Launch_receive extends Thread  {
     private String pseudo;
     private BufferedWriter bufferedWriter;
     private BufferedReader bufferedReader;
-    //private view.SessionChatController sess;
+
 
     public static List<Launch_receive> sessions = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public class Launch_receive extends Thread  {
                 System.out.println(pseudo + " sent me :  " + message);
                 LocalTime time = LocalTime.now();
                 DB.insertHistory(message, time.toString(), pseudo, socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
-
+                System.out.println("socket.getLocalSocketAddress().toString() : "+socket.getLocalSocketAddress().toString());
                 //Récupérer le message et le mettre dans la sessio
             } catch (IOException | SQLException e) {
                 System.out.println("erreur receiving from client");

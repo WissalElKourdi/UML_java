@@ -1,10 +1,8 @@
 package Interface;
 
-import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
 import UDP.IP_addr;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +29,7 @@ public class LoginController {
 
     static {
         try {
-            client = new UDP_Client(port);
+            client = new  UDP_Client(port);
         } catch (SocketException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -39,9 +37,19 @@ public class LoginController {
         }
     }
 
+
     public LoginController() throws SocketException, SQLException {
 
-                client.start();
+       client.start();
+
+    }
+
+    public static UDP_Client getClient(){
+        return client;
+    }
+
+    public static UDP_Client get_client(){
+        return client;
     }
 
     public static boolean isValid(String value) {
@@ -79,8 +87,6 @@ public class LoginController {
             serv_udp.broadcast_AskState(name, port);
             if (serv_udp.broadcast_Pseudo(name, port)) {
                 try {
-                    createDB DB = new createDB(Name_DB);
-                    DB.insertMonpseudo(name, Name_DB);
                     serv_udp.broadcast_connection(name, port);
                     serv_udp.broadcast_info(name, IP_addr.get_my_IP().toString(), port);
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
@@ -95,9 +101,7 @@ public class LoginController {
                     e.printStackTrace();
                 }
             } else {
-                System.out.println("je suis ici");
                 serv_udp.broadcast_end(port);
-                System.out.println("je suis ici");
                 Text text = new Text("This username is already taken, choose another one");
                 returnText.getChildren().clear();
                 returnText.getChildren().add(text);

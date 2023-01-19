@@ -1,6 +1,7 @@
 package Interface;
 
 import Database.createDB;
+import UDP.IP_addr;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
 import communication.Session;
@@ -33,8 +34,6 @@ public class ChangeLoginController {
         public ChangeLoginController() throws SocketException, SQLException {
         }
 
-
-
         /*      public ChangeLoginController() {
                 try {
                        new UDP_Client(port).start();
@@ -55,7 +54,6 @@ public class ChangeLoginController {
                         mainFXML.mainStage.setTitle("Chat App");
                         mainFXML.mainStage.setScene(scene);
                         mainFXML.mainStage.show();
-                        //ession.getInstance().getSock(" ").close();
 
 
                 } catch (IOException e) {
@@ -70,13 +68,10 @@ public class ChangeLoginController {
                 //if it's not already used, change to menu scene
                 // new UDP_Client(port).start();
                if (LoginController.isValid(name)) {
+                       serv_udp.broadcast_AskState(name, port);
                         if (serv_udp.broadcast_ChangePseudo(name, port)) {
                                 try {
-                                        createDB DB = new createDB(Name_DB);
-
-                                        System.out.println("ICIII" + DB.getMonPseudo(Name_DB));
-
-                                        //UDP_Server.broadcast_connection(name, port);
+                                        serv_udp.broadcast_connection(name, port);
                                         serv_udp.broadcast_end(port);
                                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                                         Parent parent = loader.load();
