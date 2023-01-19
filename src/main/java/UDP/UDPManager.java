@@ -73,8 +73,8 @@ public class UDPManager extends UDP_Client{
 
         } else if (msg.startsWith("AskForState :")) {
             //broadcast udpdate state
-            String pseudo = msg.substring(msg.lastIndexOf(':') + 1);
-            serv_udp.broadcast_MyState(pseudo, port);
+           // String pseudo = msg.substring(msg.lastIndexOf(':') + 1);
+            serv_udp.broadcast_MyState( port);
             // add parametre addresse pour envoyer a la personne qui nous a demande
         }
     }
