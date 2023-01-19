@@ -1,6 +1,7 @@
 package Interface;
 
 import Database.createDB;
+import UDP.UDP_Client;
 import UDP.UDP_Server;
 import communication.Sender;
 import communication.Session;
@@ -20,7 +21,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static Interface.LoginController.client;
 import static javafx.application.Application.launch;
 
 public class MenuController extends Thread implements  Initializable {
@@ -32,7 +32,7 @@ public class MenuController extends Thread implements  Initializable {
     public VBox vbox_messages;
     @FXML
     public VBox vbox_messages1;
-    private static final int port =2000;
+    private int port =2000;
 
     @FXML
     private Button disconnect;
@@ -78,7 +78,7 @@ public class MenuController extends Thread implements  Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         update_list();
-        client.setMenu(this);
+        LoginController.getClient().setMenu(this);
         List_Connected.print_co();
         myListconnected.getItems().addAll(List_Connected.listCo);
         Session session = Session.getInstance();

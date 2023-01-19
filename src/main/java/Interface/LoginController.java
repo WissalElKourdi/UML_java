@@ -27,21 +27,18 @@ public class LoginController {
     private TextField choose_username;
     @FXML
     private TextFlow returnText;
-    public static UDP_Client client;
+    private static UDP_Client client;
 
-    static {
-        try {
-            client = new UDP_Client(port);
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
     public LoginController() throws SocketException, SQLException {
 
-                client.start();
+        this.client = new UDP_Client(port);
+        this.client.start();
+    }
+
+    public static UDP_Client getClient(){
+        return client;
     }
 
     @FXML
