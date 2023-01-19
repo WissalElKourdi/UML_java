@@ -92,15 +92,18 @@ public void run () {
                     System.out.println("ALL IPSEUDO :");
                     DB.selectAllMsgIPseudo(DB_name);
                     pseudo = DB.getPseudo(adresse(socket.getInetAddress()), DB_name);
+                    System.out.println(pseudo);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
                 map_socket.put(pseudo,socket);
-                if(!pseudo.equals("")){
+               // if(!pseudo.equals("")){
+                System.out.println("im hereeeeee");
                     Launch_receive receiver = new Launch_receive(socket,pseudo);
                     Launch_receive.sessions.add(receiver);
                     receiver.start();
-                }
+                    System.out.println(Launch_receive.sessions.get(0));
+                //}
             }
         }
 }

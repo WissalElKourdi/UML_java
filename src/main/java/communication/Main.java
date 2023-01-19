@@ -4,6 +4,7 @@ import Database.createDB;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) throws SQLException, IOException {
@@ -16,7 +17,8 @@ public class Main {
         List<String>connected=BD.selectAllConnected("name_db");
         Handler.getInstance().startConnection("wissal");*/
         System.out.println("i am connected");
-        //Launch_receive receive= new Launch_receive();
-        // session.stop();
+
+
+        //session.stop();
     }
 }
