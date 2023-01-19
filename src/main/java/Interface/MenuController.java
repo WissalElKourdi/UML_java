@@ -129,27 +129,8 @@ public class MenuController extends Thread implements  Initializable {
                 onglets.getTabs().add(tab);
             }
 
- /*   @FXML
-    public static void update_list(){
-        Platform.runLater(() -> {
-            observable_co = FXCollections.observableList(list_co.get_List());
-            myListconnected.setItems(observable_co);
-        });
-    }
-       this.myListconnected(this.observable_co);
-        observable_co.clear();
-        observable_co.addAll(coo);
-        myListView.setItems(observable_co);*/
-
- /*   public void notifyChangelist_Co() {
-        System.out.println("notify change user");
-        this.observers.forEach(configObserver -> {
-            update_list();
-        });
-    }*/
 
     public void update(){
-       // myListconnected.
         myListconnected.getItems().clear();
         myListconnected.getItems().addAll(List_Connected.listCo);
     }
