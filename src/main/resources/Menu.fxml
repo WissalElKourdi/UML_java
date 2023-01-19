@@ -143,11 +143,16 @@
                  <content>
                    <AnchorPane fx:id="connected_users" minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="1207.0">
                       <children>
-                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="135.0" layoutX="610.0" layoutY="94.0" opacity="0.84" stroke="BLACK" strokeType="INSIDE" width="482.0" />
-                          <Text layoutX="345.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: 'VT323'; -fx-font-size: 20pt;" text="You have selected :" textAlignment="CENTER" wrappingWidth="379.40771484375" />
-                          <Label fx:id="myLabel" alignment="CENTER" layoutX="374.0" layoutY="110.0" prefHeight="44.0" prefWidth="322.0" />
-                          <Button fx:id="disconnect" alignment="CENTER" layoutX="851.0" layoutY="348.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
-                          <Button fx:id="change_pseudo" alignment="CENTER" layoutX="873.0" layoutY="513.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
+                        <ImageView fitHeight="781.0" fitWidth="1419.0" layoutX="-173.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/background.jpg" />
+                           </image>
+                        </ImageView>
+                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="135.0" layoutX="633.0" layoutY="174.0" opacity="0.84" stroke="BLACK" strokeType="INSIDE" width="482.0" />
+                          <Text layoutX="696.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: 'VT323'; -fx-font-size: 20pt;" text="You have selected :" textAlignment="CENTER" wrappingWidth="379.40771484375" />
+                          <Label fx:id="myLabel" alignment="CENTER" layoutX="725.0" layoutY="242.0" prefHeight="44.0" prefWidth="322.0" />
+                          <Button fx:id="disconnect" alignment="CENTER" layoutX="829.0" layoutY="415.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
+                          <Button fx:id="change_pseudo" alignment="CENTER" layoutX="813.0" layoutY="463.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
                           <ListView fx:id="myListconnected" layoutX="210.0" layoutY="158.0" prefHeight="381.0" prefWidth="271.0" />
                       </children>
                    </AnchorPane>

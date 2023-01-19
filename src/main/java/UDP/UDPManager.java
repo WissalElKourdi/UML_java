@@ -32,7 +32,7 @@ public class UDPManager extends UDP_Client{
         String name_db = "DB_MSG.db";
         List_Connected co = new List_Connected();
 
-        int port = 2000;
+        int port = 3000;
         if (msg.startsWith("new pseudo :")) {
             String pseudo1 = msg.substring(msg.lastIndexOf(':') + 1);
             String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
