@@ -1,6 +1,7 @@
 package communication;
 
 import Database.createDB;
+import Interface.MenuController;
 
 import java.io.*;
 import java.net.Socket;
@@ -46,10 +47,7 @@ public class Launch_receive extends Thread  {
                 System.out.println("erreur receiving from client");
                 throw new RuntimeException(e);
             }
-
-
         }
-
     }
 
     }

@@ -26,11 +26,21 @@ public class LoginController {
     private TextField choose_username;
     @FXML
     private TextFlow returnText;
-    @FXML
-    private Label Titre;
 
+    public static UDP_Client client;
+
+    static {
+        try {
+            client = new UDP_Client(port);
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public LoginController() throws SocketException, SQLException {
-        new UDP_Client(port).start();
+
+                client.start();
     }
 
     public static boolean isValid(String value) {
@@ -62,37 +72,28 @@ public class LoginController {
     void saveUsername(ActionEvent event) throws IOException, SQLException {
         //get new username and check that it's not already used : if it's not, change to menu scene
         String name = choose_username.getText();
-        // System.out.println("je suis ici" + UDP_Server.broadcast_Pseudo(name));
-        // new UDP_Client(port).start();
 
+       // System.out.println("je suis ici" + UDP_Server.broadcast_Pseudo(name));
+       // new UDP_Client(port).start();
         if (isValid(name)){
-            serv_udp.broadcast_AskState(name, port);
-
-            if (serv_udp.broadcast_Pseudo(name, port)) {
+            serv_udp.broadcast_AskState(name,port);
+            if (serv_udp.broadcast_Pseudo(name,port)) {
                 try {
                     //createDB DB = new createDB(Name_DB);
                     //DB.insertMonpseudo(name,Name_DB);
                     serv_udp.broadcast_connection(name, port);
-                    //    serv_udp.broadcast_end(port);
+                //    serv_udp.broadcast_end(port);
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                     Parent parent = loader.load();
-
-                    Scene scene = new Scene(parent, 1200, 800);
+                    Scene scene = new Scene(parent, 1200,800);
                     scene.getStylesheets().add("/styles.css");
-
+                   // client.setScene(scene);
                     mainFXML.mainStage.setTitle("Chat App");
                     mainFXML.mainStage.setScene(scene);
                     mainFXML.mainStage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else {
-                System.out.println("je suis ici");
-                serv_udp.broadcast_end(port);
-                System.out.println("je suis ici");
-                Text text = new Text("This username is already taken, choose another one");
-                returnText.getChildren().clear();
-                returnText.getChildren().add(text);
             }
         } else{
             Text text = new Text("Username should be between 5 and 15 characters and only contain letters and digits");
