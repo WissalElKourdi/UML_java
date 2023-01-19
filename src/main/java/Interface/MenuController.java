@@ -73,7 +73,6 @@ public class MenuController extends Thread implements  Initializable {
     //List users :
   //  public static List_Connected conn = new List_Connected();
 
-
     public static ArrayList<String> coo = new ArrayList<>(List_Connected.listCo);
     @FXML
     private Label myLabel;
@@ -91,7 +90,8 @@ public class MenuController extends Thread implements  Initializable {
         client.setMenu(this);
         List_Connected.print_co();
         myListconnected.getItems().addAll(List_Connected.listCo);
-        Session.getInstance().start();
+        Session session = Session.getInstance();
+        session.start();
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                         currentConnected = myListconnected.getSelectionModel().getSelectedItem();

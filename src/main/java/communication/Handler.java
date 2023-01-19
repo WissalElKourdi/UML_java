@@ -25,14 +25,15 @@ public class Handler {
         }
         try {
             ip = DB.getADDR(pseudo, DB_name);
+            System.out.println(" ip de DB : " +ip);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         System.out.println("pseudo to connect with : "+pseudo);
-        Socket socket= new Socket(ip,6000);
-       System.out.println("ip" +ip);
-        Session.getInstance().addSock(pseudo,socket);
-        return socket;}
+        Socket sock= new Socket(ip.trim(),5000);
+        System.out.println(" ip : " +ip);
+        Session.getInstance().addSock(pseudo,sock);
+        return sock;}
     public boolean isEtablished(String pseudo){
         if(Session.getInstance().getSock(pseudo)!=null)
             return true;

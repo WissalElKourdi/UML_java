@@ -1,6 +1,7 @@
 package UDP;
 
 import Database.createDB;
+import Interface.Remote_Users;
 
 import java.io.*;
 import java.net.*;
@@ -90,6 +91,11 @@ public class UDP_Server {
         System.out.println("AskForState :" + pseudo);
     }
 
+    public void broadcast_info(String pseudo, String addr, int port) throws IOException {
+        broadcast("MY INFOS :" + pseudo + "/" + addr, port);
+        System.out.println("My INFOS :" + pseudo + "/" + addr);
+
+    }
 
   /*  //static ou pas ??
     public void broadcast_ChangePseudo (String pseudo,ArrayList userList) throws IOException{

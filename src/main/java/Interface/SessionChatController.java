@@ -112,6 +112,7 @@ public class SessionChatController implements Initializable {
                      }else {
                         System.out.println("new Connection");
                         try {
+                            System.out.println("PSEUDOOO" + pseudo);
                             sock =Handler.getInstance().startConnection(pseudo);
                         } catch (IOException e) {
                             System.out.println("erreur création du socket ");
@@ -140,7 +141,6 @@ public class SessionChatController implements Initializable {
                         sender.start();
                         tf_message.clear();
                     }
-
                     vBoxMessages.getChildren().add(hBox);
 
 
@@ -148,6 +148,26 @@ public class SessionChatController implements Initializable {
             }
         });
     }
+
+  /*  public void afficher(String Message){
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+
+        Text text = new Text(Message);
+        TextFlow textFlow = new TextFlow(text);
+
+        textFlow.setStyle(
+                "-fx-color: rgb(239, 242, 255);" +
+                        "-fx-background-color: rgb(15, 125, 242);" +
+                        "-fx-background-radius: 20px;");
+
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        text.setFill(Color.color(0.934, 0.925, 0.996));
+
+        hBox.getChildren().add(textFlow);
+        vBoxMessages.getChildren().add(hBox);
+    }*/
 
     public static void addLabel(String messageFromClient, VBox vBox){
         HBox hBox = new HBox();
