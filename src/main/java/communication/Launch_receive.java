@@ -39,7 +39,6 @@ public class Launch_receive extends Thread  {
         while(socket.isConnected()){
             try {
                 createDB DB = new createDB(DB_NAME);
-                System.out.println("coucouuuuuuuuuuuuuuuuuuuu");
                 String message = bufferedReader.readLine();
                 System.out.println(pseudo + " sent me :  " + message);
                 LocalTime time = LocalTime.now();

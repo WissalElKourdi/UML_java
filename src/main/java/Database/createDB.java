@@ -48,12 +48,11 @@ public class createDB {
 
 
         public void deletefile (String fileName){
-            System.out.println("je suis la");
+
             try {
                 File file = new File(fileName);
                 String path = file.getAbsolutePath();
                 File f= new File(path);
-                System.out.println(path);
 
               //  this.deletefile(fileName);
                 if( f.delete()) {
@@ -504,8 +503,6 @@ public class createDB {
     }
 
 
-
-            System.out.println("j'update pseudo");
           //  return false;
     sql = "UPDATE Monpseudo SET pseudo=? WHERE pseudo = ?;";
 
