@@ -1,8 +1,6 @@
 package communication;
 
 import Database.createDB;
-import Interface.ServerTcp;
-import Interface.SessionChatController;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -35,6 +33,10 @@ public class Session extends Thread {
         map_socket=new HashMap<>();
     }
 
+    public void closesocket() throws IOException {
+        user.close();
+    }
+
 
     //fonction qui  cherche un utilisateur dans notre base de données
 private String adresse(InetAddress ip){
@@ -60,6 +62,7 @@ public void run () {
         while(true){
             System.out.println("okay i am launched ");
             try {
+                //System.out.println("okay i am launched 2 ");
                 socket = user.accept();
                 System.out.println("Client has been added ");
             } catch (IOException e) {
@@ -83,6 +86,7 @@ public void run () {
                     Launch_receive.sessions.add(receiver);
                     receiver.start();
                 }
+
             }
         }
 

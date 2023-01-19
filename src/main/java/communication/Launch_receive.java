@@ -37,15 +37,14 @@ public class Launch_receive extends Thread  {
         while(socket.isConnected()){
             try {
                 createDB DB = new createDB(DB_NAME);
+                System.out.println("coucouuuuuuuuuuuuuuuuuuuu");
                 String message = bufferedReader.readLine();
                 System.out.println(pseudo + " sent me :  " + message);
                 LocalTime time = LocalTime.now();
                 DB.insertHistory(message, time.toString(), pseudo, socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
-                //MenuController.c
             } catch (IOException | SQLException e) {
                 System.out.println("erreur receiving from client");
                 throw new RuntimeException(e);
-
             }
 
 

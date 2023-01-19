@@ -3,6 +3,7 @@ package Interface;
 import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
+import communication.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -52,6 +53,9 @@ public class ChangeLoginController {
                         mainFXML.mainStage.setTitle("Chat App");
                         mainFXML.mainStage.setScene(scene);
                         mainFXML.mainStage.show();
+                        //ession.getInstance().getSock(" ").close();
+
+
                 } catch (IOException e) {
                         e.printStackTrace();
                 }

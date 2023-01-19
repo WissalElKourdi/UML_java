@@ -1,15 +1,19 @@
-/*font import*/
+/*font import
 @font-face {
     font-family: 'SourceCodePro-Black';
     src: url('font/SourceCodePro-Black.ttf');
+}*/
+
+@font-face {
+    font-family: 'VT323-Regular';
+    src: url('font/VT323-Regular.ttf');
 }
-
-
+/*
 @font-face {
     font-family: 'SourceCodePro-VariableFont_wght';
     src: url('font/SourceCodePro-VariableFont_wght.ttf');
 }
-
+*/
 /*
 @font-face {
   font-family: 'CourierPrime-Regular';
@@ -21,7 +25,7 @@
   src: url('font/Chivo-ExtraBold.ttf');
 
 }*/
-
+/*
 #titre {
     -fx-font-family: 'Source Code Pro Black';
     -fx-font-size: 20pt;
@@ -31,33 +35,33 @@
     -fx-background: #024029;
     -fx-background-color: #024029;
 }
-
+*/
 /* classes*/
 .button {
     -fx-font-size: 15pt;
-    -fx-font-family: 'Source Code Pro ExtraLight';
+    -fx-font-family: 'VT323-Regular';
 }
 
 .label{
     -fx-font-size:15pt;
-    -fx-font-family: 'Source Code Pro ExtraLight';
+    -fx-font-family: 'VT323-Regular';
     /*
     -fx-font-family: 'Courier Prime Regular';*/
 }
 
 .textFlow {
     -fx-font-size: 20pt;
-    -fx-font-family: 'Source Code Pro ExtraLight';
+    -fx-font-family: 'VT323-Regular';
 }
 
 .textField {
     -fx-font-size: 17pt;
-    -fx-font-family: 'Source Code Pro ExtraLight';
+    -fx-font-family: 'VT323-Regular';
 }
 
 .text {
     -fx-font-size: 17pt;
-    -fx-font-family: 'Courier Prime Regular';
+    -fx-font-family: 'VT323-Regular';
 }
 
 .scroll-pane {

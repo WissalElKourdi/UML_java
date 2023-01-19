@@ -61,18 +61,10 @@ public class MenuController extends Thread implements  Initializable {
     private Socket socket;
     private Sender sender;
 
-  //  ObservableList<String> co = FXCollections.observableArrayList();
-   // ListView<String> listView = new ListView(co);
-
 
     String name_db = "DB_MSG.db";
-    //private Socket sockett;
     private BufferedReader bufferedReaderr;
     private BufferedWriter bufferedWriterr;
-    //private ServerTcp server;
-
-    //public static Session session;
-    //public static ServerSocket Srvsocket;
 
 
 
@@ -87,11 +79,10 @@ public class MenuController extends Thread implements  Initializable {
     public MenuController() throws SQLException {
 
         createDB BD = new createDB(name_db);
-        BD.insertIpseudo("wissallll","192.168.1.44",name_db);
-        BD.insertConnected("wissallll",5000,name_db);
+        BD.insertIpseudo("wissou","192.168.1.44",name_db);
+        BD.insertConnected("wissou",5000,name_db);
         connected = BD.selectAllConnected(name_db);
         System.out.println(connected);
-
     }
 
     @Override
@@ -100,6 +91,7 @@ public class MenuController extends Thread implements  Initializable {
         Session.getInstance().start();
         System.out.println("Connected to Client!");
 
+
         myListView.getItems().addAll(connected);
 
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -107,77 +99,23 @@ public class MenuController extends Thread implements  Initializable {
                  //   (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 currentConnected = myListView.getSelectionModel().getSelectedItem();
-
                 myLabel.setText(currentConnected);
                 try {
                     addTab(currentConnected);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-           /*     try { FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
-                    Parent parent = loader.load();
-                    Scene scene = new Scene(parent, 600, 400);
-                    scene.getStylesheets().add("/styles.css");
-                    mainFXML.mainStage.setTitle("Chatting with  "+ currentConnected);
-                    mainFXML.mainStage.setScene(scene);
-                    mainFXML.mainStage.show();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }*/
+
+
 
             }
 
-               // sp_main.setVvalue((Double) newValue);
+
 
         });
 
 
-        // ServerTcp.rcv(socket,vBoxMessages);
-        // server.receiveMessageFromClient(vBoxMessages, socket.accept());
 
-
-     /*   button_send.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                String messageToSend = tf_message.getText();
-                if (!messageToSend.isBlank()) {
-                    HBox hBox = new HBox();
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
-                    hBox.setPadding(new Insets(5, 5, 5, 10));
-
-                    Text text = new Text(messageToSend);
-                    TextFlow textFlow = new TextFlow(text);
-
-                    textFlow.setStyle(
-                            "-fx-color: rgb(239, 242, 255);" +
-                                    "-fx-background-color: rgb(15, 125, 242);" +
-                                    "-fx-background-radius: 20px;");
-
-                    textFlow.setPadding(new Insets(5, 10, 5, 10));
-                    text.setFill(Color.color(0.934, 0.925, 0.996));
-
-                    hBox.getChildren().add(textFlow);
-                    //Socket sock = MenuController.session.map_socket.get(pseudo);
-                    //sender = new Sender(sock,pseudo);
-
-
-
-                    vBoxMessages.getChildren().add(hBox);
-
-
-
-
-                    //   server.send(socket,messageToSend,server);
-                    //    server.sendMessageToClient(messageToSend, socket.accept());
-
-                    tf_message.clear();
-                }
-            }
-        });
-
-
-*/
 
     /*******************************/
 
@@ -205,7 +143,7 @@ public class MenuController extends Thread implements  Initializable {
         TextFlow textFlow = new TextFlow(text);
 
         textFlow.setStyle(
-                "-fx-background-color: #024029;" +
+                "-fx-background-color: rgb(233, 233, 235);" +
                         "-fx-background-radius: 20px;");
 
         textFlow.setPadding(new Insets(5, 10, 5, 10));
@@ -248,7 +186,7 @@ public class MenuController extends Thread implements  Initializable {
             //Srvsocket.close();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
+            Scene scene = new Scene(parent, 1200, 800);
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();

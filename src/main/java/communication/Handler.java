@@ -30,11 +30,9 @@ public class Handler {
         }
         System.out.println("pseudo to connect with : "+pseudo);
         Socket socket= new Socket(ip,6000);
-        System.out.println("the adresse im talking to is " +ip);
-
-     Session.getInstance().addSock(pseudo,socket);
-     return socket;}
-
+       System.out.println("ip" +ip);
+        Session.getInstance().addSock(pseudo,socket);
+        return socket;}
     public boolean isEtablished(String pseudo){
         if(Session.getInstance().getSock(pseudo)!=null)
             return true;
