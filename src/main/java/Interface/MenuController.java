@@ -80,18 +80,15 @@ public class MenuController extends Thread implements  Initializable {
 
         createDB BD = new createDB(name_db);
         //BD.insertIpseudo("testt","192.168.1.93",name_db);
-        //BD.insertConnected("testt",5000,name_db);
+       // BD.insertConnected("testt",5000,name_db);
         connected = BD.selectAllConnected(name_db);
         System.out.println(connected);
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Session.getInstance().start();
-        System.out.println("Connected to Client!");
-
-
+        //System.out.println("Connected to Client!");
         myListView.getItems().addAll(connected);
 
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -105,17 +102,8 @@ public class MenuController extends Thread implements  Initializable {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
-
-
             }
-
-
-
         });
-
-
-
 
     /*******************************/
 
@@ -125,7 +113,6 @@ public class MenuController extends Thread implements  Initializable {
         int numTabs = onglets.getTabs().size();
         Tab tab = new Tab(pseudo);
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
-
         tab.setContent(loader.load());
         onglets.getTabs().add(tab);
     }

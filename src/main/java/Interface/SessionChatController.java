@@ -63,8 +63,6 @@ public class SessionChatController implements Initializable {
         });
 
 
-       // ServerTcp.rcv(socket,vBoxMessages);
-        // server.receiveMessageFromClient(vBoxMessages, socket.accept());
 
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
@@ -138,14 +136,7 @@ public class SessionChatController implements Initializable {
                         tf_message.clear();
                     }
 
-
                     vBoxMessages.getChildren().add(hBox);
-
-
-
-
-                    //   server.send(socket,messageToSend,server);
-                    //    server.sendMessageToClient(messageToSend, socket.accept());
 
 
                 }
