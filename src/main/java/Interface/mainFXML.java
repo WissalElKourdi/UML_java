@@ -27,6 +27,7 @@ public class mainFXML extends Application {
 
             Scene scene = new Scene(parent, 1200,800);
             scene.getStylesheets().add("/styles.css");
+            mainStage.setResizable(false);
 
             stage.setTitle("Chat App");
             stage.setScene(scene);

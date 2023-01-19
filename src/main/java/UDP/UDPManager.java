@@ -31,8 +31,8 @@ public class UDPManager extends UDP_Client{
     public static void update(String msg, createDB DB, DatagramPacket packet, DatagramSocket socket) throws SQLException, IOException {
         String name_db = "DB_MSG.db";
         List_Connected co = new List_Connected();
-         MenuController menu;
-        int port = 3000;
+
+        int port = 2000;
         if (msg.startsWith("new pseudo :")) {
             String pseudo1 = msg.substring(msg.lastIndexOf(':') + 1);
             String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
@@ -55,7 +55,6 @@ public class UDPManager extends UDP_Client{
             String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
 
             if (!addr.equals(mine)){
-
             DB.insertConnected(pseudo3.trim(), port, name_db);
             List_Connected.add_co(pseudo3);
             }

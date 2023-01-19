@@ -15,6 +15,7 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
@@ -58,8 +59,9 @@ public class MenuController extends Thread implements  Initializable {
     private BufferedWriter bufferedWriterr;
 
 
+
     //List users :
-    //  public static List_Connected conn = new List_Connected();
+  //  public static List_Connected conn = new List_Connected();
 
 
     public static ArrayList<String> coo = new ArrayList<>(List_Connected.listCo);
@@ -68,9 +70,10 @@ public class MenuController extends Thread implements  Initializable {
 
     @FXML
     private ListView<String> myListconnected;
-    private ObservableList<String> list;
-    // private List_Connected list_co;
+    private ObservableList<String> list ;
+   // private List_Connected list_co;
     private static String currentConnected;
+
 
 
     @Override
@@ -79,20 +82,20 @@ public class MenuController extends Thread implements  Initializable {
         client.setMenu(this);
         List_Connected.print_co();
         myListconnected.getItems().addAll(List_Connected.listCo);
-
+        Session session = Session.getInstance();
+        session.start();
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                currentConnected = myListconnected.getSelectionModel().getSelectedItem();
-                myLabel.setText(currentConnected);
-                try {
-                    addTab(currentConnected);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+                    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                        currentConnected = myListconnected.getSelectionModel().getSelectedItem();
+                        myLabel.setText(currentConnected);
+                        try {
+                            addTab(currentConnected);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
 
-        });
-    }
+                });  }
 
     @FXML
     private void addTab(String pseudo) throws IOException {
@@ -104,7 +107,7 @@ public class MenuController extends Thread implements  Initializable {
     }
 
 
-    public void update_list() {
+    public void update_list(){
         myListconnected.getItems().clear();
         myListconnected.getItems().addAll(List_Connected.listCo);
     }
@@ -117,48 +120,51 @@ public class MenuController extends Thread implements  Initializable {
 
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    @FXML
-    void disconnect(ActionEvent event) throws SQLException, IOException {
-
-        //deconnexion
-        String DB_name = "DB_MSG.db";
-        createDB DB = new createDB(DB_name);
-        String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") + 1);
-        System.out.println("ADDRR" + addr);
-
-        System.out.println(DB.getMonPseudo(DB_name));
-        // new UDP_Client(port).start();
-        UDP_Server serv_udp = new UDP_Server();
-        serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
-        System.out.println("PSEUDOOO" + DB.getPseudo(addr, DB_name));
-        //  serv_udp.broadcast_end(port);
-        //retour à la page d'accueil (login)
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
+            Scene scene = new Scene(parent, 1200, 800);
             scene.getStylesheets().add("/styles.css");
+
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
-    public static String get_pseudo_user() {
-        return currentConnected;
-    }
 
-}
+            @FXML
+            void disconnect(ActionEvent event) throws SQLException, IOException {
+
+                //deconnexion
+                String DB_name = "DB_MSG.db";
+                createDB DB = new createDB(DB_name);
+                String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") + 1);
+                System.out.println("ADDRR" + addr);
+
+                System.out.println(DB.getMonPseudo(DB_name));
+                // new UDP_Client(port).start();
+                UDP_Server serv_udp = new UDP_Server();
+                serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
+                System.out.println("PSEUDOOO" + DB.getPseudo(addr, DB_name));
+                //  serv_udp.broadcast_end(port);
+                //retour à la page d'accueil (login)
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
+                    Parent parent = loader.load();
+                    Scene scene = new Scene(parent, 600, 400);
+                    scene.getStylesheets().add("/styles.css");
+                    mainFXML.mainStage.setTitle("Chat App");
+                    mainFXML.mainStage.setScene(scene);
+                    mainFXML.mainStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            public static String get_pseudo_user(){return currentConnected;}
+
+
+
+
+        }
+

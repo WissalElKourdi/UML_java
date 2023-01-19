@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Interface.SessionChatController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.SessionChatController">
    <children>
-      <Button fx:id="button_send" layoutX="489.0" layoutY="305.0" mnemonicParsing="false" text="Button" />
-      <TextField id="tf_messages" fx:id="tf_message" layoutX="234.0" layoutY="305.0" prefWidth="200.0" />
-      <VBox fx:id="vBoxMessages" layoutX="446.0" layoutY="69.0" prefHeight="200.0" prefWidth="100.0" />
-      <ScrollPane fx:id="sp_main" layoutX="200.0" layoutY="78.0" prefHeight="200.0" prefWidth="200.0">
+      <ImageView fitHeight="858.0" fitWidth="1428.0" layoutX="-188.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/background.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="627.0" fitWidth="671.0" layoutX="41.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/msn2.jpg" />
+         </image>
+      </ImageView>
+      <ScrollPane fx:id="sp_main" hbarPolicy="NEVER" layoutX="58.0" layoutY="237.0" opacity="0.68" prefHeight="221.0" prefWidth="468.0" vbarPolicy="ALWAYS">
          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+            <AnchorPane id="anchor" fx:id="anchor" minHeight="0.0" minWidth="0.0" opacity="0.0" prefHeight="223.0" prefWidth="449.0">
+               <children>
+                  <VBox fx:id="vBoxMessages" layoutX="1.0" layoutY="15.0" opacity="1.0" prefHeight="194.0" prefWidth="448.0" />
+               </children>
+            </AnchorPane>
          </content>
       </ScrollPane>
+      <Button fx:id="button_send" layoutX="432.0" layoutY="522.0" mnemonicParsing="false" text="Send" />
+      <TextArea id="tf_messages" fx:id="tf_message" layoutX="66.0" layoutY="502.0" prefHeight="105.0" prefWidth="353.0" />
+      <Label alignment="CENTER" layoutX="540.0" layoutY="389.0" prefHeight="53.0" prefWidth="104.0" text="Label" />
    </children>
 </AnchorPane>
