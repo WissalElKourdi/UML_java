@@ -31,7 +31,17 @@
          </content>
       </ScrollPane>
       <Button fx:id="button_send" layoutX="422.0" layoutY="511.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="75.0" text="Send" />
-      <TextArea id="tf_messages" fx:id="tf_message" layoutX="66.0" layoutY="502.0" prefHeight="105.0" prefWidth="353.0" />
       <Label layoutX="105.0" layoutY="219.0" prefHeight="53.0" prefWidth="175.0" text="Label" />
+      <ImageView fitHeight="141.0" fitWidth="134.0" layoutX="529.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" style=" -fx-padding: 10; fx-background-color: ##357EC7 ; -fx-background-radius: 5;">
+         <image>
+            <Image url="@img/alex.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="141.0" fitWidth="134.0" layoutX="528.0" layoutY="474.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/sam.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tf_message" layoutX="68.0" layoutY="510.0" onAction="#Send" prefHeight="90.0" prefWidth="350.0" />
    </children>
 </AnchorPane>

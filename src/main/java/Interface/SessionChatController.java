@@ -32,7 +32,7 @@ public class SessionChatController implements Initializable {
     @FXML
     private Button button_send;
     @FXML
-    private TextArea tf_message;
+    private TextField tf_message;
     @FXML
     VBox vBoxMessages;
     @FXML
@@ -52,8 +52,6 @@ public class SessionChatController implements Initializable {
                 sp_main.setVvalue((Double) newValue);
             }
         });
-
-
 
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
@@ -148,8 +146,6 @@ public class SessionChatController implements Initializable {
                 "-fx-background-color: #2685c5;" +
                         "-fx-background-radius: 20px;" +
                         "-fx-font-size: 15pt;");
-
-
 
         textFlow.setPadding(new Insets(5, 10, 5, 10));
         hBox.getChildren().add(textFlow);
