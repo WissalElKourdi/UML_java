@@ -52,6 +52,8 @@ public class LoginController {
         serv_udp.broadcast_AskState(name,port);
         if (serv_udp.broadcast_Pseudo(name,port)) {
             try {
+                createDB DB = new createDB(Name_DB);
+                DB.insertMonpseudo(name, Name_DB);
                 serv_udp.broadcast_connection(name, port);
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                 Parent parent = loader.load();
