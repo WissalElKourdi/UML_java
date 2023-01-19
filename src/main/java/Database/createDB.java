@@ -23,20 +23,6 @@ public class createDB {
             creatTableMonPSeudo(Name_DB);
         }
 
-        public synchronized boolean createNewDB(String fileName) throws SQLException {
-            String url = "jdbc:sqlite:sqlite/" + fileName;
-           // try (Connection conn = DriverManager.getConnection(url)) {
-
-                if ( conn != null) {
-                    DatabaseMetaData meta = conn.getMetaData();
-                    System.out.println("The driver name is " + meta.getDriverName());
-                    System.out.println("A new database has been created.");
-                    this.disconnect(fileName);
-                    return true;
-            }else{
-            return false;
-        }}
-
         private synchronized Connection connect(String fileName ) {
             // SQLite connection string
             String url = "jdbc:sqlite:sqlite/"+ fileName;
@@ -359,32 +345,6 @@ public class createDB {
         }
         return port;
     }
-            /*String sql = "SELECT pseudo FROM Connected";
-            String result ="";
-
-            Connection conn ;
-            conn = this.connect(filename);
-            try ( conn ;
-                 Statement stmt  = conn.createStatement();
-                 ResultSet rs    = stmt.executeQuery(sql)){
-
-                // loop through the result set
-                while (rs.next()) {
-                    result = result + "\n" +  rs.getString("pseudo").trim();
-                   // System.out.println(rs.getString("pseudo"));
-
-                }
-
-
-
-
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-            conn.close();
-            return result;
-        }
-        */
         public synchronized String getPseudo(String addr, String filename) throws SQLException {
             String sql = "SELECT  pseudo,addr FROM IPseudo WHERE addr= ?";
             String result ="";

@@ -1,10 +1,8 @@
 package Interface;
 
-import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
 import UDP.IP_addr;
-import communication.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +16,8 @@ import java.net.SocketException;
 import java.sql.SQLException;
 
 public class LoginController {
-    private static int port = 3000;
+    private static final int port = 2000;
     UDP_Server serv_udp = new UDP_Server();
-    //UDP_Client client = new UDP_Client(port);
     private final String Name_DB = "DB_MSG.db";
     @FXML
     private Button LoginButton;
@@ -32,7 +29,7 @@ public class LoginController {
 
     static {
         try {
-            client = new UDP_Client(port);
+            client = new  UDP_Client(port);
         } catch (SocketException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -41,17 +38,14 @@ public class LoginController {
     }
 
 
-    ;
-
-
-
-
-
     public LoginController() throws SocketException, SQLException {
 
-                client.start();
-        Session session = Session.getInstance();
-        session.start();
+       client.start();
+
+    }
+
+    public static UDP_Client getClient(){
+        return client;
     }
 
     public static UDP_Client get_client(){
@@ -93,8 +87,6 @@ public class LoginController {
             serv_udp.broadcast_AskState(name, port);
             if (serv_udp.broadcast_Pseudo(name, port)) {
                 try {
-                    createDB DB = new createDB(Name_DB);
-                    DB.insertMonpseudo(name, Name_DB);
                     serv_udp.broadcast_connection(name, port);
                     serv_udp.broadcast_info(name, IP_addr.get_my_IP().toString(), port);
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
@@ -109,9 +101,7 @@ public class LoginController {
                     e.printStackTrace();
                 }
             } else {
-                System.out.println("je suis ici");
                 serv_udp.broadcast_end(port);
-                System.out.println("je suis ici");
                 Text text = new Text("This username is already taken, choose another one");
                 returnText.getChildren().clear();
                 returnText.getChildren().add(text);

@@ -5,7 +5,7 @@ import Database.createDB;
 import UDP.UDP_Server;
 import USERS.List_Connected;
 import communication.Sender;
-import communication.ServerTcp;
+import communication.Session;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -33,7 +33,7 @@ public class MenuController extends Thread implements  Initializable {
     public VBox vbox_messages;
     @FXML
     public VBox vbox_messages1;
-    private int port = 2000;
+    private static final int port =2000;
 
     @FXML
     private Button disconnect;
@@ -49,7 +49,6 @@ public class MenuController extends Thread implements  Initializable {
     VBox vBoxMessages;
     @FXML
     private ScrollPane sp_main;
-    private ServerTcp server;
     private Socket socket;
     private Sender sender;
 
@@ -63,7 +62,6 @@ public class MenuController extends Thread implements  Initializable {
     //List users :
   //  public static List_Connected conn = new List_Connected();
 
-
     public static ArrayList<String> coo = new ArrayList<>(List_Connected.listCo);
     @FXML
     private Label myLabel;
@@ -71,14 +69,13 @@ public class MenuController extends Thread implements  Initializable {
     @FXML
     private ListView<String> myListconnected;
     private ObservableList<String> list ;
-   // private List_Connected list_co;
     private static String currentConnected;
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // update_list();
+        update_list();
         client.setMenu(this);
         List_Connected.print_co();
         myListconnected.getItems().addAll(List_Connected.listCo);
@@ -143,7 +140,6 @@ public class MenuController extends Thread implements  Initializable {
                 System.out.println("ADDRR" + addr);
 
                 System.out.println(DB.getMonPseudo(DB_name));
-                // new UDP_Client(port).start();
                 UDP_Server serv_udp = new UDP_Server();
                 serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
                 System.out.println("PSEUDOOO" + DB.getPseudo(addr, DB_name));
@@ -152,7 +148,7 @@ public class MenuController extends Thread implements  Initializable {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
                     Parent parent = loader.load();
-                    Scene scene = new Scene(parent, 600, 400);
+                    Scene scene = new Scene(parent, 1200, 800);
                     scene.getStylesheets().add("/styles.css");
                     mainFXML.mainStage.setTitle("Chat App");
                     mainFXML.mainStage.setScene(scene);
@@ -161,10 +157,11 @@ public class MenuController extends Thread implements  Initializable {
                     e.printStackTrace();
                 }
             }
+
             public static String get_pseudo_user(){return currentConnected;}
 
 
 
 
-        }
+}
 

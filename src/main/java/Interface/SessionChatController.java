@@ -1,6 +1,5 @@
 
 package Interface;
-import USERS.Pseudo;
 import communication.Handler;
 import communication.Launch_receive;
 import communication.Sender;
@@ -44,13 +43,9 @@ public class SessionChatController implements Initializable {
     private Sender sender;
     private String  ip;
     private Launch_receive receiver;
-    Pseudo pseudo= Pseudo.getInstance();
     private Label Id;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -85,9 +80,6 @@ public class SessionChatController implements Initializable {
                     text.setFill(Color.color(0.934, 0.925, 0.996));
 
                     hBox.getChildren().add(textFlow);
-
-                    //ScrollPane scroll = new ScrollPane();
-
                     sp_main.setContent(vBoxMessages);
                     //anchor.setStyle("-fx-background-color: #024029;");
                     System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
@@ -144,26 +136,6 @@ public class SessionChatController implements Initializable {
             }
         });
     }
-
-  /*  public void afficher(String Message){
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.CENTER_RIGHT);
-        hBox.setPadding(new Insets(5, 5, 5, 10));
-
-        Text text = new Text(Message);
-        TextFlow textFlow = new TextFlow(text);
-
-        textFlow.setStyle(
-                "-fx-color: rgb(239, 242, 255);" +
-                        "-fx-background-color: rgb(15, 125, 242);" +
-                        "-fx-background-radius: 20px;");
-
-        textFlow.setPadding(new Insets(5, 10, 5, 10));
-        text.setFill(Color.color(0.934, 0.925, 0.996));
-
-        hBox.getChildren().add(textFlow);
-        vBoxMessages.getChildren().add(hBox);
-    }*/
 
     public static void addLabel(String messageFromClient, VBox vBox){
         HBox hBox = new HBox();

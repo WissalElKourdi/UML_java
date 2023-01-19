@@ -8,7 +8,7 @@ public class List_USers {
     public static void add_User(Remote_Users user){list.add(user);}
 
 
-    public String get_IP_user(String name){
+    public static String get_IP_user(String name){
         for(int i = 0; i<list.size();i++){
             if (name.equals(list.get(i).get_pseudo())){
                 return list.get(i).get_IP();
@@ -17,7 +17,7 @@ public class List_USers {
         return "Didn't find this USER";
 
     }
-    public String get_pseudo_user(String addr){
+    public static String get_pseudo_user(String addr){
         for(int i = 0; i<list.size();i++){
             if (addr.equals(list.get(i).get_IP())){
                 return list.get(i).get_pseudo();

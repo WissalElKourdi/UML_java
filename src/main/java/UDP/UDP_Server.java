@@ -28,7 +28,6 @@ public class UDP_Server {
         this.send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"),port);
     }
     public boolean broadcast_Pseudo (String pseudo, int port ) throws IOException, SQLException {
-
         if ( DB.check(pseudo,Name_DB) ) {
             System.out.println("Choose new pseudo : this one is already taken");
             return false;
@@ -40,9 +39,6 @@ public class UDP_Server {
     }
 
     public boolean broadcast_ChangePseudo (String newpseudo, int port) throws IOException, SQLException {
-
-
-
         if ( DB.check(newpseudo,Name_DB) ) {
             System.out.println("Choose new pseudo : this one is already taken");
             return false;
@@ -95,15 +91,6 @@ public class UDP_Server {
         System.out.println("My INFOS :" + pseudo + "/" + addr);
 
     }
-
-  /*  //static ou pas ??
-    public void broadcast_ChangePseudo (String pseudo,ArrayList userList) throws IOException{
-        if (check_pseudo(pseudo,userList)) {
-            broadcast(pseudo);
-            InsertData DB = new InsertData();
-            DB.insert_pseudo(pseudo, InetAddress.getLocalHost());
-*/
-
 
 }
 

@@ -17,18 +17,12 @@ public class mainFXML extends Application {
     public void start(Stage stage) throws IOException, SQLException {
 
         mainStage = stage;
-        new UDP_Client(2000);
-
-
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/login_page.fxml"));
             Parent parent = loader.load();
-
             Scene scene = new Scene(parent, 1200,800);
             scene.getStylesheets().add("/styles.css");
             mainStage.setResizable(false);
-
             stage.setTitle("Chat App");
             stage.setScene(scene);
             stage.show();
