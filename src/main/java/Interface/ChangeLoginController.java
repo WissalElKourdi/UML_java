@@ -69,7 +69,7 @@ public class ChangeLoginController {
                 String name = NewLogin.getText();
                 //if it's not already used, change to menu scene
                 // new UDP_Client(port).start();
-                if (LoginController.isValid(name)) {
+               // if (LoginController.isValid(name)) {
                         if (serv_udp.broadcast_ChangePseudo(name, port)) {
                                 try {
                                         createDB DB = new createDB(Name_DB);
@@ -94,11 +94,11 @@ public class ChangeLoginController {
                                 result.getChildren().clear();
                                 result.getChildren().add(text);
                         }
-                } else{
+               /* } else{
                         Text text = new Text("Username should be between 5 and 15 characters and only contain letters and digits");
                         result.getChildren().clear();
                         result.getChildren().add(text);
-                }
+                }*/
 
         }
 }
