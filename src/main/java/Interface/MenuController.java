@@ -66,7 +66,7 @@ public class MenuController extends Thread implements  Initializable {
 
 
     String name_db = "DB_MSG.db";
-    private Socket sockett;
+    //private Socket sockett;
     private BufferedReader bufferedReaderr;
     private BufferedWriter bufferedWriterr;
     //private ServerTcp server;
@@ -87,6 +87,8 @@ public class MenuController extends Thread implements  Initializable {
     public MenuController() throws SQLException {
 
         createDB BD = new createDB(name_db);
+        BD.insertIpseudo("wissallll","192.168.1.44",name_db);
+        BD.insertConnected("wissallll",5000,name_db);
         connected = BD.selectAllConnected(name_db);
         System.out.println(connected);
 
@@ -98,8 +100,6 @@ public class MenuController extends Thread implements  Initializable {
         Session.getInstance().start();
         System.out.println("Connected to Client!");
 
-
-
         myListView.getItems().addAll(connected);
 
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -107,8 +107,6 @@ public class MenuController extends Thread implements  Initializable {
                  //   (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 currentConnected = myListView.getSelectionModel().getSelectedItem();
-
-
 
                 myLabel.setText(currentConnected);
                 try {
@@ -127,7 +125,6 @@ public class MenuController extends Thread implements  Initializable {
                     throw new RuntimeException(e);
                 }
             }*/
-
 
             }
 
@@ -208,7 +205,7 @@ public class MenuController extends Thread implements  Initializable {
         TextFlow textFlow = new TextFlow(text);
 
         textFlow.setStyle(
-                "-fx-background-color: rgb(233, 233, 235);" +
+                "-fx-background-color: #024029;" +
                         "-fx-background-radius: 20px;");
 
         textFlow.setPadding(new Insets(5, 10, 5, 10));

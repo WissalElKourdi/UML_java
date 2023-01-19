@@ -93,8 +93,9 @@ public class SessionChatController implements Initializable {
                     hBox.getChildren().add(textFlow);
 
                     //ScrollPane scroll = new ScrollPane();
+
                     sp_main.setContent(vBoxMessages);
-                    //anchor.setStyle("-fx-background-color: #d7d4d3;");
+                    //anchor.setStyle("-fx-background-color: #024029;");
                     System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
                     //cas 1 : la session avec l'utilisateur est déja établie

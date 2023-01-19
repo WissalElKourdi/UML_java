@@ -17,21 +17,21 @@
             <content>
               <AnchorPane fx:id="connected_users" minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="1207.0">
                      <children>
-                      <ListView fx:id="myListView" layoutX="91.0" layoutY="93.0" prefHeight="589.0" prefWidth="323.0" />
-                        <AnchorPane layoutX="500.0" layoutY="55.0" prefHeight="664.0" prefWidth="663.0">
+                        <AnchorPane layoutX="47.0" layoutY="32.0" prefHeight="518.0" prefWidth="597.0">
                            <children>
-                              <ImageView fitHeight="382.0" fitWidth="723.0" layoutX="-42.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="433.0" fitWidth="757.0" layoutX="156.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@img/hills.png" />
                                  </image>
                               </ImageView>
-                            <Button fx:id="change_pseudo" alignment="CENTER" layoutX="237.0" layoutY="355.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
-                              <Text layoutX="195.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: 'Source Code Pro ExtraLight'" text="Click on a connected to user to open a chat tab with them " textAlignment="CENTER" wrappingWidth="189.40771484375" />
-                            <Button fx:id="disconnect" alignment="CENTER" layoutX="252.0" layoutY="284.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
-                              <Text layoutX="195.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: 'Source Code Pro ExtraLight'" text="You have selected :" textAlignment="CENTER" wrappingWidth="189.40771484375" />
-                            <Label fx:id="myLabel" layoutX="129.0" layoutY="150.0" prefHeight="44.0" prefWidth="322.0" />
+                              <Text layoutX="334.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: 'Source Code Pro ExtraLight'; -fx-font-size: 20pt;" text="You have selected :" textAlignment="CENTER" wrappingWidth="379.40771484375" />
+                            <Label fx:id="myLabel" alignment="CENTER" layoutX="374.0" layoutY="87.0" prefHeight="44.0" prefWidth="322.0" />
+                            <ListView fx:id="myListView" layoutX="225.0" layoutY="176.0" prefHeight="381.0" prefWidth="271.0" />
+                            <Button fx:id="disconnect" alignment="CENTER" layoutX="639.0" layoutY="285.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
+                            <Button fx:id="change_pseudo" alignment="CENTER" layoutX="625.0" layoutY="396.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
                            </children>
                         </AnchorPane>
+                        <Text layoutX="57.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: 'Source Code Pro ExtraLight' ; -fx-font-size: 20pt" text="Click on a connected user to open a chat tab with them " textAlignment="CENTER" wrappingWidth="1092.40771484375" />
                      </children>
                   </AnchorPane>
             </content>

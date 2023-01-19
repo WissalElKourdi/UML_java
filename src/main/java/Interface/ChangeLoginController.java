@@ -24,7 +24,7 @@ public class ChangeLoginController {
         @FXML
         private Button SaveButton;
         @FXML
-        private TextArea NewLogin;
+        private TextField NewLogin;
         @FXML
         private TextFlow result;
         UDP_Server serv_udp = new UDP_Server();

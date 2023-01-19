@@ -1,9 +1,16 @@
 /*font import*/
+@font-face {
+    font-family: 'SourceCodePro-Black';
+    src: url('font/SourceCodePro-Black.ttf');
+}
+
 
 @font-face {
     font-family: 'SourceCodePro-VariableFont_wght';
     src: url('font/SourceCodePro-VariableFont_wght.ttf');
+}
 
+/*
 @font-face {
   font-family: 'CourierPrime-Regular';
   src: url('font/CourierPrime-Regular.ttf');
@@ -12,38 +19,40 @@
 @font-face {
   font-family: 'Chivo ExtraBold';
   src: url('font/Chivo-ExtraBold.ttf');
-}
+
+}*/
 
 #titre {
-    -fx-font-family: 'Source Code Pro ExtraLight';
-    fx-font-size: 20pt;
+    -fx-font-family: 'Source Code Pro Black';
+    -fx-font-size: 20pt;
 }
 
-Source Code Pro ExtraLight
-
+#sp {
+    -fx-background: #024029;
+    -fx-background-color: #024029;
+}
 
 /* classes*/
 .button {
     -fx-font-size: 15pt;
-    -fx-font-family: 'Courier Prime Regular';
+    -fx-font-family: 'Source Code Pro ExtraLight';
 }
 
 .label{
     -fx-font-size:15pt;
-    -fx-font-family: 'Chivo ExtraBold';
+    -fx-font-family: 'Source Code Pro ExtraLight';
     /*
     -fx-font-family: 'Courier Prime Regular';*/
 }
 
 .textFlow {
     -fx-font-size: 20pt;
-    -fx-text-color: #59052D;
-    -fx-font-family: 'Courier Prime Regular';
+    -fx-font-family: 'Source Code Pro ExtraLight';
 }
 
 .textField {
     -fx-font-size: 17pt;
-    -fx-font-family: 'Courier Prime Regular';
+    -fx-font-family: 'Source Code Pro ExtraLight';
 }
 
 .text {

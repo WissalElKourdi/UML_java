@@ -29,8 +29,8 @@ public class Handler {
             throw new RuntimeException(e);
         }
         System.out.println("pseudo to connect with : "+pseudo);
-        Socket socket= new Socket(InetAddress.getLocalHost(),5000);
-        System.out.println("the adresse im talking to is " +InetAddress.getLocalHost());
+        Socket socket= new Socket(ip,6000);
+        System.out.println("the adresse im talking to is " +ip);
 
      Session.getInstance().addSock(pseudo,socket);
      return socket;}
