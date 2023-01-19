@@ -15,10 +15,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -39,9 +37,11 @@ public class SessionChatController implements Initializable {
     @FXML
     private Button button_send;
     @FXML
-    private TextField tf_message;
+    private TextArea tf_message;
     @FXML
     VBox vBoxMessages;
+    @FXML
+    AnchorPane anchor;
     @FXML
     private ScrollPane sp_main;
     private Socket socket;
@@ -63,8 +63,6 @@ public class SessionChatController implements Initializable {
         });
 
 
-       // ServerTcp.rcv(socket,vBoxMessages);
-        // server.receiveMessageFromClient(vBoxMessages, socket.accept());
 
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
@@ -83,14 +81,19 @@ public class SessionChatController implements Initializable {
 
                     textFlow.setStyle(
                             "-fx-color: rgb(239, 242, 255);" +
-                                    "-fx-background-color: rgb(15, 125, 242);" +
-                                    "-fx-background-radius: 20px;");
+                                    "-fx-background-color: #ae96b7;" +
+                                    "-fx-background-radius: 20px;" +
+                                    "-fx-font-size: 15pt;");
 
                     textFlow.setPadding(new Insets(5, 10, 5, 10));
                     text.setFill(Color.color(0.934, 0.925, 0.996));
 
                     hBox.getChildren().add(textFlow);
 
+                    //ScrollPane scroll = new ScrollPane();
+
+                    sp_main.setContent(vBoxMessages);
+                    //anchor.setStyle("-fx-background-color: #024029;");
                     System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
                     //cas 1 : la session avec l'utilisateur est déja établie
@@ -99,7 +102,7 @@ public class SessionChatController implements Initializable {
                         try {
                             //Session.getInstance().start();
                             sock=Session.getInstance().getSock(pseudo);
-                            sender= new Sender(socket,pseudo,messageToSend);
+                            sender= new Sender(sock,pseudo,messageToSend);
                         }
                         catch (IOException e) {
                             System.out.println("ooooooooow");
@@ -109,7 +112,7 @@ public class SessionChatController implements Initializable {
                      }else {
                         System.out.println("new Connection");
                         try {
-                            //Session.getInstance().start();
+                            System.out.println("PSEUDOOO" + pseudo);
                             sock =Handler.getInstance().startConnection(pseudo);
                         } catch (IOException e) {
                             System.out.println("erreur création du socket ");
@@ -122,7 +125,7 @@ public class SessionChatController implements Initializable {
                                 System.out.println("Connected");
                                 sender = new Sender(sock, pseudo, messageToSend); // le thread qui envoie les messages au client
                                 System.out.println("the sender is created");
-                                receiver = new Launch_receive(socket, pseudo); // le thread qui reçoit les messages
+                                receiver = new Launch_receive(sock, pseudo); // le thread qui reçoit les messages
                                 System.out.println("the receiver is created ");
                                 Launch_receive.sessions.add(receiver);
                                 receiver.start();
@@ -138,21 +141,33 @@ public class SessionChatController implements Initializable {
                         sender.start();
                         tf_message.clear();
                     }
-
-
                     vBoxMessages.getChildren().add(hBox);
-
-
-
-
-                    //   server.send(socket,messageToSend,server);
-                    //    server.sendMessageToClient(messageToSend, socket.accept());
 
 
                 }
             }
         });
     }
+
+  /*  public void afficher(String Message){
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+
+        Text text = new Text(Message);
+        TextFlow textFlow = new TextFlow(text);
+
+        textFlow.setStyle(
+                "-fx-color: rgb(239, 242, 255);" +
+                        "-fx-background-color: rgb(15, 125, 242);" +
+                        "-fx-background-radius: 20px;");
+
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        text.setFill(Color.color(0.934, 0.925, 0.996));
+
+        hBox.getChildren().add(textFlow);
+        vBoxMessages.getChildren().add(hBox);
+    }*/
 
     public static void addLabel(String messageFromClient, VBox vBox){
         HBox hBox = new HBox();
@@ -165,6 +180,8 @@ public class SessionChatController implements Initializable {
         textFlow.setStyle(
                 "-fx-background-color: rgb(233, 233, 235);" +
                         "-fx-background-radius: 20px;");
+
+
 
         textFlow.setPadding(new Insets(5, 10, 5, 10));
         hBox.getChildren().add(textFlow);

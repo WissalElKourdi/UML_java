@@ -1,6 +1,8 @@
 package communication;
 
 import Database.createDB;
+import Interface.MenuController;
+import Interface.SessionChatController;
 
 import java.io.*;
 import java.net.Socket;
@@ -16,8 +18,9 @@ public class Launch_receive extends Thread  {
     static final String DB_NAME ="DB_MSG.db" ;
     private Socket socket;
     private String pseudo;
-    //private BufferedWriter bufferedWriter;
+    private BufferedWriter bufferedWriter;
     private BufferedReader bufferedReader;
+    //private view.SessionChatController sess;
 
     public static List<Launch_receive> sessions = new ArrayList<>();
 
@@ -25,41 +28,29 @@ public class Launch_receive extends Thread  {
         try{
             this.socket=socket;
             this.pseudo=pseudo;
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            //this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
+            this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
     // receiving thread
     public void run (){
         while(socket.isConnected()){
             try {
                 createDB DB = new createDB(DB_NAME);
+                System.out.println("coucouuuuuuuuuuuuuuuuuuuu");
                 String message = bufferedReader.readLine();
                 System.out.println(pseudo + " sent me :  " + message);
                 LocalTime time = LocalTime.now();
                 DB.insertHistory(message, time.toString(), pseudo, socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
-                //MenuController.c
+
+                //Récupérer le message et le mettre dans la sessio
             } catch (IOException | SQLException e) {
+                System.out.println("erreur receiving from client");
                 throw new RuntimeException(e);
             }
-
-
-        }
-
-    }
-
-    public void closeEverything (Socket socket,BufferedReader bufferedReader) throws IOException {
-        if(bufferedReader!=null){
-            bufferedReader.close();
-        }
-        if(socket!=null){
-            socket.close();
         }
     }
+    }
 
-
-
-}

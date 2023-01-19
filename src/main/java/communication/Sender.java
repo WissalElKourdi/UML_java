@@ -23,7 +23,7 @@ public class Sender extends Thread{
         this.pseudo=pseudo;
         this.message=message;
         this.bufferedWriter=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
+         start();
     }
     public void run(){
         createDB DB = null;
@@ -47,10 +47,9 @@ public class Sender extends Thread{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("message send to user ");
+        System.out.println("message sent  :  "+message+" to user "+pseudo);
         DateTimeFormatter time= DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        DB.insertHistory(message, time.toString(), "sissou", socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
-        //MenuControlleur
+        DB.insertHistory(message, time.toString(),pseudo, socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
     }
 
 }
