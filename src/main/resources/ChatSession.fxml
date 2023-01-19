@@ -16,21 +16,22 @@
             <Image url="@img/background.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="529.0" fitWidth="635.0" layoutX="136.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="627.0" fitWidth="671.0" layoutX="41.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@img/msn.jpeg" />
+            <Image url="@img/msn2.jpg" />
          </image>
       </ImageView>
-      <ScrollPane fx:id="sp_main" hbarPolicy="NEVER" layoutX="151.0" layoutY="237.0" opacity="0.68" prefHeight="221.0" prefWidth="375.0" vbarPolicy="ALWAYS">
+      <ScrollPane fx:id="sp_main" hbarPolicy="NEVER" layoutX="58.0" layoutY="237.0" opacity="0.68" prefHeight="221.0" prefWidth="468.0" vbarPolicy="ALWAYS">
          <content>
-            <AnchorPane id="anchor" fx:id="anchor" minHeight="0.0" minWidth="0.0" opacity="0.0" prefHeight="222.0" prefWidth="378.0">
+            <AnchorPane id="anchor" fx:id="anchor" minHeight="0.0" minWidth="0.0" opacity="0.0" prefHeight="223.0" prefWidth="449.0">
                <children>
-                  <VBox fx:id="vBoxMessages" opacity="1.0" prefHeight="221.0" prefWidth="304.0" />
+                  <VBox fx:id="vBoxMessages" layoutX="1.0" layoutY="15.0" opacity="1.0" prefHeight="194.0" prefWidth="448.0" />
                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
-      <Button fx:id="button_send" layoutX="458.0" layoutY="477.0" mnemonicParsing="false" text="Send" />
-      <TextArea id="tf_messages" fx:id="tf_message" layoutX="160.0" layoutY="475.0" prefHeight="80.0" prefWidth="289.0" />
+      <Button fx:id="button_send" layoutX="432.0" layoutY="522.0" mnemonicParsing="false" text="Send" />
+      <TextArea id="tf_messages" fx:id="tf_message" layoutX="66.0" layoutY="502.0" prefHeight="105.0" prefWidth="353.0" />
+      <Label alignment="CENTER" layoutX="540.0" layoutY="389.0" prefHeight="53.0" prefWidth="104.0" text="Label" />
    </children>
 </AnchorPane>
