@@ -47,7 +47,8 @@ public class UDP_Client extends Thread {
             System.out.println("msg received :" +msg_rcv);
                 String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1).trim();
                 //String finalMsg_rcv = msg_rcv;
-                Platform.runLater(new Runnable() {
+            String finalMsg_rcv = msg_rcv;
+            Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
                            // if(finalMsg_rcv.startsWith("Connected :") ){
@@ -55,17 +56,14 @@ public class UDP_Client extends Thread {
                             String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
                             IP_addr monIP = new IP_addr();
                             String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
-                            System.out.println("Minee" + mine + "youuurs" + addr);
-                            List_Connected.add_co("moi");
-                            if (!addr.equals(mine)){
-                                System.out.println("ADDR" + addr);
+
+                            if (!addr.equals(mine) && !List_Connected.exists(pseudo) && !(finalMsg_rcv.startsWith("MY INFOS :"))){
                                 List_Connected.add_co(pseudo);
-                                List_Connected.print_co();
-                            }
-                            System.out.println("AAAAAAAAAAAAAAAAAAA");
-                            if ( menu != null){
-                            menu.update_list();
-                                List_Connected.print_co();}
+                                 }
+                             if ( menu != null){
+
+                                 System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA ");
+                            menu.update_list();}
                         }
                     });
 

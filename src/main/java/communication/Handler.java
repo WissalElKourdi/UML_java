@@ -17,7 +17,7 @@ public class Handler {
 
     public Socket startConnection(String pseudo) throws IOException {
         String ip;
-        ip = List_USers.get_pseudo_user(pseudo);
+        ip = List_USers.get_IP_user(pseudo);
         System.out.println("Connection : IP: " +ip+ "--> pseudo"+pseudo);
         Socket sock= new Socket(ip,1234);
         Session.getInstance().addSock(pseudo,sock);

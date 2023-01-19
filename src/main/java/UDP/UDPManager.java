@@ -12,7 +12,7 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.sql.SQLException;
 
-public class UDPManager extends UDP_Client{
+public class UDPManager extends UDP_Client {
 
     static UDP_Server serv_udp;
 
@@ -50,8 +50,8 @@ public class UDPManager extends UDP_Client{
             String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1).trim();
             IP_addr monIP = new IP_addr();
             String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
-            if (!addr.equals(mine)){
-            DB.insertConnected(pseudo3.trim(), port, name_db);
+            if (!addr.equals(mine)) {
+                DB.insertConnected(pseudo3.trim(), port, name_db);
             }
 
         } else if (msg.startsWith("Deconnected :")) {
@@ -63,19 +63,28 @@ public class UDPManager extends UDP_Client{
             String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1).trim();
             IP_addr monIP = new IP_addr();
             String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
-            if (!addr.equals(mine)){
-            DB.insertConnected(pseudo.trim(), port, name_db);}
+            if (!addr.equals(mine)) {
+                DB.insertConnected(pseudo.trim(), port, name_db);
+            }
 
 
         } else if (msg.startsWith("AskForState :")) {
-            serv_udp.broadcast_MyState( port);
+            serv_udp.broadcast_MyState(port);
             // add parametre addresse pour envoyer a la personne qui nous a demande
-        }else if (msg.startsWith("MY INFOS :")){
-            String pseudo =  msg.substring(msg.indexOf(":") + 1);
+        } else if (msg.startsWith("MY INFOS :")) {
+            String pseudo = msg.substring(msg.indexOf(":") + 1);
             pseudo = pseudo.substring(0, pseudo.indexOf("/"));
             String addr = msg.substring(msg.lastIndexOf('/') + 1);
-            Remote_Users user = new Remote_Users(pseudo,addr);
+            Remote_Users user = new Remote_Users(pseudo, addr);
+            System.out.println("I am ADDING TO THE LIST USER ==>" + pseudo + "   " + addr);
             List_USers.add_User(user);
         }
+ //commentaire pour commit
+    }
 
-    }  }
+    public String pseudo_udp(String msg) {
+        String pseudo = msg.substring(msg.indexOf(":") + 1);
+        pseudo = pseudo.substring(0, pseudo.indexOf("/"));
+        return pseudo;
+    }
+}

@@ -67,8 +67,8 @@ public void run () {
 
             if(socket!=null){
                   //  System.out.println("from lis ip = "+socket.getLocalSocketAddress() +"///"+ socket.getInetAddress().getHostAddress() +"///" + socket.getLocalAddress() +"///"+ socket.getRemoteSocketAddress() +"///" + socket.getReuseAddress());
-                String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().getHostAddress().toString().indexOf("/") + 1);
-                pseudo = List_USers.get_IP_user(addr);
+                String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().getHostAddress().toString().indexOf("/") + 2);
+                pseudo = List_USers.get_pseudo_user(addr);
                 System.out.println("The adress I am talking to --> " + addr + "-->" + pseudo);
                 map_socket.put(pseudo,socket);
                 System.out.println("are you here ??");
