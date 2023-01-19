@@ -50,7 +50,6 @@ private String adresse(InetAddress ip){
     public Socket getSock(String pseudo){
         System.out.println("pseudo de get sock de session = " + pseudo);
         System.out.println("pseudo de get sock de session = " + pseudo);
-
         return this.map_socket.get(pseudo);
     }
 
@@ -92,15 +91,16 @@ public void run () {
                     System.out.println("ALL IPSEUDO :");
                     DB.selectAllMsgIPseudo(DB_name);
                     pseudo = DB.getPseudo(adresse(socket.getInetAddress()), DB_name);
+                    System.out.println(pseudo);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
                 map_socket.put(pseudo,socket);
-                if(!pseudo.equals("")){
+                    System.out.println("are you here ??");
                     Launch_receive receiver = new Launch_receive(socket,pseudo);
                     Launch_receive.sessions.add(receiver);
                     receiver.start();
-                }
+
 
             }
         }

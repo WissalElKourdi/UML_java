@@ -20,7 +20,7 @@ public class Launch_receive extends Thread  {
     private String pseudo;
     private BufferedWriter bufferedWriter;
     private BufferedReader bufferedReader;
-    //private view.SessionChatController sess;
+
 
     public static List<Launch_receive> sessions = new ArrayList<>();
 
