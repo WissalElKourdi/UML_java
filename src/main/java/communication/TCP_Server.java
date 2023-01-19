@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class TCP_Server extends Thread {
     private Socket socket;
-    private  int port = 40000;
+    private  int port = 20000;
 /*
     public  TCP_Server(Socket socket){
         this.socket=socket;

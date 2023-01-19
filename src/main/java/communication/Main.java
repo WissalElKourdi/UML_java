@@ -19,6 +19,6 @@ public class Main {
         System.out.println("i am connected");
 
 
-        //session.stop();
+        session.stop();
     }
 }
