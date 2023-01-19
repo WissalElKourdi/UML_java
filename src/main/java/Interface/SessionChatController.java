@@ -143,7 +143,7 @@ public class SessionChatController implements Initializable {
         });
     }
 
-    public void afficher(String Message){
+  /*  public void afficher(String Message){
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_RIGHT);
         hBox.setPadding(new Insets(5, 5, 5, 10));
@@ -161,7 +161,7 @@ public class SessionChatController implements Initializable {
 
         hBox.getChildren().add(textFlow);
         vBoxMessages.getChildren().add(hBox);
-    }
+    }*/
 
     public static void addLabel(String messageFromClient, VBox vBox){
         HBox hBox = new HBox();
