@@ -91,7 +91,8 @@ public class MenuController extends Thread implements  Initializable {
         client.setMenu(this);
         List_Connected.print_co();
         myListconnected.getItems().addAll(List_Connected.listCo);
-        Session.getInstance().start();
+        Session session = Session.getInstance();
+        session.start();
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                         currentConnected = myListconnected.getSelectionModel().getSelectedItem();

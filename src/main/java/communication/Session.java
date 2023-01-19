@@ -3,11 +3,13 @@ package communication;
 import Database.createDB;
 import Interface.ServerTcp;
 import Interface.SessionChatController;
+import UDP.UDP_Server;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,25 +57,36 @@ public void run () {
         String ip;
         createDB DB = null;
         String pseudo;
-
-
         while(true){
             System.out.println("okay i am launched ");
             try {
                 //System.out.println("okay i am launched 2 ");
                 socket = user.accept();
+               // UDP_Server.broadcast_demande_info();
                 System.out.println("Client has been added ");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
             if(socket!=null){
-                System.out.println("from lis ip = "+socket.getInetAddress().getHostAddress()+" port = "+socket.getPort());
+                try {
+                    System.out.println("from lis ip = "+socket.getLocalSocketAddress() +"///"+ socket.getInetAddress().getHostAddress() +"///" + socket.getLocalAddress() +"///"+ socket.getRemoteSocketAddress() +"///" + socket.getReuseAddress());
+                    String addr = socket.getInetAddress().getHostAddress().toString().substring(socket.getInetAddress().getHostAddress().toString().indexOf("/") + 1);
+                    System.out.println("from lis ip = " + addr);
+                } catch (SocketException e) {
+                    throw new RuntimeException(e);
+                }
+
+                //    getAddress().toString().getHostAddress()+" port = "+socket.getPort());
+
+              //  String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
                 try {
                     DB = new createDB(DB_name);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
                 try {
+                    System.out.println("ALL IPSEUDO :");
+                    DB.selectAllMsgIPseudo(DB_name);
                     pseudo = DB.getPseudo(adresse(socket.getInetAddress()), DB_name);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);

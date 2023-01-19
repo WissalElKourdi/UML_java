@@ -107,6 +107,7 @@ public class SessionChatController implements Initializable {
                      }else {
                         System.out.println("new Connection");
                         try {
+                            System.out.println("PSEUDOOO" + pseudo);
                             sock =Handler.getInstance().startConnection(pseudo);
                         } catch (IOException e) {
                             System.out.println("erreur création du socket ");
