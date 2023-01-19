@@ -27,9 +27,11 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static Interface.LoginController.client;
 import static javafx.application.Application.launch;
 
 public class MenuController extends Thread implements  Initializable {
