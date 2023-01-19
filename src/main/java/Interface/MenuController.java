@@ -62,7 +62,6 @@ public class MenuController extends Thread implements  Initializable {
     //List users :
   //  public static List_Connected conn = new List_Connected();
 
-
     public static ArrayList<String> coo = new ArrayList<>(List_Connected.listCo);
     @FXML
     private Label myLabel;
@@ -119,7 +118,9 @@ public class MenuController extends Thread implements  Initializable {
 
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
+            Scene scene = new Scene(parent, 1200, 800);
+            scene.getStylesheets().add("/styles.css");
+
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -149,7 +150,7 @@ public class MenuController extends Thread implements  Initializable {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
                     Parent parent = loader.load();
-                    Scene scene = new Scene(parent, 600, 400);
+                    Scene scene = new Scene(parent, 1200, 800);
                     scene.getStylesheets().add("/styles.css");
                     mainFXML.mainStage.setTitle("Chat App");
                     mainFXML.mainStage.setScene(scene);
@@ -163,5 +164,5 @@ public class MenuController extends Thread implements  Initializable {
 
 
 
-        }
+}
 

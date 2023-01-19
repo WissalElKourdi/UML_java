@@ -15,10 +15,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -39,9 +37,11 @@ public class SessionChatController implements Initializable {
     @FXML
     private Button button_send;
     @FXML
-    private TextField tf_message;
+    private TextArea tf_message;
     @FXML
     VBox vBoxMessages;
+    @FXML
+    AnchorPane anchor;
     @FXML
     private ScrollPane sp_main;
     private Socket socket;
@@ -81,14 +81,19 @@ public class SessionChatController implements Initializable {
 
                     textFlow.setStyle(
                             "-fx-color: rgb(239, 242, 255);" +
-                                    "-fx-background-color: rgb(15, 125, 242);" +
-                                    "-fx-background-radius: 20px;");
+                                    "-fx-background-color: #ae96b7;" +
+                                    "-fx-background-radius: 20px;" +
+                                    "-fx-font-size: 15pt;");
 
                     textFlow.setPadding(new Insets(5, 10, 5, 10));
                     text.setFill(Color.color(0.934, 0.925, 0.996));
 
                     hBox.getChildren().add(textFlow);
 
+                    //ScrollPane scroll = new ScrollPane();
+
+                    sp_main.setContent(vBoxMessages);
+                    //anchor.setStyle("-fx-background-color: #024029;");
                     System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
                     //cas 1 : la session avec l'utilisateur est déja établie
@@ -175,6 +180,8 @@ public class SessionChatController implements Initializable {
         textFlow.setStyle(
                 "-fx-background-color: rgb(233, 233, 235);" +
                         "-fx-background-radius: 20px;");
+
+
 
         textFlow.setPadding(new Insets(5, 10, 5, 10));
         hBox.getChildren().add(textFlow);

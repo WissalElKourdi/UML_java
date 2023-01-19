@@ -60,10 +60,10 @@ public class ChatSessionController implements Initializable {
         myListView.getItems().addAll(msgs);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
-    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-        currentmsg = myListView.getSelectionModel().getSelectedItem();
-        myLabel.setText(currentmsg);
-    }
+        public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+            currentmsg = myListView.getSelectionModel().getSelectedItem();
+            myLabel.setText(currentmsg);
+        }
         });}
         @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
@@ -80,6 +80,8 @@ public class ChatSessionController implements Initializable {
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("/styles.css");
+            mainFXML.mainStage.setResizable(false);
+
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -108,6 +110,8 @@ public class ChatSessionController implements Initializable {
             Scene scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("/styles.css");
             mainFXML.mainStage.setTitle("Chat App");
+            mainFXML.mainStage.setResizable(false);
+
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
         } catch (IOException e) {
@@ -124,6 +128,8 @@ public class ChatSessionController implements Initializable {
             Scene scene = new Scene(parent, 600, 400);
             scene.getStylesheets().add("/styles.css");
             mainFXML.mainStage.setTitle("Chat App");
+            mainFXML.mainStage.setResizable(false);
+
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
         } catch (IOException e) {

@@ -1,30 +1,55 @@
-/*font import*/
+
 @font-face {
-  font-family: 'CourierPrime-regular';
-  src: url('/font/CourierPrime-regular.ttf');
+    font-family: 'VT323-Regular';
+    src: url('font/VT323-Regular.ttf');
+}
+/*
+#titre {
+    -fx-font-family: 'Source Code Pro Black';
+    -fx-font-size: 20pt;
 }
 
+#sp {
+    -fx-background: #024029;
+    -fx-background-color: #024029;
+}
+*/
 /* classes*/
 .button {
     -fx-font-size: 15pt;
-    -fx-font-family: 'CourierPrime-regular';
+    -fx-font-family: 'VT323 Regular';
 }
 
 .label{
-    -fx-font-size:20pt;
-    -fx-text-color: #0E1140;
-    -fx-font-family: 'CourierPrime-regular';
+    -fx-font-size:15pt;
+    -fx-font-family: 'VT323 Regular';
+    /*
+    -fx-font-family: 'Courier Prime Regular';*/
 }
 
 .textFlow {
-    -fx-font-size: 15pt;
-    -fx-text-color: #59052D;
-    -fx-font-family: 'CourierPrime-regular';
+    -fx-font-size: 20pt;
+    -fx-font-family: 'VT323 Regular';
 }
 
 .textField {
     -fx-font-size: 17pt;
-    -fx-font-family: 'CourierPrime-regular';
+    -fx-font-family: 'VT323 Regular';
+}
+
+.textArea {
+    -fx-font-size: 17pt;
+    -fx-font-family: 'VT323 Regular';
+}
+
+.text {
+    -fx-font-size: 17pt;
+    -fx-font-family: 'VT323 Regular';
+}
+
+.scroll-pane {
+   -fx-background: #d7d4d3;
+   -fx-border-color: #d7d4d3;
 }
 
 
