@@ -2,15 +2,13 @@ package UDP;
 
 import Database.createDB;
 import Interface.List_Connected;
-import Interface.MenuController;
+import Interface.Remote_Users;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.sql.SQLException;
-
-import static Interface.MenuController.coo;
 
 public class UDPManager extends UDP_Client{
 
@@ -76,5 +74,12 @@ public class UDPManager extends UDP_Client{
            // String pseudo = msg.substring(msg.lastIndexOf(':') + 1);
             serv_udp.broadcast_MyState( port);
             // add parametre addresse pour envoyer a la personne qui nous a demande
+        }else if (msg.startsWith("MY INFOS :")){
+          String pseudo =  msg.substring(msg.indexOf(":") + 1);
+            pseudo = pseudo.substring(0, pseudo.indexOf("/"));
+            String addr = msg.substring(msg.lastIndexOf('/') + 1);
+            Remote_Users user = new Remote_Users(pseudo,addr);
+
         }
+
     }  }

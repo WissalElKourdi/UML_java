@@ -25,11 +25,12 @@ public class Handler {
         }
         try {
             ip = DB.getADDR(pseudo, DB_name);
+            System.out.println(" ip de DB : " +ip);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         System.out.println("pseudo to connect with : "+pseudo);
-        Socket sock= new Socket(ip,5000);
+        Socket sock= new Socket(ip.trim(),5000);
         System.out.println(" ip : " +ip);
         Session.getInstance().addSock(pseudo,sock);
         return sock;}
