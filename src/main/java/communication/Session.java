@@ -101,10 +101,8 @@ public void run () {
                     Launch_receive.sessions.add(receiver);
                     receiver.start();
                 }
-
             }
         }
-
 }
 
 

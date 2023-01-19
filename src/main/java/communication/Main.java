@@ -16,6 +16,7 @@ public class Main {
         List<String>connected=BD.selectAllConnected("name_db");
         Handler.getInstance().startConnection("wissal");*/
         System.out.println("i am connected");
+        //Launch_receive receive= new Launch_receive();
         // session.stop();
     }
 }
