@@ -60,6 +60,7 @@ public void run () {
         while(true){
             System.out.println("okay i am launched ");
             try {
+                //System.out.println("okay i am launched 2 ");
                 socket = user.accept();
                 System.out.println("Client has been added ");
             } catch (IOException e) {
@@ -83,6 +84,7 @@ public void run () {
                     Launch_receive.sessions.add(receiver);
                     receiver.start();
                 }
+
             }
         }
 
