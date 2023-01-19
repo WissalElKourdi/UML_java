@@ -48,6 +48,9 @@ private String adresse(InetAddress ip){
     }
 
     public Socket getSock(String pseudo){
+        System.out.println("pseudo de get sock de session = " + pseudo);
+        System.out.println("pseudo de get sock de session = " + pseudo);
+
         return this.map_socket.get(pseudo);
     }
 

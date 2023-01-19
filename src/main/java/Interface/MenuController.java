@@ -1,34 +1,23 @@
 package Interface;
 
 import Database.createDB;
-import UDP.UDP_Client;
 import UDP.UDP_Server;
-import communication.Launch_receive;
 import communication.Sender;
 import communication.Session;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.*;
-import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static Interface.LoginController.client;
@@ -88,6 +77,7 @@ public class MenuController extends Thread implements  Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        update_list();
         client.setMenu(this);
         List_Connected.print_co();
         myListconnected.getItems().addAll(List_Connected.listCo);
@@ -116,7 +106,7 @@ public class MenuController extends Thread implements  Initializable {
     }
 
 
-    public void update(){
+    public void update_list(){
         myListconnected.getItems().clear();
         myListconnected.getItems().addAll(List_Connected.listCo);
     }
