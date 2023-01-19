@@ -67,7 +67,7 @@ public void run () {
                 throw new RuntimeException(e);
             }
             if(socket!=null){
-                System.out.println("from lis ip = "+socket.getInetAddress().getHostAddress()+" port = "+socket.getPort());
+                System.out.println("from  = "+socket.getInetAddress().getHostAddress()+" port = "+socket.getPort());
                 try {
                     DB = new createDB(DB_name);
                 } catch (SQLException e) {

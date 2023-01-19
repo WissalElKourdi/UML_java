@@ -29,10 +29,10 @@ public class Handler {
             throw new RuntimeException(e);
         }
         System.out.println("pseudo to connect with : "+pseudo);
-        Socket socket= new Socket(ip,5000);
-       System.out.println("ip" +ip);
-        Session.getInstance().addSock(pseudo,socket);
-        return socket;}
+        Socket sock= new Socket(ip,5000);
+        System.out.println(" ip : " +ip);
+        Session.getInstance().addSock(pseudo,sock);
+        return sock;}
     public boolean isEtablished(String pseudo){
         if(Session.getInstance().getSock(pseudo)!=null)
             return true;
