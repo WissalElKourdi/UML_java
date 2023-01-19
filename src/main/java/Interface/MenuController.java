@@ -84,142 +84,93 @@ public class MenuController extends Thread implements  Initializable {
    // private List_Connected list_co;
     private static String currentConnected;
 
-    /*
-    public MenuController() throws SQLException {
-        createDB BD = new createDB(name_db);
-        //BD.insertIpseudo("wissou", "192.168.1.44", name_db);
-        //BD.insertConnected("wissou", 5000, name_db);
-        connected = BD.selectAllConnected(name_db);
-        System.out.println(connected);
-    }
-    */
-
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-       // list = FXCollections.observableArrayList(conn.get_List());
-      //  myListconnected = new ListView<>();
         client.setMenu(this);
-       // myListconnected.getItems().addAll(List_Connected.listCo);
         List_Connected.print_co();
-        System.out.println("herrre");
-
-
-
-
+        myListconnected.getItems().addAll(List_Connected.listCo);
         Session.getInstance().start();
-        System.out.println("Connected to Client!");
-
-     //   vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
-
-          //  public void onChanged(Change<? extends Remote_Users> change) {
-               // myListconnected.setItems(observable_co);
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-                public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                    currentConnected = myListconnected.getSelectionModel().getSelectedItem();
-                    myLabel.setText(currentConnected);
-                    //  scrollPane.setVvalue((Double) newValue);
-                    try {
-                        addTab(currentConnected);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                        currentConnected = myListconnected.getSelectionModel().getSelectedItem();
+                        myLabel.setText(currentConnected);
+                        try {
+                            addTab(currentConnected);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
-                }
 
-                });
-        }
+                });  }
 
-        @FXML
-        private void addTab(String pseudo) throws IOException {
-            int numTabs = onglets.getTabs().size();
-            Tab tab = new Tab(pseudo);
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
-            tab.setContent(loader.load());
-            onglets.getTabs().add(tab);
-        }
+    @FXML
+    private void addTab(String pseudo) throws IOException {
+        int numTabs = onglets.getTabs().size();
+        Tab tab = new Tab(pseudo);
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
+        tab.setContent(loader.load());
+        onglets.getTabs().add(tab);
+    }
 
 
-        public void update(){
-            myListconnected.getItems().clear();
-            myListconnected.getItems().addAll(List_Connected.listCo);
-        }
+    public void update(){
+        myListconnected.getItems().clear();
+        myListconnected.getItems().addAll(List_Connected.listCo);
+    }
 
-        @FXML
-        private void listTabs() {
-            onglets.getTabs().forEach(tab -> System.out.println(tab.getText()));
-            System.out.println();
-        }
-
-        public static void addLabel(String messageFromClient, VBox vBox) {
-            HBox hBox = new HBox();
-            hBox.setAlignment(Pos.CENTER_LEFT);
-            hBox.setPadding(new Insets(5, 5, 5, 10));
-
-            Text text = new Text(messageFromClient);
-            TextFlow textFlow = new TextFlow(text);
-
-            textFlow.setStyle(
-                    "-fx-background-color: rgb(233, 233, 235);" +
-                            "-fx-background-radius: 20px;");
-
-            textFlow.setPadding(new Insets(5, 10, 5, 10));
-            hBox.getChildren().add(textFlow);
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    vBox.getChildren().add(hBox);
-                }
-            });
-        }
 
     @FXML
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
         try {
-            //Srvsocket.close();
+
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
-            Scene scene = new Scene(parent, 1200, 800);
-            scene.getStylesheets().add("/styles.css");
-
+            Scene scene = new Scene(parent, 600, 400);
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
-        @FXML
-        void disconnect(ActionEvent event) throws SQLException, IOException {
 
-            //deconnexion
-            String DB_name = "DB_MSG.db";
-            createDB DB = new createDB(DB_name);
-            String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") + 1);
-            System.out.println("ADDRR" + addr);
 
-            System.out.println(DB.getMonPseudo(DB_name));
-            // new UDP_Client(port).start();
-            UDP_Server serv_udp = new UDP_Server();
-            serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
-            System.out.println("PSEUDOOO" + DB.getPseudo(addr, DB_name));
-            //  serv_udp.broadcast_end(port);
-            //retour à la page d'accueil (login)
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
-                Parent parent = loader.load();
-                Scene scene = new Scene(parent, 600, 400);
-                scene.getStylesheets().add("/styles.css");
-                mainFXML.mainStage.setTitle("Chat App");
-                mainFXML.mainStage.setScene(scene);
-                mainFXML.mainStage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
+            @FXML
+            void disconnect(ActionEvent event) throws SQLException, IOException {
+
+                //deconnexion
+                String DB_name = "DB_MSG.db";
+                createDB DB = new createDB(DB_name);
+                String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") + 1);
+                System.out.println("ADDRR" + addr);
+
+                System.out.println(DB.getMonPseudo(DB_name));
+                // new UDP_Client(port).start();
+                UDP_Server serv_udp = new UDP_Server();
+                serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
+                System.out.println("PSEUDOOO" + DB.getPseudo(addr, DB_name));
+                //  serv_udp.broadcast_end(port);
+                //retour à la page d'accueil (login)
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
+                    Parent parent = loader.load();
+                    Scene scene = new Scene(parent, 600, 400);
+                    scene.getStylesheets().add("/styles.css");
+                    mainFXML.mainStage.setTitle("Chat App");
+                    mainFXML.mainStage.setScene(scene);
+                    mainFXML.mainStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        public static String get_pseudo_user(){return currentConnected;}
+            public static String get_pseudo_user(){return currentConnected;}
 
-}
+
+
+
+        }
 

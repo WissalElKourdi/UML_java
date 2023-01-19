@@ -26,7 +26,6 @@ public class LoginController {
     private TextField choose_username;
     @FXML
     private TextFlow returnText;
-
     public static UDP_Client client;
 
     static {
@@ -38,6 +37,7 @@ public class LoginController {
             throw new RuntimeException(e);
         }
     }
+
     public LoginController() throws SocketException, SQLException {
 
                 client.start();
@@ -46,21 +46,28 @@ public class LoginController {
     public static boolean isValid(String value) {
         String legalCharacters = "abcdefghijklmnopqrstuvwxzy0123456789";
         boolean valid = true;
-        if (value.length() < 5 || value.length() > 15) {
+        if (value.length() < 3 || value.length() > 15) {
             valid = false;
         }
         else {
+            // For each character in the value
             for (int x = 0; x < value.length() ; x++) {
                 boolean found = false;
+                // Look for the character in legalCharacters
                 for (int z = 0; z < legalCharacters.length(); z++) {
                     char c = value.charAt(x);
                     c = java.lang.Character.toLowerCase(c);
+                    // If we found the character
                     if (c == legalCharacters.charAt(z)) {
+                        // Remember we found it
                         found = true;
                     }
                 }
+                // If we did not find it
                 if (!found) {
+                    // This is an invalid value
                     valid = false;
+                    // Break out of the outer for loop
                     break;
                 }
             }
@@ -72,33 +79,39 @@ public class LoginController {
     void saveUsername(ActionEvent event) throws IOException, SQLException {
         //get new username and check that it's not already used : if it's not, change to menu scene
         String name = choose_username.getText();
-
        // System.out.println("je suis ici" + UDP_Server.broadcast_Pseudo(name));
        // new UDP_Client(port).start();
-        if (isValid(name)){
-            serv_udp.broadcast_AskState(name,port);
-            if (serv_udp.broadcast_Pseudo(name,port)) {
+        if (isValid(name)) {
+            serv_udp.broadcast_AskState(name, port);
+            if (serv_udp.broadcast_Pseudo(name, port)) {
                 try {
-                    //createDB DB = new createDB(Name_DB);
-                    //DB.insertMonpseudo(name,Name_DB);
+                    createDB DB = new createDB(Name_DB);
+                    DB.insertMonpseudo(name, Name_DB);
                     serv_udp.broadcast_connection(name, port);
-                //    serv_udp.broadcast_end(port);
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                     Parent parent = loader.load();
-                    Scene scene = new Scene(parent, 1200,800);
+                    Scene scene = new Scene(parent, 1200, 800);
                     scene.getStylesheets().add("/styles.css");
-                   // client.setScene(scene);
+                    // client.setScene(scene);
                     mainFXML.mainStage.setTitle("Chat App");
                     mainFXML.mainStage.setScene(scene);
                     mainFXML.mainStage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            } else {
+                System.out.println("je suis ici");
+                serv_udp.broadcast_end(port);
+                System.out.println("je suis ici");
+                Text text = new Text("This username is already taken, choose another one");
+                returnText.getChildren().clear();
+                returnText.getChildren().add(text);
             }
-        } else{
-            Text text = new Text("Username should be between 5 and 15 characters and only contain letters and digits");
+        } else {
+            Text text = new Text("marre de git");
             returnText.getChildren().clear();
             returnText.getChildren().add(text);
         }
     }
+
 }
