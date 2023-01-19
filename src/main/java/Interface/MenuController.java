@@ -159,6 +159,7 @@ public class MenuController extends Thread implements  Initializable {
                     e.printStackTrace();
                 }
             }
+
             public static String get_pseudo_user(){return currentConnected;}
 
 
