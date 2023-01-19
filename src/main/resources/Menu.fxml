@@ -10,7 +10,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.MenuController">
   <children>
-<<<<<<< HEAD
       <TabPane fx:id="onglets" layoutX="-3.0" prefHeight="800.0" prefWidth="1207.0">
         <tabs>
           <Tab text="Menu principal">
@@ -28,7 +27,7 @@
 
                                <Text layoutX="345.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: 'VT323'; -fx-font-size: 20pt;" text="You have selected :" textAlignment="CENTER" wrappingWidth="379.40771484375" />
                             <Label fx:id="myLabel" alignment="CENTER" layoutX="374.0" layoutY="110.0" prefHeight="44.0" prefWidth="322.0" />
-                            <ListView fx:id="myListView" layoutX="561.0" layoutY="182.0" prefHeight="381.0" prefWidth="271.0" />
+                            <ListView fx:id="myListconnected" layoutX="561.0" layoutY="182.0" prefHeight="381.0" prefWidth="271.0" />
                             <Button fx:id="disconnect" alignment="CENTER" layoutX="289.0" layoutY="276.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
                             <Button fx:id="change_pseudo" alignment="CENTER" layoutX="275.0" layoutY="360.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
                            </children>
@@ -37,52 +36,29 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <!--
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                    <TextField fx:id="tf_message" layoutX="392.0" layoutY="673.0" prefWidth="200.0" />
-                  
-                    <Button fx:id="button_send" layoutX="575.0" layoutY="719.0" mnemonicParsing="false" text="Button" />
-                    <ScrollPane fx:id="sp_main" layoutX="427.0" layoutY="26.0" prefHeight="617.0" prefWidth="200.0" />
-                    <Label fx:id="Id" layoutX="224.0" layoutY="35.0" prefHeight="32.0" prefWidth="131.0" text="Label">
-                      <font>
-                        <Font size="28.0" />
-                      </font>
-                    </Label>
-                        <VBox fx:id="vbox_messages1" layoutX="792.0" layoutY="152.0" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <TabPane prefHeight="200.0" prefWidth="253.0" tabClosingPolicy="UNAVAILABLE" />
-                           </children>
-                        </VBox>
-                        <VBox fx:id="vbox_messages" layoutX="126.0" layoutY="285.0" prefHeight="200.0" prefWidth="100.0" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          -->
         </tabs>
       </TabPane>
 </children>
-=======
-    <AnchorPane id="Content" layoutX="616.0" layoutY="106.0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-    <TabPane fx:id="onglets" layoutX="-3.0" prefHeight="800.0" prefWidth="1207.0" tabClosingPolicy="UNAVAILABLE">
-      <tabs>
-        <Tab text="Untitled Tab 1">
-          <content>
-            <AnchorPane fx:id="connected_users" minHeight="0.0" minWidth="0.0" prefHeight="741.0" prefWidth="546.0">
-              <children>
-                <Button fx:id="change_pseudo" layoutX="437.0" layoutY="14.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
-                <Button fx:id="disconnect" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
-                <ListView fx:id="myListconnected" editable="true" layoutX="121.0" layoutY="111.0" prefHeight="589.0" prefWidth="323.0" />
-                <Label fx:id="myLabel" layoutX="65.0" layoutY="51.0" prefHeight="44.0" prefWidth="434.0" text="Click on a connected user to start a chat session :" />
-              </children>
-            </AnchorPane>
-          </content>
-        </Tab>
-      </tabs>
-    </TabPane>
-  </children>
->>>>>>> 63976369a58260ed8b92fccc6ef1a6e0101b66d5
 </AnchorPane>
+
+        <!--
+            <AnchorPane id="Content" layoutX="616.0" layoutY="106.0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+            <TabPane fx:id="onglets" layoutX="-3.0" prefHeight="800.0" prefWidth="1207.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Untitled Tab 1">
+                  <content>
+                    <AnchorPane fx:id="connected_users" minHeight="0.0" minWidth="0.0" prefHeight="741.0" prefWidth="546.0">
+                      <children>
+                        <Button fx:id="change_pseudo" layoutX="437.0" layoutY="14.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
+                        <Button fx:id="disconnect" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
+                        <ListView fx:id="myListconnected" editable="true" layoutX="121.0" layoutY="111.0" prefHeight="589.0" prefWidth="323.0" />
+                        <Label fx:id="myLabel" layoutX="65.0" layoutY="51.0" prefHeight="44.0" prefWidth="434.0" text="Click on a connected user to start a chat session :" />
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+          </children>
+        </AnchorPane>
+        -->

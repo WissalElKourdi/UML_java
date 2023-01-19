@@ -84,13 +84,17 @@ public class MenuController extends Thread implements  Initializable {
    // private List_Connected list_co;
     private static String currentConnected;
 
-
+    /*
+    public MenuController() throws SQLException {
         createDB BD = new createDB(name_db);
-        BD.insertIpseudo("wissou","192.168.1.44",name_db);
-        BD.insertConnected("wissou",5000,name_db);
+        //BD.insertIpseudo("wissou", "192.168.1.44", name_db);
+        //BD.insertConnected("wissou", 5000, name_db);
         connected = BD.selectAllConnected(name_db);
         System.out.println(connected);
-    
+    }
+    */
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
