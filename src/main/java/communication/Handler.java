@@ -4,6 +4,7 @@ import Database.createDB;
 import Interface.MenuController;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.sql.SQLException;
 
@@ -29,10 +30,9 @@ public class Handler {
         }
         System.out.println("pseudo to connect with : "+pseudo);
         Socket socket= new Socket(ip,5000);
-
-     Session.getInstance().addSock(pseudo,socket);
-     return socket;}
-
+       System.out.println("ip" +ip);
+        Session.getInstance().addSock(pseudo,socket);
+        return socket;}
     public boolean isEtablished(String pseudo){
         if(Session.getInstance().getSock(pseudo)!=null)
             return true;

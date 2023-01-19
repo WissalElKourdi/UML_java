@@ -3,13 +3,13 @@ package Interface;
 import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
+import communication.Launch_receive;
 import communication.Sender;
 import communication.Session;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -34,7 +34,6 @@ import java.util.ResourceBundle;
 
 import static Interface.LoginController.client;
 import static javafx.application.Application.launch;
-import static javafx.collections.FXCollections.observableArrayList;
 
 public class MenuController extends Thread implements  Initializable {
     @FXML
@@ -43,6 +42,10 @@ public class MenuController extends Thread implements  Initializable {
     public TabPane onglets;
     @FXML
     public VBox vbox_messages;
+    @FXML
+    public VBox vbox_messages1;
+    private static final int port =2000;
+
     @FXML
     private Button disconnect;
     @FXML
@@ -61,16 +64,10 @@ public class MenuController extends Thread implements  Initializable {
     private Socket socket;
     private Sender sender;
 
-    private static final int port =2000;
-
-
     String name_db = "DB_MSG.db";
-    private Socket sockett;
     private BufferedReader bufferedReaderr;
     private BufferedWriter bufferedWriterr;
-    //private ServerTcp server;
-    public static Session session;
-    public static ServerSocket Srvsocket;
+
 
 
     //List users :
@@ -102,8 +99,10 @@ public class MenuController extends Thread implements  Initializable {
 
 
 
-        // ListChangeListener<Remote_Users> listener  = new ListChangeListener<Remote_Users>(){
-          //  @Override
+        Session.getInstance().start();
+        System.out.println("Connected to Client!");
+
+     //   vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
 
           //  public void onChanged(Change<? extends Remote_Users> change) {
                // myListconnected.setItems(observable_co);
@@ -184,19 +183,6 @@ public class MenuController extends Thread implements  Initializable {
             }
 
 
-            public void start(Stage primaryStage) {
-                ListView<String> list = new ListView<>();
-                FXCollections FXCollections = null;
-                ObservableList<String> arr = observableArrayList("Java", "HTML", "CSS", "C++", "PHP");
-                list.setItems(arr);
-                FlowPane root = new FlowPane();
-                root.getChildren().add(list);
-                Scene scene = new Scene(root, 300, 250);
-                primaryStage.setTitle("ListView");
-                primaryStage.setScene(scene);
-                primaryStage.show();
-            }
-
 
 
 
@@ -204,7 +190,7 @@ public class MenuController extends Thread implements  Initializable {
             void change_pseudo(ActionEvent event) {
                 //redirect to change pseudo page
                 try {
-                    Srvsocket.close();
+
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
                     Parent parent = loader.load();
                     Scene scene = new Scene(parent, 600, 400);
@@ -220,7 +206,7 @@ public class MenuController extends Thread implements  Initializable {
 
             @FXML
             void disconnect(ActionEvent event) throws SQLException, IOException {
-                Srvsocket.close();
+
                 //deconnexion
                 String DB_name = "DB_MSG.db";
                 createDB DB = new createDB(DB_name);

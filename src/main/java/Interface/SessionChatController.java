@@ -97,9 +97,9 @@ public class SessionChatController implements Initializable {
                     if(Handler.getInstance().isEtablished(pseudo)){
                         System.out.println("old connection");
                         try {
-                            Session.getInstance().start();
+                            //Session.getInstance().start();
                             sock=Session.getInstance().getSock(pseudo);
-                            sender= new Sender(socket,pseudo,messageToSend);
+                            sender= new Sender(sock,pseudo,messageToSend);
                         }
                         catch (IOException e) {
                             System.out.println("ooooooooow");
@@ -109,7 +109,6 @@ public class SessionChatController implements Initializable {
                      }else {
                         System.out.println("new Connection");
                         try {
-                            Session.getInstance().start();
                             sock =Handler.getInstance().startConnection(pseudo);
                         } catch (IOException e) {
                             System.out.println("erreur création du socket ");
@@ -122,7 +121,7 @@ public class SessionChatController implements Initializable {
                                 System.out.println("Connected");
                                 sender = new Sender(sock, pseudo, messageToSend); // le thread qui envoie les messages au client
                                 System.out.println("the sender is created");
-                                receiver = new Launch_receive(socket, pseudo); // le thread qui reçoit les messages
+                                receiver = new Launch_receive(sock, pseudo); // le thread qui reçoit les messages
                                 System.out.println("the receiver is created ");
                                 Launch_receive.sessions.add(receiver);
                                 receiver.start();
