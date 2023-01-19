@@ -88,29 +88,14 @@ public class MenuController extends Thread implements  Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-       // list = FXCollections.observableArrayList(conn.get_List());
-      //  myListconnected = new ListView<>();
         client.setMenu(this);
-       // myListconnected.getItems().addAll(List_Connected.listCo);
         List_Connected.print_co();
-        System.out.println("herrre");
-
-
-
-
+        myListconnected.getItems().addAll(List_Connected.listCo);
         Session.getInstance().start();
-        System.out.println("Connected to Client!");
-
-     //   vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
-
-          //  public void onChanged(Change<? extends Remote_Users> change) {
-               // myListconnected.setItems(observable_co);
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                         currentConnected = myListconnected.getSelectionModel().getSelectedItem();
                         myLabel.setText(currentConnected);
-                        //  scrollPane.setVvalue((Double) newValue);
                         try {
                             addTab(currentConnected);
                         } catch (IOException e) {
@@ -120,14 +105,14 @@ public class MenuController extends Thread implements  Initializable {
 
                 });  }
 
-            @FXML
-            private void addTab(String pseudo) throws IOException {
-                int numTabs = onglets.getTabs().size();
-                Tab tab = new Tab(pseudo);
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
-                tab.setContent(loader.load());
-                onglets.getTabs().add(tab);
-            }
+    @FXML
+    private void addTab(String pseudo) throws IOException {
+        int numTabs = onglets.getTabs().size();
+        Tab tab = new Tab(pseudo);
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
+        tab.setContent(loader.load());
+        onglets.getTabs().add(tab);
+    }
 
 
     public void update(){
@@ -135,54 +120,23 @@ public class MenuController extends Thread implements  Initializable {
         myListconnected.getItems().addAll(List_Connected.listCo);
     }
 
-            @FXML
-            private void listTabs() {
-                onglets.getTabs().forEach(tab -> System.out.println(tab.getText()));
-                System.out.println();
-            }
 
-            public static void addLabel(String messageFromClient, VBox vBox) {
-                HBox hBox = new HBox();
-                hBox.setAlignment(Pos.CENTER_LEFT);
-                hBox.setPadding(new Insets(5, 5, 5, 10));
+    @FXML
+    void change_pseudo(ActionEvent event) {
+        //redirect to change pseudo page
+        try {
 
-                Text text = new Text(messageFromClient);
-                TextFlow textFlow = new TextFlow(text);
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent, 600, 400);
+            mainFXML.mainStage.setTitle("Chat App");
+            mainFXML.mainStage.setScene(scene);
+            mainFXML.mainStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-                textFlow.setStyle(
-                        "-fx-background-color: rgb(233, 233, 235);" +
-                                "-fx-background-radius: 20px;");
-
-                textFlow.setPadding(new Insets(5, 10, 5, 10));
-                hBox.getChildren().add(textFlow);
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        vBox.getChildren().add(hBox);
-                    }
-                });
-            }
-
-
-
-
-
-            @FXML
-            void change_pseudo(ActionEvent event) {
-                //redirect to change pseudo page
-                try {
-
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
-                    Parent parent = loader.load();
-                    Scene scene = new Scene(parent, 600, 400);
-                    mainFXML.mainStage.setTitle("Chat App");
-                    mainFXML.mainStage.setScene(scene);
-                    mainFXML.mainStage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
+    }
 
 
             @FXML
