@@ -2,7 +2,9 @@ package UDP;
 
 import Database.createDB;
 import Interface.List_Connected;
+import Interface.MenuController;
 import Interface.Remote_Users;
+import Interface.MenuController;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -67,7 +69,11 @@ public class UDPManager extends UDP_Client{
             String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
             if (!addr.equals(mine)){
                 System.out.println("ADDR" + addr);
-            List_Connected.add_co(pseudo);}
+            List_Connected.add_co(pseudo);
+             //  menu.update_list();
+
+
+            }
 
         } else if (msg.startsWith("AskForState :")) {
             //broadcast udpdate state

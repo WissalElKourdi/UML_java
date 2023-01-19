@@ -4,7 +4,6 @@ import Database.createDB;
 import Interface.List_Connected;
 import Interface.MenuController;
 import javafx.application.Platform;
-import javafx.scene.Scene;
 
 import java.io.IOException;
 import java.net.*;
@@ -55,7 +54,7 @@ public class UDP_Client extends Thread {
                             List_Connected.add_co(pseudo);
                            // List_Connected.print_co();
                             System.out.println("AAAAAAAAAAAAAAAAAAA");
-                            menu.update();
+                            menu.update_list();
                         }
                     });
             }
