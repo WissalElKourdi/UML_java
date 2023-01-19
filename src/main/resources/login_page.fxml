@@ -11,11 +11,6 @@
    <children>
       <Pane prefHeight="800.0" prefWidth="1200.0">
          <children>
-            <ImageView fitHeight="800.0" fitWidth="469.0" layoutX="119.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/city.jpg" />
-               </image>
-            </ImageView>
             <ImageView fitHeight="823.0" fitWidth="1310.0" layoutX="-52.0" layoutY="-15.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/windowsxp.png" />

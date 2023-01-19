@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.ChangeLoginController">
    <children>
       <Pane prefHeight="800.0" prefWidth="1200.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#024029" height="800.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="343.0" layoutX="301.0" layoutY="134.0" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="598.0" />
-            <Label layoutX="472.0" layoutY="220.0" text="Change your username"></Label>
-            <Button fx:id="cancelButton" layoutX="553.0" layoutY="610.0" mnemonicParsing="false" onAction="#CancelClicked" text="Cancel" />
-            <Button fx:id="SaveButton" layoutX="562.0" layoutY="381.0" mnemonicParsing="false" onAction="#SaveNewLogin" text="Save" />
-            <TextField fx:id="NewLogin" layoutX="476.0" layoutY="284.0" prefHeight="54.0" prefWidth="249.0" promptText="Enter new username" />
-            <TextFlow fx:id="result" layoutX="437.0" layoutY="338.0" prefHeight="33.0" prefWidth="326.0" textAlignment="CENTER" />
+            <ImageView fitHeight="823.0" fitWidth="1310.0" layoutX="-52.0" layoutY="-15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/windowsxp.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="317.0" layoutX="224.0" layoutY="216.0" opacity="0.84" stroke="BLACK" strokeType="INSIDE" width="395.0" />
+            <Label layoutX="289.0" layoutY="260.0" text="Change your username" />
+            <Button fx:id="cancelButton" layoutX="441.0" layoutY="427.0" mnemonicParsing="false" onAction="#CancelClicked" text="Cancel" />
+            <Button fx:id="SaveButton" layoutX="297.0" layoutY="427.0" mnemonicParsing="false" onAction="#SaveNewLogin" text="Save" />
+            <TextField fx:id="NewLogin" layoutX="297.0" layoutY="311.0" prefHeight="54.0" prefWidth="249.0" promptText="Enter new username" />
+            <TextFlow fx:id="result" layoutX="259.0" layoutY="378.0" prefHeight="33.0" prefWidth="326.0" textAlignment="CENTER" />
 
          </children>
       </Pane>

@@ -1,30 +1,8 @@
-/*font import
-@font-face {
-    font-family: 'SourceCodePro-Black';
-    src: url('font/SourceCodePro-Black.ttf');
-}*/
 
 @font-face {
     font-family: 'VT323-Regular';
     src: url('font/VT323-Regular.ttf');
 }
-/*
-@font-face {
-    font-family: 'SourceCodePro-VariableFont_wght';
-    src: url('font/SourceCodePro-VariableFont_wght.ttf');
-}
-*/
-/*
-@font-face {
-  font-family: 'CourierPrime-Regular';
-  src: url('font/CourierPrime-Regular.ttf');
-}
-
-@font-face {
-  font-family: 'Chivo ExtraBold';
-  src: url('font/Chivo-ExtraBold.ttf');
-
-}*/
 /*
 #titre {
     -fx-font-family: 'Source Code Pro Black';
@@ -39,29 +17,34 @@
 /* classes*/
 .button {
     -fx-font-size: 15pt;
-    -fx-font-family: 'VT323-Regular';
+    -fx-font-family: 'VT323 Regular';
 }
 
 .label{
     -fx-font-size:15pt;
-    -fx-font-family: 'VT323-Regular';
+    -fx-font-family: 'VT323 Regular';
     /*
     -fx-font-family: 'Courier Prime Regular';*/
 }
 
 .textFlow {
     -fx-font-size: 20pt;
-    -fx-font-family: 'VT323-Regular';
+    -fx-font-family: 'VT323 Regular';
 }
 
 .textField {
     -fx-font-size: 17pt;
-    -fx-font-family: 'VT323-Regular';
+    -fx-font-family: 'VT323 Regular';
+}
+
+.textArea {
+    -fx-font-size: 17pt;
+    -fx-font-family: 'VT323 Regular';
 }
 
 .text {
     -fx-font-size: 17pt;
-    -fx-font-family: 'VT323-Regular';
+    -fx-font-family: 'VT323 Regular';
 }
 
 .scroll-pane {
