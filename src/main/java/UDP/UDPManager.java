@@ -70,7 +70,6 @@ public class UDPManager extends UDP_Client{
             if (!addr.equals(mine)){
                 System.out.println("ADDR" + addr);
             List_Connected.add_co(pseudo);
-             //  menu.update_list();
 
 
             }

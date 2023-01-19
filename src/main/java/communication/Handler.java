@@ -32,7 +32,7 @@ public class Handler {
             throw new RuntimeException(e);
         }
         System.out.println("pseudo to connect with : "+pseudo);
-        sock= new Socket(ip.trim(),1234);
+        sock= new Socket("192.168.1.44",1234);
         System.out.println(" ip : " +ip);
         Session.getInstance().addSock(pseudo,sock);
         return sock;}

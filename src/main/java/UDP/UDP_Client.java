@@ -45,14 +45,17 @@ public class UDP_Client extends Thread {
             String msg_rcv = new String (packet.getData(), 0, packet.getLength());
             msg_rcv = msg_rcv.trim();
             System.out.println("msg received :" +msg_rcv);
-            if (msg_rcv.startsWith("Connected :")  && menu != null){
+            if ( menu != null){
                 String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1);
-                  Platform.runLater(new Runnable() {
+                String finalMsg_rcv = msg_rcv;
+                Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
+                           // if(finalMsg_rcv.startsWith("Connected :") ){
                            // List_Connected.add_co(pseudo);
                             List_Connected.add_co(pseudo);
                            // List_Connected.print_co();
+                            //    }
                             System.out.println("AAAAAAAAAAAAAAAAAAA");
                             menu.update_list();
                         }
