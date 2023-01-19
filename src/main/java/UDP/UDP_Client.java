@@ -1,6 +1,10 @@
 package UDP;
 
 import Database.createDB;
+import Interface.List_Connected;
+import Interface.MenuController;
+import javafx.application.Platform;
+import javafx.scene.Scene;
 
 import java.io.IOException;
 import java.net.*;
@@ -13,6 +17,10 @@ public class UDP_Client extends Thread {
     private  boolean running;
 
     private createDB DB;
+    private MenuController menu;
+    List_Connected co = new List_Connected();
+
+
     public UDP_Client(int port) throws SocketException, SQLException {
         socket = new DatagramSocket(port);
         // if this fails (SocketException), the exception is non-recoverable and is propagated
@@ -38,11 +46,23 @@ public class UDP_Client extends Thread {
             String msg_rcv = new String (packet.getData(), 0, packet.getLength());
             msg_rcv = msg_rcv.trim();
             System.out.println("msg received :" +msg_rcv);
+            if (msg_rcv.startsWith("Connected :") && menu != null){
+                String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1);
+                  Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                           // List_Connected.add_co(pseudo);
+                            List_Connected.add_co(pseudo);
+                           // List_Connected.print_co();
+                            System.out.println("AAAAAAAAAAAAAAAAAAA");
+                            menu.update();
+
+                        }
+                    });
+            }
             try {
                 UDPManager.update(msg_rcv,DB,packet,socket);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
+            } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }
 
@@ -52,6 +72,13 @@ public class UDP_Client extends Thread {
         socket.close();
         System.out.println("socket closed port : " + socket.getPort());
     }
+
+    public void setMenu(MenuController Menu){
+        this.menu = Menu;
+
+    }
+
+
 }
             /*
         DatagramSocket socket ;
