@@ -26,9 +26,21 @@ public class LoginController {
     private TextField choose_username;
     @FXML
     private TextFlow returnText;
+    public static UDP_Client client;
+
+    static {
+        try {
+            client = new UDP_Client(port);
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public LoginController() throws SocketException, SQLException {
-        new UDP_Client(port).start();
+
+                client.start();
     }
 
     @FXML
@@ -46,10 +58,9 @@ public class LoginController {
             //    serv_udp.broadcast_end(port);
                 FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                 Parent parent = loader.load();
-
                 Scene scene = new Scene(parent, 1200,800);
                 scene.getStylesheets().add("/styles.css");
-
+               // client.setScene(scene);
                 mainFXML.mainStage.setTitle("Chat App");
                 mainFXML.mainStage.setScene(scene);
                 mainFXML.mainStage.show();

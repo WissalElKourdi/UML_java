@@ -69,156 +69,171 @@ public class MenuController extends Thread implements  Initializable {
 
 
     //List users :
-    @FXML
-    private ListView<String> myListView;
+  //  public static List_Connected conn = new List_Connected();
+
+
+    public static ArrayList<String> coo = new ArrayList<>(List_Connected.listCo);
     @FXML
     private Label myLabel;
-    List<String> connected;
-    static String currentConnected;
 
-    public MenuController() throws SQLException {
+    @FXML
+    private ListView<String> myListconnected;
+    private ObservableList<String> list ;
+   // private List_Connected list_co;
+    private static String currentConnected;
 
-        createDB BD = new createDB(name_db);
-        //BD.insertIpseudo("testt","192.168.1.93",name_db);
-       // BD.insertConnected("testt",5000,name_db);
-        connected = BD.selectAllConnected(name_db);
-        System.out.println(connected);
-    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Session.getInstance().start();
-        //System.out.println("Connected to Client!");
-        myListView.getItems().addAll(connected);
+       // list = FXCollections.observableArrayList(conn.get_List());
+      //  myListconnected = new ListView<>();
+        client.setMenu(this);
+       // myListconnected.getItems().addAll(List_Connected.listCo);
+        List_Connected.print_co();
+        System.out.println("herrre");
 
-        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-                 //   (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                currentConnected = myListView.getSelectionModel().getSelectedItem();
-                myLabel.setText(currentConnected);
+
+
+
+        Session.getInstance().start();
+        System.out.println("Connected to Client!");
+
+     //   vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
+
+          //  public void onChanged(Change<? extends Remote_Users> change) {
+               // myListconnected.setItems(observable_co);
+        myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+                    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                        currentConnected = myListconnected.getSelectionModel().getSelectedItem();
+                        myLabel.setText(currentConnected);
+                        //  scrollPane.setVvalue((Double) newValue);
+                        try {
+                            addTab(currentConnected);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                });  }
+
+            @FXML
+            private void addTab(String pseudo) throws IOException {
+                int numTabs = onglets.getTabs().size();
+                Tab tab = new Tab(pseudo);
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
+                tab.setContent(loader.load());
+                onglets.getTabs().add(tab);
+            }
+
+ /*   @FXML
+    public static void update_list(){
+        Platform.runLater(() -> {
+            observable_co = FXCollections.observableList(list_co.get_List());
+            myListconnected.setItems(observable_co);
+        });
+    }
+       this.myListconnected(this.observable_co);
+        observable_co.clear();
+        observable_co.addAll(coo);
+        myListView.setItems(observable_co);*/
+
+ /*   public void notifyChangelist_Co() {
+        System.out.println("notify change user");
+        this.observers.forEach(configObserver -> {
+            update_list();
+        });
+    }*/
+
+    public void update(){
+       // myListconnected.
+        myListconnected.getItems().clear();
+        myListconnected.getItems().addAll(List_Connected.listCo);
+    }
+
+            @FXML
+            private void listTabs() {
+                onglets.getTabs().forEach(tab -> System.out.println(tab.getText()));
+                System.out.println();
+            }
+
+            public static void addLabel(String messageFromClient, VBox vBox) {
+                HBox hBox = new HBox();
+                hBox.setAlignment(Pos.CENTER_LEFT);
+                hBox.setPadding(new Insets(5, 5, 5, 10));
+
+                Text text = new Text(messageFromClient);
+                TextFlow textFlow = new TextFlow(text);
+
+                textFlow.setStyle(
+                        "-fx-background-color: rgb(233, 233, 235);" +
+                                "-fx-background-radius: 20px;");
+
+                textFlow.setPadding(new Insets(5, 10, 5, 10));
+                hBox.getChildren().add(textFlow);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        vBox.getChildren().add(hBox);
+                    }
+                });
+            }
+
+
+
+
+
+            @FXML
+            void change_pseudo(ActionEvent event) {
+                //redirect to change pseudo page
                 try {
-                    addTab(currentConnected);
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
+                    Parent parent = loader.load();
+                    Scene scene = new Scene(parent, 600, 400);
+                    mainFXML.mainStage.setTitle("Chat App");
+                    mainFXML.mainStage.setScene(scene);
+                    mainFXML.mainStage.show();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                }
+
+            }
+
+
+            @FXML
+            void disconnect(ActionEvent event) throws SQLException, IOException {
+
+                //deconnexion
+                String DB_name = "DB_MSG.db";
+                createDB DB = new createDB(DB_name);
+                String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") + 1);
+                System.out.println("ADDRR" + addr);
+
+                System.out.println(DB.getMonPseudo(DB_name));
+                // new UDP_Client(port).start();
+                UDP_Server serv_udp = new UDP_Server();
+                serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
+                System.out.println("PSEUDOOO" + DB.getPseudo(addr, DB_name));
+                //  serv_udp.broadcast_end(port);
+                //retour à la page d'accueil (login)
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
+                    Parent parent = loader.load();
+                    Scene scene = new Scene(parent, 600, 400);
+                    scene.getStylesheets().add("/styles.css");
+                    mainFXML.mainStage.setTitle("Chat App");
+                    mainFXML.mainStage.setScene(scene);
+                    mainFXML.mainStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        });
-
-    /*******************************/
-
-    }
-    @FXML
-    private void addTab(String pseudo) throws IOException {
-        int numTabs = onglets.getTabs().size();
-        Tab tab = new Tab(pseudo);
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
-        tab.setContent(loader.load());
-        onglets.getTabs().add(tab);
-    }
-    @FXML
-    private void listTabs() {
-        onglets.getTabs().forEach(tab -> System.out.println(tab.getText()));
-        System.out.println();
-    }
-    public static void addLabel(String messageFromClient, VBox vBox){
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.CENTER_LEFT);
-        hBox.setPadding(new Insets(5, 5, 5, 10));
-
-        Text text = new Text(messageFromClient);
-        TextFlow textFlow = new TextFlow(text);
-
-        textFlow.setStyle(
-                "-fx-background-color: rgb(233, 233, 235);" +
-                        "-fx-background-radius: 20px;");
-
-        textFlow.setPadding(new Insets(5, 10, 5, 10));
-        hBox.getChildren().add(textFlow);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                vBox.getChildren().add(hBox);
-            }
-        });
-    }
-
-    public static void update_list(){
-        List_Connected co = new List_Connected();
-      //  connected = FXCollections.observableArrayList();
-        //connected.addAll( co.get_List());
-      //  myListView.getItems().addAll(connected);
-       // myListView.setItems(connected);
-
-    }
-
-    public void start(Stage primaryStage) {
-        ListView<String> list = new ListView<>();
-        FXCollections FXCollections = null;
-        ObservableList<String> arr = javafx.collections.FXCollections.observableArrayList("Java", "HTML", "CSS", "C++", "PHP");
-        list.setItems(arr);
-        FlowPane root = new FlowPane();
-        root.getChildren().add(list);
-        Scene scene = new Scene(root, 300, 250);
-        primaryStage.setTitle("ListView");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
+            public static String get_pseudo_user(){return currentConnected;}
 
 
-    @FXML
-    void change_pseudo(ActionEvent event) {
-        //redirect to change pseudo page
-        try {
-            //Srvsocket.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+
         }
-
-    }
-
-
-    @FXML
-    void disconnect(ActionEvent event) throws SQLException, IOException {
-        //Srvsocket.close();
-        //deconnexion
-        String DB_name = "DB_MSG.db";
-        createDB DB = new createDB(DB_name);
-        String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/")+1);
-        System.out.println("ADDRR" +addr);
-
-        System.out.println( DB.getMonPseudo(DB_name));
-        // new UDP_Client(port).start();
-        UDP_Server serv_udp = new UDP_Server();
-        serv_udp.broadcast_deconnection( DB.getMonPseudo(DB_name), port);
-        System.out.println("PSEUDOOO" +DB.getPseudo(addr, DB_name));
-      //  serv_udp.broadcast_end(port);
-        //retour à la page d'accueil (login)
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
-            scene.getStylesheets().add("/styles.css");
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String get_pseudo_user(){
-        return currentConnected;
-    }
-
-
-    public void esteban(ActionEvent actionEvent) {
-    }
-}
 

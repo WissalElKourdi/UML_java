@@ -2,26 +2,28 @@
 package Interface;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class List_Connected {
+    public static final List<String> listCo = new ArrayList<String>();
     public List_Connected() {
-        this.listCo.add("ststst");
+        listCo.add("ststst");
     }
 
-    ArrayList<String> listCo= new ArrayList<>();
-    public ArrayList<String> get_List(){
-        return this.listCo;
+    public List<String> get_List(){
+        return listCo;
     }
-    public void add_co(String pseudo){
-        this.listCo.add(pseudo);
+    public static void add_co(String pseudo){
+        listCo.add(pseudo);
+      //  MenuController.notifyChangelist_Co;
     }
-    public void print_co() {
-
-
-        for (int i = 0; i < this.listCo.size();i++)
+    public static void print_co() {
+        for (int i = 0; i < listCo.size();i++)
         {
-            System.out.println(this.listCo.get(i));
+            System.out.println(listCo.get(i));
         }
     }
+
+
 
 }

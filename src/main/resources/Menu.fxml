@@ -21,9 +21,8 @@
               <children>
                 <Button fx:id="change_pseudo" layoutX="437.0" layoutY="14.0" mnemonicParsing="false" onAction="#change_pseudo" text="Change pseudo" />
                 <Button fx:id="disconnect" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#disconnect" text="Disconnect" />
-                <ListView fx:id="myListView" editable="true" layoutX="121.0" layoutY="111.0" prefHeight="589.0" prefWidth="323.0" />
+                <ListView fx:id="myListconnected" editable="true" layoutX="121.0" layoutY="111.0" prefHeight="589.0" prefWidth="323.0" />
                 <Label fx:id="myLabel" layoutX="65.0" layoutY="51.0" prefHeight="44.0" prefWidth="434.0" text="Click on a connected user to start a chat session :" />
-                <Button fx:id="test" layoutX="467.0" layoutY="60.0" mnemonicParsing="false" onAction="#esteban" text="Button" />
               </children>
             </AnchorPane>
           </content>
