@@ -32,6 +32,8 @@ public class SessionChatController implements Initializable {
     @FXML
     private Button button_send;
     @FXML
+    private Button button_close;
+    @FXML
     private TextField tf_message;
     @FXML
     VBox vBoxMessages;
@@ -44,6 +46,7 @@ public class SessionChatController implements Initializable {
     private String  ip;
     private Launch_receive receiver;
     private Label Id;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
@@ -156,4 +159,12 @@ public class SessionChatController implements Initializable {
                 vBox.getChildren().add(hBox);
             }
         });
-    }}
+    }
+    /*
+    public void close_tab(ActionEvent Event) {
+        MenuController.onglets.getTabs().remove(tab);
+
+
+    }*/
+
+}
