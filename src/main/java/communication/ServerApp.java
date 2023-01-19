@@ -1,4 +1,4 @@
-package Interface;
+package communication;
 
 
 import javafx.application.*;

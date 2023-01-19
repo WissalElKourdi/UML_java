@@ -1,7 +1,6 @@
 
 package Interface;
-import Database.createDB;
-import Interface.ServerTcp;
+import USERS.Pseudo;
 import communication.Handler;
 import communication.Launch_receive;
 import communication.Sender;
@@ -26,11 +25,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 

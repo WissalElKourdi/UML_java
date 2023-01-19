@@ -1,6 +1,5 @@
-package Interface;
+package communication;
 
-import javafx.scene.layout.VBox;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;

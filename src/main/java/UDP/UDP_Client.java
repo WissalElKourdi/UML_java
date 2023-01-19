@@ -1,7 +1,7 @@
 package UDP;
 
 import Database.createDB;
-import Interface.List_Connected;
+import USERS.List_Connected;
 import Interface.MenuController;
 import javafx.application.Platform;
 
@@ -45,9 +45,8 @@ public class UDP_Client extends Thread {
             String msg_rcv = new String (packet.getData(), 0, packet.getLength());
             msg_rcv = msg_rcv.trim();
             System.out.println("msg received :" +msg_rcv);
-            if ( menu != null){
-                String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1);
-                String finalMsg_rcv = msg_rcv;
+                String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1).trim();
+                //String finalMsg_rcv = msg_rcv;
                 Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -57,10 +56,12 @@ public class UDP_Client extends Thread {
                            // List_Connected.print_co();
                             //    }
                             System.out.println("AAAAAAAAAAAAAAAAAAA");
-                            menu.update_list();
+                            if ( menu != null){
+
+                            menu.update_list();}
                         }
                     });
-            }
+
             try {
                 UDPManager.update(msg_rcv,DB,packet,socket);
             } catch (SQLException | IOException e) {

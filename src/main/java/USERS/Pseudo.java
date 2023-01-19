@@ -1,4 +1,4 @@
-package Interface;
+package USERS;
 
 public class Pseudo {
     private static final Pseudo instance = new Pseudo();

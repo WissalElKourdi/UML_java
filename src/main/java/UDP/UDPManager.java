@@ -1,10 +1,10 @@
 package UDP;
 
 import Database.createDB;
-import Interface.List_Connected;
 import Interface.MenuController;
-import Interface.Remote_Users;
-import Interface.MenuController;
+import USERS.List_Connected;
+import USERS.List_USers;
+import USERS.Remote_Users;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -31,8 +31,8 @@ public class UDPManager extends UDP_Client{
     public static void update(String msg, createDB DB, DatagramPacket packet, DatagramSocket socket) throws SQLException, IOException {
         String name_db = "DB_MSG.db";
         List_Connected co = new List_Connected();
-
-        int port = 2000;
+         MenuController menu;
+        int port = 3000;
         if (msg.startsWith("new pseudo :")) {
             String pseudo1 = msg.substring(msg.lastIndexOf(':') + 1);
             String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
@@ -55,7 +55,9 @@ public class UDPManager extends UDP_Client{
             String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
 
             if (!addr.equals(mine)){
+
             DB.insertConnected(pseudo3.trim(), port, name_db);
+            List_Connected.add_co(pseudo3);
             }
 
 
@@ -84,6 +86,7 @@ public class UDPManager extends UDP_Client{
             pseudo = pseudo.substring(0, pseudo.indexOf("/"));
             String addr = msg.substring(msg.lastIndexOf('/') + 1);
             Remote_Users user = new Remote_Users(pseudo,addr);
+            List_USers.add_User(user);
 
         }
 

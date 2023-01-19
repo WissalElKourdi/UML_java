@@ -4,7 +4,7 @@ import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
 import UDP.IP_addr;
-import javafx.collections.ObservableList;
+import communication.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +18,9 @@ import java.net.SocketException;
 import java.sql.SQLException;
 
 public class LoginController {
-    private static final int port = 2000;
+    private static int port = 3000;
     UDP_Server serv_udp = new UDP_Server();
+    //UDP_Client client = new UDP_Client(port);
     private final String Name_DB = "DB_MSG.db";
     @FXML
     private Button LoginButton;
@@ -39,9 +40,22 @@ public class LoginController {
         }
     }
 
+
+    ;
+
+
+
+
+
     public LoginController() throws SocketException, SQLException {
 
                 client.start();
+        Session session = Session.getInstance();
+        session.start();
+    }
+
+    public static UDP_Client get_client(){
+        return client;
     }
 
     @FXML

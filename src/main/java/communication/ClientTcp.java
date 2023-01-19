@@ -1,12 +1,11 @@
-package Interface;
+package communication;
 
+import Interface.SessionChatController;
 import javafx.scene.layout.VBox;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.LocalTime;
-import java.util.Scanner;
 
 public class ClientTcp {
 
