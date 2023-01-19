@@ -99,43 +99,8 @@ public class ChatSessionController implements Initializable {
         createDB DB = new createDB(DB_name);
         msgs = DB.selectAllMsgHistory(DB_name);
         myListView.getItems().addAll(msgs);
-
-    }
-    @FXML
-    void backToMenu(ActionEvent event) throws IOException {
-        try {
-            //retour vers la page principale
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
-            scene.getStylesheets().add("/styles.css");
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setResizable(false);
-
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
-    @FXML
-    void changepseudo(ActionEvent event) throws IOException {
-        //redirige vers la page de changement de login
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent, 600, 400);
-            scene.getStylesheets().add("/styles.css");
-            mainFXML.mainStage.setTitle("Chat App");
-            mainFXML.mainStage.setResizable(false);
-
-            mainFXML.mainStage.setScene(scene);
-            mainFXML.mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 

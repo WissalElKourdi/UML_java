@@ -22,8 +22,8 @@
             <Label layoutX="289.0" layoutY="260.0" text="Change your username" />
             <Button fx:id="cancelButton" layoutX="441.0" layoutY="427.0" mnemonicParsing="false" onAction="#CancelClicked" text="Cancel" />
             <Button fx:id="SaveButton" layoutX="297.0" layoutY="427.0" mnemonicParsing="false" onAction="#SaveNewLogin" text="Save" />
-            <TextField fx:id="NewLogin" layoutX="297.0" layoutY="311.0" prefHeight="54.0" prefWidth="249.0" promptText="Enter new username" />
-            <TextFlow fx:id="result" layoutX="259.0" layoutY="378.0" prefHeight="33.0" prefWidth="326.0" textAlignment="CENTER" />
+            <TextField fx:id="NewLogin" layoutX="297.0" layoutY="311.0" onAction="#SaveNewLogin" prefHeight="54.0" prefWidth="249.0" promptText="Enter new username" style="-fx-font-family: 'VT323 Regular'; -fx-font-size: 17pt;" />
+            <TextFlow fx:id="result" layoutX="259.0" layoutY="378.0" prefHeight="33.0" prefWidth="326.0" style=" -fx-font-family: 'VT323 Regular'; -fx-font-size: 13pt;" textAlignment="CENTER" />
 
          </children>
       </Pane>

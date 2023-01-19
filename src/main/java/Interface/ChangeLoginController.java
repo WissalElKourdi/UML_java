@@ -99,6 +99,5 @@ public class ChangeLoginController {
                         result.getChildren().clear();
                         result.getChildren().add(text);
                 }
-
         }
 }
