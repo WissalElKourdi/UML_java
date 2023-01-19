@@ -56,7 +56,6 @@ public class UDP_Client extends Thread {
                            // List_Connected.print_co();
                             System.out.println("AAAAAAAAAAAAAAAAAAA");
                             menu.update();
-
                         }
                     });
             }
@@ -75,10 +74,7 @@ public class UDP_Client extends Thread {
 
     public void setMenu(MenuController Menu){
         this.menu = Menu;
-
     }
-
-
 }
             /*
         DatagramSocket socket ;
