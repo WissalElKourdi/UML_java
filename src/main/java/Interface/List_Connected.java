@@ -6,9 +6,7 @@ import java.util.List;
 
 public class List_Connected {
     public static final List<String> listCo = new ArrayList<String>();
-    public List_Connected() {
-        listCo.add("ststst");
-    }
+
 
     public List<String> get_List(){
         return listCo;
