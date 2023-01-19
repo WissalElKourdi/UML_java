@@ -33,7 +33,7 @@ public class Session extends Thread {
         return Session;
 }
     public Session() throws IOException { // ce thread crée le serveur principal et attribue à chaque client un socket
-        user= new ServerSocket(5000);
+        user= new ServerSocket(1234);
         map_socket=new HashMap<>();
     }
 
@@ -48,6 +48,9 @@ private String adresse(InetAddress ip){
     }
 
     public Socket getSock(String pseudo){
+        System.out.println("pseudo de get sock de session = " + pseudo);
+        System.out.println("pseudo de get sock de session = " + pseudo);
+
         return this.map_socket.get(pseudo);
     }
 
