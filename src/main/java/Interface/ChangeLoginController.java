@@ -29,7 +29,7 @@ public class ChangeLoginController {
         private TextFlow result;
         UDP_Server serv_udp = new UDP_Server();
 
-        public ChangeLoginController() throws SocketException {
+        public ChangeLoginController() throws SocketException, SQLException {
         }
 
         /*      public ChangeLoginController() {

@@ -46,7 +46,7 @@ public class UDP_Client extends Thread {
             String msg_rcv = new String (packet.getData(), 0, packet.getLength());
             msg_rcv = msg_rcv.trim();
             System.out.println("msg received :" +msg_rcv);
-            if (msg_rcv.startsWith("Connected :") && menu != null){
+            if (msg_rcv.startsWith("Connected :")  && menu != null){
                 String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1);
                   Platform.runLater(new Runnable() {
                         @Override

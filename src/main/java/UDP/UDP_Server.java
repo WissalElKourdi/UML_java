@@ -10,7 +10,8 @@ public class UDP_Server {
     private DatagramSocket socket;
     private static final String Name_DB = "DB_MSG.db";
 
-    public UDP_Server() throws SocketException {
+    private createDB DB = new createDB(Name_DB);
+    public UDP_Server() throws SocketException, SQLException {
         this.socket = new DatagramSocket();
     }
     public void send_udp(String broadcastMSg, InetAddress Address, int port) throws IOException {
@@ -27,7 +28,7 @@ public class UDP_Server {
         this.send_udp(broadcastMSg, InetAddress.getByName("255.255.255.255"),port);
     }
     public boolean broadcast_Pseudo (String pseudo, int port ) throws IOException, SQLException {
-        createDB DB = new createDB(Name_DB);
+
         if ( DB.check(pseudo,Name_DB) ) {
             System.out.println("Choose new pseudo : this one is already taken");
             return false;
@@ -40,7 +41,7 @@ public class UDP_Server {
 
     public boolean broadcast_ChangePseudo (String newpseudo, int port) throws IOException, SQLException {
 
-        createDB DB = new createDB(Name_DB);
+
 
         if ( DB.check(newpseudo,Name_DB) ) {
             System.out.println("Choose new pseudo : this one is already taken");
@@ -55,7 +56,7 @@ public class UDP_Server {
 
     //broadcast la connection auprès des autres utilisateurs
     public void broadcast_connection (String pseudo, int port) throws IOException, SQLException {
-        createDB DB = new createDB(Name_DB);
+
 
         if ( DB.check(pseudo,Name_DB) ) {
             System.out.println("Failed Choose new pseudo : this one is already taken");
@@ -68,7 +69,7 @@ public class UDP_Server {
 
     //se déconnecter et broadcast auprès des autres utilisateurs
     public void broadcast_deconnection (String pseudo, int port) throws IOException, SQLException {
-        createDB DB = new createDB(Name_DB);
+
         if ( DB.check(pseudo,Name_DB) ) {
             broadcast("Deconnected :" + pseudo, port);
             System.out.println("Deconnected :" + pseudo);
@@ -80,8 +81,8 @@ public class UDP_Server {
         broadcast("end", port);
     }
     public void broadcast_MyState (String pseudo, int port) throws IOException, SQLException {
-        broadcast("UpdtateState :" + pseudo, port);
-        System.out.println("UpdtateState :" + pseudo);
+        broadcast("UpdtateState :" + DB.getMonPseudo(Name_DB), port);
+        System.out.println("UpdtateState :" + DB.getMonPseudo(Name_DB));
     }
 
     public void broadcast_AskState (String pseudo, int port) throws IOException, SQLException {
