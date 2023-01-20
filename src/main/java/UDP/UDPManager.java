@@ -78,7 +78,21 @@ public class UDPManager extends UDP_Client {
             Remote_Users user = new Remote_Users(pseudo, addr);
             System.out.println("I am ADDING TO THE LIST USER ==>" + pseudo + "   " + addr);
             List_USers.add_User(user);
+
+        }else if (msg.startsWith("MY INFOS CHANGE :")) {
+            String pseudo = msg.substring(msg.indexOf(":") + 1);
+            pseudo = pseudo.substring(0, pseudo.indexOf("/"));
+            String addr = msg.substring(msg.lastIndexOf('/') + 1);
+            String old = DB.getMonPseudo(name_db);
+            Remote_Users old_user = List_USers.get_user_from_pseudo(old);
+            List_USers.remove_user(old_user);
+            Remote_Users user = new Remote_Users(pseudo, addr);
+            List_USers.add_User(user);
+            List_Connected.listCo.remove(old);
+            List_Connected.listCo.add(pseudo);
+
         }
+
  //commentaire pour commit
     }
 

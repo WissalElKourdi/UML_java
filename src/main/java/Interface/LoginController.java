@@ -103,11 +103,12 @@ public class LoginController {
                     e.printStackTrace();
                 }
             } else {
-                serv_udp.broadcast_end(port);
+               // serv_udp.broadcast_end(port);
                 Text text = new Text("This username is already taken, choose another one");
                 returnText.getChildren().clear();
                 returnText.getChildren().add(text);
             }
+
         }else {
                 Text text = new Text ("The username should be between 5 and 15 characters long, and contain only letters and digits.");
                 returnText.getChildren().clear();

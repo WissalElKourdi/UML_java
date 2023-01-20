@@ -61,9 +61,8 @@ public class UDP_Client extends Thread {
                                 List_Connected.add_co(pseudo);
                                  }
                              if ( menu != null){
-
                                  System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA ");
-                            menu.update_list();}
+                                menu.update_list();}
                         }
                     });
 

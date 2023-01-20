@@ -4,6 +4,7 @@ import static Interface.LoginController.client;
 import Database.createDB;
 import UDP.UDP_Server;
 import USERS.List_Connected;
+import communication.Launch_receive;
 import communication.Sender;
 import communication.Session;
 import javafx.application.Platform;
@@ -76,15 +77,15 @@ public class MenuController extends Thread implements  Initializable {
     private ObservableList<String> list ;
     private static String currentConnected;
     public static HashMap<String,SessionChatController> ListControllers = new HashMap<>();
-
+    Session session = Session.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //update_list();
         client.setMenu(this);
         myListconnected.getItems().addAll(List_Connected.listCo);
-       Session session = Session.getInstance();
-        session.start();
+
+
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                         currentConnected = myListconnected.getSelectionModel().getSelectedItem();
@@ -137,7 +138,7 @@ public class MenuController extends Thread implements  Initializable {
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
         try {
-
+            session.close_sess();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 1200, 800);
