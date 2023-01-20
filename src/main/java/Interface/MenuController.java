@@ -20,8 +20,10 @@ import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import static Interface.LoginController.get_client;
 import static javafx.application.Application.launch;
 
 public class MenuController extends Thread implements  Initializable {
@@ -52,9 +54,11 @@ public class MenuController extends Thread implements  Initializable {
     private Socket socket;
     private Sender sender;
 
+
     String name_db = "DB_MSG.db";
     private BufferedReader bufferedReaderr;
     private BufferedWriter bufferedWriterr;
+    public static List<String> listTabs;
 
 
 
@@ -72,12 +76,13 @@ public class MenuController extends Thread implements  Initializable {
 
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //update_list();
         client.setMenu(this);
         myListconnected.getItems().addAll(List_Connected.listCo);
-        Session session = Session.getInstance();
+       Session session = Session.getInstance();
         session.start();
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -95,11 +100,15 @@ public class MenuController extends Thread implements  Initializable {
     @FXML
     private void addTab(String pseudo) throws IOException {
         int numTabs = onglets.getTabs().size();
+        //listTabs.add(pseudo);
         Tab tab = new Tab(pseudo);
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
         tab.setContent(loader.load());
         onglets.getTabs().add(tab);
     }
+
+
+
 
 
     public void update_list(){
@@ -115,6 +124,7 @@ public class MenuController extends Thread implements  Initializable {
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 1200, 800);
             scene.getStylesheets().add("/styles.css");
+            mainFXML.mainStage.setTitle("Chat App");
 
             mainFXML.mainStage.setTitle("Totally spicy");
             mainFXML.mainStage.setScene(scene);
@@ -125,9 +135,9 @@ public class MenuController extends Thread implements  Initializable {
 
     }
 
+
             @FXML
             void disconnect(ActionEvent event) throws SQLException, IOException {
-
                 //deconnexion
                 String DB_name = "DB_MSG.db";
                 createDB DB = new createDB(DB_name);
@@ -148,9 +158,11 @@ public class MenuController extends Thread implements  Initializable {
                     e.printStackTrace();
                 }
             }
-    public static String get_pseudo_user(){
-        return currentConnected;
-    }
+
+            public static String get_pseudo_user(){return currentConnected;}
+
+
+
 
 }
 

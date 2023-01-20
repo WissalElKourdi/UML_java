@@ -44,16 +44,19 @@ public class SessionChatController implements Initializable {
     Label time;
     @FXML
     private ScrollPane sp_main;
+
+    String name_db = "DB_MSG.db";
+
     private Socket socket;
     private Sender sender;
     private String  ip;
     private Launch_receive receiver;
     private Label Id;
-
-
+    public static SessionChatController sessionchat;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        sessionchat = this;
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -62,24 +65,24 @@ public class SessionChatController implements Initializable {
         });
 
         vBoxMessages.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                           @Override
-                                           public void handle(MouseEvent mouseEvent) {
-                                               //get the time at which then message was sent (find in db)
-                                               String Messagetime = mouseEvent.getSource();
-                                               //display it on the label
-                                               time.setText(Messagetime);
-                                           }
-                                       }
+           @Override
+           public void handle(MouseEvent mouseEvent) {
+               /*
+               //get the time at which then message was sent (find in db)
+               String Messagetime = Database.createDB.getDateFromMessage(mouseEvent.getSource(),name_db);
+               //display it on the label
+               time.setText(Messagetime);
+               */
 
+           }
+        });
 
-        button_send.setOnAction(new EventHandler<ActionEvent>()
-
-            {
-                @Override
-                public void handle (ActionEvent actionEvent){
+        button_send.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
                 String pseudo = MenuController.get_pseudo_user();
                 String messageToSend = tf_message.getText();
-                Socket sock = null;
+                Socket sock=null;
                 if (!messageToSend.isBlank()) {
                     HBox hBox = new HBox();
                     hBox.setAlignment(Pos.CENTER_RIGHT);
@@ -90,7 +93,7 @@ public class SessionChatController implements Initializable {
 
                     textFlow.setStyle(
                             "-fx-color: rgb(239, 242, 255);" +
-                                    "-fx-background-color: #21ca51;" +
+                                    "-fx-background-color: #ae96b7;" +
                                     "-fx-background-radius: 20px;" +
                                     "-fx-font-size: 15pt;");
 
@@ -103,21 +106,22 @@ public class SessionChatController implements Initializable {
                     System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
                     //cas 1 : la session avec l'utilisateur est déja établie
-                    if (Handler.getInstance().isEtablished(pseudo)) {
+                    if(Handler.getInstance().isEtablished(pseudo)){
                         System.out.println("old connection");
                         try {
                             //Session.getInstance().start();
-                            sock = Session.getInstance().getSock(pseudo);
-                            sender = new Sender(sock, pseudo, messageToSend);
-                        } catch (IOException e) {
+                            sock=Session.getInstance().getSock(pseudo);
+                            sender= new Sender(sock,pseudo,messageToSend);
+                        }
+                        catch (IOException e) {
                             throw new RuntimeException(e);
 
                         }
-                    } else {
+                     }else {
                         System.out.println("new Connection");
                         try {
                             System.out.println("PSEUDOOO de sessionchatcontroller pour le sock" + pseudo);
-                            sock = Handler.getInstance().startConnection(pseudo);
+                            sock =Handler.getInstance().startConnection(pseudo);
                         } catch (IOException e) {
                             System.out.println("erreur création du socket ");
                             throw new RuntimeException(e);
@@ -141,16 +145,24 @@ public class SessionChatController implements Initializable {
                         }
                     }
 
-                    if (messageToSend.isEmpty() && sock.isConnected()) {
+                    if(messageToSend.isEmpty() && sock.isConnected()){
                         sender.start();
                         tf_message.clear();
                     }
                     vBoxMessages.getChildren().add(hBox);
 
+
                 }
             }
             });
         }
+
+    public void updatercv_msg(String msgrcv){
+        addLabel(msgrcv,vBoxMessages);
+            this.vBoxMessages.getChildren().clear();
+
+    }
+
 
     public static void addLabel(String messageFromClient, VBox vBox){
         HBox hBox = new HBox();
@@ -175,11 +187,10 @@ public class SessionChatController implements Initializable {
             }
         });
     }
+
     /*
     public void close_tab(ActionEvent Event) {
         MenuController.onglets.getTabs().remove(tab);
-
-
     }*/
 
 }

@@ -49,7 +49,7 @@ public class Sender extends Thread{
         }
         System.out.println("message sent  :  "+message+" to user "+pseudo);
         DateTimeFormatter time= DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        DB.insertHistory(message, time.toString(),pseudo, socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
+        DB.insertMSGSent(message, time.toString(),pseudo, socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
     }
 
 }
