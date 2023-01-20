@@ -6,6 +6,7 @@ import UDP.UDP_Server;
 import USERS.List_Connected;
 import communication.Sender;
 import communication.Session;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -21,6 +22,7 @@ import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -61,7 +63,7 @@ public class MenuController extends Thread implements  Initializable {
     String name_db = "DB_MSG.db";
     private BufferedReader bufferedReaderr;
     private BufferedWriter bufferedWriterr;
-    public static List<String> listTabs;
+    public List<Tab> listTabs;
 
 
 
@@ -76,8 +78,7 @@ public class MenuController extends Thread implements  Initializable {
     private ListView<String> myListconnected;
     private ObservableList<String> list ;
     private static String currentConnected;
-
-
+    public static HashMap<String,SessionChatController> ListControllers = new HashMap<>();
 
 
     @Override
@@ -87,7 +88,7 @@ public class MenuController extends Thread implements  Initializable {
         client.setMenu(this);
 
         myListconnected.getItems().addAll(List_Connected.listCo);
-        Session session = Session.getInstance();
+       Session session = Session.getInstance();
         session.start();
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -105,12 +106,30 @@ public class MenuController extends Thread implements  Initializable {
     @FXML
     private void addTab(String pseudo) throws IOException {
         int numTabs = onglets.getTabs().size();
-        //listTabs.add(pseudo);
+
         Tab tab = new Tab(pseudo);
+
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
         tab.setContent(loader.load());
+        //listTabs.add(loader.getController());
+       // listTabs.add(pseudo);
+        SessionChatController controller = (SessionChatController) loader.getController();
+        Platform.runLater(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        controller.addMsg("hohoeoeoeoe");
+                    }
+                }
+        );
+
+      ListControllers.put(pseudo, controller);
+
         onglets.getTabs().add(tab);
+      //  onglets.getTabs().get()
     }
+
+
 
 
     public void update_list(){
@@ -134,7 +153,9 @@ public class MenuController extends Thread implements  Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
+
 
             @FXML
             void disconnect(ActionEvent event) throws SQLException, IOException {

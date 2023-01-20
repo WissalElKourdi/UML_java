@@ -75,6 +75,7 @@ public class LoginController {
         return valid;
     }
 
+
     @FXML
     void saveUsername(ActionEvent event) throws IOException, SQLException {
         //get new username and check that it's not already used : if it's not, change to menu scene
