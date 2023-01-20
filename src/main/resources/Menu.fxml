@@ -13,9 +13,9 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.MenuController">
     <children>
         <AnchorPane id="Content" layoutX="616.0" layoutY="106.0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-         <TabPane fx:id="onglets" layoutX="-7.0" prefHeight="800.0" prefWidth="1207.0">
+         <TabPane fx:id="onglets" layoutX="-7.0" prefHeight="800.0" prefWidth="1207.0" tabClosingPolicy="ALL_TABS">
              <tabs>
-               <Tab text="Menu principal">
+               <Tab fx:id="mainTab" text="Menu principal">
                  <content>
                    <AnchorPane fx:id="connected_users" minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="1207.0">
                       <children>

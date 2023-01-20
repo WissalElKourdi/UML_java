@@ -52,7 +52,7 @@ public class UDP_Client extends Thread {
                         @Override
                         public void run() {
                            // if(finalMsg_rcv.startsWith("Connected :") ){
-                           // List_Connected.add_co(pseudo);
+                            List_Connected.add_co("abcde");
                             String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
                             IP_addr monIP = new IP_addr();
                             String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();

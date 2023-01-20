@@ -33,8 +33,6 @@ public class SessionChatController implements Initializable {
     @FXML
     private Button button_send;
     @FXML
-    private Button button_close;
-    @FXML
     private TextField tf_message;
     @FXML
     VBox vBoxMessages;
@@ -188,9 +186,5 @@ public class SessionChatController implements Initializable {
         });
     }
 
-    /*
-    public void close_tab(ActionEvent Event) {
-        MenuController.onglets.getTabs().remove(tab);
-    }*/
 
 }

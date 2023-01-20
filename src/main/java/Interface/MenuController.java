@@ -15,6 +15,9 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Tab;
+
+
 
 import java.io.*;
 import java.net.*;
@@ -44,6 +47,8 @@ public class MenuController extends Thread implements  Initializable {
 
     @FXML
     private Button button_send;
+
+    @FXML Tab mainTab;
 
     @FXML
     private TextField tf_message;
@@ -80,9 +85,11 @@ public class MenuController extends Thread implements  Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //update_list();
+        mainTab.setClosable(false);
         client.setMenu(this);
+
         myListconnected.getItems().addAll(List_Connected.listCo);
-       Session session = Session.getInstance();
+        Session session = Session.getInstance();
         session.start();
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -106,9 +113,6 @@ public class MenuController extends Thread implements  Initializable {
         tab.setContent(loader.load());
         onglets.getTabs().add(tab);
     }
-
-
-
 
 
     public void update_list(){
