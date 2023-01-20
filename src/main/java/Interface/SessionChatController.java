@@ -39,13 +39,17 @@ public class SessionChatController implements Initializable {
     AnchorPane anchor;
     @FXML
     private ScrollPane sp_main;
+
     private Socket socket;
     private Sender sender;
     private String  ip;
     private Launch_receive receiver;
     private Label Id;
+    public static SessionChatController sessionchat;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        sessionchat = this;
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -135,6 +139,13 @@ public class SessionChatController implements Initializable {
             }
         });
     }
+
+    public void updatercv_msg(String msgrcv){
+        addLabel(msgrcv,vBoxMessages);
+            this.vBoxMessages.getChildren().clear();
+
+    }
+
 
     public static void addLabel(String messageFromClient, VBox vBox){
         HBox hBox = new HBox();

@@ -88,6 +88,8 @@ public class LoginController {
             if (serv_udp.broadcast_Pseudo(name, port)) {
                 try {
                     serv_udp.broadcast_connection(name, port);
+                    String addr = IP_addr.get_my_IP().toString();
+                    serv_udp.broadcast_info(name,addr,port);
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                     Parent parent = loader.load();
                     Scene scene = new Scene(parent, 1200, 800);

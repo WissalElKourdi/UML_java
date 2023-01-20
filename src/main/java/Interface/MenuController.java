@@ -20,6 +20,7 @@ import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static Interface.LoginController.get_client;
@@ -57,6 +58,7 @@ public class MenuController extends Thread implements  Initializable {
     String name_db = "DB_MSG.db";
     private BufferedReader bufferedReaderr;
     private BufferedWriter bufferedWriterr;
+    public static List<String> listTabs;
 
 
 
@@ -71,6 +73,7 @@ public class MenuController extends Thread implements  Initializable {
     private ListView<String> myListconnected;
     private ObservableList<String> list ;
     private static String currentConnected;
+
 
 
 
@@ -97,11 +100,15 @@ public class MenuController extends Thread implements  Initializable {
     @FXML
     private void addTab(String pseudo) throws IOException {
         int numTabs = onglets.getTabs().size();
+        //listTabs.add(pseudo);
         Tab tab = new Tab(pseudo);
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
         tab.setContent(loader.load());
         onglets.getTabs().add(tab);
     }
+
+
+
 
 
     public void update_list(){

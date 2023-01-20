@@ -80,7 +80,7 @@ public class DBTest {
         System.out.println("---");
         System.out.println(DB.selectAllConnected(Name_DB));
         System.out.println("---");
-        System.out.println(DB.selectAllMsgHistory(Name_DB));
+        //System.out.println(DB.selectAllMsgHistory(Name_DB));
         System.out.println("---");
     }
 }
