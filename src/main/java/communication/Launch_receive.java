@@ -19,6 +19,7 @@ public class Launch_receive extends Thread  {
     static final String DB_NAME ="DB_MSG.db" ;
     private Socket socket;
     private String pseudo;
+    private Boolean running;
     private BufferedWriter bufferedWriter;
     private BufferedReader bufferedReader;
     private SessionChatController sessionchat;
@@ -30,6 +31,7 @@ public class Launch_receive extends Thread  {
         try{
             this.socket=socket;
             this.pseudo=pseudo;
+            this.running=true;
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
         } catch (IOException e) {
@@ -38,8 +40,9 @@ public class Launch_receive extends Thread  {
     }
     // receiving thread
     public void run (){
-        while(socket.isConnected()){
-
+        setRunning(true);
+        while(running){
+            if(socket.isConnected()){
                     try {
                         createDB DB = new createDB(DB_NAME);
                         System.out.println("je suis ds le run du run de receiver");
@@ -48,16 +51,16 @@ public class Launch_receive extends Thread  {
                         LocalTime time = LocalTime.now();
                         System.out.println(pseudo + " sent me :  " + message);
                         String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().toString().indexOf("/") + 1).trim();
-
-                        DB.insertMSGRcv(message, time.toString(), pseudo, addr, socket.getPort(), DB_NAME);
+                        DB.insertMSG(message, time.toString(), pseudo, addr, socket.getPort(),"sender", DB_NAME);
+   //DB.insertMSGRcv(message, time.toString(), pseudo, addr, socket.getPort(), DB_NAME);
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                if (MenuController.ListControllers.get(pseudo)!=null){
+
                                // MenuController.ListControllers.get(pseudo).update_chat();
-                                MenuController.ListControllers.get(pseudo).addMsg(message);
-                            }
-                        }});
+                                if (MenuController.ListControllers.get(pseudo)!=null && message != null){
+                                MenuController.ListControllers.get(pseudo).addMsg(message,true);}
+                            }});
                   /*  if ( Sess != null){
                         System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA ");
                         menu.update_list();}*/
@@ -69,8 +72,30 @@ public class Launch_receive extends Thread  {
 
 
         }
+        running = running();
         }
 
+        /*try {
+
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+    }
+    public void close_rcv() throws IOException {
+        System.out.println("running talking false");
+        this.socket.close();
+        this.running=false;
+
+
+    }
+
+    public boolean running(){
+        return this.running;
+    }
+public void setRunning(boolean running){
+        this.running=running;
+}
 
 
 }

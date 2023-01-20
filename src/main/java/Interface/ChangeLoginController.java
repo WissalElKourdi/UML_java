@@ -51,7 +51,7 @@ public class ChangeLoginController {
                         Parent parent = loader.load();
                         Scene scene = new Scene(parent, 1200,800);
                         scene.getStylesheets().add("/styles.css");
-                        mainFXML.mainStage.setTitle("Chat App");
+                        mainFXML.mainStage.setTitle("Totally spicy");
                         mainFXML.mainStage.setScene(scene);
                         mainFXML.mainStage.show();
 
@@ -71,20 +71,23 @@ public class ChangeLoginController {
                        serv_udp.broadcast_AskState(name, port);
                         if (serv_udp.broadcast_ChangePseudo(name, port)) {
                                 try {
+                                        String addr = IP_addr.get_my_IP().toString();
+                                        serv_udp.broadcast_change_info(name,addr,port);
                                         serv_udp.broadcast_connection(name, port);
+                                        serv_udp.broadcast_ChangePseudo(name,port);
                                        // serv_udp.broadcast_end(port);
                                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
                                         Parent parent = loader.load();
                                         Scene scene = new Scene(parent, 1200, 800);
                                         scene.getStylesheets().add("/styles.css");
-                                        mainFXML.mainStage.setTitle("Chat App");
+                                        mainFXML.mainStage.setTitle("Totally spicy");
                                         mainFXML.mainStage.setScene(scene);
                                         mainFXML.mainStage.show();
                                 } catch (IOException e) {
                                         e.printStackTrace();
                                 }
                         } else {
-                                serv_udp.broadcast_end(port);
+
                                 Text text = new Text("This username is already taken, choose another one");
                                 result.getChildren().clear();
                                 result.getChildren().add(text);
@@ -94,6 +97,5 @@ public class ChangeLoginController {
                         result.getChildren().clear();
                         result.getChildren().add(text);
                 }
-
         }
 }

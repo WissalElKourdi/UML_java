@@ -22,6 +22,7 @@ public class createDB {
             creatTableconnected(Name_DB);
             creatTableMonPSeudo(Name_DB);
             creatTableMsgSent(Name_DB);
+            creatTableMsg(Name_DB);
         }
 
         private synchronized Connection connect(String fileName ) {
@@ -184,6 +185,32 @@ public class createDB {
         }
         return false;
     }
+    public synchronized boolean creatTableMsg(String fileName) throws SQLException {
+        // SQLite connection string
+        String url = "jdbc:sqlite:sqlite/" + fileName;
+
+        // SQL statement for creating a new table
+
+        String sql = "CREATE TABLE IF NOT EXISTS Msg (\n"
+                + " message NOT NULL,\n"
+                + " date NOT NULL,\n"
+                + " pseudo NOT NULL,\n"
+                + " addr NOT NULL,\n"
+                + " port NOT NULL,\n"
+                + " sender NOT NULL\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+            conn.close();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
     public synchronized boolean insertMonpseudo( String pseudo, String filename) {
         String sql = "INSERT INTO Monpseudo(pseudo) VALUES(?)";
 
@@ -240,6 +267,26 @@ public class createDB {
             }
             return false;
         }
+    public synchronized boolean insertMSG(String message, String date, String pseudo, String addr, int port,String sender, String filename) {
+        String sql = "INSERT INTO Msg (message,date, pseudo, addr, port,sender) VALUES(?,?,?,?,?,?)";
+
+        try (Connection conn = this.connect(filename);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, message);
+            stmt.setString   (2, date);
+            stmt.setString(3, pseudo);
+            stmt.setString(4, String.valueOf(addr));
+            stmt.setDouble(5, port);
+            stmt.setString(6, sender);
+            stmt.executeUpdate();
+            conn.close();
+
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
         public synchronized boolean insertIpseudo(String pseudo, String addr, String filename) {
             String sql = "INSERT INTO IPseudo( pseudo, addr) VALUES(?,?)";
 
@@ -319,18 +366,21 @@ public class createDB {
         }
         return list;}
 
-    public synchronized List<String> selectMsgSent(String pseudo,String filename){
+    public synchronized List<List> selectMsgSent(String pseudo,String filename){
         //String sql = "SELECT message, date, pseudo, addr, port FROM history";
         String sql = "SELECT pseudo, message, date FROM MsgSent WHERE pseudo=?";
-        List<String> list = new ArrayList<>();
+        List<List> list = new ArrayList<>();
+        List<String> listacu=new ArrayList<>();
         try (Connection conn = this.connect(filename);
              PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setString(1,pseudo);
             ResultSet rs = stmt.executeQuery() ;
             // loop through the result set
             while (rs.next()) {
-                list.add(rs.getString("pseudo").trim()+  "\t" + rs.getString("message")+  "\t"
-                        + rs.getString("date")+  "\t");
+                listacu.add(rs.getString("pseudo").trim());
+                listacu.add( rs.getString("message"));
+                listacu.add(rs.getString("date"));
+                list.add(listacu);
                 conn.close();
                 return list;
             }
@@ -340,6 +390,35 @@ public class createDB {
         }
         return list;
         }
+
+    public synchronized List<String> selectMsg(String pseudo,String filename){
+        //String sql = "SELECT message, date, pseudo, addr, port FROM history";
+        String sql = "SELECT pseudo, message, date, sender FROM Msg WHERE pseudo=?";
+        List<String> list = new ArrayList<>();
+
+        try (Connection conn = this.connect(filename);
+             PreparedStatement stmt  = conn.prepareStatement(sql)){
+            stmt.setString(1,pseudo);
+            ResultSet rs    = stmt.executeQuery();
+            // loop through the result set
+            while (rs.next()) {
+               /* listacu.add(new String[]{rs.getString("pseudo").trim()});
+                listacu.add( rs.getString("message"));
+                listacu.add(rs.getString("date"));
+                listacu.add(rs.getString("sender"));*/
+                list.add(rs.getString("pseudo").trim()+" "+ rs.getString("message")+" "+rs.getString("date")+" "+rs.getString("sender"));
+
+            }
+            conn.close();
+            System.out.println("LIIIST66666666666666" + list);
+            return list;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
 
 
 
@@ -575,67 +654,89 @@ public class createDB {
                 e.getMessage());
     }
             return false;
-}
+    }
 
 
 
-        public void getMessagefromdate(String date, String filename){
-            String sql = "SELECT message, date, pseudo,addr, port "
-                    + "FROM history WHERE date > ?";
+    public void getMessagefromdate(String date, String filename){
+        String sql = "SELECT message, date, pseudo,addr, port "
+                + "FROM history WHERE date > ?";
 
-            try (Connection conn = this.connect(filename);
-                 PreparedStatement stmt  = conn.prepareStatement(sql)){
+        try (Connection conn = this.connect(filename);
+             PreparedStatement stmt  = conn.prepareStatement(sql)){
 
-                // set the value
-                stmt.setString(1,date);
-                //i:1 numero du point d'interogation au dessous
-                ResultSet rs  = stmt.executeQuery();
+            // set the value
+            stmt.setString(1,date);
+            //i:1 numero du point d'interogation au dessous
+            ResultSet rs  = stmt.executeQuery();
 
-                // loop through the result set
-                while (rs.next()) {
-                    System.out.println(rs.getString("message") +  "\t" +
-                            rs.getString("date")+  "\t" +
-                            rs.getString("pseudo")+  "\t" +
-                            rs.getString("addr")+  "\t" +
-                            rs.getInt("port"));
-                }
-                conn.close();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            // loop through the result set
+            while (rs.next()) {
+                System.out.println(rs.getString("message") +  "\t" +
+                        rs.getString("date")+  "\t" +
+                        rs.getString("pseudo")+  "\t" +
+                        rs.getString("addr")+  "\t" +
+                        rs.getInt("port"));
             }
-        }
-        public void getMessagefrom (String pseudo,String filename){
-            String sql = "SELECT message, date, pseudo,addr, port  "
-                    + "FROM history WHERE pseudo = ?";
-
-            try (Connection conn = this.connect(filename);
-                 PreparedStatement stmt  = conn.prepareStatement(sql)){
-
-                // set the value
-                stmt.setString(1,pseudo);
-                //
-                ResultSet rs  = stmt.executeQuery();
-
-                // loop through the result set
-                while (rs.next()) {
-                    System.out.println(rs.getString("message") +  "\t" +
-
-                            rs.getString("date")+  "\t" +
-                            rs.getString("pseudo")+  "\t" +
-                            rs.getString("addr")+  "\t" +
-                            rs.getInt("port"));
-                }
-
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-
-        public static void main(String[] args) {
-
-
-
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
+
+    public void getMessagefrom (String pseudo,String filename){
+        String sql = "SELECT message, date, pseudo,addr, port  "
+                + "FROM history WHERE pseudo = ?";
+
+        try (Connection conn = this.connect(filename);
+             PreparedStatement stmt  = conn.prepareStatement(sql)){
+
+            // set the value
+            stmt.setString(1,pseudo);
+            //
+            ResultSet rs  = stmt.executeQuery();
+
+            // loop through the result set
+            while (rs.next()) {
+                System.out.println(rs.getString("message") +  "\t" +
+
+                        rs.getString("date")+  "\t" +
+                        rs.getString("pseudo")+  "\t" +
+                        rs.getString("addr")+  "\t" +
+                        rs.getInt("port"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public String getDateFromMessage(String Message, String filename) {
+        String sql = "SELECT date" + "FROM history WHERE Message = ?";
+        String result = null;
+        try (Connection conn = this.connect(filename);
+             PreparedStatement stmt  = conn.prepareStatement(sql)){
+
+            // set the value
+            stmt.setString(1,Message);
+            //
+            ResultSet rs  = stmt.executeQuery();
+            result = rs.getString("pseudo") ;
+
+
+            // loop through the result set
+            while (rs.next()) {
+                System.out.println(rs.getString("date"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+
+
+    public static void main(String[] args) {
+    }
+}
 

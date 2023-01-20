@@ -1,19 +1,14 @@
-
 @font-face {
     font-family: 'VT323-Regular';
     src: url('font/VT323-Regular.ttf');
 }
 /*
-#titre {
-    -fx-font-family: 'Source Code Pro Black';
-    -fx-font-size: 20pt;
-}
-
 #sp {
     -fx-background: #024029;
     -fx-background-color: #024029;
 }
 */
+
 /* classes*/
 .button {
     -fx-font-size: 15pt;
@@ -23,8 +18,6 @@
 .label{
     -fx-font-size:15pt;
     -fx-font-family: 'VT323 Regular';
-    /*
-    -fx-font-family: 'Courier Prime Regular';*/
 }
 
 .textFlow {

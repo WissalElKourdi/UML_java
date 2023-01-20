@@ -17,6 +17,8 @@ import java.util.Map;
 public class Session extends Thread {
     private ServerSocket user;
     private static Session Session;
+    private Boolean running;
+    private Socket socket;
 
     private SessionChatController sessionchat;
     // cette fonction permet qu'à chaque initiation de conversation avec un client un socket se crée pour lui
@@ -37,6 +39,7 @@ public class Session extends Thread {
     public Session() throws IOException { // ce thread crée le serveur principal et attribue à chaque client un socket
         user= new ServerSocket(1234);
         map_socket=new HashMap<>();
+        //this.running=true;
     }
 
 
@@ -56,39 +59,83 @@ private String adresse(InetAddress ip){
     }
 
 public void run () {
-        Socket socket;
+
         String DB_name = "DB_MSG.db";
         String ip;
         createDB DB = null;
         String pseudo;
 
     try {
-        while(true){
-            System.out.println("okay i am launched ");
+
+        setRunning(true);
+            while (running) {
+                System.out.println("MY RUNNING =====" + running + "/ " +running());
+
+
+                System.out.println("okay i am launched ");
 
                 socket = user.accept();
                 System.out.println("Client has been added ");
 
-            if(socket!=null) {
-                //  System.out.println("from lis ip = "+socket.getLocalSocketAddress() +"///"+ socket.getInetAddress().getHostAddress() +"///" + socket.getLocalAddress() +"///"+ socket.getRemoteSocketAddress() +"///" + socket.getReuseAddress());
-                String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().getHostAddress().toString().indexOf("/") + 2);
-                pseudo = List_USers.get_pseudo_user(addr);
-                System.out.println("The adress I am talking to --> " + addr + "-->" + pseudo);
-                map_socket.put(pseudo, socket);
-                System.out.println("are you here ??");
-                Launch_receive receiver = new Launch_receive(socket, pseudo);
-                Launch_receive.sessions.add(receiver);
-                receiver.start();
-            }}
+                if (socket != null) {
+                    //  System.out.println("from lis ip = "+socket.getLocalSocketAddress() +"///"+ socket.getInetAddress().getHostAddress() +"///" + socket.getLocalAddress() +"///"+ socket.getRemoteSocketAddress() +"///" + socket.getReuseAddress());
+                    String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().getHostAddress().toString().indexOf("/") + 2);
+                    pseudo = List_USers.get_pseudo_user(addr);
+                    System.out.println("The adress I am talking to --> " + addr + "-->" + pseudo);
+                    map_socket.put(pseudo, socket);
+                    System.out.println("are you here ??");
+                    Launch_receive receiver = new Launch_receive(socket, pseudo);
+                    Launch_receive.sessions.add(receiver);
+                    receiver.start();
+
+                }
+
+
+       /*if(!running){
+           assert socket != null;
+
+           System.out.println("running talking false2");
+           socket.close();
+           System.out.println("running talkingfalse3");
+       }*/
+
+
+            /// s
+             running=running();
+                System.out.println("wissalll ===" + running);
+            }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    System.out.println("RUNNING ===" + false);
+    if(!running){
+        try {
+            user.close();
         } catch (IOException e) {
-                System.out.println("ERREUR : ACCEPT SOCKET");
-                throw new RuntimeException(e);
-            }}
+            e.printStackTrace();
+        }
+    }
+
+
+}
 
 
     public void setSession(SessionChatController Sessionchat){
         this.sessionchat = Sessionchat;
     }
 
+    public void close_sess() throws IOException {
+      System.out.println("running talking false");
+       this.running = false;
+       //this.user.close();
+       System.out.println("MY RUNNING =" + running + "/ " +this.running);
 
+    }
+
+    public boolean running(){
+        return running;
+    }
+    public void setRunning(boolean running){
+        this.running=running;
+    }
 }

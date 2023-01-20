@@ -18,12 +18,16 @@
                   <Image url="@img/windowsxp.png" />
                </image>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d7d4d3" height="317.0" layoutX="224.0" layoutY="216.0" opacity="0.84" stroke="BLACK" strokeType="INSIDE" width="395.0" />
-            <Label layoutX="289.0" layoutY="260.0" text="Change your username" />
-            <Button fx:id="cancelButton" layoutX="441.0" layoutY="427.0" mnemonicParsing="false" onAction="#CancelClicked" text="Cancel" />
-            <Button fx:id="SaveButton" layoutX="297.0" layoutY="427.0" mnemonicParsing="false" onAction="#SaveNewLogin" text="Save" />
-            <TextField fx:id="NewLogin" layoutX="297.0" layoutY="311.0" prefHeight="54.0" prefWidth="249.0" promptText="Enter new username" />
-            <TextFlow fx:id="result" layoutX="259.0" layoutY="378.0" prefHeight="33.0" prefWidth="326.0" textAlignment="CENTER" />
+            <ImageView fitHeight="329.0" fitWidth="436.0" layoutX="176.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/window.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="300.0" layoutY="251.0" text="Change your username" />
+            <Button fx:id="cancelButton" layoutX="398.0" layoutY="393.0" mnemonicParsing="false" onAction="#CancelClicked" text="Cancel" />
+            <Button fx:id="SaveButton" layoutX="300.0" layoutY="393.0" mnemonicParsing="false" onAction="#SaveNewLogin" text="Save" />
+            <TextField fx:id="NewLogin" layoutX="266.0" layoutY="283.0" onAction="#SaveNewLogin" prefHeight="54.0" prefWidth="249.0" promptText="Enter new username" style="-fx-font-family: 'VT323 Regular'; -fx-font-size: 17pt;" />
+            <TextFlow fx:id="result" layoutX="228.0" layoutY="348.0" prefHeight="33.0" prefWidth="326.0" style=" -fx-font-family: 'VT323 Regular'; -fx-font-size: 13pt;" textAlignment="CENTER" />
 
          </children>
       </Pane>

@@ -27,7 +27,10 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -46,7 +49,7 @@ public MenuController parentcontroller;
     private ScrollPane sp_main;
     @FXML
     public ObservableList<String> observableHistory;
-    private ArrayList<String> myListMsg = new ArrayList<>();
+    private     List<String>  myListMsg = new ArrayList<>();
     private static String currentMsg;
 
     private Socket socket;
@@ -66,11 +69,12 @@ public SessionChatController get_sess(){
 }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        setHistory();
+        update_chat();
         //Session.setSession(this);
 
       //  myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
-            vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
+        vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 sp_main.setVvalue((Double) newValue);
@@ -84,7 +88,8 @@ public SessionChatController get_sess(){
             @Override
             public void handle(ActionEvent actionEvent) {
                 String pseudo = MenuController.get_pseudo_user();
-                String messageToSend = tf_message.getText();
+                LocalTime time = LocalTime.now();
+                String messageToSend = tf_message.getText() + "  ---  "+ time;
                 Socket sock=null;
                 if (!messageToSend.isBlank()) {
                     HBox hBox = new HBox();
@@ -160,79 +165,108 @@ public SessionChatController get_sess(){
     }
 
     public void setHistory(){
-    addMsg("hohohoh");
+    myListMsg.clear();
         try {
             createDB DB = new createDB(name_DB);
             String pseudo = MenuController.get_pseudo_user();
-        myListMsg= (ArrayList<String>) DB.selectMsgRcv(pseudo,name_DB);
+        myListMsg=DB.selectMsg(pseudo,name_DB);
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
     public void update_chat(){
+
+    ArrayList<String> msg;
+   String msg_display;
+
     vBoxMessages.getChildren().clear();
-    for(String msg : myListMsg){
-        addMsg(msg);
-    }
-    }
-    public void addMsg(String msg){
-    if(vBoxMessages==null){
-    System.out.println("ici");}
-    //Label label = new Label(msg);
-    System.out.println(msg);
-   // vBoxMessages.getChildren().add(label);
-        if (!msg.isBlank()) {
-            HBox hBox = new HBox();
-            hBox.setAlignment(Pos.CENTER_LEFT);
-            hBox.setPadding(new Insets(5, 5, 5, 10));
+    for(int i=0; i< myListMsg.size(); i++){
 
+        msg= new ArrayList<String>(Arrays.asList(myListMsg.get(i).split(" ")));
+        if(msg.get(3).equals("sender")){
+            msg_display = msg.get(1) +"  ---  "+ msg.get(2);
+            addMsg(msg_display,true);
+        }else{
+            msg_display = msg.get(1) + msg.get(2);
+            addMsg(msg_display,false);
+        }
 
-            Text text = new Text(msg);
-            TextFlow textFlow = new TextFlow(text);
-
-            textFlow.setStyle(
-                    "-fx-color: rgb(239, 242, 255);" +
-                            "-fx-background-color: #ae96b7;" +
-                            "-fx-background-radius: 20px;" +
-                            "-fx-font-size: 15pt;");
-
-            textFlow.setPadding(new Insets(5, 10, 5, 10));
-            text.setFill(Color.color(0.934, 0.925, 0.996));
-            hBox.getChildren().add(textFlow);
-            sp_main.setContent(vBoxMessages);
-            System.out.println("-------------"+msg);
-            //anchor.setStyle("-fx-background-color: #024029;");
-           // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
-
-            //cas 1 : la session avec l'utilisateur est déja établie
-            vBoxMessages.getChildren().add(hBox);
-            System.out.println("-------------"+msg);
         }
     }
 
-
-    public void updatercv_msg(String msgrcv){
-        /*System.out.println("JE SUIS DS UPDATE MSG  RCVV");
-     //   this.vBoxMessages.getChildren().clear();
-        System.out.println("jai clear la box");
-        addLabel(msgrcv,vBoxMessages);
-        System.out.println("Jai fini add label");
-        createDB DB = null;
-        try {
-            DB = new createDB(name_DB);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+    public void addMsg(String msg, Boolean Sender) {
+        if (vBoxMessages == null) {
+            System.out.println("ici");
         }
+        //Label label = new Label(msg);
+        System.out.println(msg);
+        // vBoxMessages.getChildren().add(label);
+        if (Sender) {
+            if (!msg.isBlank()) {
+                HBox hBox = new HBox();
+                hBox.setAlignment(Pos.CENTER_LEFT);
+                hBox.setPadding(new Insets(5, 5, 5, 10));
 
-        //  assert DB != null;
 
-        myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
-        myListMsg.getItems().addAll(List_Connected.listCo);*/
+                Text text = new Text(msg);
+                TextFlow textFlow = new TextFlow(text);
+
+                textFlow.setStyle(
+                        "-fx-color: rgb(239, 242, 255);" +
+                                "-fx-background-color: #ae96b7;" +
+                                "-fx-background-radius: 20px;" +
+                                "-fx-font-size: 15pt;");
+
+                textFlow.setPadding(new Insets(5, 10, 5, 10));
+                text.setFill(Color.color(0.934, 0.925, 0.996));
+                hBox.getChildren().add(textFlow);
+                sp_main.setContent(vBoxMessages);
+                System.out.println("-------------" + msg);
+                //anchor.setStyle("-fx-background-color: #024029;");
+                // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
+
+                //cas 1 : la session avec l'utilisateur est déja établie
+                vBoxMessages.getChildren().add(hBox);
+                System.out.println("-------------" + msg);
+
+
+            }
+        } else {
+            if (!msg.isBlank()) {
+                HBox hBox = new HBox();
+                hBox.setAlignment(Pos.CENTER_RIGHT);
+                hBox.setPadding(new Insets(5, 5, 5, 10));
+
+
+                Text text = new Text(msg);
+                TextFlow textFlow = new TextFlow(text);
+
+                textFlow.setStyle(
+                        "-fx-color: rgb(239, 242, 255);" +
+                                "-fx-background-color: #ae96b7;" +
+                                "-fx-background-radius: 20px;" +
+                                "-fx-font-size: 15pt;");
+
+                textFlow.setPadding(new Insets(5, 10, 5, 10));
+                text.setFill(Color.color(0.934, 0.925, 0.996));
+                hBox.getChildren().add(textFlow);
+                sp_main.setContent(vBoxMessages);
+                System.out.println("-------------" + msg);
+                //anchor.setStyle("-fx-background-color: #024029;");
+                // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
+
+                //cas 1 : la session avec l'utilisateur est déja établie
+                vBoxMessages.getChildren().add(hBox);
+                System.out.println("-------------" + msg);
+
+
+            }
+        }
 
 
     }
-
 
 
     public static void addLabel(String messageFromClient, VBox vBox){

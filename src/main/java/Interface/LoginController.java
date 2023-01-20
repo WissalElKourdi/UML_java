@@ -39,9 +39,7 @@ public class LoginController {
 
 
     public LoginController() throws SocketException, SQLException {
-
        client.start();
-
     }
 
     public static UDP_Client getClient(){
@@ -55,7 +53,7 @@ public class LoginController {
     public static boolean isValid(String value) {
         String legalCharacters = "abcdefghijklmnopqrstuvwxzy0123456789";
         boolean valid = true;
-        if (value.length() < 3 || value.length() > 15) {
+        if (value.length() < 5 || value.length() > 15) {
             valid = false;
         }
         else {
@@ -96,23 +94,23 @@ public class LoginController {
                     Scene scene = new Scene(parent, 1200, 800);
                     scene.getStylesheets().add("/styles.css");
                     // client.setScene(scene);
-                    mainFXML.mainStage.setTitle("Chat App");
+                    mainFXML.mainStage.setTitle("Totally spicy");
                     mainFXML.mainStage.setScene(scene);
                     mainFXML.mainStage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
-                serv_udp.broadcast_end(port);
+               // serv_udp.broadcast_end(port);
                 Text text = new Text("This username is already taken, choose another one");
                 returnText.getChildren().clear();
                 returnText.getChildren().add(text);
             }
+
         }else {
                 Text text = new Text ("The username should be between 5 and 15 characters long, and contain only letters and digits.");
                 returnText.getChildren().clear();
                 returnText.getChildren().add(text);
         }
-
     }
 }
