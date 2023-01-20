@@ -1,6 +1,8 @@
 package Interface;
 
 import UDP.UDP_Client;
+import USERS.List_Connected;
+import USERS.List_USers;
 import javafx.application.*;
 import javafx.stage.*;
 import javafx.scene.*;
@@ -15,7 +17,8 @@ public class mainFXML extends Application {
 
     @Override
     public void start(Stage stage) throws IOException, SQLException {
-
+        List_USers.clear_list_user();
+        List_Connected.clear_list_co();
         mainStage = stage;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/login_page.fxml"));
