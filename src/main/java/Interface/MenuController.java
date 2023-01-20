@@ -109,14 +109,14 @@ public class MenuController extends Thread implements  Initializable {
         //listTabs.add(loader.getController());
        // listTabs.add(pseudo);
         SessionChatController controller = (SessionChatController) loader.getController();
-        Platform.runLater(
+       /* Platform.runLater(
                 new Runnable() {
                     @Override
                     public void run() {
                         controller.addMsg("hohoeoeoeoe");
                     }
                 }
-        );
+        );*/
 
       ListControllers.put(pseudo, controller);
 
