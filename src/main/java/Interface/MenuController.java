@@ -17,8 +17,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Tab;
 
-
-
 import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
@@ -136,9 +134,7 @@ public class MenuController extends Thread implements  Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 
             @FXML
             void disconnect(ActionEvent event) throws SQLException, IOException {

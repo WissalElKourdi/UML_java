@@ -42,7 +42,8 @@ public class SessionChatController implements Initializable {
     Label time;
     @FXML
     private ScrollPane sp_main;
-
+    @FXML
+    private Label pseudo_autre;
     String name_db = "DB_MSG.db";
 
     private Socket socket;
@@ -55,6 +56,10 @@ public class SessionChatController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sessionchat = this;
+
+        pseudo_autre.setText(MenuController.get_pseudo_user());
+
+
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -157,7 +162,7 @@ public class SessionChatController implements Initializable {
 
     public void updatercv_msg(String msgrcv){
         addLabel(msgrcv,vBoxMessages);
-            this.vBoxMessages.getChildren().clear();
+        this.vBoxMessages.getChildren().clear();
 
     }
 
