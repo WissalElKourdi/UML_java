@@ -78,6 +78,10 @@ public class UDPManager extends UDP_Client {
             Remote_Users user = new Remote_Users(pseudo, addr);
             System.out.println("I am ADDING TO THE LIST USER ==>" + pseudo + "   " + addr);
             List_USers.add_User(user);
+        } else if (msg.startsWith( "MY old pseudo :")) {
+                String pseudo = msg.substring(msg.indexOf(":") + 1);
+
+                List_Connected.delete_co(pseudo);
 
         }else if (msg.startsWith("MY INFOS CHANGE :")) {
             String pseudo = msg.substring(msg.indexOf(":") + 1);
@@ -88,9 +92,17 @@ public class UDPManager extends UDP_Client {
             List_USers.remove_user(old_user);
             Remote_Users user = new Remote_Users(pseudo, addr);
             List_USers.add_User(user);
-            List_Connected.listCo.remove(old);
-            List_Connected.listCo.add(pseudo);
+            System.out.println(List_Connected.listCo + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
+            //List_Connected.delete_co(old);
+            System.out.println(List_Connected.listCo + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+old);
+            IP_addr monIP = new IP_addr();
+            String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
+
+            if (!addr.equals(mine)) {
+           //     List_Connected.add_co(pseudo);
+                System.out.println(List_Connected.listCo + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
         }
 
  //commentaire pour commit
