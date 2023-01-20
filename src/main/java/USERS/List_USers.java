@@ -9,6 +9,8 @@ public class List_USers {
 
     public static String get_IP_user(String name){
         for(int i = 0; i<list.size();i++){
+            System.out.println(list.get(i).get_IP() + "ICIII JE GET PSEUDO USER" + name.equals(list.get(i).get_pseudo()));
+
             if (name.equals(list.get(i).get_pseudo())){
                 return list.get(i).get_IP();
             }

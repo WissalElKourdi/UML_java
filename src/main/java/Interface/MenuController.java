@@ -19,9 +19,7 @@ import javafx.scene.layout.VBox;
 import java.io.*;
 import java.net.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static Interface.LoginController.get_client;
 import static javafx.application.Application.launch;
@@ -59,6 +57,7 @@ public class MenuController extends Thread implements  Initializable {
     private BufferedReader bufferedReaderr;
     private BufferedWriter bufferedWriterr;
     public static List<String> listTabs;
+    public static Map<String, SessionChatController> listControllers = new HashMap<String, SessionChatController>();
 
 
 
@@ -83,7 +82,7 @@ public class MenuController extends Thread implements  Initializable {
         client.setMenu(this);
         myListconnected.getItems().addAll(List_Connected.listCo);
        Session session = Session.getInstance();
-        session.start();
+       new Thread(() -> session.start()).start();
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                         currentConnected = myListconnected.getSelectionModel().getSelectedItem();
@@ -103,12 +102,11 @@ public class MenuController extends Thread implements  Initializable {
         //listTabs.add(pseudo);
         Tab tab = new Tab(pseudo);
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
+        System.out.println( " je suis dans menucontrol :" + pseudo);
         tab.setContent(loader.load());
+        listControllers.put(pseudo, loader.getController());
         onglets.getTabs().add(tab);
     }
-
-
-
 
 
     public void update_list(){

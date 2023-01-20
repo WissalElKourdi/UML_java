@@ -119,7 +119,7 @@ public class SessionChatController implements Initializable {
                                 receiver = new Launch_receive(sock, pseudo); // le thread qui reçoit les messages
                                 System.out.println("the receiver is created ");
                                 Launch_receive.sessions.add(receiver);
-                                receiver.start();
+                                new Thread(() -> receiver.start()).start();
                                 System.out.println("the receiver is ready to receive youpii");
 
                             } catch (IOException e) {
@@ -141,11 +141,12 @@ public class SessionChatController implements Initializable {
     }
 
     public void updatercv_msg(String msgrcv){
+        if(msgrcv!=null){
         addLabel(msgrcv,vBoxMessages);
             this.vBoxMessages.getChildren().clear();
+        }
 
     }
-
 
     public static void addLabel(String messageFromClient, VBox vBox){
         HBox hBox = new HBox();
@@ -159,14 +160,13 @@ public class SessionChatController implements Initializable {
                 "-fx-background-color: rgb(233, 233, 235);" +
                         "-fx-background-radius: 20px;");
 
-
-
         textFlow.setPadding(new Insets(5, 10, 5, 10));
         hBox.getChildren().add(textFlow);
 
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+
                 vBox.getChildren().add(hBox);
             }
         });

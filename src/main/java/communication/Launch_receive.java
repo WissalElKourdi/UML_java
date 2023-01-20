@@ -46,7 +46,7 @@ public class Launch_receive extends Thread  {
                         createDB DB = new createDB(DB_NAME);
                         String message = bufferedReader.readLine();
                         System.out.println(pseudo + " sent me :  " + message);
-                        int id_sess = MenuController.listTabs.indexOf(pseudo);
+//                        int id_sess = MenuController.listTabs.indexOf(pseudo);
                       //  MenuController.get_onglet().getTabs().get(id_sess);
 
                         LocalTime time = LocalTime.now();
@@ -57,7 +57,8 @@ public class Launch_receive extends Thread  {
 
                         //Récupérer le message et le mettre dans la sessio
 
-                        SessionChatController.sessionchat.updatercv_msg(message);
+
+                        MenuController.listControllers.get(pseudo).updatercv_msg(message);
 
                   /*  if ( Sess != null){
                         System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA ");
