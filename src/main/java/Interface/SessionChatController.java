@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -40,12 +41,16 @@ public class SessionChatController implements Initializable {
     @FXML
     AnchorPane anchor;
     @FXML
+    Label time;
+    @FXML
     private ScrollPane sp_main;
     private Socket socket;
     private Sender sender;
     private String  ip;
     private Launch_receive receiver;
     private Label Id;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,13 +61,25 @@ public class SessionChatController implements Initializable {
             }
         });
 
+        vBoxMessages.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                           @Override
+                                           public void handle(MouseEvent mouseEvent) {
+                                               //get the time at which then message was sent (find in db)
+                                               String Messagetime = mouseEvent.getSource();
+                                               //display it on the label
+                                               time.setText(Messagetime);
+                                           }
+                                       }
 
-        button_send.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+
+        button_send.setOnAction(new EventHandler<ActionEvent>()
+
+            {
+                @Override
+                public void handle (ActionEvent actionEvent){
                 String pseudo = MenuController.get_pseudo_user();
                 String messageToSend = tf_message.getText();
-                Socket sock=null;
+                Socket sock = null;
                 if (!messageToSend.isBlank()) {
                     HBox hBox = new HBox();
                     hBox.setAlignment(Pos.CENTER_RIGHT);
@@ -86,22 +103,21 @@ public class SessionChatController implements Initializable {
                     System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
                     //cas 1 : la session avec l'utilisateur est déja établie
-                    if(Handler.getInstance().isEtablished(pseudo)){
+                    if (Handler.getInstance().isEtablished(pseudo)) {
                         System.out.println("old connection");
                         try {
                             //Session.getInstance().start();
-                            sock=Session.getInstance().getSock(pseudo);
-                            sender= new Sender(sock,pseudo,messageToSend);
-                        }
-                        catch (IOException e) {
+                            sock = Session.getInstance().getSock(pseudo);
+                            sender = new Sender(sock, pseudo, messageToSend);
+                        } catch (IOException e) {
                             throw new RuntimeException(e);
 
                         }
-                     }else {
+                    } else {
                         System.out.println("new Connection");
                         try {
                             System.out.println("PSEUDOOO de sessionchatcontroller pour le sock" + pseudo);
-                            sock =Handler.getInstance().startConnection(pseudo);
+                            sock = Handler.getInstance().startConnection(pseudo);
                         } catch (IOException e) {
                             System.out.println("erreur création du socket ");
                             throw new RuntimeException(e);
@@ -125,17 +141,16 @@ public class SessionChatController implements Initializable {
                         }
                     }
 
-                    if(messageToSend.isEmpty() && sock.isConnected()){
+                    if (messageToSend.isEmpty() && sock.isConnected()) {
                         sender.start();
                         tf_message.clear();
                     }
                     vBoxMessages.getChildren().add(hBox);
 
-
                 }
             }
-        });
-    }
+            });
+        }
 
     public static void addLabel(String messageFromClient, VBox vBox){
         HBox hBox = new HBox();
