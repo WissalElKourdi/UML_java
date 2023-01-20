@@ -51,7 +51,7 @@ public class ChangeLoginController {
                         Parent parent = loader.load();
                         Scene scene = new Scene(parent, 1200,800);
                         scene.getStylesheets().add("/styles.css");
-                        mainFXML.mainStage.setTitle("Chat App");
+                        mainFXML.mainStage.setTitle("Totally spicy");
                         mainFXML.mainStage.setScene(scene);
                         mainFXML.mainStage.show();
 
@@ -80,7 +80,7 @@ public class ChangeLoginController {
                                         Parent parent = loader.load();
                                         Scene scene = new Scene(parent, 1200, 800);
                                         scene.getStylesheets().add("/styles.css");
-                                        mainFXML.mainStage.setTitle("Chat App");
+                                        mainFXML.mainStage.setTitle("Totally spicy");
                                         mainFXML.mainStage.setScene(scene);
                                         mainFXML.mainStage.show();
                                 } catch (IOException e) {
@@ -97,6 +97,5 @@ public class ChangeLoginController {
                         result.getChildren().clear();
                         result.getChildren().add(text);
                 }
-
         }
 }
