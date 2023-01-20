@@ -70,7 +70,7 @@ public SessionChatController get_sess(){
         //Session.setSession(this);
 
       //  myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
-        vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
+            vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 sp_main.setVvalue((Double) newValue);
@@ -208,8 +208,6 @@ public SessionChatController get_sess(){
             //cas 1 : la session avec l'utilisateur est déja établie
             vBoxMessages.getChildren().add(hBox);
             System.out.println("-------------"+msg);
-
-
         }
     }
 

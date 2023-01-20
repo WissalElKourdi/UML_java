@@ -95,13 +95,11 @@ public class MenuController extends Thread implements  Initializable {
                             throw new RuntimeException(e);
                         }
                     }
-
                 });  }
 
     @FXML
     private void addTab(String pseudo) throws IOException {
         int numTabs = onglets.getTabs().size();
-
         Tab tab = new Tab(pseudo);
 
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
@@ -117,7 +115,6 @@ public class MenuController extends Thread implements  Initializable {
                     }
                 }
         );
-
       ListControllers.put(pseudo, controller);
 
         onglets.getTabs().add(tab);
@@ -170,6 +167,7 @@ public class MenuController extends Thread implements  Initializable {
                     mainFXML.mainStage.setTitle("Chat App");
                     mainFXML.mainStage.setScene(scene);
                     mainFXML.mainStage.show();
+                    //Session.getInstance()
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

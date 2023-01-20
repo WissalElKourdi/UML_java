@@ -53,9 +53,11 @@ public class Launch_receive extends Thread  {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                MenuController.ListControllers.get(pseudo).update_chat();
+                                if (MenuController.ListControllers.get(pseudo)!=null){
+                               // MenuController.ListControllers.get(pseudo).update_chat();
                                 MenuController.ListControllers.get(pseudo).addMsg(message);
-                            }});
+                            }
+                        }});
                   /*  if ( Sess != null){
                         System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA ");
                         menu.update_list();}*/
