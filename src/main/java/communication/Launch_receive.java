@@ -39,27 +39,23 @@ public class Launch_receive extends Thread  {
     // receiving thread
     public void run (){
         while(socket.isConnected()){
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
+
                     try {
                         createDB DB = new createDB(DB_NAME);
-                        String message = bufferedReader.readLine();
-                        System.out.println(pseudo + " sent me :  " + message);
-//                        int id_sess = MenuController.listTabs.indexOf(pseudo);
-                      //  MenuController.get_onglet().getTabs().get(id_sess);
-
-                        LocalTime time = LocalTime.now();
-
-                        DB.insertMSGRcv(message, time.toString(), pseudo, socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
-                        System.out.println("socket.getLocalSocketAddress().toString() : " + socket.getLocalSocketAddress().toString());
-
-
+                        System.out.println("je suis ds le run du run de receiver");
                         //Récupérer le message et le mettre dans la sessio
+                        String message = bufferedReader.readLine();
+                        LocalTime time = LocalTime.now();
+                        System.out.println(pseudo + " sent me :  " + message);
+                        String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().toString().indexOf("/") + 1).trim();
 
-
-                        MenuController.listControllers.get(pseudo).updatercv_msg(message);
-
+                        DB.insertMSGRcv(message, time.toString(), pseudo, addr, socket.getPort(), DB_NAME);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                MenuController.ListControllers.get(pseudo).update_chat();
+                                MenuController.ListControllers.get(pseudo).addMsg(message);
+                            }});
                   /*  if ( Sess != null){
                         System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA ");
                         menu.update_list();}*/
@@ -69,21 +65,15 @@ public class Launch_receive extends Thread  {
                         throw new RuntimeException(e);
                     }
 
-                }});
 
-
-
-                }
+        }
         }
 
-    public void setSession(SessionChatController Sessionchat){
-        this.sessionchat = Sessionchat;
-    }
+
 
 }
 
 /*
                 int id_sess = MenuController.listTabs.indexOf(pseudo);
                 MenuController.get_onglet().getTabs().get(id_sess);
-
                 SessionChatController.addLabel(message);*/

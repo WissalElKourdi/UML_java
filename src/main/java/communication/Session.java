@@ -1,7 +1,9 @@
 package communication;
 
 import Database.createDB;
+import Interface.SessionChatController;
 import USERS.List_USers;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -15,6 +17,8 @@ import java.util.Map;
 public class Session extends Thread {
     private ServerSocket user;
     private static Session Session;
+
+    private SessionChatController sessionchat;
     // cette fonction permet qu'à chaque initiation de conversation avec un client un socket se crée pour lui
 
 
@@ -58,34 +62,33 @@ public void run () {
         createDB DB = null;
         String pseudo;
 
-
+    try {
         while(true){
             System.out.println("okay i am launched ");
-            try {
+
                 socket = user.accept();
                 System.out.println("Client has been added ");
 
-            if(socket!=null){
-                  //  System.out.println("from lis ip = "+socket.getLocalSocketAddress() +"///"+ socket.getInetAddress().getHostAddress() +"///" + socket.getLocalAddress() +"///"+ socket.getRemoteSocketAddress() +"///" + socket.getReuseAddress());
+            if(socket!=null) {
+                //  System.out.println("from lis ip = "+socket.getLocalSocketAddress() +"///"+ socket.getInetAddress().getHostAddress() +"///" + socket.getLocalAddress() +"///"+ socket.getRemoteSocketAddress() +"///" + socket.getReuseAddress());
                 String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().getHostAddress().toString().indexOf("/") + 2);
                 pseudo = List_USers.get_pseudo_user(addr);
                 System.out.println("The adress I am talking to --> " + addr + "-->" + pseudo);
-                map_socket.put(pseudo,socket);
+                map_socket.put(pseudo, socket);
                 System.out.println("are you here ??");
-                Launch_receive receiver = new Launch_receive(socket,pseudo);
+                Launch_receive receiver = new Launch_receive(socket, pseudo);
                 Launch_receive.sessions.add(receiver);
-                new Thread(() -> receiver.start()).start();
-
-
-
-            }
+                receiver.start();
+            }}
         } catch (IOException e) {
                 System.out.println("ERREUR : ACCEPT SOCKET");
                 throw new RuntimeException(e);
-            }
-
-        }
+            }}
 
 
+    public void setSession(SessionChatController Sessionchat){
+        this.sessionchat = Sessionchat;
+    }
 
-}}
+
+}

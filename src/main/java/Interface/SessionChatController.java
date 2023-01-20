@@ -1,5 +1,6 @@
 
 package Interface;
+import Database.createDB;
 import communication.Handler;
 import communication.Launch_receive;
 import communication.Sender;
@@ -7,6 +8,7 @@ import communication.Session;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,11 +26,14 @@ import javafx.scene.text.TextFlow;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
 public class SessionChatController implements Initializable {
-
+@FXML
+public MenuController parentcontroller;
     @FXML
     private Button button_send;
     @FXML
@@ -39,17 +44,32 @@ public class SessionChatController implements Initializable {
     AnchorPane anchor;
     @FXML
     private ScrollPane sp_main;
+    @FXML
+    public ObservableList<String> observableHistory;
+    private ArrayList<String> myListMsg = new ArrayList<>();
+    private static String currentMsg;
 
     private Socket socket;
     private Sender sender;
     private String  ip;
     private Launch_receive receiver;
     private Label Id;
-    public static SessionChatController sessionchat;
+    public SessionChatController sessionchat;
+    private String name_DB = "DB_MSG.db";
 
+    public void setParentController(MenuController parentController){this.parentcontroller = parentController;};
+public int get_controller(){
+    return this.hashCode();
+}
+public SessionChatController get_sess(){
+    return this.sessionchat;
+}
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        sessionchat = this;
+
+        //Session.setSession(this);
+
+      //  myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -82,7 +102,6 @@ public class SessionChatController implements Initializable {
 
                     textFlow.setPadding(new Insets(5, 10, 5, 10));
                     text.setFill(Color.color(0.934, 0.925, 0.996));
-
                     hBox.getChildren().add(textFlow);
                     sp_main.setContent(vBoxMessages);
                     //anchor.setStyle("-fx-background-color: #024029;");
@@ -93,7 +112,7 @@ public class SessionChatController implements Initializable {
                         System.out.println("old connection");
                         try {
                             //Session.getInstance().start();
-                            sock=Session.getInstance().getSock(pseudo);
+                            sock= Session.getInstance().getSock(pseudo);
                             sender= new Sender(sock,pseudo,messageToSend);
                         }
                         catch (IOException e) {
@@ -119,7 +138,7 @@ public class SessionChatController implements Initializable {
                                 receiver = new Launch_receive(sock, pseudo); // le thread qui reçoit les messages
                                 System.out.println("the receiver is created ");
                                 Launch_receive.sessions.add(receiver);
-                                new Thread(() -> receiver.start()).start();
+                                receiver.start();
                                 System.out.println("the receiver is ready to receive youpii");
 
                             } catch (IOException e) {
@@ -140,19 +159,91 @@ public class SessionChatController implements Initializable {
         });
     }
 
-    public void updatercv_msg(String msgrcv){
-        if(msgrcv!=null){
-        addLabel(msgrcv,vBoxMessages);
-            this.vBoxMessages.getChildren().clear();
+    public void setHistory(){
+    addMsg("hohohoh");
+        try {
+            createDB DB = new createDB(name_DB);
+            String pseudo = MenuController.get_pseudo_user();
+        myListMsg= (ArrayList<String>) DB.selectMsgRcv(pseudo,name_DB);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+    }
+
+    public void update_chat(){
+    vBoxMessages.getChildren().clear();
+    for(String msg : myListMsg){
+        addMsg(msg);
+    }
+    }
+    public void addMsg(String msg){
+    if(vBoxMessages==null){
+    System.out.println("ici");}
+    //Label label = new Label(msg);
+    System.out.println(msg);
+   // vBoxMessages.getChildren().add(label);
+        if (!msg.isBlank()) {
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.setPadding(new Insets(5, 5, 5, 10));
+
+
+            Text text = new Text(msg);
+            TextFlow textFlow = new TextFlow(text);
+
+            textFlow.setStyle(
+                    "-fx-color: rgb(239, 242, 255);" +
+                            "-fx-background-color: #ae96b7;" +
+                            "-fx-background-radius: 20px;" +
+                            "-fx-font-size: 15pt;");
+
+            textFlow.setPadding(new Insets(5, 10, 5, 10));
+            text.setFill(Color.color(0.934, 0.925, 0.996));
+            hBox.getChildren().add(textFlow);
+            sp_main.setContent(vBoxMessages);
+            System.out.println("-------------"+msg);
+            //anchor.setStyle("-fx-background-color: #024029;");
+           // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
+
+            //cas 1 : la session avec l'utilisateur est déja établie
+            vBoxMessages.getChildren().add(hBox);
+            System.out.println("-------------"+msg);
+
+
+        }
+    }
+
+
+    public void updatercv_msg(String msgrcv){
+        /*System.out.println("JE SUIS DS UPDATE MSG  RCVV");
+     //   this.vBoxMessages.getChildren().clear();
+        System.out.println("jai clear la box");
+        addLabel(msgrcv,vBoxMessages);
+        System.out.println("Jai fini add label");
+        createDB DB = null;
+        try {
+            DB = new createDB(name_DB);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        //  assert DB != null;
+
+        myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
+        myListMsg.getItems().addAll(List_Connected.listCo);*/
+
 
     }
 
+
+
     public static void addLabel(String messageFromClient, VBox vBox){
+        VBox primaryVbox = new VBox();
+        primaryVbox.setAlignment(Pos.CENTER_LEFT);
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPadding(new Insets(5, 5, 5, 10));
-
+        System.out.println("msg from client "+ messageFromClient);
         Text text = new Text(messageFromClient);
         TextFlow textFlow = new TextFlow(text);
 
@@ -160,14 +251,22 @@ public class SessionChatController implements Initializable {
                 "-fx-background-color: rgb(233, 233, 235);" +
                         "-fx-background-radius: 20px;");
 
+
+
         textFlow.setPadding(new Insets(5, 10, 5, 10));
         hBox.getChildren().add(textFlow);
+        primaryVbox.getChildren().add(hBox);
 
+        System.out.println("jai add txt");
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
-                vBox.getChildren().add(hBox);
+                System.out.println("JE run je add ds vbox");
+                vBox.getChildren().add(primaryVbox);
             }
         });
-    }}
+    }
+public boolean get_box(){
+    return vBoxMessages != null;
+}
+}
