@@ -118,7 +118,7 @@ public class MenuController extends Thread implements  Initializable {
                 new Runnable() {
                     @Override
                     public void run() {
-                        controller.addMsg("hohoeoeoeoe");
+                        //controller.addMsg("hohoeoeoeoe");
                     }
                 }
         );

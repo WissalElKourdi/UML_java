@@ -33,8 +33,8 @@ import java.util.ResourceBundle;
 
 
 public class SessionChatController implements Initializable {
-@FXML
-public MenuController parentcontroller;
+    @FXML
+    public MenuController parentcontroller;
     @FXML
     private Button button_send;
     @FXML
@@ -55,7 +55,6 @@ public MenuController parentcontroller;
 
     @FXML
     private Label pseudo_autre;
-
     private Socket socket;
     private Sender sender;
     private String  ip;
@@ -64,19 +63,21 @@ public MenuController parentcontroller;
     public SessionChatController sessionchat;
     private String name_DB = "DB_MSG.db";
 
-    public void setParentController(MenuController parentController){this.parentcontroller = parentController;};
-public int get_controller(){
-    return this.hashCode();
-}
-public SessionChatController get_sess(){
-    return this.sessionchat;
-}
+    public void setParentController(MenuController parentController){this.parentcontroller = parentController;}
+
+    public int get_controller(){
+        return this.hashCode();
+    }
+
+    public SessionChatController get_sess(){
+        return this.sessionchat;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //Session.setSession(this);
-
-      //  myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
+        //myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
         //sessionchat = this;
 
         pseudo_autre.setText(MenuController.get_pseudo_user());
@@ -88,15 +89,16 @@ public SessionChatController get_sess(){
             }
         });
 
-        vBoxMessages.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
+       /* vBoxMessages.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            /*@Override
             public void handle(MouseEvent mouseEvent) {
                /*
                //get the time at which then message was sent (find in db)
                String Messagetime = Database.createDB.getDateFromMessage(mouseEvent.getSource(),name_db);
                //display it on the label
                time.setText(Messagetime);
-               */
+
+            }*/
 
 
                 button_send.setOnAction(new EventHandler<ActionEvent>() {
@@ -171,7 +173,6 @@ public SessionChatController get_sess(){
                             }
                             vBoxMessages.getChildren().add(hBox);
 
-
                         }
                     }
                 });
@@ -229,12 +230,10 @@ public SessionChatController get_sess(){
                     vBoxMessages.getChildren().add(hBox);
                     System.out.println("-------------" + msg);
 
-
                 }
             }
 
-
-            public void updatercv_msg(String msgrcv) {
+        public void updatercv_msg(String msgrcv) {
         /*System.out.println("JE SUIS DS UPDATE MSG  RCVV");
      //   this.vBoxMessages.getChildren().clear();
         System.out.println("jai clear la box");
@@ -252,40 +251,40 @@ public SessionChatController get_sess(){
         myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
         myListMsg.getItems().addAll(List_Connected.listCo);*/
 
-
-            }
-
-
-            public static void addLabel(String messageFromClient, VBox vBox) {
-                VBox primaryVbox = new VBox();
-                primaryVbox.setAlignment(Pos.CENTER_LEFT);
-                HBox hBox = new HBox();
-                hBox.setAlignment(Pos.CENTER_LEFT);
-                hBox.setPadding(new Insets(5, 5, 5, 10));
-                System.out.println("msg from client " + messageFromClient);
-                Text text = new Text(messageFromClient);
-                TextFlow textFlow = new TextFlow(text);
-
-                textFlow.setStyle(
-                        "-fx-background-color: #2685c5;" +
-                                "-fx-background-radius: 20px;" +
-                                "-fx-font-size: 15pt;");
-
-                textFlow.setPadding(new Insets(5, 10, 5, 10));
-                hBox.getChildren().add(textFlow);
-                primaryVbox.getChildren().add(hBox);
-
-                System.out.println("jai add txt");
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println("JE run je add ds vbox");
-                        vBox.getChildren().add(primaryVbox);
-                    }
-                });
-            }
-
-            public boolean get_box() {
-                return vBoxMessages != null;
-            }
         }
+
+
+    public static void addLabel(String messageFromClient, VBox vBox) {
+        VBox primaryVbox = new VBox();
+        primaryVbox.setAlignment(Pos.CENTER_LEFT);
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+        System.out.println("msg from client " + messageFromClient);
+        Text text = new Text(messageFromClient);
+        TextFlow textFlow = new TextFlow(text);
+
+        textFlow.setStyle(
+                "-fx-background-color: #2685c5;" +
+                        "-fx-background-radius: 20px;" +
+                        "-fx-font-size: 15pt;");
+
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        hBox.getChildren().add(textFlow);
+        primaryVbox.getChildren().add(hBox);
+
+        System.out.println("jai add txt");
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("JE run je add ds vbox");
+                vBox.getChildren().add(primaryVbox);
+            }
+        });
+    }
+
+
+    public boolean get_box() {
+        return vBoxMessages != null;
+    }
+}
