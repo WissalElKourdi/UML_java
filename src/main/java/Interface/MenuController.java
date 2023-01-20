@@ -30,6 +30,7 @@ import static Interface.LoginController.get_client;
 import static javafx.application.Application.launch;
 
 public class MenuController extends Thread implements  Initializable {
+    UDP_Server serv_udp = new UDP_Server();
     @FXML
     public AnchorPane connected_users;
     @FXML
@@ -78,6 +79,9 @@ public class MenuController extends Thread implements  Initializable {
     private static String currentConnected;
     public static HashMap<String,SessionChatController> ListControllers = new HashMap<>();
     Session session = Session.getInstance();
+
+    public MenuController() throws SocketException, SQLException {
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -137,7 +141,12 @@ public class MenuController extends Thread implements  Initializable {
     @FXML
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
-        try {
+        try { createDB DB =new createDB("DB_MSG.db");
+            System.out.println(List_Connected.listCo + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+            serv_udp.broadcast_je_vais_change_mon_pseudo(DB.getMonPseudo(name_db),port);
+
+            System.out.println("MON PSEUDOOOOO+  "+ DB.getMonPseudo(name_db));
             session.close_sess();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
@@ -146,7 +155,7 @@ public class MenuController extends Thread implements  Initializable {
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
 

@@ -45,7 +45,7 @@ public class UDP_Client extends Thread {
             String msg_rcv = new String (packet.getData(), 0, packet.getLength());
             msg_rcv = msg_rcv.trim();
             System.out.println("msg received :" +msg_rcv);
-                String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1).trim();
+            String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1).trim();
                 //String finalMsg_rcv = msg_rcv;
             String finalMsg_rcv = msg_rcv;
             Platform.runLater(new Runnable() {
@@ -58,12 +58,17 @@ public class UDP_Client extends Thread {
                             String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
 
                             if (!addr.equals(mine) && !List_Connected.exists(pseudo) && !(finalMsg_rcv.startsWith("MY INFOS :"))){
-                                List_Connected.add_co(pseudo);
-                                 }
+                                if(!pseudo.equals("")){
+                                    if (finalMsg_rcv.startsWith("MY INFOS CHANGE :")){
+                                        String pseudo1 = pseudo.substring(0, pseudo.indexOf("/"));
+                                    List_Connected.add_co(pseudo1);}else{
+                                    List_Connected.add_co(pseudo);}
+                                }
+
                              if ( menu != null){
                                  System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA ");
                                 menu.update_list();}
-                        }
+                        }}
                     });
 
             try {

@@ -96,6 +96,11 @@ public class UDP_Server {
         System.out.println("My INFOS CHANGE :" + pseudo + "/" + addr);
 
     }
+    public void broadcast_je_vais_change_mon_pseudo(String pseudo, int port) throws IOException {
+        broadcast("MY old pseudo :" + pseudo , port);
+        System.out.println("My old CHANGE :" + pseudo );
+
+    }
 
 
 }
