@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static Interface.LoginController.get_client;
 import static javafx.application.Application.launch;
 
 public class MenuController extends Thread implements  Initializable {
@@ -79,7 +80,7 @@ public class MenuController extends Thread implements  Initializable {
         client.setMenu(this);
         List_Connected.print_co();
         myListconnected.getItems().addAll(List_Connected.listCo);
-        Session session = Session.getInstance();
+       Session session = Session.getInstance();
         session.start();
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -119,7 +120,6 @@ public class MenuController extends Thread implements  Initializable {
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 1200, 800);
             scene.getStylesheets().add("/styles.css");
-
             mainFXML.mainStage.setTitle("Chat App");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
@@ -132,7 +132,6 @@ public class MenuController extends Thread implements  Initializable {
 
             @FXML
             void disconnect(ActionEvent event) throws SQLException, IOException {
-
                 //deconnexion
                 String DB_name = "DB_MSG.db";
                 createDB DB = new createDB(DB_name);
