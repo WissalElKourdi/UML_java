@@ -59,7 +59,6 @@ public class SessionChatController implements Initializable {
 
         pseudo_autre.setText(MenuController.get_pseudo_user());
 
-
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
