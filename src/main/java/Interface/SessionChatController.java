@@ -191,6 +191,7 @@ public SessionChatController get_sess(){
         try {
             createDB DB = new createDB(name_DB);
             String pseudo = MenuController.get_pseudo_user();
+            System.out.println(pseudo + "PSEUDOOO______________");
             String addr = List_USers.get_IP_user(pseudo);
         myListMsg=DB.selectMsg(addr,name_DB);
 

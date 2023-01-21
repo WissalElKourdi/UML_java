@@ -150,9 +150,7 @@ public class MenuController extends Thread implements  Initializable {
         //redirect to change pseudo page
         try { createDB DB =new createDB("DB_MSG.db");
             System.out.println(List_Connected.listCo + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
             serv_udp.broadcast_je_vais_change_mon_pseudo(DB.getMonPseudo(name_db),port);
-
             System.out.println("MON PSEUDOOOOO+  "+ DB.getMonPseudo(name_db));
             //session.close_sess();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));

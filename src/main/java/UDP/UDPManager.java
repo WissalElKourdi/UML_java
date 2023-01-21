@@ -75,7 +75,7 @@ public class UDPManager extends UDP_Client {
             List_USers.add_User(user);
 
         } else if (msg.startsWith( "MY old pseudo :")) {
-                 List_Connected.delete_co(pseudo);
+            List_Connected.delete_co(pseudo);
             Remote_Users old_user = List_USers.get_user_from_pseudo(pseudo);
             List_USers.remove_user(old_user);
 
