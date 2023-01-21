@@ -42,7 +42,7 @@
             <Image url="@img/sam.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="tf_message" layoutX="68.0" layoutY="510.0" prefHeight="90.0" prefWidth="350.0" style="-fx-font-family: 'VT323 Regular'; -fx-font-size: 17pt;" />
+      <TextArea fx:id="tf_message" layoutX="68.0" layoutY="510.0" prefHeight="90.0" prefWidth="350.0" style="-fx-font-family: 'VT323 Regular'; -fx-font-size: 17pt;" />
       <Label fx:id="time" layoutX="411.0" layoutY="238.0" text="Time" />
    </children>
 </AnchorPane>

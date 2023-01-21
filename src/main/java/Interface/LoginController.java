@@ -1,5 +1,6 @@
 package Interface;
 
+import Database.createDB;
 import UDP.UDP_Client;
 import UDP.UDP_Server;
 import UDP.IP_addr;
@@ -87,6 +88,8 @@ public class LoginController {
             if (serv_udp.broadcast_Pseudo(name, port)) {
                 try {
                     serv_udp.broadcast_connection(name, port);
+                    createDB DB =new createDB("DB_MSG.db");
+                    DB.insertMonpseudo(name,"DB_MSG.db");
                     String addr = IP_addr.get_my_IP().toString();
                     serv_udp.broadcast_info(name,addr,port);
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Menu.fxml"));
@@ -101,11 +104,12 @@ public class LoginController {
                     e.printStackTrace();
                 }
             } else {
-                serv_udp.broadcast_end(port);
+               // serv_udp.broadcast_end(port);
                 Text text = new Text("This username is already taken, choose another one");
                 returnText.getChildren().clear();
                 returnText.getChildren().add(text);
             }
+
         }else {
                 Text text = new Text ("The username should be between 5 and 15 characters long, and contain only letters and digits.");
                 returnText.getChildren().clear();

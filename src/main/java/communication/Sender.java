@@ -51,5 +51,4 @@ public class Sender extends Thread{
         DateTimeFormatter time= DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         DB.insertMSGSent(message, time.toString(),pseudo, socket.getLocalSocketAddress().toString(), socket.getPort(), DB_NAME);
     }
-
 }

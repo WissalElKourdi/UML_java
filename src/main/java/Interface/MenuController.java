@@ -2,8 +2,10 @@ package Interface;
 
 import static Interface.LoginController.client;
 import Database.createDB;
+import UDP.UDPManager;
 import UDP.UDP_Server;
 import USERS.List_Connected;
+import communication.Launch_receive;
 import communication.Sender;
 import communication.Session;
 import javafx.application.Platform;
@@ -16,7 +18,6 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Tab;
 
 import java.io.*;
 import java.net.*;
@@ -30,6 +31,7 @@ import static Interface.LoginController.get_client;
 import static javafx.application.Application.launch;
 
 public class MenuController extends Thread implements  Initializable {
+    UDP_Server serv_udp = new UDP_Server();
     @FXML
     public AnchorPane connected_users;
     @FXML
@@ -47,8 +49,6 @@ public class MenuController extends Thread implements  Initializable {
 
     @FXML
     private Button button_send;
-
-    @FXML Tab mainTab;
 
     @FXML
     private TextField tf_message;
@@ -79,17 +79,19 @@ public class MenuController extends Thread implements  Initializable {
     private ObservableList<String> list ;
     private static String currentConnected;
     public static HashMap<String,SessionChatController> ListControllers = new HashMap<>();
+    Session session = Session.getInstance();
 
+    public MenuController() throws SocketException, SQLException {
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //update_list();
-        mainTab.setClosable(false);
+       // UDPManager manager = new UDPManager();
         client.setMenu(this);
-
         myListconnected.getItems().addAll(List_Connected.listCo);
-       Session session = Session.getInstance();
-        session.start();
+
+
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                         currentConnected = myListconnected.getSelectionModel().getSelectedItem();
@@ -114,14 +116,14 @@ public class MenuController extends Thread implements  Initializable {
         //listTabs.add(loader.getController());
        // listTabs.add(pseudo);
         SessionChatController controller = (SessionChatController) loader.getController();
-        Platform.runLater(
+       /* Platform.runLater(
                 new Runnable() {
                     @Override
                     public void run() {
                         controller.addMsg("hohoeoeoeoe");
                     }
                 }
-        );
+        );*/
 
       ListControllers.put(pseudo, controller);
 
@@ -137,20 +139,25 @@ public class MenuController extends Thread implements  Initializable {
         myListconnected.getItems().addAll(List_Connected.listCo);
     }
 
+
     @FXML
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
-        try {
+        try { createDB DB =new createDB("DB_MSG.db");
+            System.out.println(List_Connected.listCo + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+            serv_udp.broadcast_je_vais_change_mon_pseudo(DB.getMonPseudo(name_db),port);
+
+            System.out.println("MON PSEUDOOOOO+  "+ DB.getMonPseudo(name_db));
+            session.close_sess();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 1200, 800);
             scene.getStylesheets().add("/styles.css");
             mainFXML.mainStage.setTitle("Chat App");
-
-            mainFXML.mainStage.setTitle("Totally spicy");
             mainFXML.mainStage.setScene(scene);
             mainFXML.mainStage.show();
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
 
@@ -172,7 +179,7 @@ public class MenuController extends Thread implements  Initializable {
                     Parent parent = loader.load();
                     Scene scene = new Scene(parent, 1200, 800);
                     scene.getStylesheets().add("/styles.css");
-                    mainFXML.mainStage.setTitle("Totally spicy");
+                    mainFXML.mainStage.setTitle("Chat App");
                     mainFXML.mainStage.setScene(scene);
                     mainFXML.mainStage.show();
                 } catch (IOException e) {

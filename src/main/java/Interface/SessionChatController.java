@@ -28,7 +28,10 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -44,12 +47,10 @@ public MenuController parentcontroller;
     @FXML
     AnchorPane anchor;
     @FXML
-    Label time;
-    @FXML
     private ScrollPane sp_main;
     @FXML
     public ObservableList<String> observableHistory;
-    private ArrayList<String> myListMsg = new ArrayList<>();
+    private     List<String>  myListMsg = new ArrayList<>();
     private static String currentMsg;
 
 
@@ -73,7 +74,11 @@ public SessionChatController get_sess(){
 }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        System.out.println("ICIII''''''''''''");
+    setHistory();
+        System.out.println("ICIII''''''''''''");
+        update_chat();
+        System.out.println("ICIII''''''''''''");
         //Session.setSession(this);
 
       //  myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
@@ -99,116 +104,19 @@ public SessionChatController get_sess(){
                */
 
 
-                button_send.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        String pseudo = MenuController.get_pseudo_user();
-                        String messageToSend = tf_message.getText();
-                        Socket sock = null;
-                        if (!messageToSend.isBlank()) {
-                            HBox hBox = new HBox();
-                            hBox.setAlignment(Pos.CENTER_RIGHT);
-                            hBox.setPadding(new Insets(5, 5, 5, 10));
-
-                            Text text = new Text(messageToSend);
-                            TextFlow textFlow = new TextFlow(text);
-
-                            textFlow.setStyle(
-                                    "-fx-color: rgb(239, 242, 255);" +
-                                            "-fx-background-color: #ae96b7;" +
-                                            "-fx-background-radius: 20px;" +
-                                            "-fx-font-size: 15pt;");
-
-                            textFlow.setPadding(new Insets(5, 10, 5, 10));
-                            text.setFill(Color.color(0.934, 0.925, 0.996));
-                            hBox.getChildren().add(textFlow);
-                            sp_main.setContent(vBoxMessages);
-                            //anchor.setStyle("-fx-background-color: #024029;");
-                            System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
-
-                            //cas 1 : la session avec l'utilisateur est déja établie
-                            if (Handler.getInstance().isEtablished(pseudo)) {
-                                System.out.println("old connection");
-                                try {
-                                    //Session.getInstance().start();
-                                    sock = Session.getInstance().getSock(pseudo);
-                                    sender = new Sender(sock, pseudo, messageToSend);
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-
-                                }
-                            } else {
-                                System.out.println("new Connection");
-                                try {
-                                    System.out.println("PSEUDOOO de sessionchatcontroller pour le sock" + pseudo);
-                                    sock = Handler.getInstance().startConnection(pseudo);
-                                } catch (IOException e) {
-                                    System.out.println("erreur création du socket ");
-                                    throw new RuntimeException(e);
-                                }
-                                // sender = new Sender(sock, pseudo, messageToSend);
-
-                                if (sock.isConnected()) {
-                                    try {
-                                        System.out.println("Connected to sock");
-                                        sender = new Sender(sock, pseudo, messageToSend); // le thread qui envoie les messages au client
-                                        System.out.println("the sender is created");
-                                        receiver = new Launch_receive(sock, pseudo); // le thread qui reçoit les messages
-                                        System.out.println("the receiver is created ");
-                                        Launch_receive.sessions.add(receiver);
-                                        receiver.start();
-                                        System.out.println("the receiver is ready to receive youpii");
-
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }
-                            }
-
-                            if (messageToSend.isEmpty() && sock.isConnected()) {
-                                sender.start();
-                                tf_message.clear();
-                            }
-                            vBoxMessages.getChildren().add(hBox);
-
-
-                        }
-                    }
-                });
-            }
-
-            public void setHistory() {
-                addMsg("hohohoh");
-                try {
-                    createDB DB = new createDB(name_DB);
-                    String pseudo = MenuController.get_pseudo_user();
-                    myListMsg = (ArrayList<String>) DB.selectMsgRcv(pseudo, name_DB);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-
-            public void update_chat() {
-                vBoxMessages.getChildren().clear();
-                for (String msg : myListMsg) {
-                    addMsg(msg);
-                }
-            }
-
-            public void addMsg(String msg) {
-                if (vBoxMessages == null) {
-                    System.out.println("ici");
-                }
-                //Label label = new Label(msg);
-                System.out.println(msg);
-                // vBoxMessages.getChildren().add(label);
-                if (!msg.isBlank()) {
+        button_send.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String pseudo = MenuController.get_pseudo_user();
+                LocalTime time = LocalTime.now();
+                String messageToSend = tf_message.getText() + "  ---  "+ time;
+                Socket sock=null;
+                if (!messageToSend.isBlank()) {
                     HBox hBox = new HBox();
-                    hBox.setAlignment(Pos.CENTER_LEFT);
+                    hBox.setAlignment(Pos.CENTER_RIGHT);
                     hBox.setPadding(new Insets(5, 5, 5, 10));
 
-
-                    Text text = new Text(msg);
+                    Text text = new Text(messageToSend);
                     TextFlow textFlow = new TextFlow(text);
 
                     textFlow.setStyle(
@@ -221,50 +129,175 @@ public SessionChatController get_sess(){
                     text.setFill(Color.color(0.934, 0.925, 0.996));
                     hBox.getChildren().add(textFlow);
                     sp_main.setContent(vBoxMessages);
-                    System.out.println("-------------" + msg);
                     //anchor.setStyle("-fx-background-color: #024029;");
-                    // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
+                    System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
                     //cas 1 : la session avec l'utilisateur est déja établie
+                    if(Handler.getInstance().isEtablished(pseudo)){
+                        System.out.println("old connection");
+                        try {
+                            //Session.getInstance().start();
+                            sock= Session.getInstance().getSock(pseudo);
+                            sender= new Sender(sock,pseudo,messageToSend);
+                        }
+                        catch (IOException e) {
+                            throw new RuntimeException(e);
+
+                        }
+                     }else {
+                        System.out.println("new Connection");
+                        try {
+                            System.out.println("PSEUDOOO de sessionchatcontroller pour le sock" + pseudo);
+                            sock =Handler.getInstance().startConnection(pseudo);
+                        } catch (IOException e) {
+                            System.out.println("erreur création du socket ");
+                            throw new RuntimeException(e);
+                        }
+                        // sender = new Sender(sock, pseudo, messageToSend);
+
+                        if (sock.isConnected()) {
+                            try {
+                                System.out.println("Connected to sock");
+                                sender = new Sender(sock, pseudo, messageToSend); // le thread qui envoie les messages au client
+                                System.out.println("the sender is created");
+                                receiver = new Launch_receive(sock, pseudo); // le thread qui reçoit les messages
+                                System.out.println("the receiver is created ");
+                                Launch_receive.sessions.add(receiver);
+                                receiver.start();
+                                System.out.println("the receiver is ready to receive youpii");
+
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+
+                    if(messageToSend.isEmpty() && sock.isConnected()){
+                        sender.start();
+                        tf_message.clear();
+                    }
                     vBoxMessages.getChildren().add(hBox);
-                    System.out.println("-------------" + msg);
 
 
                 }
             }
+        });
+    }
 
-
-            public void updatercv_msg(String msgrcv) {
-        /*System.out.println("JE SUIS DS UPDATE MSG  RCVV");
-     //   this.vBoxMessages.getChildren().clear();
-        System.out.println("jai clear la box");
-        addLabel(msgrcv,vBoxMessages);
-        System.out.println("Jai fini add label");
-        createDB DB = null;
+    public void setHistory(){
+   // myListMsg.clear();
         try {
-            DB = new createDB(name_DB);
+            createDB DB = new createDB(name_DB);
+            String pseudo = MenuController.get_pseudo_user();
+        myListMsg=DB.selectMsg(pseudo,name_DB);
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
 
-        //  assert DB != null;
+    public void update_chat(){
 
-        myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
-        myListMsg.getItems().addAll(List_Connected.listCo);*/
+    ArrayList<String> msg;
+   String msg_display;
 
+    vBoxMessages.getChildren().clear();
+    for(int i=0; i< myListMsg.size(); i++){
 
-            }
+        msg= new ArrayList<String>(Arrays.asList(myListMsg.get(i).split(" ")));
+        if(msg.get(3).equals("sender")){
+            msg_display = msg.get(1) +"  ---  "+ msg.get(2);
+            addMsg(msg_display,true);
+        }else{
+            msg_display = msg.get(1) + msg.get(2);
+            addMsg(msg_display,false);
+        }
 
+        }
+    }
 
-            public static void addLabel(String messageFromClient, VBox vBox) {
-                VBox primaryVbox = new VBox();
-                primaryVbox.setAlignment(Pos.CENTER_LEFT);
+    public void addMsg(String msg, Boolean Sender) {
+        if (vBoxMessages == null) {
+            System.out.println("ici");
+        }
+        //Label label = new Label(msg);
+        System.out.println(msg);
+        // vBoxMessages.getChildren().add(label);
+        if (Sender) {
+            if (!msg.isBlank()) {
                 HBox hBox = new HBox();
                 hBox.setAlignment(Pos.CENTER_LEFT);
                 hBox.setPadding(new Insets(5, 5, 5, 10));
-                System.out.println("msg from client " + messageFromClient);
-                Text text = new Text(messageFromClient);
+
+
+                Text text = new Text(msg);
                 TextFlow textFlow = new TextFlow(text);
+
+                textFlow.setStyle(
+                        "-fx-color: rgb(239, 242, 255);" +
+                                "-fx-background-color: #ae96b7;" +
+                                "-fx-background-radius: 20px;" +
+                                "-fx-font-size: 15pt;");
+
+                textFlow.setPadding(new Insets(5, 10, 5, 10));
+                text.setFill(Color.color(0.934, 0.925, 0.996));
+                hBox.getChildren().add(textFlow);
+                sp_main.setContent(vBoxMessages);
+                System.out.println("-------------" + msg);
+                //anchor.setStyle("-fx-background-color: #024029;");
+                // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
+
+                //cas 1 : la session avec l'utilisateur est déja établie
+                vBoxMessages.getChildren().add(hBox);
+                System.out.println("-------------" + msg);
+
+
+            }
+        } else {
+            if (!msg.isBlank()) {
+                HBox hBox = new HBox();
+                hBox.setAlignment(Pos.CENTER_RIGHT);
+                hBox.setPadding(new Insets(5, 5, 5, 10));
+
+
+                Text text = new Text(msg);
+                TextFlow textFlow = new TextFlow(text);
+
+                textFlow.setStyle(
+                        "-fx-color: rgb(239, 242, 255);" +
+                                "-fx-background-color: #ae96b7;" +
+                                "-fx-background-radius: 20px;" +
+                                "-fx-font-size: 15pt;");
+
+                textFlow.setPadding(new Insets(5, 10, 5, 10));
+                text.setFill(Color.color(0.934, 0.925, 0.996));
+                hBox.getChildren().add(textFlow);
+                sp_main.setContent(vBoxMessages);
+                System.out.println("-------------" + msg);
+                //anchor.setStyle("-fx-background-color: #024029;");
+                // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
+
+                //cas 1 : la session avec l'utilisateur est déja établie
+                vBoxMessages.getChildren().add(hBox);
+                System.out.println("-------------" + msg);
+
+
+            }
+        }
+
+
+        }
+
+
+    public static void addLabel(String messageFromClient, VBox vBox){
+        VBox primaryVbox = new VBox();
+        primaryVbox.setAlignment(Pos.CENTER_LEFT);
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+        System.out.println("msg from client "+ messageFromClient);
+        Text text = new Text(messageFromClient);
+        TextFlow textFlow = new TextFlow(text);
 
                 textFlow.setStyle(
                         "-fx-background-color: #2685c5;" +
@@ -275,17 +308,16 @@ public SessionChatController get_sess(){
                 hBox.getChildren().add(textFlow);
                 primaryVbox.getChildren().add(hBox);
 
-                System.out.println("jai add txt");
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println("JE run je add ds vbox");
-                        vBox.getChildren().add(primaryVbox);
-                    }
-                });
+        System.out.println("jai add txt");
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("JE run je add ds vbox");
+                vBox.getChildren().add(primaryVbox);
             }
-
-            public boolean get_box() {
-                return vBoxMessages != null;
-            }
-        }
+        });
+    }
+public boolean get_box(){
+    return vBoxMessages != null;
+}
+}
