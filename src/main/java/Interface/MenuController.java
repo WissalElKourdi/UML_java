@@ -175,7 +175,8 @@ public class MenuController extends Thread implements  Initializable {
                 String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") + 1);
                 UDP_Server serv_udp = new UDP_Server();
                 serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
-                //  serv_udp.broadcast_end(port);
+                serv_udp.broadcast_end(port);
+                session.close_sess();
                 //retour à la page d'accueil (login)
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));

@@ -67,7 +67,7 @@ public class UDP_Client extends Thread {
                             SessionChatController.close_tab_sess(pseudo);}
                             System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA " + pseudo);
                             List_Connected.print_co();
-                        menu.update_list();
+                            menu.update_list();
 
 
 
