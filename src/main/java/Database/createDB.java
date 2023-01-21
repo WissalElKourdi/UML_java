@@ -391,14 +391,14 @@ public class createDB {
         return list;
         }
 
-    public synchronized List<String> selectMsg(String pseudo,String filename){
+    public synchronized List<String> selectMsg(String addr,String filename){
         //String sql = "SELECT message, date, pseudo, addr, port FROM history";
-        String sql = "SELECT pseudo, message, date, sender FROM Msg WHERE pseudo=?";
+        String sql = "SELECT pseudo, message, date, sender FROM Msg WHERE addr=?";
         List<String> list = new ArrayList<>();
 
         try (Connection conn = this.connect(filename);
              PreparedStatement stmt  = conn.prepareStatement(sql)){
-            stmt.setString(1,pseudo);
+            stmt.setString(1,addr);
             ResultSet rs    = stmt.executeQuery();
             // loop through the result set
             while (rs.next()) {
