@@ -2,10 +2,12 @@ package UDP;
 
 import Database.createDB;
 import Interface.MenuController;
+import Interface.SessionChatController;
 import USERS.List_Connected;
 import USERS.List_USers;
 import USERS.Remote_Users;
 import javafx.application.Platform;
+import javafx.scene.control.Tab;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -38,6 +40,9 @@ public class UDPManager extends UDP_Client {
         String pseudo = msg.substring(msg.lastIndexOf(':') + 1);
 
         if (!addr.equals(mine)) {
+            if ( !List_Connected.exists(pseudo) && (!msg.startsWith("MY INFOS :")) && (!msg.startsWith("MY INFOS CHANGE :"))){
+                List_Connected.add_co(pseudo);
+            }
 
         if (msg.startsWith("new pseudo :")) {
             DB.insertIpseudo(pseudo.trim(), addr, name_db);
@@ -71,6 +76,8 @@ public class UDPManager extends UDP_Client {
 
         } else if (msg.startsWith( "MY old pseudo :")) {
                  List_Connected.delete_co(pseudo);
+            Remote_Users old_user = List_USers.get_user_from_pseudo(pseudo);
+            List_USers.remove_user(old_user);
 
         }else if (msg.startsWith("MY INFOS CHANGE :")) {
             String pseudo1 = pseudo.substring(0, pseudo.indexOf("/"));

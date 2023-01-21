@@ -79,6 +79,8 @@ public class MenuController extends Thread implements  Initializable {
     private ObservableList<String> list ;
     private static String currentConnected;
     public static HashMap<String,SessionChatController> ListControllers = new HashMap<>();
+    public static HashMap<String,Tab> ListTabs = new HashMap<>();
+
     Session session = Session.getInstance();
 
     public MenuController() throws SocketException, SQLException {
@@ -126,7 +128,7 @@ public class MenuController extends Thread implements  Initializable {
         );*/
 
       ListControllers.put(pseudo, controller);
-
+    ListTabs.put(pseudo,tab);
         onglets.getTabs().add(tab);
       //  onglets.getTabs().get()
     }
@@ -149,7 +151,7 @@ public class MenuController extends Thread implements  Initializable {
             serv_udp.broadcast_je_vais_change_mon_pseudo(DB.getMonPseudo(name_db),port);
 
             System.out.println("MON PSEUDOOOOO+  "+ DB.getMonPseudo(name_db));
-            session.close_sess();
+            //session.close_sess();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 1200, 800);

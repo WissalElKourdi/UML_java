@@ -11,6 +11,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -175,6 +176,7 @@ public SessionChatController get_sess(){
             String pseudo = MenuController.get_pseudo_user();
             String addr = List_USers.get_IP_user(pseudo);
         myListMsg=DB.selectMsg(addr,name_DB);
+        System.out.println("MY LIST MSGGG" + myListMsg);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -306,4 +308,16 @@ public SessionChatController get_sess(){
 public boolean get_box(){
     return vBoxMessages != null;
 }
+public static void close_tab_sess(String pseudo){
+    Tab tab = MenuController.ListTabs.get(pseudo);
+        EventHandler<Event> handler = tab.getOnClosed();
+        if (null != handler) {
+            handler.handle(null);
+        } else {
+            tab.getTabPane().getTabs().remove(tab);
+        }
+    }
+
+
+
 }
