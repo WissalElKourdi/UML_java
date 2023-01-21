@@ -1,6 +1,7 @@
 
 package Interface;
 import Database.createDB;
+import USERS.List_USers;
 import communication.Handler;
 import communication.Launch_receive;
 import communication.Sender;
@@ -93,10 +94,10 @@ public SessionChatController get_sess(){
             }
         });
 
-        vBoxMessages.setOnMouseClicked(new EventHandler<MouseEvent>() {
+       /* vBoxMessages.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-               /*
+
                //get the time at which then message was sent (find in db)
                String Messagetime = Database.createDB.getDateFromMessage(mouseEvent.getSource(),name_db);
                //display it on the label
@@ -189,7 +190,8 @@ public SessionChatController get_sess(){
         try {
             createDB DB = new createDB(name_DB);
             String pseudo = MenuController.get_pseudo_user();
-        myListMsg=DB.selectMsg(pseudo,name_DB);
+            String addr = List_USers.get_IP_user(pseudo);
+        myListMsg=DB.selectMsg(addr,name_DB);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -320,4 +322,5 @@ public SessionChatController get_sess(){
 public boolean get_box(){
     return vBoxMessages != null;
 }
+
 }
