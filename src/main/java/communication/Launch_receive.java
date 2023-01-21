@@ -51,7 +51,7 @@ public class Launch_receive extends Thread  {
                         LocalTime time = LocalTime.now();
                         System.out.println(pseudo + " sent me :  " + message);
                         String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().toString().indexOf("/") + 1).trim();
-                        DB.insertMSG(message, time.toString(), pseudo, addr, socket.getPort(),"sender", DB_NAME);
+                        DB.insertMSG(message, time.toString(), pseudo, addr, socket.getPort(),"receiver", DB_NAME);
    //DB.insertMSGRcv(message, time.toString(), pseudo, addr, socket.getPort(), DB_NAME);
                         /*Platform.runLater(new Runnable() {
                             @Override
@@ -59,7 +59,7 @@ public class Launch_receive extends Thread  {
 
                                // MenuController.ListControllers.get(pseudo).update_chat();
                                 if (MenuController.ListControllers.get(pseudo)!=null && message != null){
-                                MenuController.ListControllers.get(pseudo).addMsg(message,true);}
+                              //  MenuController.ListControllers.get(pseudo).addMsg(message,true);}
                             }});*/
                   /*  if ( Sess != null){
                         System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA ");

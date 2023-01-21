@@ -228,7 +228,7 @@ public SessionChatController get_sess(){
         if (Sender) {
             if (!msg.isBlank()) {
                 HBox hBox = new HBox();
-                hBox.setAlignment(Pos.CENTER_LEFT);
+                hBox.setAlignment(Pos.CENTER_RIGHT);
                 hBox.setPadding(new Insets(5, 5, 5, 10));
 
 
@@ -245,7 +245,7 @@ public SessionChatController get_sess(){
                 text.setFill(Color.color(0.934, 0.925, 0.996));
                 hBox.getChildren().add(textFlow);
                 sp_main.setContent(vBoxMessages);
-                System.out.println("-------------" + msg);
+                System.out.println("SENDERRRRRRRR" + msg);
                 //anchor.setStyle("-fx-background-color: #024029;");
                 // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
@@ -258,7 +258,7 @@ public SessionChatController get_sess(){
         } else {
             if (!msg.isBlank()) {
                 HBox hBox = new HBox();
-                hBox.setAlignment(Pos.CENTER_RIGHT);
+                hBox.setAlignment(Pos.CENTER_LEFT);
                 hBox.setPadding(new Insets(5, 5, 5, 10));
 
 
