@@ -41,6 +41,8 @@ public class MenuController extends Thread implements  Initializable {
     @FXML
     public VBox vbox_messages1;
     private static final int port =2000;
+    @FXML
+    Tab mainTab;
 
     @FXML
     private Button disconnect;
@@ -90,6 +92,7 @@ public class MenuController extends Thread implements  Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //update_list();
        // UDPManager manager = new UDPManager();
+        mainTab.setClosable(false);
         client.setMenu(this);
         myListconnected.getItems().addAll(List_Connected.listCo);
 
