@@ -182,16 +182,16 @@ public SessionChatController get_sess(){
    String msg_display;
 
     vBoxMessages.getChildren().clear();
-    for(int i=0; i< myListMsg.size(); i++){
+        for (String s : myListMsg) {
 
-        msg= new ArrayList<String>(Arrays.asList(myListMsg.get(i).split(" ")));
-        if(msg.get(3).equals("sender")){
-            msg_display = msg.get(1) +"  ---  "+ msg.get(2);
-            addMsg(msg_display,true);
-        }else{
-            msg_display = msg.get(1) + msg.get(2);
-            addMsg(msg_display,false);
-        }
+            msg = new ArrayList<String>(Arrays.asList(s.split(" ")));
+            if (msg.get(3).equals("sender")) {
+                msg_display = msg.get(1) + "  ---  " + msg.get(2);
+                addMsg(msg_display, true);
+            } else {
+                msg_display = msg.get(1) + msg.get(2);
+                addMsg(msg_display, false);
+            }
 
         }
     }
