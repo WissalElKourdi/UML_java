@@ -11,12 +11,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -53,6 +55,10 @@ public MenuController parentcontroller;
     private     List<String>  myListMsg = new ArrayList<>();
     private static String currentMsg;
 
+
+    @FXML
+    private Label pseudo_autre;
+
     private Socket socket;
     private Sender sender;
     private String  ip;
@@ -78,6 +84,10 @@ public SessionChatController get_sess(){
         //Session.setSession(this);
 
       //  myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
+        //sessionchat = this;
+
+        pseudo_autre.setText(MenuController.get_pseudo_user());
+
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -85,7 +95,15 @@ public SessionChatController get_sess(){
             }
         });
 
+       /* vBoxMessages.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
 
+               //get the time at which then message was sent (find in db)
+               String Messagetime = Database.createDB.getDateFromMessage(mouseEvent.getSource(),name_db);
+               //display it on the label
+               time.setText(Messagetime);
+               */
 
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
@@ -284,15 +302,14 @@ public SessionChatController get_sess(){
         Text text = new Text(messageFromClient);
         TextFlow textFlow = new TextFlow(text);
 
-        textFlow.setStyle(
-                "-fx-background-color: rgb(233, 233, 235);" +
-                        "-fx-background-radius: 20px;");
+                textFlow.setStyle(
+                        "-fx-background-color: #2685c5;" +
+                                "-fx-background-radius: 20px;" +
+                                "-fx-font-size: 15pt;");
 
-
-
-        textFlow.setPadding(new Insets(5, 10, 5, 10));
-        hBox.getChildren().add(textFlow);
-        primaryVbox.getChildren().add(hBox);
+                textFlow.setPadding(new Insets(5, 10, 5, 10));
+                hBox.getChildren().add(textFlow);
+                primaryVbox.getChildren().add(hBox);
 
         System.out.println("jai add txt");
         Platform.runLater(new Runnable() {
@@ -306,4 +323,17 @@ public SessionChatController get_sess(){
 public boolean get_box(){
     return vBoxMessages != null;
 }
+public static void close_tab_sess(String pseudo){
+    Tab tab = MenuController.ListTabs.get(pseudo);
+        EventHandler<Event> handler = tab.getOnClosed();
+        if (null != handler) {
+            handler.handle(null);
+        } else {
+            tab.getTabPane().getTabs().remove(tab);
+        }
+    }
+
+
+
+
 }

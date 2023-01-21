@@ -41,6 +41,8 @@ public class MenuController extends Thread implements  Initializable {
     @FXML
     public VBox vbox_messages1;
     private static final int port =2000;
+    @FXML
+    Tab mainTab;
 
     @FXML
     private Button disconnect;
@@ -79,6 +81,8 @@ public class MenuController extends Thread implements  Initializable {
     private ObservableList<String> list ;
     private static String currentConnected;
     public static HashMap<String,SessionChatController> ListControllers = new HashMap<>();
+    public static HashMap<String,Tab> ListTabs = new HashMap<>();
+
     Session session = Session.getInstance();
 
     public MenuController() throws SocketException, SQLException {
@@ -88,6 +92,7 @@ public class MenuController extends Thread implements  Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //update_list();
        // UDPManager manager = new UDPManager();
+        mainTab.setClosable(false);
         client.setMenu(this);
         myListconnected.getItems().addAll(List_Connected.listCo);
 
@@ -126,7 +131,7 @@ public class MenuController extends Thread implements  Initializable {
         );*/
 
       ListControllers.put(pseudo, controller);
-
+    ListTabs.put(pseudo,tab);
         onglets.getTabs().add(tab);
       //  onglets.getTabs().get()
     }
@@ -144,13 +149,12 @@ public class MenuController extends Thread implements  Initializable {
     void change_pseudo(ActionEvent event) {
         //redirect to change pseudo page
         try { createDB DB =new createDB("DB_MSG.db");
-            //session.close_sess();
             System.out.println(List_Connected.listCo + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             serv_udp.broadcast_je_vais_change_mon_pseudo(DB.getMonPseudo(name_db),port);
 
             System.out.println("MON PSEUDOOOOO+  "+ DB.getMonPseudo(name_db));
-
+            //session.close_sess();
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChangeLogin.fxml"));
             Parent parent = loader.load();
             Scene scene = new Scene(parent, 1200, 800);
