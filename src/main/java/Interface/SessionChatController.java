@@ -121,8 +121,7 @@ public SessionChatController get_sess(){
                     TextFlow textFlow = new TextFlow(text);
 
                     textFlow.setStyle(
-                            "-fx-color: rgb(239, 242, 255);" +
-                                    "-fx-background-color: #ae96b7;" +
+                                    "-fx-background-color: #357EC7;" +
                                     "-fx-background-radius: 20px;" +
                                     "-fx-font-size: 15pt;");
 
@@ -130,7 +129,6 @@ public SessionChatController get_sess(){
                     text.setFill(Color.color(0.934, 0.925, 0.996));
                     hBox.getChildren().add(textFlow);
                     sp_main.setContent(vBoxMessages);
-                    //anchor.setStyle("-fx-background-color: #024029;");
                     System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
                     //cas 1 : la session avec l'utilisateur est déja établie
@@ -236,8 +234,7 @@ public SessionChatController get_sess(){
                 TextFlow textFlow = new TextFlow(text);
 
                 textFlow.setStyle(
-                        "-fx-color: rgb(239, 242, 255);" +
-                                "-fx-background-color: #ae96b7;" +
+                                "-fx-background-color: #33cb29;" +
                                 "-fx-background-radius: 20px;" +
                                 "-fx-font-size: 15pt;");
 
@@ -246,7 +243,6 @@ public SessionChatController get_sess(){
                 hBox.getChildren().add(textFlow);
                 sp_main.setContent(vBoxMessages);
                 System.out.println("SENDERRRRRRRR" + msg);
-                //anchor.setStyle("-fx-background-color: #024029;");
                 // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
                 //cas 1 : la session avec l'utilisateur est déja établie
@@ -267,8 +263,8 @@ public SessionChatController get_sess(){
 
                 textFlow.setStyle(
                         "-fx-color: rgb(239, 242, 255);" +
-                                "-fx-background-color: #ae96b7;" +
-                                "-fx-background-radius: 20px;" +
+                                "-fx-background-color: #33cb29" +
+                        "-fx-background-radius: 20px;" +
                                 "-fx-font-size: 15pt;");
 
                 textFlow.setPadding(new Insets(5, 10, 5, 10));
