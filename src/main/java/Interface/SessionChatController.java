@@ -1,6 +1,7 @@
 
 package Interface;
 import Database.createDB;
+import USERS.List_USers;
 import communication.Handler;
 import communication.Launch_receive;
 import communication.Sender;
@@ -172,7 +173,8 @@ public SessionChatController get_sess(){
         try {
             createDB DB = new createDB(name_DB);
             String pseudo = MenuController.get_pseudo_user();
-        myListMsg=DB.selectMsg(pseudo,name_DB);
+            String addr = List_USers.get_IP_user(pseudo);
+        myListMsg=DB.selectMsg(addr,name_DB);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -209,7 +211,7 @@ public SessionChatController get_sess(){
         if (Sender) {
             if (!msg.isBlank()) {
                 HBox hBox = new HBox();
-                hBox.setAlignment(Pos.CENTER_LEFT);
+                hBox.setAlignment(Pos.CENTER_RIGHT);
                 hBox.setPadding(new Insets(5, 5, 5, 10));
 
 
@@ -226,7 +228,7 @@ public SessionChatController get_sess(){
                 text.setFill(Color.color(0.934, 0.925, 0.996));
                 hBox.getChildren().add(textFlow);
                 sp_main.setContent(vBoxMessages);
-                System.out.println("-------------" + msg);
+                System.out.println("SENDERRRRRRRR" + msg);
                 //anchor.setStyle("-fx-background-color: #024029;");
                 // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
@@ -239,7 +241,7 @@ public SessionChatController get_sess(){
         } else {
             if (!msg.isBlank()) {
                 HBox hBox = new HBox();
-                hBox.setAlignment(Pos.CENTER_RIGHT);
+                hBox.setAlignment(Pos.CENTER_LEFT);
                 hBox.setPadding(new Insets(5, 5, 5, 10));
 
 

@@ -65,8 +65,8 @@ public class UDPManager extends UDP_Client {
             String pseudo1 = pseudo.substring(0, pseudo.indexOf("/"));
             String addr1 = msg.substring(msg.lastIndexOf('/') + 1);
 
-            Remote_Users user = new Remote_Users(pseudo, addr1);
-            System.out.println("I am ADDING TO THE LIST USER ==>" + pseudo + "   " + addr1);
+            Remote_Users user = new Remote_Users(pseudo1, addr1);
+            System.out.println("I am ADDING TO THE LIST USER ==>" + pseudo1 + "   " + addr1);
             List_USers.add_User(user);
 
         } else if (msg.startsWith( "MY old pseudo :")) {
