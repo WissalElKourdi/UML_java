@@ -77,7 +77,7 @@ public SessionChatController get_sess(){
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("ICIII''''''''''''");
-    setHistory();
+        setHistory();
         System.out.println("ICIII''''''''''''");
         update_chat();
         System.out.println("ICIII''''''''''''");
