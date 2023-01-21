@@ -69,8 +69,11 @@ public SessionChatController get_sess(){
 }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setHistory();
+        System.out.println("ICIII''''''''''''");
+    setHistory();
+        System.out.println("ICIII''''''''''''");
         update_chat();
+        System.out.println("ICIII''''''''''''");
         //Session.setSession(this);
 
       //  myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
@@ -165,7 +168,7 @@ public SessionChatController get_sess(){
     }
 
     public void setHistory(){
-    myListMsg.clear();
+   // myListMsg.clear();
         try {
             createDB DB = new createDB(name_DB);
             String pseudo = MenuController.get_pseudo_user();

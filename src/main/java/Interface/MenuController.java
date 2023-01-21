@@ -2,6 +2,7 @@ package Interface;
 
 import static Interface.LoginController.client;
 import Database.createDB;
+import UDP.UDPManager;
 import UDP.UDP_Server;
 import USERS.List_Connected;
 import communication.Launch_receive;
@@ -86,6 +87,7 @@ public class MenuController extends Thread implements  Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //update_list();
+       // UDPManager manager = new UDPManager();
         client.setMenu(this);
         myListconnected.getItems().addAll(List_Connected.listCo);
 
