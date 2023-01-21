@@ -40,7 +40,7 @@ public class UDPManager extends UDP_Client {
         String pseudo = msg.substring(msg.lastIndexOf(':') + 1);
 
         if (!addr.equals(mine)) {
-            if ( !List_Connected.exists(pseudo) && (!msg.startsWith("MY INFOS :")) && (!msg.startsWith("MY INFOS CHANGE :"))){
+            if ( !List_Connected.exists(pseudo) && (!msg.startsWith("MY INFOS :")) && (!msg.startsWith("MY INFOS CHANGE :"))  && (!msg.startsWith("end"))){
                 List_Connected.add_co(pseudo);
             }
 
@@ -57,7 +57,10 @@ public class UDPManager extends UDP_Client {
 
         } else if (msg.startsWith("Deconnected :")) {
             DB.deleteConnected(pseudo.trim(), name_db);
-            //update la liste des users
+            List_Connected.delete_co(pseudo);
+            Remote_Users old_user = List_USers.get_user_from_pseudo(pseudo);
+            List_USers.remove_user(old_user);
+            List_Connected.delete_co(pseudo);
 
         } else if (msg.startsWith("UpdtateState :")) {
                  DB.insertConnected(pseudo.trim(), port, name_db);
@@ -76,7 +79,7 @@ public class UDPManager extends UDP_Client {
             List_USers.add_User(user);
 
         } else if (msg.startsWith( "MY old pseudo :")) {
-                 List_Connected.delete_co(pseudo);
+            List_Connected.delete_co(pseudo);
             Remote_Users old_user = List_USers.get_user_from_pseudo(pseudo);
             List_USers.remove_user(old_user);
 

@@ -111,6 +111,7 @@ public void run () {
     if(!running){
         try {
             user.close();
+            //Launch_receive.sessions.clear();
         } catch (IOException e) {
             e.printStackTrace();
         }

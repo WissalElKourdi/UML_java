@@ -55,13 +55,20 @@ public class UDP_Client extends Thread {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
+                    IP_addr monIP = new IP_addr();
+                    String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
+                    String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1).trim();
                     if ( menu != null){
                         String msg;
-                        if (finalMsg_rcv.startsWith( "MY old pseudo :")) {
+                        System.out.println("mine " + mine + "yours" + addr);
+
+
+                        if (finalMsg_rcv.startsWith( "MY old pseudo :") && (!addr.equals(mine)) ) {
                             SessionChatController.close_tab_sess(pseudo);}
-                            System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA ");
+                            System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA " + pseudo);
                             List_Connected.print_co();
-                        menu.update_list();
+                            menu.update_list();
+
 
 
                     }  }});

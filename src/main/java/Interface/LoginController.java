@@ -28,19 +28,21 @@ public class LoginController {
     private TextFlow returnText;
     public static UDP_Client client;
 
-    static {
-        try {
-            client = new  UDP_Client(port);
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
 
     public LoginController() throws SocketException, SQLException {
-       client.start();
+
+            try {
+                client = new  UDP_Client(port);
+            } catch (SocketException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+        System.out.println("JE RESTART");
+        client.start();
     }
     /*public static void Client_disconnect(){
         client.close();
@@ -90,6 +92,7 @@ public class LoginController {
             serv_udp.broadcast_AskState(name, port);
             if (serv_udp.broadcast_Pseudo(name, port)) {
                 try {
+
                     serv_udp.broadcast_connection(name, port);
                     createDB DB =new createDB("DB_MSG.db");
                     DB.insertMonpseudo(name,"DB_MSG.db");
