@@ -42,6 +42,9 @@ public class LoginController {
     public LoginController() throws SocketException, SQLException {
        client.start();
     }
+    /*public static void Client_disconnect(){
+        client.close();
+    }*/
 
     public static UDP_Client getClient(){
         return client;
