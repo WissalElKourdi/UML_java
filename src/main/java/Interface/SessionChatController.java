@@ -1,7 +1,9 @@
 
 package Interface;
+
 import Database.createDB;
 import USERS.List_USers;
+
 import communication.Handler;
 import communication.Launch_receive;
 import communication.Sender;
@@ -37,12 +39,12 @@ import java.util.ResourceBundle;
 
 
 public class SessionChatController implements Initializable {
-@FXML
-public MenuController parentcontroller;
+    @FXML
+    public MenuController parentcontroller;
     @FXML
     private Button button_send;
     @FXML
-    private TextField tf_message;
+    private TextArea tf_message;
     @FXML
     VBox vBoxMessages;
     @FXML
@@ -51,13 +53,13 @@ public MenuController parentcontroller;
     private ScrollPane sp_main;
     @FXML
     public ObservableList<String> observableHistory;
-    private     List<String>  myListMsg = new ArrayList<>();
-    private static String currentMsg;
-
-
     @FXML
     private Label pseudo_autre;
+    @FXML
+    private Label time;
 
+    private     List<String>  myListMsg = new ArrayList<>();
+    private static String currentMsg;
     private Socket socket;
     private Sender sender;
     private String  ip;
@@ -66,13 +68,16 @@ public MenuController parentcontroller;
     public SessionChatController sessionchat;
     private String name_DB = "DB_MSG.db";
 
-    public void setParentController(MenuController parentController){this.parentcontroller = parentController;};
-public int get_controller(){
-    return this.hashCode();
-}
-public SessionChatController get_sess(){
-    return this.sessionchat;
-}
+    public void setParentController(MenuController parentController){this.parentcontroller = parentController;}
+
+    public int get_controller(){
+        return this.hashCode();
+    }
+
+    public SessionChatController get_sess(){
+        return this.sessionchat;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("ICIII''''''''''''");
@@ -94,15 +99,21 @@ public SessionChatController get_sess(){
             }
         });
 
-       /* vBoxMessages.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-
+        vBoxMessages.setOnMouseClicked(new EventHandler<MouseEvent>() {
+           @Override
+           public void handle(MouseEvent mouseEvent) {
+               createDB DB = null;
+               try {
+                   DB = new createDB(name_DB);
+               } catch (SQLException e) {
+                   throw new RuntimeException(e);
+               }
                //get the time at which then message was sent (find in db)
-               String Messagetime = Database.createDB.getDateFromMessage(mouseEvent.getSource(),name_db);
+               String Messagetime = DB.getDateFromMessage((String) mouseEvent.getSource(), name_DB);
                //display it on the label
                time.setText(Messagetime);
-               */
+           }
+        });
 
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
@@ -176,8 +187,6 @@ public SessionChatController get_sess(){
                         tf_message.clear();
                     }
                     vBoxMessages.getChildren().add(hBox);
-
-
                 }
             }
         });
@@ -198,20 +207,20 @@ public SessionChatController get_sess(){
 
     public void update_chat(){
 
-    ArrayList<String> msg;
-   String msg_display;
+        ArrayList<String> msg;
+        String msg_display;
 
-    vBoxMessages.getChildren().clear();
-    for(int i=0; i< myListMsg.size(); i++){
+        vBoxMessages.getChildren().clear();
+        for(int i=0; i< myListMsg.size(); i++){
 
-        msg= new ArrayList<String>(Arrays.asList(myListMsg.get(i).split(" ")));
-        if(msg.get(3).equals("sender")){
-            msg_display = msg.get(1) +"  ---  "+ msg.get(2);
-            addMsg(msg_display,true);
-        }else{
-            msg_display = msg.get(1) + msg.get(2);
-            addMsg(msg_display,false);
-        }
+            msg= new ArrayList<String>(Arrays.asList(myListMsg.get(i).split(" ")));
+            if(msg.get(3).equals("sender")){
+                msg_display = msg.get(1) +"  ---  "+ msg.get(2);
+                addMsg(msg_display,true);
+            }else{
+                msg_display = msg.get(1) + msg.get(2);
+                addMsg(msg_display,false);
+            }
 
         }
     }
