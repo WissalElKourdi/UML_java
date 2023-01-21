@@ -66,12 +66,8 @@ public class UDP_Server {
     //se déconnecter et broadcast auprès des autres utilisateurs
     public void broadcast_deconnection (String pseudo, int port) throws IOException, SQLException {
 
-        if ( DB.check(pseudo,Name_DB) ) {
             broadcast("Deconnected :" + pseudo, port);
-            System.out.println("Deconnected :" + pseudo);
-        } else {
-            System.out.println("Failed ");
-        }
+
     }
     public void broadcast_end(int port) throws IOException {
         broadcast("end", port);

@@ -89,7 +89,6 @@ public class LoginController {
             serv_udp.broadcast_AskState(name, port);
             if (serv_udp.broadcast_Pseudo(name, port)) {
                 try {
-
                     serv_udp.broadcast_connection(name, port);
                     createDB DB =new createDB("DB_MSG.db");
                     DB.insertMonpseudo(name,"DB_MSG.db");
