@@ -1,13 +1,7 @@
 @font-face {
-    font-family: 'VT323-Regular';
+    /* font-family: 'VT323-Regular'; */
     src: url('font/VT323-Regular.ttf');
 }
-/*
-#sp {
-    -fx-background: #024029;
-    -fx-background-color: #024029;
-}
-*/
 
 /* classes*/
 .button {
@@ -25,7 +19,7 @@
     -fx-font-family: 'VT323 Regular';
 }
 
-.textfield {
+.textField {
     -fx-font-size: 17pt;
     -fx-font-family: 'VT323 Regular';
 }

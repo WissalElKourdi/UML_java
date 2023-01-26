@@ -63,9 +63,6 @@ public MenuController parentcontroller;
     private static String currentMsg;
 
 
-    @FXML
-    private Label pseudo_autre;
-
     private Socket socket;
     private Sender sender;
     private String  ip;
