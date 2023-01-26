@@ -21,7 +21,9 @@ public class Handler {
         System.out.println("Connection : IP: " +ip+ "--> pseudo : "+pseudo);
         Socket sock= new Socket(ip,1234);
         Session.getInstance().addSock(pseudo,sock);
-        return sock;}
+        return sock;
+    }
+
     public boolean isEtablished(String pseudo){
         if(Session.getInstance().getSock(pseudo)!=null)
             return true;

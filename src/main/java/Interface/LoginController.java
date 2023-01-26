@@ -48,9 +48,9 @@ public class LoginController {
         client.close();
     }*/
 
-    public static UDP_Client getClient(){
+    /*public static UDP_Client getClient(){
         return client;
-    }
+    }*/
 
     public static UDP_Client get_client(){
         return client;

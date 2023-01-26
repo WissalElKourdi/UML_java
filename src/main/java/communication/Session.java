@@ -36,6 +36,7 @@ public class Session extends Thread {
     public static Session getInstance(){
         return Session;
 }
+
     public Session() throws IOException { // ce thread crée le serveur principal et attribue à chaque client un socket
         user= new ServerSocket(1234);
         map_socket=new HashMap<>();
@@ -44,9 +45,11 @@ public class Session extends Thread {
 
 
     //fonction qui  cherche un utilisateur dans notre base de données
-private String adresse(InetAddress ip){
-        return "ip";
-}
+    /*private String adresse(InetAddress ip){
+            return "ip";
+    }
+
+     */
 
     public  void addSock(String pseudo, Socket socket){
         this.map_socket.put(pseudo,socket);
@@ -118,10 +121,12 @@ public void run () {
     }
 }
 
-
+/*
     public void setSession(SessionChatController Sessionchat){
         this.sessionchat = Sessionchat;
     }
+
+ */
 
     public void close_sess() throws IOException {
       System.out.println("running talking false");

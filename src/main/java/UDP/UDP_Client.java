@@ -82,11 +82,11 @@ public class UDP_Client extends Thread {
             } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }
-           // if (msg_rcv.equals("end")) {
             IP_addr monIP = new IP_addr();
             String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
             String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1).trim();
-            if (msg_rcv.equals("end")&& (addr.equals(mine))) {
+
+            if (msg_rcv.equals("end") && (addr.equals(mine)) ) {
                 running = false;
             }
         }
