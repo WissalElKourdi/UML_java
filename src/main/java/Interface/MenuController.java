@@ -161,30 +161,30 @@ public class MenuController extends Thread implements  Initializable {
     }
 
 
-            @FXML
-            void disconnect(ActionEvent event) throws SQLException, IOException {
-                //deconnexion
-                String DB_name = "DB_MSG.db";
-                createDB DB = new createDB(DB_name);
-                String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") + 1);
-                UDP_Server serv_udp = new UDP_Server();
-                serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
-                System.out.println("JE ME DCOOO" + DB.getMonPseudo(DB_name));
-                serv_udp.broadcast_end(port);
-                session.close_sess();
-                //retour à la page d'accueil (login)
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
-                    Parent parent = loader.load();
-                    Scene scene = new Scene(parent, 1200, 800);
-                    scene.getStylesheets().add("/styles.css");
-                    mainFXML.mainStage.setTitle("Chat App");
-                    mainFXML.mainStage.setScene(scene);
-                    mainFXML.mainStage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+    @FXML
+    void disconnect(ActionEvent event) throws SQLException, IOException {
+        //deconnexion
+        String DB_name = "DB_MSG.db";
+        createDB DB = new createDB(DB_name);
+        String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") + 1);
+        UDP_Server serv_udp = new UDP_Server();
+        serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
+        System.out.println("JE ME DCOOO" + DB.getMonPseudo(DB_name));
+        serv_udp.broadcast_end(port);
+        session.close_sess();
+        //retour à la page d'accueil (login)
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent, 1200, 800);
+            scene.getStylesheets().add("/styles.css");
+            mainFXML.mainStage.setTitle("Chat App");
+            mainFXML.mainStage.setScene(scene);
+            mainFXML.mainStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static String get_pseudo_user(){return currentConnected;}
 

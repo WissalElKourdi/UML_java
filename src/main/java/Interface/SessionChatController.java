@@ -69,6 +69,7 @@ public class SessionChatController implements Initializable {
     public SessionChatController sessionchat;
     private String name_DB = "DB_MSG.db";
 
+    /*
     public void setParentController(MenuController parentController){this.parentcontroller = parentController;}
 
     public int get_controller(){
@@ -78,6 +79,8 @@ public class SessionChatController implements Initializable {
     public SessionChatController get_sess(){
         return this.sessionchat;
     }
+
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -327,9 +330,10 @@ public class SessionChatController implements Initializable {
         });
     }
 
+    /*
     public boolean get_box(){
         return vBoxMessages != null;
-    }
+    }*/
 
     public static void close_tab_sess(String pseudo){
         Tab tab = MenuController.ListTabs.get(pseudo);
