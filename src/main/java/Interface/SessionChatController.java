@@ -67,18 +67,6 @@ public class SessionChatController implements Initializable {
     public SessionChatController sessionchat;
     private String name_DB = "DB_MSG.db";
 
-    /*
-    public void setParentController(MenuController parentController){this.parentcontroller = parentController;}
-
-    public int get_controller(){
-        return this.hashCode();
-    }
-
-    public SessionChatController get_sess(){
-        return this.sessionchat;
-    }
-
-     */
 
     @FXML
     void send(ActionEvent event) throws IOException, SQLException {
@@ -145,7 +133,7 @@ public class SessionChatController implements Initializable {
 
             if (messageToSend.isEmpty() && sock.isConnected()) {
                 sender.start();
-                tf_message.clear();
+                //tf_message.clear();
             }
             tf_message.clear();
             vBoxMessages.getChildren().add(hBox);
@@ -204,7 +192,7 @@ public class SessionChatController implements Initializable {
                 msg_display = msg.get(1) +"  ---  "+ msg.get(2);
                 addMsg(msg_display,true);
             }else{
-                msg_display = msg.get(1) + msg.get(2);
+                msg_display = msg.get(1) + msg.get(2) + " time " + msg.get(3);
                 addMsg(msg_display,false);
             }
 
