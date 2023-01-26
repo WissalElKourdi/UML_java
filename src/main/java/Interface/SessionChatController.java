@@ -40,8 +40,8 @@ import java.util.ResourceBundle;
 
 
 public class SessionChatController implements Initializable {
-    @FXML
-    public MenuController parentcontroller;
+@FXML
+public MenuController parentcontroller;
     @FXML
     private Button button_send;
     @FXML
@@ -61,6 +61,8 @@ public class SessionChatController implements Initializable {
 
     private     List<String>  myListMsg = new ArrayList<>();
     private static String currentMsg;
+
+
     private Socket socket;
     private Sender sender;
     private String  ip;
@@ -85,7 +87,7 @@ public class SessionChatController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("ICIII''''''''''''");
-    setHistory();
+        setHistory();
         System.out.println("ICIII''''''''''''");
         update_chat();
         System.out.println("ICIII''''''''''''");
@@ -248,7 +250,7 @@ public class SessionChatController implements Initializable {
                 TextFlow textFlow = new TextFlow(text);
 
                 textFlow.setStyle(
-                                "-fx-background-color: #33cb29;" +
+                        "-fx-background-color: #42AB18;" +
                                 "-fx-background-radius: 20px;" +
                                 "-fx-font-size: 15pt;");
 
@@ -276,8 +278,8 @@ public class SessionChatController implements Initializable {
                 TextFlow textFlow = new TextFlow(text);
 
                 textFlow.setStyle(
-                        "-fx-background-color: #33cb29" +
-                        "-fx-background-radius: 20px;" +
+                        "-fx-background-color: #42AB18;" +
+                                "-fx-background-radius: 20px;" +
                                 "-fx-font-size: 15pt;");
 
                 textFlow.setPadding(new Insets(5, 10, 5, 10));
@@ -310,14 +312,14 @@ public class SessionChatController implements Initializable {
         Text text = new Text(messageFromClient);
         TextFlow textFlow = new TextFlow(text);
 
-                textFlow.setStyle(
-                        "-fx-background-color: #33cb29;" +
-                                "-fx-background-radius: 20px;" +
-                                "-fx-font-size: 15pt;");
+        textFlow.setStyle(
+                "-fx-background-color: #42AB18;" +
+                        "-fx-background-radius: 20px;" +
+                        "-fx-font-size: 15pt;");
 
-                textFlow.setPadding(new Insets(5, 10, 5, 10));
-                hBox.getChildren().add(textFlow);
-                primaryVbox.getChildren().add(hBox);
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        hBox.getChildren().add(textFlow);
+        primaryVbox.getChildren().add(hBox);
 
         System.out.println("jai add txt");
         Platform.runLater(new Runnable() {
@@ -343,8 +345,5 @@ public class SessionChatController implements Initializable {
             tab.getTabPane().getTabs().remove(tab);
         }
     }
-
-
-
 
 }

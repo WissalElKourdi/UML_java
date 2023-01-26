@@ -44,6 +44,9 @@ public class LoginController {
         System.out.println("JE RESTART");
         client.start();
     }
+    /*public static void Client_disconnect(){
+        client.close();
+    }*/
 
     /*public static UDP_Client getClient(){
         return client;
