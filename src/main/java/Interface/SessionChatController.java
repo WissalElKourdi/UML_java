@@ -276,8 +276,7 @@ public class SessionChatController implements Initializable {
                 TextFlow textFlow = new TextFlow(text);
 
                 textFlow.setStyle(
-                        "-fx-color: rgb(239, 242, 255);" +
-                                "-fx-background-color: #33cb29" +
+                        "-fx-background-color: #33cb29" +
                         "-fx-background-radius: 20px;" +
                                 "-fx-font-size: 15pt;");
 
@@ -312,7 +311,7 @@ public class SessionChatController implements Initializable {
         TextFlow textFlow = new TextFlow(text);
 
                 textFlow.setStyle(
-                        "-fx-background-color: #2685c5;" +
+                        "-fx-background-color: #33cb29;" +
                                 "-fx-background-radius: 20px;" +
                                 "-fx-font-size: 15pt;");
 
