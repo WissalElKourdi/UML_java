@@ -73,9 +73,11 @@ public class UDP_Server {
             System.out.println("Failed ");
         }
     }
+
     public void broadcast_end(int port) throws IOException {
         broadcast("end", port);
     }
+
     public void broadcast_MyState (int port) throws IOException, SQLException {
         broadcast("UpdtateState :" + DB.getMonPseudo(Name_DB), port);
         System.out.println("UpdtateState :" + DB.getMonPseudo(Name_DB));

@@ -29,7 +29,7 @@ public class UDPManager extends UDP_Client {
 
     public void update(String msg, createDB DB, DatagramPacket packet, DatagramSocket socket) throws SQLException, IOException {
         String name_db = "DB_MSG.db";
-        List_Connected co = new List_Connected();
+        //List_Connected co = new List_Connected();
 
         int port = 2000;
         IP_addr monIP = new IP_addr();
@@ -40,7 +40,7 @@ public class UDPManager extends UDP_Client {
         if (!addr.equals(mine)) {
 
         if (msg.startsWith("new pseudo :")) {
-            //DB.insertIpseudo(pseudo.trim(), addr, name_db);
+            DB.insertIpseudo(pseudo.trim(), addr, name_db);
 
 
         } else if (msg.startsWith("change pseudo :")) {
@@ -84,14 +84,15 @@ public class UDPManager extends UDP_Client {
             }
         }
 
- //commentaire pour commit
     }
-
+/*
     public String pseudo_udp(String msg) {
         String pseudo = msg.substring(msg.indexOf(":") + 1);
         pseudo = pseudo.substring(0, pseudo.indexOf("/"));
         return pseudo;
     }
+    
+ */
 
 
 }

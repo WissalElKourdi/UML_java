@@ -309,7 +309,7 @@ public class createDB {
         }
         return false;
     }
-/*
+
     public synchronized boolean insertIpseudo(String pseudo, String addr, String filename) {
         String sql = "INSERT INTO IPseudo( pseudo, addr) VALUES(?,?)";
 
@@ -328,7 +328,6 @@ public class createDB {
         return false;
     }
 
- */
 
     public synchronized boolean insertConnected(String pseudo,int port ,String filename) {
         String sql = "INSERT INTO Connected( pseudo,port) VALUES(?,?)";
