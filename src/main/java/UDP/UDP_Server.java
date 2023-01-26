@@ -101,7 +101,5 @@ public class UDP_Server {
         System.out.println("My old CHANGE :" + pseudo );
 
     }
-
-
 }
 

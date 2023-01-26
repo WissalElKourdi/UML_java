@@ -38,6 +38,7 @@ public class Launch_receive extends Thread  {
             throw new RuntimeException(e);
         }
     }
+
     // receiving thread
     public void run (){
         setRunning(true);
@@ -86,16 +87,15 @@ public class Launch_receive extends Thread  {
         System.out.println("running talking false");
         this.socket.close();
         this.running=false;
-
-
     }
 
     public boolean running(){
         return this.running;
     }
-public void setRunning(boolean running){
-        this.running=running;
-}
+
+    public void setRunning(boolean running){
+            this.running=running;
+    }
 
 
 }

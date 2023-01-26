@@ -14,7 +14,7 @@ public class Main {
         session.start();
         String name_db = "DB_MSG.db";
         createDB BD = new createDB(name_db);
-        BD.insertIpseudo("leonie","10.32.2.25",name_db);
+        //BD.insertIpseudo("leonie","10.32.2.25",name_db);
         BD.insertConnected("leonie",1234,name_db);
         List<String> connected = BD.selectAllConnected(name_db);
         Socket socket =Handler.getInstance().startConnection("leonie");

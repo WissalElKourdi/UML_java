@@ -19,3 +19,5 @@ Laisser l'utilisateur choisir une photo de profil et la modifier au cours d'une 
 
 Ajouter un son de notification lorsque l'utilisateur reçoit un message
 
+Ajouter des protections contre les injections SQL 
+

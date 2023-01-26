@@ -40,7 +40,7 @@ public class UDPManager extends UDP_Client {
         if (!addr.equals(mine)) {
 
         if (msg.startsWith("new pseudo :")) {
-            DB.insertIpseudo(pseudo.trim(), addr, name_db);
+            //DB.insertIpseudo(pseudo.trim(), addr, name_db);
 
 
         } else if (msg.startsWith("change pseudo :")) {
