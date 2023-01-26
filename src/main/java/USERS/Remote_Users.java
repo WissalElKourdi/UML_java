@@ -15,8 +15,11 @@ public class Remote_Users {
     public String get_pseudo(){return this.pseudo;}
     public String get_IP(){return this.IP;}
 
+    /*
     public Remote_Users get_user(){
         return this;
     }
+
+     */
 
 }

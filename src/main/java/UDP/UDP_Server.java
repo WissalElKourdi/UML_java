@@ -52,8 +52,6 @@ public class UDP_Server {
 
     //broadcast la connection auprès des autres utilisateurs
     public void broadcast_connection (String pseudo, int port) throws IOException, SQLException {
-
-
         if ( DB.check(pseudo,Name_DB) ) {
             System.out.println("Failed Choose new pseudo : this one is already taken");
 
@@ -65,13 +63,13 @@ public class UDP_Server {
 
     //se déconnecter et broadcast auprès des autres utilisateurs
     public void broadcast_deconnection (String pseudo, int port) throws IOException, SQLException {
-
-            broadcast("Deconnected :" + pseudo, port);
-
+        broadcast("Deconnected :" + pseudo, port);
     }
+
     public void broadcast_end(int port) throws IOException {
         broadcast("end", port);
     }
+
     public void broadcast_MyState (int port) throws IOException, SQLException {
         broadcast("UpdtateState :" + DB.getMonPseudo(Name_DB), port);
         System.out.println("UpdtateState :" + DB.getMonPseudo(Name_DB));
@@ -85,19 +83,14 @@ public class UDP_Server {
     public void broadcast_info(String pseudo, String addr, int port) throws IOException {
         broadcast("MY INFOS :" + pseudo + "/" + addr, port);
         System.out.println("My INFOS :" + pseudo + "/" + addr);
-
     }
     public void broadcast_change_info(String pseudo, String addr, int port) throws IOException {
         broadcast("MY INFOS CHANGE :" + pseudo + "/" + addr, port);
         System.out.println("My INFOS CHANGE :" + pseudo + "/" + addr);
-
     }
     public void broadcast_je_vais_change_mon_pseudo(String pseudo, int port) throws IOException {
         broadcast("MY old pseudo :" + pseudo , port);
         System.out.println("My old CHANGE :" + pseudo );
-
     }
-
-
 }
 
