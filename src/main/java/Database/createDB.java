@@ -1,12 +1,7 @@
 package Database;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -80,6 +75,7 @@ public class createDB {
     }
 
  */
+
     /*
     public synchronized boolean creatTableMsgReceived(String fileName) throws SQLException {
         // SQLite connection string
@@ -132,7 +128,9 @@ public class createDB {
         }
         return false;
     }
-   */
+
+     */
+
 
 
     public synchronized boolean creatTablepseudo(String fileName) {
