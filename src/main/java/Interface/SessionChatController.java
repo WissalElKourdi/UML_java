@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -145,13 +146,13 @@ public class SessionChatController implements Initializable {
 
             if (messageToSend.isEmpty() && sock.isConnected()) {
                 sender.start();
-                tf_message.clear();
+                //tf_message.clear();
             }
             tf_message.clear();
             vBoxMessages.getChildren().add(hBox);
         }
     }
-// for commit 
+// for commit
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("ICIII''''''''''''");
