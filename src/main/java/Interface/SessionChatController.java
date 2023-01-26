@@ -151,7 +151,7 @@ public class SessionChatController implements Initializable {
             vBoxMessages.getChildren().add(hBox);
         }
     }
-
+// for commit 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("ICIII''''''''''''");
