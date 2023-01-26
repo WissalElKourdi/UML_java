@@ -250,7 +250,7 @@ public MenuController parentcontroller;
                 TextFlow textFlow = new TextFlow(text);
 
                 textFlow.setStyle(
-                                "-fx-background-color: #33cb29;" +
+                        "-fx-background-color: #42AB18;" +
                                 "-fx-background-radius: 20px;" +
                                 "-fx-font-size: 15pt;");
 
@@ -278,8 +278,8 @@ public MenuController parentcontroller;
                 TextFlow textFlow = new TextFlow(text);
 
                 textFlow.setStyle(
-                        "-fx-background-color: #33cb29" +
-                        "-fx-background-radius: 20px;" +
+                        "-fx-background-color: #42AB18;" +
+                                "-fx-background-radius: 20px;" +
                                 "-fx-font-size: 15pt;");
 
                 textFlow.setPadding(new Insets(5, 10, 5, 10));
@@ -312,14 +312,14 @@ public MenuController parentcontroller;
         Text text = new Text(messageFromClient);
         TextFlow textFlow = new TextFlow(text);
 
-                textFlow.setStyle(
-                        "-fx-background-color: #33cb29;" +
-                                "-fx-background-radius: 20px;" +
-                                "-fx-font-size: 15pt;");
+        textFlow.setStyle(
+                "-fx-background-color: #42AB18;" +
+                        "-fx-background-radius: 20px;" +
+                        "-fx-font-size: 15pt;");
 
-                textFlow.setPadding(new Insets(5, 10, 5, 10));
-                hBox.getChildren().add(textFlow);
-                primaryVbox.getChildren().add(hBox);
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        hBox.getChildren().add(textFlow);
+        primaryVbox.getChildren().add(hBox);
 
         System.out.println("jai add txt");
         Platform.runLater(new Runnable() {
@@ -345,8 +345,5 @@ public MenuController parentcontroller;
             tab.getTabPane().getTabs().remove(tab);
         }
     }
-
-
-
 
 }
