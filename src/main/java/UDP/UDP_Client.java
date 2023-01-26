@@ -1,6 +1,7 @@
 package UDP;
 
 import Database.createDB;
+import Interface.SessionChatController;
 import USERS.List_Connected;
 import Interface.MenuController;
 import javafx.application.Platform;
@@ -49,43 +50,27 @@ public class UDP_Client extends Thread {
             msg_rcv = msg_rcv.trim();
             System.out.println("msg received :" + msg_rcv);
             String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1).trim();
-            //String finalMsg_rcv = msg_rcv;
+
             String finalMsg_rcv = msg_rcv;
-
-                    // if(finalMsg_rcv.startsWith("Connected :") ){
-                    //List_Connected.add_co("abcde");
-                    String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1);
-                    IP_addr monIP = new IP_addr();
-                    String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
-
-                    if (!addr.equals(mine) && !List_Connected.exists(pseudo) && !(finalMsg_rcv.startsWith("MY INFOS :")) && !(finalMsg_rcv.startsWith("MY INFOS CHANGE :"))) {
-                        if (!pseudo.equals("")) {
-                          /*  if (finalMsg_rcv.startsWith("MY INFOS CHANGE :")) {
-                                String pseudo1 = pseudo.substring(0, pseudo.indexOf("/"));
-                                List_Connected.add_co(pseudo1);
-                                System.out.println("je addd " + pseudo);
-                                List_Connected.print_co();
-
-                            }else*/
-
-                                List_Connected.add_co(pseudo);
-                                System.out.println("je addd " + pseudo);
-                                //menu.update_list();
-
-                        }}
-                        if (finalMsg_rcv.startsWith( "MY old pseudo :")) {
-                            List_Connected.delete_co(pseudo);
-                            System.out.println("je supp " + pseudo);
-                            List_Connected.print_co();
-
-
-                        }  Platform.runLater(new Runnable() {
+            Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
+                    IP_addr monIP = new IP_addr();
+                    String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
+                    String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1).trim();
                     if ( menu != null){
-                        System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA ");
-                        List_Connected.print_co();
-                        menu.update_list();
+                        String msg;
+                        System.out.println("mine " + mine + "yours" + addr);
+
+
+                        if (finalMsg_rcv.startsWith( "MY old pseudo :") && (!addr.equals(mine)) ) {
+                            SessionChatController.close_tab_sess(pseudo);}
+                            System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA " + pseudo);
+                            List_Connected.print_co();
+                            menu.update_list();
+
+
+
                     }  }});
 
 
@@ -97,8 +82,11 @@ public class UDP_Client extends Thread {
             } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);
             }
+            IP_addr monIP = new IP_addr();
+            String mine = monIP.get_my_IP().toString().substring(monIP.get_my_IP().toString().indexOf("/") + 1).trim();
+            String addr = packet.getAddress().toString().substring(packet.getAddress().toString().indexOf("/") + 1).trim();
 
-            if (msg_rcv.equals("end")) {
+            if (msg_rcv.equals("end") && (addr.equals(mine)) ) {
                 running = false;
             }
         }

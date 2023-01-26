@@ -45,9 +45,11 @@ public class Session extends Thread {
 
 
     //fonction qui  cherche un utilisateur dans notre base de données
-private String adresse(InetAddress ip){
-        return "ip";
-}
+    /*private String adresse(InetAddress ip){
+            return "ip";
+    }
+
+     */
 
     public  void addSock(String pseudo, Socket socket){
         this.map_socket.put(pseudo,socket);
@@ -112,6 +114,7 @@ public void run () {
     if(!running){
         try {
             user.close();
+            //Launch_receive.sessions.clear();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -120,10 +123,12 @@ public void run () {
 
 }
 
-
+/*
     public void setSession(SessionChatController Sessionchat){
         this.sessionchat = Sessionchat;
     }
+
+ */
 
     public void close_sess() throws IOException {
       System.out.println("running talking false");

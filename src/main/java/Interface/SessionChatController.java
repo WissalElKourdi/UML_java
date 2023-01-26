@@ -13,6 +13,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -197,8 +198,9 @@ public class SessionChatController implements Initializable {
         try {
             createDB DB = new createDB(name_DB);
             String pseudo = MenuController.get_pseudo_user();
+            System.out.println(pseudo + "PSEUDOOO______________");
             String addr = List_USers.get_IP_user(pseudo);
-        myListMsg=DB.selectMsg(addr,name_DB);
+            myListMsg=DB.selectMsg(addr,name_DB);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -212,8 +214,8 @@ public class SessionChatController implements Initializable {
 
         vBoxMessages.getChildren().clear();
         for(int i=0; i< myListMsg.size(); i++){
-
             msg= new ArrayList<String>(Arrays.asList(myListMsg.get(i).split(" ")));
+
             if(msg.get(3).equals("sender")){
                 msg_display = msg.get(1) +"  ---  "+ msg.get(2);
                 addMsg(msg_display,true);
@@ -293,7 +295,7 @@ public class SessionChatController implements Initializable {
         }
 
 
-        }
+    }
 
 
     public static void addLabel(String messageFromClient, VBox vBox){
@@ -324,8 +326,22 @@ public class SessionChatController implements Initializable {
             }
         });
     }
-public boolean get_box(){
-    return vBoxMessages != null;
-}
+
+    public boolean get_box(){
+        return vBoxMessages != null;
+    }
+
+    public static void close_tab_sess(String pseudo){
+        Tab tab = MenuController.ListTabs.get(pseudo);
+        EventHandler<Event> handler = tab.getOnClosed();
+        if (null != handler) {
+            handler.handle(null);
+        } else {
+            tab.getTabPane().getTabs().remove(tab);
+        }
+    }
+
+
+
 
 }
