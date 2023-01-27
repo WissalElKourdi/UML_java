@@ -101,43 +101,28 @@ public class MenuController extends Thread implements  Initializable {
                     throw new RuntimeException(e);
                 }
             }
-
         });
     }
 
     @FXML
     private void addTab(String pseudo) throws IOException {
         int numTabs = onglets.getTabs().size();
-
         Tab tab = new Tab(pseudo);
-
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("ChatSession.fxml"));
         tab.setContent(loader.load());
-        //listTabs.add(loader.getController());
-       // listTabs.add(pseudo);
+
         SessionChatController controller = (SessionChatController) loader.getController();
-       /* Platform.runLater(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        controller.addMsg("hohoeoeoeoe");
-                    }
-                }
-        );*/
 
       ListControllers.put(pseudo, controller);
-    ListTabs.put(pseudo,tab);
+      ListTabs.put(pseudo,tab);
         onglets.getTabs().add(tab);
       //  onglets.getTabs().get()
     }
-
-
 
     public void update_list(){
         myListconnected.getItems().clear();
         myListconnected.getItems().addAll(List_Connected.listCo);
     }
-
 
     @FXML
     void change_pseudo(ActionEvent event) {
@@ -157,10 +142,7 @@ public class MenuController extends Thread implements  Initializable {
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
-
     }
-
-
     @FXML
     void disconnect(ActionEvent event) throws SQLException, IOException {
         //deconnexion
@@ -172,6 +154,11 @@ public class MenuController extends Thread implements  Initializable {
         System.out.println("JE ME DCOOO" + DB.getMonPseudo(DB_name));
         serv_udp.broadcast_end(port);
         session.close_sess();
+        /*try{
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
         //retour à la page d'accueil (login)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
@@ -187,8 +174,6 @@ public class MenuController extends Thread implements  Initializable {
     }
 
     public static String get_pseudo_user(){return currentConnected;}
-
-
 
 
 }

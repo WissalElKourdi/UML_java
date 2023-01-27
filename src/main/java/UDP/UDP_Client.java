@@ -69,8 +69,6 @@ public class UDP_Client extends Thread {
                             List_Connected.print_co();
                             menu.update_list();
 
-
-
                     }  }});
 
 

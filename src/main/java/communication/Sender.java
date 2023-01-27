@@ -51,7 +51,9 @@ public class Sender extends Thread{
         System.out.println("message sent  :  "+message+" to user "+pseudo);
         DateTimeFormatter time= DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         try {
-            DB.insertMSG(message, time.toString(),DB.getMonPseudo(DB_NAME), IP_addr.get_my_IP().toString(), socket.getPort(),"sender", DB_NAME);
+            String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().toString().indexOf("/") + 1).trim();
+            DB.insertMSG(message, time.toString(),DB.getMonPseudo(DB_NAME), addr, socket.getPort(),"sender", DB_NAME);
+            System.out.println("le message que j'envoie"+DB.selectMsg(addr,DB_NAME));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

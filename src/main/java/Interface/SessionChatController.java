@@ -69,6 +69,30 @@ public class SessionChatController implements Initializable {
     private String name_DB = "DB_MSG.db";
 
 
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("ICIII''''''''''''");
+        setHistory();
+        System.out.println("ICIII''''''''''''");
+        update_chat();
+        System.out.println("ICIII''''''''''''");
+        //Session.setSession(this);
+
+        //  myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
+        //sessionchat = this;
+
+
+        pseudo_autre.setText(MenuController.get_pseudo_user());
+
+        vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                sp_main.setVvalue((Double) newValue);
+            }
+        });
+    }
     @FXML
     void send(ActionEvent event) throws IOException, SQLException {
         String pseudo = MenuController.get_pseudo_user();
@@ -141,28 +165,7 @@ public class SessionChatController implements Initializable {
         }
     }
 // for commit
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("ICIII''''''''''''");
-        setHistory();
-        System.out.println("ICIII''''''''''''");
-        update_chat();
-        System.out.println("ICIII''''''''''''");
-        //Session.setSession(this);
 
-      //  myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
-        //sessionchat = this;
-
-        pseudo_autre.setText(MenuController.get_pseudo_user());
-
-        vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                sp_main.setVvalue((Double) newValue);
-            }
-        });
-
-    }
 
 
 
@@ -174,7 +177,7 @@ public class SessionChatController implements Initializable {
             System.out.println(pseudo + "PSEUDOOO______________");
             String addr = List_USers.get_IP_user(pseudo);
             myListMsg=DB.selectMsg(addr,name_DB);
-
+            System.out.println("my list de mssg "+myListMsg);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -182,21 +185,19 @@ public class SessionChatController implements Initializable {
 
     public void update_chat(){
 
-        ArrayList<String> msg;
+        List<String> msg;
         String msg_display;
 
         vBoxMessages.getChildren().clear();
         for(int i=0; i< myListMsg.size(); i++){
-            msg= new ArrayList<String>(Arrays.asList(myListMsg.get(i).split(" ")));
-
-            if(msg.get(3).equals("sender")){
-                msg_display = msg.get(1) +"  ---  "+ msg.get(2);
+            msg= new ArrayList<String>(Arrays.asList(myListMsg.get(i).split(":")));
+           if(msg.get(0).equals("sender")){
+                msg_display = msg.get(2) + msg.get(3);
                 addMsg(msg_display,true);
             }else{
-                msg_display = msg.get(1) + msg.get(2) + " time " + msg.get(3);
+                msg_display = msg.get(2) + msg.get(3) ;
                 addMsg(msg_display,false);
             }
-
         }
     }
 

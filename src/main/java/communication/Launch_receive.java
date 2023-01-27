@@ -1,6 +1,7 @@
 package communication;
 
 import Database.createDB;
+import Interface.LoginController;
 import Interface.MenuController;
 import Interface.SessionChatController;
 import javafx.application.Platform;
@@ -23,6 +24,7 @@ public class Launch_receive extends Thread  {
     private BufferedWriter bufferedWriter;
     private BufferedReader bufferedReader;
     private SessionChatController sessionchat;
+    private SessionChatController menu;
 
 
     public static List<Launch_receive> sessions = new ArrayList<>();
@@ -53,12 +55,13 @@ public class Launch_receive extends Thread  {
                         System.out.println(pseudo + " sent me :  " + message);
                         String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().toString().indexOf("/") + 1).trim();
                         DB.insertMSG(message, time.toString(), pseudo, addr, socket.getPort(),"receiver", DB_NAME);
+                        System.out.println("le message que je reçois"+DB.selectMsg(addr,DB_NAME));
    //DB.insertMSGRcv(message, time.toString(), pseudo, addr, socket.getPort(), DB_NAME);
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
 
-                               // MenuController.ListControllers.get(pseudo).update_chat();
+                               //MenuController.ListControllers.get(pseudo).update_chat();
                                 if (MenuController.ListControllers.get(pseudo)!=null && message != null){
                                 MenuController.ListControllers.get(pseudo).addMsg(message,false);}
                             }});
@@ -96,11 +99,8 @@ public class Launch_receive extends Thread  {
     public void setRunning(boolean running){
             this.running=running;
     }
-
+    public void setMenu(SessionChatController Menu){
+        this.menu = Menu;
+    }
 
 }
-
-/*
-                int id_sess = MenuController.listTabs.indexOf(pseudo);
-                MenuController.get_onglet().getTabs().get(id_sess);
-                SessionChatController.addLabel(message);*/

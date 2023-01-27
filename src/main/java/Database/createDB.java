@@ -428,12 +428,7 @@ public class createDB {
             ResultSet rs    = stmt.executeQuery();
             // loop through the result set
             while (rs.next()) {
-               /* listacu.add(new String[]{rs.getString("pseudo").trim()});
-                listacu.add( rs.getString("message"));
-                listacu.add(rs.getString("date"));
-                listacu.add(rs.getString("sender"));*/
-                list.add(rs.getString("pseudo").trim()+" "+ rs.getString("message")+" "+rs.getString("date")+" "+rs.getString("sender"));
-
+                list.add(rs.getString("sender")+":"+rs.getString("pseudo").trim()+":"+ rs.getString("message")+":"+rs.getString("date"));
             }
             conn.close();
             System.out.println("LIIIST66666666666666" + list);
