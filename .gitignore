@@ -11,3 +11,4 @@ target/
 
 #ignorer le fichier de la db
 *.db
+/sqlite/null
