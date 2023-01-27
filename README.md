@@ -6,8 +6,12 @@ du message. Tous les messages sont enregistrés dans des databases décentralis�
 (une pour chaque utilisateur).
 
 # Installation de l'application : 
-Décompresser le fichier
 
+commandes à taper dans le terminal ouvert dans le dossier contenant l'archive .jar :
+
+mkdir sqlite
+
+java -jar chat-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 
 
