@@ -73,17 +73,11 @@ public class SessionChatController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("ICIII''''''''''''");
+        System.out.println("avant set");
         setHistory();
-        System.out.println("ICIII''''''''''''");
+        System.out.println("après set");
         update_chat();
         System.out.println("ICIII''''''''''''");
-        //Session.setSession(this);
-
-        //  myListMsg.getItems().addAll(DB.selectMsgRcv(pseudo,name_DB));
-        //sessionchat = this;
-
-
         pseudo_autre.setText(MenuController.get_pseudo_user());
 
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
@@ -175,9 +169,10 @@ public class SessionChatController implements Initializable {
             createDB DB = new createDB(name_DB);
             String pseudo = MenuController.get_pseudo_user();
             System.out.println(pseudo + "PSEUDOOO______________");
+            if(pseudo!=null){
             String addr = List_USers.get_IP_user(pseudo);
             myListMsg=DB.selectMsg(addr,name_DB);
-            System.out.println("my list de mssg "+myListMsg);
+            System.out.println("my list de mssg "+myListMsg);}
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
