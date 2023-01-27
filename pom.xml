@@ -20,7 +20,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.Interface.mainFXML</mainClass>
+                            <mainClass>Interface.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -84,7 +84,7 @@ public class MenuController extends Thread implements  Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //update_list();
+        update_list();
        // UDPManager manager = new UDPManager();
         mainTab.setClosable(false);
         client.setMenu(this);

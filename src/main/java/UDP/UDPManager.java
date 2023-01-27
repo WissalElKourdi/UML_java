@@ -59,7 +59,7 @@ public class UDPManager extends UDP_Client {
             List_Connected.delete_co(pseudo);
             Remote_Users old_user = List_USers.get_user_from_pseudo(pseudo);
             List_USers.remove_user(old_user);
-            List_Connected.delete_co(pseudo);
+           // List_Connected.delete_co(pseudo);
 
         } else if (msg.startsWith("UpdtateState :")) {
                  DB.insertConnected(pseudo.trim(), port, name_db);
