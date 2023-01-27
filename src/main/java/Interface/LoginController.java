@@ -7,6 +7,7 @@ import UDP.IP_addr;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.*;
@@ -14,9 +15,11 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.SocketException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
     private static final int port = 2000;
     UDP_Server serv_udp = new UDP_Server();
     private final String Name_DB = "DB_MSG.db";
@@ -27,8 +30,6 @@ public class LoginController {
     @FXML
     private TextFlow returnText;
     public static UDP_Client client;
-
-
 
 
     public LoginController() throws SocketException, SQLException {
@@ -43,14 +44,8 @@ public class LoginController {
 
         System.out.println("JE RESTART");
         client.start();
-    }
-    /*public static void Client_disconnect(){
-        client.close();
-    }*/
 
-    /*public static UDP_Client getClient(){
-        return client;
-    }*/
+    }
 
     public static UDP_Client get_client(){
         return client;
@@ -120,5 +115,13 @@ public class LoginController {
                 returnText.getChildren().clear();
                 returnText.getChildren().add(text);
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+            mainFXML.mainStage.setOnCloseRequest(event -> {
+                client.stop();
+                System.exit(0);
+            });
     }
 }

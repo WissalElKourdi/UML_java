@@ -95,10 +95,8 @@ public class SessionChatController implements Initializable {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER_RIGHT);
             hBox.setPadding(new Insets(5, 5, 5, 10));
-
             Text text = new Text(messageToSend);
             TextFlow textFlow = new TextFlow(text);
-
             textFlow.setStyle(
                     "-fx-background-color: #357EC7;" +
                             "-fx-background-radius: 20px;" +

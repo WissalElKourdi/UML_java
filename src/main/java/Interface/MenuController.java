@@ -84,7 +84,7 @@ public class MenuController extends Thread implements  Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        update_list();
+        //update_list();
        // UDPManager manager = new UDPManager();
         mainTab.setClosable(false);
         client.setMenu(this);
@@ -153,14 +153,6 @@ public class MenuController extends Thread implements  Initializable {
         serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
         System.out.println("JE ME DCOOO" + DB.getMonPseudo(DB_name));
         serv_udp.broadcast_end(port);
-        //session.close_sess();
-        //session.close_sess();
-        /*try{
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-        //retour à la page d'accueil (login)
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("login_page.fxml"));
             Parent parent = loader.load();
