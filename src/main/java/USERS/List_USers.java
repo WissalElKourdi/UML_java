@@ -23,7 +23,7 @@ public class List_USers {
                 return list.get(i).get_IP();
             }
         }
-        return "Didn't find this USER";
+        return "Didn't find this USER IP";
     }
 
     public static String get_pseudo_user(String addr){
@@ -33,7 +33,7 @@ public class List_USers {
                 return list.get(i).get_pseudo();
             }
         }
-        return "Didn't find this USER";
+        return "Didn't find this USER pseudo";
     }
 
     public static void clear_list_user(){

@@ -69,8 +69,6 @@ public class UDP_Client extends Thread {
                             menu.update_list();
                     }  }});
 
-
-
             try {
                 UDPManager manager = new UDPManager();
                 System.out.println("UPDATE  MANAGER");

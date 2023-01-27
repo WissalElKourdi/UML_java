@@ -153,7 +153,8 @@ public class MenuController extends Thread implements  Initializable {
         serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
         System.out.println("JE ME DCOOO" + DB.getMonPseudo(DB_name));
         serv_udp.broadcast_end(port);
-        session.close_sess();
+        //session.close_sess();
+        //session.close_sess();
         /*try{
             Thread.sleep(2000);
         } catch (InterruptedException e) {
