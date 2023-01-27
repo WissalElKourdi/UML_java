@@ -197,16 +197,12 @@ public class SessionChatController implements Initializable {
                 HBox hBox = new HBox();
                 hBox.setAlignment(Pos.CENTER_RIGHT);
                 hBox.setPadding(new Insets(5, 5, 5, 10));
-
-
                 Text text = new Text(msg);
                 TextFlow textFlow = new TextFlow(text);
-
                 textFlow.setStyle(
                         "-fx-background-color: #357EC7;" +
                                 "-fx-background-radius: 20px;" +
                                 "-fx-font-size: 15pt;");
-
                 textFlow.setPadding(new Insets(5, 10, 5, 10));
                 text.setFill(Color.color(0.934, 0.925, 0.996));
                 hBox.getChildren().add(textFlow);
@@ -218,10 +214,8 @@ public class SessionChatController implements Initializable {
                 HBox hBox = new HBox();
                 hBox.setAlignment(Pos.CENTER_LEFT);
                 hBox.setPadding(new Insets(5, 5, 5, 10));
-
                 Text text = new Text(msg);
                 TextFlow textFlow = new TextFlow(text);
-
                 textFlow.setStyle(
                         "-fx-background-color: #42AB18;" +
                                 "-fx-background-radius: 20px;" +
