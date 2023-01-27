@@ -34,13 +34,6 @@ public class ChangeLoginController {
         public ChangeLoginController() throws SocketException, SQLException {
         }
 
-        /*      public ChangeLoginController() {
-                try {
-                       new UDP_Client(port).start();
-                } catch (IOException e) {
-                        throw new RuntimeException(e);
-                }
-        }*/
 
 
         @FXML
@@ -66,7 +59,6 @@ public class ChangeLoginController {
                 //get new username
                 String name = NewLogin.getText();
                 //if it's not already used, change to menu scene
-                // new UDP_Client(port).start();
                if (LoginController.isValid(name)) {
                        serv_udp.broadcast_AskState(name, port);
                         if (serv_udp.broadcast_ChangePseudo(name, port)) {

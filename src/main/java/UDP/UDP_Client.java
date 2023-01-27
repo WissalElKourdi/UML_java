@@ -48,7 +48,6 @@ public class UDP_Client extends Thread {
 
             String msg_rcv = new String(packet.getData(), 0, packet.getLength());
             msg_rcv = msg_rcv.trim();
-            System.out.println("msg received :" + msg_rcv);
             String pseudo = msg_rcv.substring(msg_rcv.lastIndexOf(':') + 1).trim();
 
             String finalMsg_rcv = msg_rcv;
@@ -71,7 +70,6 @@ public class UDP_Client extends Thread {
 
             try {
                 UDPManager manager = new UDPManager();
-                System.out.println("UPDATE  MANAGER");
                 manager.update(msg_rcv, DB, packet, socket);
             } catch (SQLException | IOException e) {
                 throw new RuntimeException(e);

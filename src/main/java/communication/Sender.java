@@ -31,11 +31,13 @@ public class Sender extends Thread{
         try {
             DB = new createDB(DB_NAME);
         } catch (SQLException e) {
+            System.out.println("erreur création BD");
             throw new RuntimeException(e);
         }
         try {
             bufferedWriter.write(message);
         } catch (IOException e) {
+            System.out.println("erreur écriture mssg dans les buffers");
             throw new RuntimeException(e);
         }
         try {
@@ -53,7 +55,6 @@ public class Sender extends Thread{
         try {
             String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().toString().indexOf("/") + 1).trim();
             DB.insertMSG(message, time.toString(),DB.getMonPseudo(DB_NAME), addr, socket.getPort(),"sender", DB_NAME);
-            System.out.println("le message que j'envoie"+DB.selectMsg(addr,DB_NAME));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

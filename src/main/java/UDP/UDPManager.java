@@ -31,7 +31,6 @@ public class UDPManager extends UDP_Client {
 
     public void update(String msg, createDB DB, DatagramPacket packet, DatagramSocket socket) throws SQLException, IOException {
         String name_db = "DB_MSG.db";
-        //List_Connected co = new List_Connected();
 
         int port = 2000;
         IP_addr monIP = new IP_addr();
@@ -68,19 +67,15 @@ public class UDPManager extends UDP_Client {
 
         } else if (msg.startsWith("AskForState :")) {
             serv_udp.broadcast_MyState(port);
-            // add parametre addresse pour envoyer a la personne qui nous a demande
 
         } else if (msg.startsWith("MY INFOS :")) {
             String pseudo1 = pseudo.substring(0, pseudo.indexOf("/"));
             String addr1 = msg.substring(msg.lastIndexOf('/') + 1);
 
             Remote_Users user = new Remote_Users(pseudo1, addr1);
-            System.out.println("I am ADDING TO THE LIST USER ==>" + pseudo1 + "   " + addr1);
             List_USers.add_User(user);
 
         } else if (msg.startsWith( "MY old pseudo :")) {
-          /*  if ( (!addr.equals(mine)) ) {
-                SessionChatController.close_tab_sess(pseudo);}*/
             List_Connected.delete_co(pseudo);
             Remote_Users old_user = List_USers.get_user_from_pseudo(pseudo);
             List_USers.remove_user(old_user);
@@ -98,14 +93,6 @@ public class UDPManager extends UDP_Client {
         }
 
     }
-/*
-    public String pseudo_udp(String msg) {
-        String pseudo = msg.substring(msg.indexOf(":") + 1);
-        pseudo = pseudo.substring(0, pseudo.indexOf("/"));
-        return pseudo;
-    }
-    
- */
 
 
 }

@@ -13,8 +13,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-// this class will be used to start a session
-//setting the ouput/input readers etc..
 public class Launch_receive extends Thread  {
 
     static final String DB_NAME ="DB_MSG.db" ;
@@ -41,33 +39,29 @@ public class Launch_receive extends Thread  {
         }
     }
 
-    // receiving thread
+
     public void run (){
         setRunning(true);
         while(running){
             if(socket.isConnected()){
                     try {
                         createDB DB = new createDB(DB_NAME);
-                        System.out.println("je suis ds le run du run de receiver");
-                        //Récupérer le message et le mettre dans la sessio
+
+
                         String message = bufferedReader.readLine();
                         LocalTime time = LocalTime.now();
                         System.out.println(pseudo + " sent me :  " + message);
                         String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().toString().indexOf("/") + 1).trim();
                         DB.insertMSG(message, time.toString(), pseudo, addr, socket.getPort(),"receiver", DB_NAME);
-                        System.out.println("le message que je reçois"+DB.selectMsg(addr,DB_NAME));
-   //DB.insertMSGRcv(message, time.toString(), pseudo, addr, socket.getPort(), DB_NAME);
+
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
 
-                               //MenuController.ListControllers.get(pseudo).update_chat();
+
                                 if (MenuController.ListControllers.get(pseudo)!=null && message != null){
                                 MenuController.ListControllers.get(pseudo).addMsg(message,false);}
                             }});
-                  /*  if ( Sess != null){
-                        System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA ");
-                        menu.update_list();}*/
 
                     } catch (IOException | SQLException e) {
                         System.out.println("erreur receiving from client");
@@ -79,15 +73,9 @@ public class Launch_receive extends Thread  {
         running = running();
         }
 
-        /*try {
 
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
     public void close_rcv() throws IOException {
-        System.out.println("running talking false");
         this.socket.close();
         this.running=false;
     }

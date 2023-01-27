@@ -73,11 +73,9 @@ public class SessionChatController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("avant set");
+
         setHistory();
-        System.out.println("après set");
         update_chat();
-        System.out.println("ICIII''''''''''''");
         pseudo_autre.setText(MenuController.get_pseudo_user());
 
         vBoxMessages.heightProperty().addListener(new ChangeListener<Number>() {
@@ -110,13 +108,11 @@ public class SessionChatController implements Initializable {
             text.setFill(Color.color(0.934, 0.925, 0.996));
             hBox.getChildren().add(textFlow);
             sp_main.setContent(vBoxMessages);
-            System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
             //cas 1 : la session avec l'utilisateur est déja établie
             if (Handler.getInstance().isEtablished(pseudo)) {
                 System.out.println("old connection");
                 try {
-                    //Session.getInstance().start();
                     sock = Session.getInstance().getSock(pseudo);
                     sender = new Sender(sock, pseudo, messageToSend);
                 } catch (IOException e) {
@@ -125,7 +121,6 @@ public class SessionChatController implements Initializable {
             } else {
                 System.out.println("new Connection");
                 try {
-                    System.out.println("PSEUDOOO de sessionchatcontroller pour le sock" + pseudo);
                     sock = Handler.getInstance().startConnection(pseudo);
                 } catch (IOException e) {
                     System.out.println("erreur création du socket ");
@@ -142,7 +137,6 @@ public class SessionChatController implements Initializable {
                         System.out.println("the receiver is created ");
                         Launch_receive.sessions.add(receiver);
                         receiver.start();
-                        System.out.println("the receiver is ready to receive youpii");
 
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -152,27 +146,24 @@ public class SessionChatController implements Initializable {
 
             if (messageToSend.isEmpty() && sock.isConnected()) {
                 sender.start();
-                //tf_message.clear();
             }
             tf_message.clear();
             vBoxMessages.getChildren().add(hBox);
         }
     }
-// for commit
+
 
 
 
 
     public void setHistory(){
-   // myListMsg.clear();
+
         try {
             createDB DB = new createDB(name_DB);
             String pseudo = MenuController.get_pseudo_user();
-            System.out.println(pseudo + "PSEUDOOO______________");
             if(pseudo!=null){
             String addr = List_USers.get_IP_user(pseudo);
-            myListMsg=DB.selectMsg(addr,name_DB);
-            System.out.println("my list de mssg "+myListMsg);}
+            myListMsg=DB.selectMsg(addr,name_DB); }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -200,9 +191,7 @@ public class SessionChatController implements Initializable {
         if (vBoxMessages == null) {
             System.out.println("ici");
         }
-        //Label label = new Label(msg);
         System.out.println(msg);
-        // vBoxMessages.getChildren().add(label);
         if (Sender) {
             if (!msg.isBlank()) {
                 HBox hBox = new HBox();
@@ -214,7 +203,7 @@ public class SessionChatController implements Initializable {
                 TextFlow textFlow = new TextFlow(text);
 
                 textFlow.setStyle(
-                        "-fx-background-color: #42AB18;" +
+                        "-fx-background-color: #357EC7;" +
                                 "-fx-background-radius: 20px;" +
                                 "-fx-font-size: 15pt;");
 
@@ -222,12 +211,7 @@ public class SessionChatController implements Initializable {
                 text.setFill(Color.color(0.934, 0.925, 0.996));
                 hBox.getChildren().add(textFlow);
                 sp_main.setContent(vBoxMessages);
-                System.out.println("SENDERRRRRRRR" + msg);
-                // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
-
-                //cas 1 : la session avec l'utilisateur est déja établie
                 vBoxMessages.getChildren().add(hBox);
-                System.out.println("-------------" + msg);
             }
         } else {
             if (!msg.isBlank()) {
@@ -247,13 +231,8 @@ public class SessionChatController implements Initializable {
                 text.setFill(Color.color(0.934, 0.925, 0.996));
                 hBox.getChildren().add(textFlow);
                 sp_main.setContent(vBoxMessages);
-                System.out.println("-------------" + msg);
-                //anchor.setStyle("-fx-background-color: #024029;");
-                // System.out.println("pseudos recupere sur sessionchatcontrolle : " + pseudo);
 
-                //cas 1 : la session avec l'utilisateur est déja établie
                 vBoxMessages.getChildren().add(hBox);
-                System.out.println("-------------" + msg);
             }
         }
     }
@@ -288,10 +267,6 @@ public class SessionChatController implements Initializable {
         });
     }
 
-    /*
-    public boolean get_box(){
-        return vBoxMessages != null;
-    }*/
 
     public static void close_tab_sess(String pseudo){
         Tab tab = MenuController.ListTabs.get(pseudo);

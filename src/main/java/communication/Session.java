@@ -56,8 +56,6 @@ public class Session extends Thread {
     }
 
     public Socket getSock(String pseudo){
-        //System.out.println("pseudo de get sock de session = " + pseudo);
-        //System.out.println("pseudo de get sock de session = " + pseudo);
         return this.map_socket.get(pseudo);
     }
 
@@ -72,66 +70,35 @@ public void run () {
 
         setRunning(true);
             while (running) {
-                System.out.println("MY RUNNING =====" + running + "/ " +running());
-
-
-                System.out.println("okay i am launched ");
-
                 socket = user.accept();
-                System.out.println("Client has been added ");
-
                 if (socket != null) {
-                    //  System.out.println("from lis ip = "+socket.getLocalSocketAddress() +"///"+ socket.getInetAddress().getHostAddress() +"///" + socket.getLocalAddress() +"///"+ socket.getRemoteSocketAddress() +"///" + socket.getReuseAddress());
                     String addr = socket.getInetAddress().toString().substring(socket.getInetAddress().getHostAddress().toString().indexOf("/") + 2);
                     pseudo = List_USers.get_pseudo_user(addr);
-                    System.out.println("The adress I am talking to --> " + addr + "-->" + pseudo);
                     map_socket.put(pseudo, socket);
-                    System.out.println("are you here ??");
                     Launch_receive receiver = new Launch_receive(socket, pseudo);
                     Launch_receive.sessions.add(receiver);
                     receiver.start();
 
                 }
 
-
-       /*if(!running){
-           assert socket != null;
-
-           System.out.println("running talking false2");
-           socket.close();
-           System.out.println("running talkingfalse3");
-       }*/
-
-
-            /// s
              running=running();
-                System.out.println("wissalll ===" + running);
+
             }
     } catch (IOException e) {
         e.printStackTrace();
     }
-    System.out.println("RUNNING ===" + false);
     if(!running){
         try {
             user.close();
-            //Launch_receive.sessions.clear();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
 
-/*
-    public void setSession(SessionChatController Sessionchat){
-        this.sessionchat = Sessionchat;
-    }
-
- */
 
     public void close_sess() throws IOException {
-      System.out.println("running talking false");
        this.running = false;
-       //this.user.close();
        System.out.println("MY RUNNING =" + running + "/ " +this.running);
 
     }
