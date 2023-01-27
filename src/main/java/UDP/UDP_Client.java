@@ -63,7 +63,8 @@ public class UDP_Client extends Thread {
                         System.out.println("mine " + mine + "yours" + addr);
                         if (finalMsg_rcv.startsWith( "MY old pseudo :") && (!addr.equals(mine)) ) {
                             SessionChatController.close_tab_sess(pseudo);}
-                            //System.out.println("48H JAVA sasn fermer l'oeilv S'en SOUVIENDRA " + pseudo);
+                        if (finalMsg_rcv.startsWith( "Deconnected :") && (!addr.equals(mine)) ) {
+                            SessionChatController.close_tab_sess(pseudo);}
                             List_Connected.print_co();
                             menu.update_list();
                     }  }});
