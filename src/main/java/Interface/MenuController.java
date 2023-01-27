@@ -89,7 +89,47 @@ public class MenuController extends Thread implements  Initializable {
         mainTab.setClosable(false);
         client.setMenu(this);
         myListconnected.getItems().addAll(List_Connected.listCo);
-
+        mainFXML.mainStage.setOnCloseRequest(event -> {
+            client.stop();
+            String DB_name = "DB_MSG.db";
+            createDB DB = null;
+            try {
+                DB = new createDB(DB_name);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                String addr = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().indexOf("/") + 1);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            UDP_Server serv_udp = null;
+            try {
+                serv_udp = new UDP_Server();
+            } catch (SocketException e) {
+                e.printStackTrace();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                serv_udp.broadcast_deconnection(DB.getMonPseudo(DB_name), port);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                System.out.println("JE ME DCOOO" + DB.getMonPseudo(DB_name));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                serv_udp.broadcast_end(port);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.exit(0);
+        });
 
         myListconnected.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
